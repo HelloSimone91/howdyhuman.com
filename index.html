@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         .value-card {
-            border-left: 4px solid #5D5CDE;
+            border-left: 4px solid #336633;
             transition: all 0.2s;
         }
         .value-card:hover {
@@ -35,7 +35,7 @@
             color: E2E8F0;
         }
         .tag.selected:hover {
-            background-color: #22543D;
+            background-color: #336633;
         }
         .tag-icon {
             margin-right: 0.25rem;
@@ -261,98 +261,7 @@
             font-size: 0.75rem;
             margin-left: 0.5rem;
         }
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #181818;
-                color: #E5E7EB;
-            }
-            .value-card {
-                background-color: #262626;
-                color: #E5E7EB;
-            }
-            .tag {
-                background-color: #374151;
-                color: #E5E7EB;
-            }
-            .tag:hover {
-                background-color: #4B5563;
-            }
-            .tag.selected {
-                background-color: #2F855A;
-                color: white;
-            }
-            .tag.selected:hover {
-                background-color: #22543D;
-            }
-            input, textarea, select {
-                background-color: #262626;
-                color: #E5E7EB;
-                border-color: #4B5563;
-            }
-            input:focus, textarea:focus, select:focus {
-                border-color: #5D5CDE;
-                outline: none;
-            }
-            .filter-header {
-                background-color: #262626;
-                border-color: #4A5568;
-            }
-            .toggle-container {
-                background-color: #4A5568;
-            }
-            .toggle-slide {
-                background-color: #1A202C;
-            }
-            .slider {
-                background-color: #4A5568;
-            }
-            .slider:before {
-                background-color: #E2E8F0;
-            }
-            .main-search-input {
-                background-color: #262626;
-                border-color: #4B5563;
-                color: #E5E7EB;
-            }
-            .main-search-icon, .main-search-clear {
-                color: #BEE3F8;
-            }
-            /* Value example dark mode */
-            .value-example {
-                background-color: #2D3748;
-                border-left-color: #4A5568;
-                color: #E5E7EB;
-            }
-            
-            /* Related Values Dark Mode */
-            .related-values-section {
-                background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
-                border-color: #4A5568;
-            }
-            
-            .related-values-header {
-                border-bottom-color: rgba(74, 85, 104, 0.5);
-            }
-            
-            .related-value-card {
-                background-color: #2D3748;
-                border-left-color: #6366F1;
-            }
-            
-            .related-value-name {
-                color: #E2E8F0;
-            }
-            
-            .shared-tag {
-                background-color: #2C5282;
-                color: #BEE3F8;
-                border-color: #2A4365;
-            }
-            
-            .related-tooltip {
-                background: rgba(79, 70, 229, 0.9);
-            }
+       
         }
     </style>
 </head>
