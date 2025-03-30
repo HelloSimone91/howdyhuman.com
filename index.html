@@ -395,12 +395,20 @@
         
         /* Section labels */
         .section-label {
+            display: flex;
+            align-items: center;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--purple-main);
+            color: #996699; /* Darker web-safe purple */
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(153, 102, 153, 0.2);
+        }
+        
+        .section-label i {
+            margin-right: 0.5rem;
         }
         
         /* Footer */
@@ -431,9 +439,14 @@
         
         /* Dark mode styles */
         @media (prefers-color-scheme: dark) {
+            .section-label {
+                color: #cc99cc; /* Lighter purple for better dark mode contrast */
+                border-bottom-color: rgba(204, 153, 204, 0.3);
+            }
+            
             body {
                 background-color: var(--dark-bg);
-                color: var(--text-light);
+                color: #f0f0f0; /* Much lighter text for better readability */
             }
             .value-card {
                 background-color: #262626;
@@ -454,7 +467,7 @@
             }
             input, textarea, select {
                 background-color: #262626;
-                color: var(--text-light);
+                color: #f0f0f0; /* Lighter text for better readability */
                 border-color: #4B5563;
             }
             input:focus, textarea:focus, select:focus {
@@ -480,7 +493,7 @@
             .main-search-input {
                 background-color: #262626;
                 border-color: #4B5563;
-                color: var(--text-light);
+                color: #f0f0f0; /* Lighter text for better readability */
             }
             .main-search-icon, .main-search-clear {
                 color: #9CA3AF;
@@ -583,7 +596,8 @@
                 </button>
             </div>
         </header>
-<!-- Advanced Filters Section -->
+
+        <!-- Advanced Filters Section -->
         <div id="filtersContainer" class="filters-container mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 collapsed">
             <!-- Match Type Toggle -->
             <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
@@ -657,7 +671,8 @@
             </a>
         </footer>
     </div>
-<script>
+
+    <script>
         // Debug status message
         function showStatus(message, isError = false) {
             console.log(message);
@@ -696,9 +711,9 @@
             statusEl.textContent = message;
         }
 
-        // Values data with examples (including all new values)
+        // Values data with examples
         const values = [
-       // Original values
+            // Original values
             {
                 name: "Courage",
                 description: "The ability to confront fear, pain, danger, uncertainty, or intimidation. It is not merely the absence of fear but the strength to act despite it.",
@@ -1677,7 +1692,7 @@
             {
                 name: "Wisdom",
                 description: "The quality of having experience, knowledge, and good judgment; the quality of being wise. It values depth of understanding and sound judgment.",
-                example: "Mentorship: Sharing insights gained from your experiences—both successes and failures—to help others navigate similar situations with greater understanding.",
+                example: "Mentorship: Sharing insights gained from your experiences--both successes and failures--to help others navigate similar situations with greater understanding.",
                 category: "Personal",
                 tags: ["understand", "discern", "perceive", "consider", "contemplate", "reflect", "comprehend", "judge", "recognize"]
             },
@@ -1688,7 +1703,6 @@
                 category: "Personal",
                 tags: ["work", "strive", "persist", "apply", "endeavor", "commit", "dedicate", "pursue", "labor"]
             }
-        
         ];
 
         // Filter state
@@ -2029,11 +2043,11 @@
                                 </div>
                                 <p class="mb-3 text-gray-700 dark:text-gray-300">${value.description}</p>
                                 <div class="value-example">
-                                    <div class="section-label">Example in real life</div>
+                                    <div class="section-label"><i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE</div>
                                     ${value.example}
                                 </div>
                                 <div>
-                                    <div class="section-label">Associated verbs</div>
+                                    <div class="section-label"><i class="fas fa-tags"></i> ASSOCIATED VERBS</div>
                                     <div class="flex flex-wrap">
                                         ${value.tags.map(tag => `
                                             <span class="tag">${tag}</span>
@@ -2483,7 +2497,7 @@
                         exampleContainer.classList.add('mb-4');
                         
                         const exampleLabel = document.createElement('div');
-                        exampleLabel.textContent = 'Example in real life';
+                        exampleLabel.innerHTML = '<i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE';
                         exampleLabel.classList.add('section-label');
                         exampleContainer.appendChild(exampleLabel);
                         
@@ -2499,7 +2513,7 @@
                         tagsSection.classList.add('mb-3');
                         
                         const tagsLabel = document.createElement('div');
-                        tagsLabel.textContent = 'Associated verbs';
+                        tagsLabel.innerHTML = '<i class="fas fa-tags"></i> ASSOCIATED VERBS';
                         tagsLabel.classList.add('section-label');
                         tagsSection.appendChild(tagsLabel);
                         
@@ -2536,8 +2550,9 @@
                             relatedIcon.classList.add('fas', 'fa-link', 'related-values-icon');
                             
                             const relatedTitle = document.createElement('h4');
-                            relatedTitle.textContent = 'Related Values';
-                            relatedTitle.classList.add('text-sm', 'font-medium', 'text-gray-800', 'dark:text-gray-200');
+                            relatedTitle.textContent = 'RELATED VALUES';
+                            relatedTitle.style.color = '#996699';
+                            relatedTitle.classList.add('text-sm', 'font-medium');
                             
                             relatedHeader.appendChild(relatedIcon);
                             relatedHeader.appendChild(relatedTitle);
