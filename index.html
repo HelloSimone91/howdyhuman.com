@@ -1,15 +1,24 @@
-<html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Howdy Human</title>
+    <title>The Howdy Human Compendium of Values</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --blue-main: #0099cc;
+            --purple-main: #cc99cc;
+            --light-bg: #f5f5f5;
+            --dark-bg: #1a1a1a;
+            --text-dark: #333333;
+            --text-light: #eeeeee;
+        }
+        
         .value-card {
-            border-left: 4px solid #336633;
-            transition: all 0.2s;
+            border-left: 4px solid var(--blue-main);
+            transition: all 0.3s;
         }
         .value-card:hover {
             transform: translateY(-2px);
@@ -32,10 +41,10 @@
         }
         .tag.selected {
             background-color: #2F855A;
-            color: E2E8F0;
+            color: var(--text-light);
         }
         .tag.selected:hover {
-            background-color: #336633;
+            background-color: #22543D;
         }
         .tag-icon {
             margin-right: 0.25rem;
@@ -62,7 +71,7 @@
         .filter-header {
             position: sticky;
             top: 0;
-            background-color: E2E8F0;
+            background-color: var(--light-bg);
             z-index: 10;
             padding: 8px 0;
             border-bottom: 1px solid #e5e7eb;
@@ -72,13 +81,12 @@
         
         /* Value example styles */
         .value-example {
-            background-color: #F9FAFB;
+            background-color: rgba(0, 153, 204, 0.1);
             border-radius: 0.5rem;
             padding: 1rem;
             margin: 0.75rem 0 1.25rem 0;
             font-style: italic;
-            border-left: 3px solid 
-                
+            border-left: 3px solid var(--blue-main);
         }
         
         /* Main search bar */
@@ -89,7 +97,7 @@
         .main-search-input {
             width: 100%;
             padding: 0.75rem 1rem 0.75rem 3rem;
-            background-color: white;
+            background-color: var(--light-bg);
             border: 1px solid #E5E7EB;
             border-radius: 0.5rem;
             font-size: 1rem;
@@ -98,8 +106,8 @@
         }
         .main-search-input:focus {
             outline: none;
-            border-color: #5D5CDE;
-            box-shadow: 0 0 0 3px rgba(93, 92, 222, 0.2);
+            border-color: var(--blue-main);
+            box-shadow: 0 0 0 3px rgba(0, 153, 204, 0.2);
         }
         .main-search-icon {
             position: absolute;
@@ -122,11 +130,11 @@
         /* Enhanced Related Values Styles */
         .related-values-section {
             margin-top: 1rem;
-            background: linear-gradient(135deg, #EBF4FF 0%, #E6FFFA 100%);
+            background: linear-gradient(135deg, rgba(0, 153, 204, 0.15) 0%, rgba(204, 153, 204, 0.15) 100%);
             border-radius: 0.75rem;
             padding: 1rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
+            border: 1px solid rgba(0, 153, 204, 0.2);
             transition: all 0.3s ease;
         }
         
@@ -139,12 +147,12 @@
             align-items: center;
             margin-bottom: 0.75rem;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+            border-bottom: 1px solid rgba(0, 153, 204, 0.2);
         }
         
         .related-values-icon {
             margin-right: 0.5rem;
-            color: #5D5CDE;
+            color: var(--blue-main);
         }
         
         .related-values-grid {
@@ -154,7 +162,7 @@
         }
         
         .related-value-card {
-            background-color: white;
+            background-color: var(--light-bg);
             border-radius: 0.5rem;
             padding: 0.75rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -162,7 +170,7 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            border-left: 3px solid #5D5CDE;
+            border-left: 3px solid var(--blue-main);
             position: relative;
             overflow: hidden;
         }
@@ -176,7 +184,7 @@
             font-weight: 600;
             font-size: 0.875rem;
             margin-bottom: 0.5rem;
-            color: #1A202C;
+            color: var(--text-dark);
         }
         
         .shared-tags {
@@ -187,11 +195,11 @@
         }
         
         .shared-tag {
-            background-color: #F0F9FF;
-            color: #0369A1;
+            background-color: rgba(0, 153, 204, 0.1);
+            color: var(--blue-main);
             padding: 0.125rem 0.375rem;
             border-radius: 4px;
-            border: 1px solid #BAE6FD;
+            border: 1px solid rgba(0, 153, 204, 0.3);
         }
         
         .related-tooltip {
@@ -199,8 +207,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(79, 70, 229, 0.95);
-            color: white;
+            background: rgba(0, 153, 204, 0.95);
+            color: var(--text-light);
             padding: 0.5rem;
             transform: translateY(100%);
             transition: transform 0.2s ease;
@@ -234,7 +242,7 @@
             top: 2px;
             width: 50%;
             border-radius: 9999px;
-            background-color: white;
+            background-color: var(--light-bg);
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
@@ -254,21 +262,303 @@
         }
         /* Count badge */
         .count-badge {
-            background-color: #5D5CDE;
-            color: #E5E7EB;
+            background-color: var(--blue-main);
+            color: var(--text-light);
             border-radius: 9999px;
             padding: 0.25rem 0.5rem;
             font-size: 0.75rem;
             margin-left: 0.5rem;
         }
-       
+        
+        /* Alphabetical navigation */
+        .alpha-nav {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--light-bg);
+            border-radius: 20px;
+            padding: 8px 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 40;
+        }
+        
+        .alpha-nav a {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            color: var(--blue-main);
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .alpha-nav a:hover, 
+        .alpha-nav a.active {
+            background-color: var(--blue-main);
+            color: var(--text-light);
+        }
+        
+        .alpha-nav .nav-divider {
+            height: 1px;
+            background-color: rgba(0, 153, 204, 0.2);
+            margin: 4px 0;
+            width: 80%;
+            align-self: center;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--purple-main);
+            color: var(--text-light);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Language toggle */
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--blue-main);
+            color: var(--text-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .language-toggle:hover {
+            background-color: #0077aa;
+        }
+        
+        /* Value card collapsible */
+        .value-card-content {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.3s ease 0.1s;
+        }
+        
+        .value-card.expanded .value-card-content {
+            max-height: 1500px; /* Arbitrary large height */
+            opacity: 1;
+        }
+        
+        .value-card-toggle {
+            cursor: pointer;
+            color: var(--blue-main);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 0;
+            margin-top: 8px;
+            border-top: 1px solid rgba(0, 153, 204, 0.1);
+        }
+        
+        .value-card-toggle i {
+            margin-left: 6px;
+            transition: transform 0.3s;
+        }
+        
+        .value-card.expanded .value-card-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        /* Section labels */
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--purple-main);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 153, 204, 0.2);
+        }
+        
+        .footer a {
+            color: var(--purple-main);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .alpha-nav {
+                display: none;
+            }
+        }
+        
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-bg);
+                color: var(--text-light);
+            }
+            .value-card {
+                background-color: #262626;
+            }
+            .tag {
+                background-color: #374151;
+                color: var(--text-light);
+            }
+            .tag:hover {
+                background-color: #4B5563;
+            }
+            .tag.selected {
+                background-color: #2F855A;
+                color: var(--text-light);
+            }
+            .tag.selected:hover {
+                background-color: #22543D;
+            }
+            input, textarea, select {
+                background-color: #262626;
+                color: var(--text-light);
+                border-color: #4B5563;
+            }
+            input:focus, textarea:focus, select:focus {
+                border-color: var(--blue-main);
+                outline: none;
+            }
+            .filter-header {
+                background-color: #262626;
+                border-color: #4A5568;
+            }
+            .toggle-container {
+                background-color: #4A5568;
+            }
+            .toggle-slide {
+                background-color: #333333;
+            }
+            .slider {
+                background-color: #4A5568;
+            }
+            .slider:before {
+                background-color: #E2E8F0;
+            }
+            .main-search-input {
+                background-color: #262626;
+                border-color: #4B5563;
+                color: var(--text-light);
+            }
+            .main-search-icon, .main-search-clear {
+                color: #9CA3AF;
+            }
+            
+            /* Value example dark mode */
+            .value-example {
+                background-color: rgba(0, 153, 204, 0.15);
+                border-left-color: var(--blue-main);
+            }
+            
+            /* Related Values Dark Mode */
+            .related-values-section {
+                background: linear-gradient(135deg, rgba(0, 153, 204, 0.1) 0%, rgba(204, 153, 204, 0.1) 100%);
+                border-color: rgba(0, 153, 204, 0.3);
+            }
+            
+            .related-values-header {
+                border-bottom-color: rgba(0, 153, 204, 0.3);
+            }
+            
+            .related-value-card {
+                background-color: #262626;
+                border-left-color: var(--blue-main);
+            }
+            
+            .related-value-name {
+                color: var(--text-light);
+            }
+            
+            .shared-tag {
+                background-color: rgba(0, 153, 204, 0.2);
+                color: #99ccff;
+                border-color: rgba(0, 153, 204, 0.4);
+            }
+            
+            .related-tooltip {
+                background: rgba(0, 153, 204, 0.9);
+            }
+            
+            /* Alpha navigation */
+            .alpha-nav {
+                background-color: #262626;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            .alpha-nav .nav-divider {
+                background-color: rgba(0, 153, 204, 0.3);
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-50 min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Alphabetical Navigation -->
+    <div class="alpha-nav" id="alphaNav">
+        <!-- Will be populated by JavaScript -->
+    </div>
+    
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
     <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-center mb-2">Howdy Human</h1>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-6">Using values to align, unite, and grow</p>
+        <header class="mb-8 relative">
+            <!-- Language toggle -->
+            <button id="languageToggle" class="language-toggle">
+                En español
+            </button>
+            
+            <h1 class="text-3xl font-bold text-center mb-2">The Howdy Human Compendium of Values</h1>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-6">Discover values in action</p>
+            
+            <!-- Introduction paragraph -->
+            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6">
+                <p class="mb-3">This tool helps you explore 100+ human values organized by category with detailed descriptions and real-world examples. Each value is connected to practical "action verbs" that show how these values are demonstrated in daily life.</p>
+                <p>Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
+            </div>
             
             <!-- Main Search Bar -->
             <div class="main-search-container">
@@ -285,16 +575,15 @@
             
             <div class="flex items-center justify-between">
                 <div class="text-lg font-medium">
-                    <span id="valuesCount" class="text-indigo-600 dark:text-indigo-400"></span> Values
+                    <span id="valuesCount" class="text-blue-600 dark:text-blue-400"></span> Values
                 </div>
-                <button id="toggleFilters" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 focus:outline-none text-sm">
+                <button id="toggleFilters" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 focus:outline-none text-sm">
                     <span id="toggleFiltersText">Show Filters</span>
                     <i id="toggleFiltersIcon" class="fas fa-chevron-down ml-1"></i>
                 </button>
             </div>
         </header>
-
-        <!-- Advanced Filters Section -->
+<!-- Advanced Filters Section -->
         <div id="filtersContainer" class="filters-container mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 collapsed">
             <!-- Match Type Toggle -->
             <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
@@ -302,7 +591,7 @@
                     <span class="text-sm font-medium mr-2">Match Type:</span>
                     <div class="toggle-container">
                         <div id="toggleSlide" class="toggle-slide"></div>
-                        <button id="matchAll" class="toggle-button text-indigo-800 dark:text-indigo-200">ALL Tags</button>
+                        <button id="matchAll" class="toggle-button text-blue-800 dark:text-blue-200">ALL Tags</button>
                         <button id="matchAny" class="toggle-button text-gray-500 dark:text-gray-400">ANY Tag</button>
                     </div>
                 </div>
@@ -312,7 +601,7 @@
                     <label for="sortSelect" class="text-sm font-medium mr-2">Sort By:</label>
                     <select 
                         id="sortSelect" 
-                        class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                        class="px-2 py-1 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
                     >
                         <option value="name">Name</option>
                         <option value="category">Category</option>
@@ -360,9 +649,15 @@
         <div id="valuesList" class="space-y-4">
             <!-- Values cards will be added here by JavaScript -->
         </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="https://github.com/HelloSimone91/howdyhuman.com" target="_blank" class="text-purple-500 hover:text-purple-700">
+                Learn more about this project
+            </a>
+        </footer>
     </div>
-
-    <script>
+<script>
         // Debug status message
         function showStatus(message, isError = false) {
             console.log(message);
@@ -403,7 +698,7 @@
 
         // Values data with examples (including all new values)
         const values = [
-            // Original values
+       // Original values
             {
                 name: "Courage",
                 description: "The ability to confront fear, pain, danger, uncertainty, or intimidation. It is not merely the absence of fear but the strength to act despite it.",
@@ -1393,6 +1688,7 @@
                 category: "Personal",
                 tags: ["work", "strive", "persist", "apply", "endeavor", "commit", "dedicate", "pursue", "labor"]
             }
+        
         ];
 
         // Filter state
@@ -1404,10 +1700,13 @@
             sortMethod: 'name'
         };
 
+        // Language state
+        let currentLanguage = 'en';
+
         // Initialize DOM elements
         let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
             matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
-            toggleFilters, filtersContainer, valuesCount;
+            toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
             
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -1431,6 +1730,9 @@
                 toggleFilters = document.getElementById('toggleFilters');
                 filtersContainer = document.getElementById('filtersContainer');
                 valuesCount = document.getElementById('valuesCount');
+                alphaNav = document.getElementById('alphaNav');
+                backToTop = document.getElementById('backToTop');
+                languageToggle = document.getElementById('languageToggle');
                 
                 // Verify critical elements were found
                 if (!valuesList) {
@@ -1475,6 +1777,15 @@
                 // Set up clear filters button
                 clearFilters.addEventListener('click', clearAllFilters);
                 
+                // Set up alphabetical navigation
+                setupAlphaNav();
+                
+                // Set up back to top button
+                setupBackToTop();
+                
+                // Set up language toggle
+                setupLanguageToggle();
+                
                 // Initialize the app
                 initializeValuesDictionary();
                 
@@ -1490,6 +1801,136 @@
                 fallbackInitialization();
             }
         });
+
+        // Setup alphabetical navigation
+        function setupAlphaNav() {
+            if (!alphaNav) return;
+            
+            // Create array of alphabet letters
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            
+            // Add each letter
+            alphabet.forEach(letter => {
+                const link = document.createElement('a');
+                link.href = `#section-${letter}`;
+                link.textContent = letter;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = document.getElementById(`section-${letter}`);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // If section doesn't exist, find closest available section
+                        findClosestSection(letter);
+                    }
+                });
+                alphaNav.appendChild(link);
+            });
+            
+            // Add divider
+            const divider = document.createElement('div');
+            divider.classList.add('nav-divider');
+            alphaNav.appendChild(divider);
+            
+            // Add "Skip to Bottom" link
+            const skipToBottom = document.createElement('a');
+            skipToBottom.href = "#bottom";
+            skipToBottom.textContent = "↓";
+            skipToBottom.title = "Skip to bottom";
+            skipToBottom.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            });
+            alphaNav.appendChild(skipToBottom);
+        }
+        
+        // Find closest available section for a letter
+        function findClosestSection(letter) {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const letterIndex = alphabet.indexOf(letter);
+            
+            // Try next letters
+            for (let i = letterIndex + 1; i < alphabet.length; i++) {
+                const section = document.getElementById(`section-${alphabet[i]}`);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+            }
+            
+            // If no next letter, try previous letters
+            for (let i = letterIndex - 1; i >= 0; i--) {
+                const section = document.getElementById(`section-${alphabet[i]}`);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+            }
+        }
+        
+        // Setup back to top button
+        function setupBackToTop() {
+            if (!backToTop) return;
+            
+            // Show back to top button when scrolled down
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            // Scroll to top when clicked
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Setup language toggle
+        function setupLanguageToggle() {
+            if (!languageToggle) return;
+            
+            languageToggle.addEventListener('click', () => {
+                if (currentLanguage === 'en') {
+                    // Switch to Spanish
+                    currentLanguage = 'es';
+                    languageToggle.textContent = 'In English';
+                    translateToSpanish();
+                } else {
+                    // Switch to English
+                    currentLanguage = 'en';
+                    languageToggle.textContent = 'En español';
+                    translateToEnglish();
+                }
+            });
+        }
+        
+        // Function to translate to Spanish
+        function translateToSpanish() {
+            // For now, just show a message
+            showStatus("Spanish translation would appear here. This feature is coming soon!");
+            
+            // A real implementation would translate all UI elements and value data
+            // document.querySelector('h1').textContent = "El Compendio de Valores de Howdy Human";
+            // etc.
+        }
+        
+        // Function to translate to English
+        function translateToEnglish() {
+            // For now, just show a message
+            showStatus("Switched back to English");
+            
+            // A real implementation would restore original English text
+            // document.querySelector('h1').textContent = "The Howdy Human Compendium of Values";
+            // etc.
+        }
         
         // Update values count display
         function updateValuesCount(count) {
@@ -1519,8 +1960,8 @@
                     filterState.matchAll = true;
                     toggleSlide.classList.remove('right');
                     matchAll.classList.remove('text-gray-500', 'dark:text-gray-400');
-                    matchAll.classList.add('text-indigo-800', 'dark:text-indigo-200');
-                    matchAny.classList.remove('text-indigo-800', 'dark:text-indigo-200');
+                    matchAll.classList.add('text-blue-800', 'dark:text-blue-200');
+                    matchAny.classList.remove('text-blue-800', 'dark:text-blue-200');
                     matchAny.classList.add('text-gray-500', 'dark:text-gray-400');
                     filterValues();
                 }
@@ -1531,8 +1972,8 @@
                     filterState.matchAll = false;
                     toggleSlide.classList.add('right');
                     matchAny.classList.remove('text-gray-500', 'dark:text-gray-400');
-                    matchAny.classList.add('text-indigo-800', 'dark:text-indigo-200');
-                    matchAll.classList.remove('text-indigo-800', 'dark:text-indigo-200');
+                    matchAny.classList.add('text-blue-800', 'dark:text-blue-200');
+                    matchAll.classList.remove('text-blue-800', 'dark:text-blue-200');
                     matchAll.classList.add('text-gray-500', 'dark:text-gray-400');
                     filterValues();
                 }
@@ -1587,11 +2028,17 @@
                                     <span class="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">${value.category}</span>
                                 </div>
                                 <p class="mb-3 text-gray-700 dark:text-gray-300">${value.description}</p>
-                                <div class="value-example">${value.example}</div>
-                                <div class="flex flex-wrap">
-                                    ${value.tags.map(tag => `
-                                        <span class="tag">${tag}</span>
-                                    `).join('')}
+                                <div class="value-example">
+                                    <div class="section-label">Example in real life</div>
+                                    ${value.example}
+                                </div>
+                                <div>
+                                    <div class="section-label">Associated verbs</div>
+                                    <div class="flex flex-wrap">
+                                        ${value.tags.map(tag => `
+                                            <span class="tag">${tag}</span>
+                                        `).join('')}
+                                    </div>
                                 </div>
                             </div>
                         `).join('')}
@@ -1604,6 +2051,19 @@
         function initializeValuesDictionary() {
             try {
                 console.log("Initializing dictionary with", values.length, "values");
+                
+                // Filter out verbs that only appear once
+                const verbCounts = {};
+                values.forEach(value => {
+                    value.tags.forEach(tag => {
+                        verbCounts[tag] = (verbCounts[tag] || 0) + 1;
+                    });
+                });
+                
+                // Update values to remove single-occurrence verbs
+                values.forEach(value => {
+                    value.tags = value.tags.filter(tag => verbCounts[tag] > 1);
+                });
 
                 // Populate category filters
                 if (categoryFilters) {
@@ -1618,7 +2078,7 @@
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.id = `category-${category}`;
-                        checkbox.classList.add('mr-2', 'form-checkbox', 'h-4', 'w-4', 'text-indigo-600', 'rounded');
+                        checkbox.classList.add('mr-2', 'form-checkbox', 'h-4', 'w-4', 'text-blue-600', 'rounded');
                         checkbox.addEventListener('change', () => {
                             if (checkbox.checked) {
                                 if (!filterState.categories.includes(category)) {
@@ -1651,10 +2111,12 @@
 
                 // Populate tag filters
                 if (tagFilters) {
-                    // Collect all unique tags
+                    // Collect all unique tags that appear multiple times
                     const allTags = new Set();
-                    values.forEach(value => {
-                        value.tags.forEach(tag => allTags.add(tag));
+                    Object.entries(verbCounts).forEach(([tag, count]) => {
+                        if (count > 1) {
+                            allTags.add(tag);
+                        }
                     });
 
                     // Create tag filters
@@ -1943,7 +2405,7 @@
                     
                     const resetButton = document.createElement('button');
                     resetButton.textContent = 'Reset Filters';
-                    resetButton.classList.add('mt-4', 'bg-indigo-600', 'text-white', 'px-4', 'py-2', 'rounded-md', 'hover:bg-indigo-700', 'transition-colors', 'text-sm');
+                    resetButton.classList.add('mt-4', 'bg-blue-600', 'text-white', 'px-4', 'py-2', 'rounded-md', 'hover:bg-blue-700', 'transition-colors', 'text-sm');
                     resetButton.addEventListener('click', clearAllFilters);
                     
                     noResults.appendChild(icon);
@@ -1955,147 +2417,216 @@
                     return;
                 }
 
+                // Group values by first letter for alphabetical sections
+                const valuesByLetter = {};
                 valuesToDisplay.forEach(value => {
-                    const card = document.createElement('div');
-                    card.classList.add('value-card', 'p-4', 'bg-white', 'dark:bg-gray-800', 'rounded-md', 'shadow-sm', 'mb-4');
-                    
-                    const header = document.createElement('div');
-                    header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
-                    
-                    const title = document.createElement('h3');
-                    title.textContent = value.name;
-                    title.dataset.value = value.name; // Add for related value navigation
-                    title.classList.add('text-lg', 'font-semibold');
-                    
-                    const category = document.createElement('span');
-                    category.textContent = value.category;
-                    category.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'bg-gray-100', 'dark:bg-gray-700', 'px-2', 'py-1', 'rounded');
-                    category.addEventListener('click', () => {
-                        // Add category to filters
-                        if (!filterState.categories.includes(value.category)) {
-                            filterState.categories.push(value.category);
-                            // Update checkbox
-                            const checkbox = document.getElementById(`category-${value.category}`);
-                            if (checkbox) checkbox.checked = true;
-                            filterValues();
-                            updateActiveFilters();
-                            
-                            // Show status
-                            showStatus(`Showing values in category: ${value.category}`);
-                        }
-                    });
-                    
-                    header.appendChild(title);
-                    header.appendChild(category);
-                    
-                    const description = document.createElement('p');
-                    description.textContent = value.description;
-                    description.classList.add('mb-2', 'text-gray-700', 'dark:text-gray-300');
-                    
-                    // Add the example of value in action
-                    const example = document.createElement('div');
-                    example.textContent = value.example;
-                    example.classList.add('value-example');
-                    
-                    const tagsContainer = document.createElement('div');
-                    tagsContainer.classList.add('flex', 'flex-wrap', 'mb-3');
-                    
-                    value.tags.forEach(tag => {
-                        const tagElement = document.createElement('span');
-                        tagElement.textContent = tag;
-                        tagElement.classList.add('tag', 'hover:bg-indigo-100', 'dark:hover:bg-indigo-900', 'cursor-pointer');
-                        tagElement.title = `Show all values tagged with "${tag}"`;
-                        // Add click event to filter by this tag
-                        tagElement.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            // Find this tag in the filter section and activate it
-                            highlightTag(tag);
-                        });
-                        tagsContainer.appendChild(tagElement);
-                    });
-                    
-                    card.appendChild(header);
-                    card.appendChild(description);
-                    card.appendChild(example);  // Add the example
-                    card.appendChild(tagsContainer);
-                    
-                    // Add related values section
-                    const relatedValues = findRelatedValues(value);
-                    if (relatedValues.length > 0) {
-                        const relatedSection = document.createElement('div');
-                        relatedSection.classList.add('related-values-section');
-                        
-                        const relatedHeader = document.createElement('div');
-                        relatedHeader.classList.add('related-values-header');
-                        
-                        const relatedIcon = document.createElement('i');
-                        relatedIcon.classList.add('fas', 'fa-link', 'related-values-icon');
-                        
-                        const relatedTitle = document.createElement('h4');
-                        relatedTitle.textContent = 'Related Values';
-                        relatedTitle.classList.add('text-sm', 'font-medium', 'text-gray-800', 'dark:text-gray-200');
-                        
-                        relatedHeader.appendChild(relatedIcon);
-                        relatedHeader.appendChild(relatedTitle);
-                        
-                        const relatedGrid = document.createElement('div');
-                        relatedGrid.classList.add('related-values-grid');
-                        
-                        relatedValues.forEach(related => {
-                            const relatedCard = document.createElement('div');
-                            relatedCard.classList.add('related-value-card');
-                            
-                            const relatedName = document.createElement('div');
-                            relatedName.textContent = related.name;
-                            relatedName.classList.add('related-value-name');
-                            
-                            const sharedTagsContainer = document.createElement('div');
-                            sharedTagsContainer.classList.add('shared-tags');
-                            
-                            // Add a subset of shared tags (up to 3)
-                            const tagsToShow = related.sharedTags.slice(0, 3);
-                            tagsToShow.forEach(tag => {
-                                const tagElement = document.createElement('span');
-                                tagElement.textContent = tag;
-                                tagElement.classList.add('shared-tag');
-                                sharedTagsContainer.appendChild(tagElement);
-                            });
-                            
-                            // Add tooltip that appears on hover
-                            const tooltip = document.createElement('div');
-                            tooltip.textContent = 'Click to view this value';
-                            tooltip.classList.add('related-tooltip');
-                            
-                            relatedCard.appendChild(relatedName);
-                            relatedCard.appendChild(sharedTagsContainer);
-                            relatedCard.appendChild(tooltip);
-                            
-                            // Add click event to navigate to related value
-                            relatedCard.addEventListener('click', () => {
-                                const relatedValueCard = Array.from(valuesList.querySelectorAll('.value-card'))
-                                    .find(card => card.querySelector(`h3[data-value="${related.name}"]`));
-                                
-                                if (relatedValueCard) {
-                                    relatedValueCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    // Highlight the card
-                                    relatedValueCard.classList.add('ring-2', 'ring-indigo-500');
-                                    setTimeout(() => {
-                                        relatedValueCard.classList.remove('ring-2', 'ring-indigo-500');
-                                    }, 2000);
-                                }
-                            });
-                            
-                            relatedGrid.appendChild(relatedCard);
-                        });
-                        
-                        relatedSection.appendChild(relatedHeader);
-                        relatedSection.appendChild(relatedGrid);
-                        
-                        card.appendChild(relatedSection);
+                    const firstLetter = value.name.charAt(0).toUpperCase();
+                    if (!valuesByLetter[firstLetter]) {
+                        valuesByLetter[firstLetter] = [];
                     }
-                    
-                    valuesList.appendChild(card);
+                    valuesByLetter[firstLetter].push(value);
                 });
+                
+                // Create sections for each letter
+                Object.keys(valuesByLetter).sort().forEach(letter => {
+                    // Create section header
+                    const sectionHeader = document.createElement('div');
+                    sectionHeader.id = `section-${letter}`;
+                    sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'pb-2', 'border-b', 'border-gray-300', 'dark:border-gray-700');
+                    sectionHeader.textContent = letter;
+                    valuesList.appendChild(sectionHeader);
+                    
+                    // Add values for this letter
+                    valuesByLetter[letter].forEach(value => {
+                        const card = document.createElement('div');
+                        card.classList.add('value-card', 'p-4', 'bg-white', 'dark:bg-gray-800', 'rounded-md', 'shadow-sm', 'mb-4');
+                        
+                        const header = document.createElement('div');
+                        header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+                        
+                        const title = document.createElement('h3');
+                        title.textContent = value.name;
+                        title.dataset.value = value.name; // Add for related value navigation
+                        title.classList.add('text-lg', 'font-semibold');
+                        
+                        const category = document.createElement('span');
+                        category.textContent = value.category;
+                        category.classList.add('text-sm', 'text-gray-600', 'dark:text-gray-400', 'bg-gray-100', 'dark:bg-gray-700', 'px-2', 'py-1', 'rounded');
+                        category.addEventListener('click', () => {
+                            // Add category to filters
+                            if (!filterState.categories.includes(value.category)) {
+                                filterState.categories.push(value.category);
+                                // Update checkbox
+                                const checkbox = document.getElementById(`category-${value.category}`);
+                                if (checkbox) checkbox.checked = true;
+                                filterValues();
+                                updateActiveFilters();
+                                
+                                // Show status
+                                showStatus(`Showing values in category: ${value.category}`);
+                            }
+                        });
+                        
+                        header.appendChild(title);
+                        header.appendChild(category);
+                        
+                        const description = document.createElement('p');
+                        description.textContent = value.description;
+                        description.classList.add('mb-4', 'text-gray-700', 'dark:text-gray-300');
+                        
+                        // Create content container (for collapsible functionality)
+                        const contentContainer = document.createElement('div');
+                        contentContainer.classList.add('value-card-content');
+                        
+                        // Add the example of value in action with label
+                        const exampleContainer = document.createElement('div');
+                        exampleContainer.classList.add('mb-4');
+                        
+                        const exampleLabel = document.createElement('div');
+                        exampleLabel.textContent = 'Example in real life';
+                        exampleLabel.classList.add('section-label');
+                        exampleContainer.appendChild(exampleLabel);
+                        
+                        const example = document.createElement('div');
+                        example.textContent = value.example;
+                        example.classList.add('value-example');
+                        exampleContainer.appendChild(example);
+                        
+                        contentContainer.appendChild(exampleContainer);
+                        
+                        // Add tags with label
+                        const tagsSection = document.createElement('div');
+                        tagsSection.classList.add('mb-3');
+                        
+                        const tagsLabel = document.createElement('div');
+                        tagsLabel.textContent = 'Associated verbs';
+                        tagsLabel.classList.add('section-label');
+                        tagsSection.appendChild(tagsLabel);
+                        
+                        const tagsContainer = document.createElement('div');
+                        tagsContainer.classList.add('flex', 'flex-wrap');
+                        
+                        value.tags.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.textContent = tag;
+                            tagElement.classList.add('tag', 'hover:bg-indigo-100', 'dark:hover:bg-indigo-900', 'cursor-pointer');
+                            tagElement.title = `Show all values tagged with "${tag}"`;
+                            // Add click event to filter by this tag
+                            tagElement.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                // Find this tag in the filter section and activate it
+                                highlightTag(tag);
+                            });
+                            tagsContainer.appendChild(tagElement);
+                        });
+                        
+                        tagsSection.appendChild(tagsContainer);
+                        contentContainer.appendChild(tagsSection);
+                        
+                        // Add related values section
+                        const relatedValues = findRelatedValues(value);
+                        if (relatedValues.length > 0) {
+                            const relatedSection = document.createElement('div');
+                            relatedSection.classList.add('related-values-section');
+                            
+                            const relatedHeader = document.createElement('div');
+                            relatedHeader.classList.add('related-values-header');
+                            
+                            const relatedIcon = document.createElement('i');
+                            relatedIcon.classList.add('fas', 'fa-link', 'related-values-icon');
+                            
+                            const relatedTitle = document.createElement('h4');
+                            relatedTitle.textContent = 'Related Values';
+                            relatedTitle.classList.add('text-sm', 'font-medium', 'text-gray-800', 'dark:text-gray-200');
+                            
+                            relatedHeader.appendChild(relatedIcon);
+                            relatedHeader.appendChild(relatedTitle);
+                            
+                            const relatedGrid = document.createElement('div');
+                            relatedGrid.classList.add('related-values-grid');
+                            
+                            relatedValues.forEach(related => {
+                                const relatedCard = document.createElement('div');
+                                relatedCard.classList.add('related-value-card');
+                                
+                                const relatedName = document.createElement('div');
+                                relatedName.textContent = related.name;
+                                relatedName.classList.add('related-value-name');
+                                
+                                const sharedTagsContainer = document.createElement('div');
+                                sharedTagsContainer.classList.add('shared-tags');
+                                
+                                // Add a subset of shared tags (up to 3)
+                                const tagsToShow = related.sharedTags.slice(0, 3);
+                                tagsToShow.forEach(tag => {
+                                    const tagElement = document.createElement('span');
+                                    tagElement.textContent = tag;
+                                    tagElement.classList.add('shared-tag');
+                                    sharedTagsContainer.appendChild(tagElement);
+                                });
+                                
+                                // Add tooltip that appears on hover
+                                const tooltip = document.createElement('div');
+                                tooltip.textContent = 'Click to view this value';
+                                tooltip.classList.add('related-tooltip');
+                                
+                                relatedCard.appendChild(relatedName);
+                                relatedCard.appendChild(sharedTagsContainer);
+                                relatedCard.appendChild(tooltip);
+                                
+                                // Add click event to navigate to related value
+                                relatedCard.addEventListener('click', () => {
+                                    const relatedValueCard = Array.from(valuesList.querySelectorAll('.value-card'))
+                                        .find(card => card.querySelector(`h3[data-value="${related.name}"]`));
+                                    
+                                    if (relatedValueCard) {
+                                        relatedValueCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        // Highlight the card
+                                        relatedValueCard.classList.add('ring-2', 'ring-indigo-500');
+                                        setTimeout(() => {
+                                            relatedValueCard.classList.remove('ring-2', 'ring-indigo-500');
+                                        }, 2000);
+                                        
+                                        // Expand the card if it's collapsed
+                                        if (!relatedValueCard.classList.contains('expanded')) {
+                                            relatedValueCard.querySelector('.value-card-toggle').click();
+                                        }
+                                    }
+                                });
+                                
+                                relatedGrid.appendChild(relatedCard);
+                            });
+                            
+                            relatedSection.appendChild(relatedHeader);
+                            relatedSection.appendChild(relatedGrid);
+                            
+                            contentContainer.appendChild(relatedSection);
+                        }
+                        
+                        // Add toggle button
+                        const toggleButton = document.createElement('div');
+                        toggleButton.classList.add('value-card-toggle');
+                        toggleButton.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+                        toggleButton.addEventListener('click', () => {
+                            card.classList.toggle('expanded');
+                            toggleButton.innerHTML = card.classList.contains('expanded') 
+                                ? 'Read less <i class="fas fa-chevron-up"></i>' 
+                                : 'Read more <i class="fas fa-chevron-down"></i>';
+                        });
+                        
+                        card.appendChild(header);
+                        card.appendChild(description);
+                        card.appendChild(contentContainer);
+                        card.appendChild(toggleButton);
+                        
+                        valuesList.appendChild(card);
+                    });
+                });
+                
+                // Add anchor for bottom of page
+                const bottomAnchor = document.createElement('div');
+                bottomAnchor.id = 'bottom';
+                valuesList.appendChild(bottomAnchor);
                 
                 console.log("Values displayed successfully");
             } catch (error) {
