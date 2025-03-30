@@ -1,8 +1,8 @@
-<i> Value View </i>
+<i> The Howdy Human Compendium of Values </i>
 
 
 # Overview
-Value View is an interactive web application that helps users discover and explore a comprehensive dictionary of human values. The app provides detailed descriptions, practical examples, and interactive filtering to understand how values manifest in daily life.
+The Howdy Human Compendium of Values  is an interactive web application that helps users discover and explore a comprehensive dictionary of human values. The app provides detailed descriptions, practical examples, and interactive filtering to understand how values manifest in daily life.
 
 ## Features
 
@@ -38,6 +38,7 @@ Value View is an interactive web application that helps users discover and explo
 
 ## Future Plans
 - User accounts for saving favorite values
+- Spanish Translation
 - Personal observations log to track values in action
 - Community sharing options
 - Mobile app version
@@ -49,16 +50,16 @@ This project is currently in a personal development phase. I am not accepting co
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments 
-[Tailwind CSS](https://tailwindcss.com/ "Rapidly build modern websites without ever leaving your HTML")
+- [Tailwind CSS](https://tailwindcss.com/ "Rapidly build modern websites without ever leaving your HTML")
 for the utility-first CSS framework <br>
-[Font Awesome](https://fontawesome.com/ "Take the hassle out of icons")
+- [Font Awesome](https://fontawesome.com/ "Take the hassle out of icons")
 for the icon library <br> 
-[Notion](https://thingsgetweird.com/ "My Notion Workspace") 
+- [Notion](https://thingsgetweird.com/ "My Notion Workspace") 
 for hosting my second brain <br>
-[Porkbun](https://porkbun.com) 
+- [Porkbun](https://porkbun.com) 
 for hosting my domain <br>
-[Poe](https://poe.com), [Chat GPT](https://www.chat.com), and [GitHub Co-Pilot](https://github.com) for writing all this code for me <br>
-Big shout out to all the haters <br><br>
-<b>All my effort toward anything positive is in honor of Hortencia, Jessica, Olivia, Keegan, Scarlett, and Ivy </b> <br>
+- [Poe](https://poe.com), [Chat GPT](https://www.chat.com), and [GitHub Co-Pilot](https://github.com) for writing all this code for me <br>
+- Big shout out to all the haters <br>
+- All my effort toward anything positive is in honor of Hortencia, Jessica, Olivia, Keegan, Scarlett, and Ivy </b> <br>
 <br>
  `© 2023 howdyhuman.com. All rights reserved.`
