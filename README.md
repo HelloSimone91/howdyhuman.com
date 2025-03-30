@@ -53,7 +53,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 for the utility-first CSS framework <br>
 [Font Awesome](https://fontawesome.com/ "Take the hassle out of icons")
 for the icon library <br> 
-Big shout out to all the haters <br>
-All my effort toward anything positive is in honor of Hortencia, Jessica, Olivia, Keegan, Scarlett, and Ivy <br>
+[Notion](https://thingsgetweird.com/ "My Notion Workspace") 
+for hosting my second brain <br>
+[Porkbun](https://porkbun.com) 
+for hosting my domain <br>
+[Poe](https://poe.com), [Chat GPT](https://www.chat.com), and [GitHub Co-Pilot](https://github.com) for writing all this code for me <br>
+Big shout out to all the haters <br><br>
+<b>All my effort toward anything positive is in honor of Hortencia, Jessica, Olivia, Keegan, Scarlett, and Ivy </b> <br>
 <br>
  `© 2023 howdyhuman.com. All rights reserved.`
