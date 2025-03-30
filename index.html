@@ -2194,6 +2194,16 @@
                 displayValues(values);
             }
         }
+        <script>
+window.addEventListener('scroll', function() {
+    var stickyBar = document.getElementById('stickyBar');
+    if (window.scrollY > 100) { // Show the bar after scrolling 100px
+        stickyBar.style.display = 'block';
+    } else {
+        stickyBar.style.display = 'none';
+    }
+});
+</script>
     </script>
 </body>
 </html>
