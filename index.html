@@ -261,23 +261,7 @@
             font-size: 0.75rem;
             margin-left: 0.5rem;
         }
-        #stickyBar {
-    display: none; /* Initially hidden */
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #fff;
-    text-align: center;
-    padding: 10px;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-    z-index: 1000;
-}
-
-#stickyBar a {
-    color: purple;
-    text-decoration: none;
-    font-weight: bold;
-}
+        
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-50 min-h-screen">
@@ -2194,16 +2178,7 @@
                 displayValues(values);
             }
         }
-        <script>
-window.addEventListener('scroll', function() {
-    var stickyBar = document.getElementById('stickyBar');
-    if (window.scrollY > 100) { // Show the bar after scrolling 100px
-        stickyBar.style.display = 'block';
-    } else {
-        stickyBar.style.display = 'none';
-    }
-});
-</script>
+       
     </script>
 </body>
 </html>
