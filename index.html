@@ -415,123 +415,124 @@
         }
         
         /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: var(--dark-bg);
-                color: #99ccff; /* Light blue for better readability in dark mode */
-            }
-            
-            /* Intro paragraph fix - override Tailwind's text colors */
-            .dark\:text-gray-40 {
-                color: #99ccff !important; 
-            }
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--dark-bg);
+        color: #99ccff; /* Light blue for better readability in dark mode */
+    }
 
-            /* Make the intro box text readable */
-            .bg-gray-100.dark\:bg-gray-800 p {
-                color: #99ccff !important;
-            }
-            
-            .section-label {
-                color: #99ccff; /* Light blue for dark mode */
-                border-bottom-color: rgba(153, 204, 255, 0.3);
-            }
-            
-            /* Better text readability for all elements */
-            h1, h2, h3, h4, h5, h6, p, div, span, li {
-                color: #99ccff;
-            }
-            
-            /* For the value example box */
-            .value-example {
-                color: #99ccff;
-            }
-            .value-card {
-                background-color: #262626;
-            }
-            .tag {
-                background-color: #374151;
-                color: var(--text-light);
-            }
-            .tag:hover {
-                background-color: #4B5563;
-            }
-            .tag.selected {
-                background-color: #2F855A;
-                color: var(--text-light);
-            }
-            .tag.selected:hover {
-                background-color: #22543D;
-            }
-            input, textarea, select {
-                background-color: #262626;
-                color: #99ccff; /* Light blue for consistent dark mode color */
-                border-color: #4B5563;
-            }
-            input:focus, textarea:focus, select:focus {
-                border-color: var(--blue-main);
-                outline: none;
-            }
-            .filter-header {
-                background-color: #262626;
-                border-color: #4A5568;
-            }
-            .toggle-container {
-                background-color: #4A5568;
-            }
-            .toggle-slide {
-                background-color: #333333;
-            }
-            .slider {
-                background-color: #4A5568;
-            }
-            .slider:before {
-                background-color: #E2E8F0;
-            }
-            .main-search-input {
-                background-color: #262626;
-                border-color: #4B5563;
-                color: #99ccff; /* Light blue for consistent text color */
-            }
-            .main-search-icon, .main-search-clear {
-                color: #9CA3AF;
-            }
-            
-            /* Value example dark mode */
-            .value-example {
-                background-color: rgba(0, 153, 204, 0.15);
-                border-left-color: var(--blue-main);
-            }
-            
-            /* Related Values Dark Mode */
-            .related-value-card {
-                background-color: #262626;
-                border-left-color: var(--blue-main);
-            }
-            
-            .related-value-name {
-                color: #99ccff;
-            }
-            
-            .shared-tag {
-                background-color: rgba(0, 153, 204, 0.2);
-                color: #99ccff;
-                border-color: rgba(0, 153, 204, 0.4);
-            }
-            
-            .related-tooltip {
-                background: rgba(0, 153, 204, 0.9);
-            }
-            
-            /* Alpha navigation */
-            .alpha-nav {
-                background-color: #262626;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            }
-            
-            .alpha-nav .nav-divider {
-                background-color: rgba(0, 153, 204, 0.3);
-            }
-        }
+    /* Intro paragraph fix - override Tailwind's text colors */
+    .dark\:text-gray-40 {
+        color: #4A4A4A !important; /* Darker gray for better readability */
+    }
+
+    /* Make the intro box text readable */
+    .bg-gray-100.dark\:bg-gray-800 p {
+        color: #4A4A4A !important; /* Darker gray for better readability */
+    }
+
+    .section-label {
+        color: #99ccff; /* Light blue for dark mode */
+        border-bottom-color: rgba(153, 204, 255, 0.3);
+    }
+
+    /* Better text readability for all elements */
+    h1, h2, h3, h4, h5, h6, p, div, span, li {
+        color: #99ccff; /* Light blue for consistent dark mode color */
+    }
+
+    /* For the value example box */
+    .value-example {
+        color: #99ccff;
+    }
+    .value-card {
+        background-color: #262626;
+    }
+    .tag {
+        background-color: #374151;
+        color: var(--text-light);
+    }
+    .tag:hover {
+        background-color: #4B5563;
+    }
+    .tag.selected {
+        background-color: #2F855A;
+        color: var(--text-light);
+    }
+    .tag.selected:hover {
+        background-color: #22543D;
+    }
+    input, textarea, select {
+        background-color: #262626;
+        color: #99ccff; /* Light blue for consistent dark mode color */
+        border-color: #4B5563;
+    }
+    input:focus, textarea:focus, select:focus {
+        border-color: var(--blue-main);
+        outline: none;
+    }
+    .filter-header {
+        background-color: #262626;
+        border-color: #4A5568;
+    }
+    .toggle-container {
+        background-color: #4A5568;
+    }
+    .toggle-slide {
+        background-color: #333333;
+    }
+    .slider {
+        background-color: #4A5568;
+    }
+    .slider:before {
+        background-color: #E2E8F0;
+    }
+    .main-search-input {
+        background-color: #262626;
+        border-color: #4B5563;
+        color: #99ccff; /* Light blue for consistent text color */
+    }
+    .main-search-icon, .main-search-clear {
+        color: #9CA3AF;
+    }
+
+    /* Value example dark mode */
+    .value-example {
+        background-color: rgba(0, 153, 204, 0.15);
+        border-left-color: var(--blue-main);
+    }
+
+    /* Related Values Dark Mode */
+    .related-value-card {
+        background-color: #262626;
+        border-left-color: var(--blue-main);
+    }
+
+    .related-value-name {
+        color: #99ccff;
+    }
+
+    .shared-tag {
+        background-color: rgba(0, 153, 204, 0.2);
+        color: #99ccff;
+        border-color: rgba(0, 153, 204, 0.4);
+    }
+
+    .related-tooltip {
+        background: rgba(0, 153, 204, 0.9);
+    }
+
+    /* Alpha navigation */
+    .alpha-nav {
+        background-color: #262626;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .alpha-nav .nav-divider {
+        background-color: rgba(0, 153, 204, 0.3);
+    }
+}
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
