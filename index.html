@@ -6,40 +6,44 @@
     <title>The Howdy Human Compendium of Values</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        <style>
+  <style>
     :root {
-        /* Primary and secondary accents */
-        --blue-main: #4A90E2;       /* Calm, neutral blue for borders, buttons, and interactive elements */
-        --purple-main: #A29BFE;     /* Muted purple for secondary accents and hover states */
+        /* Brand Board – Medium Mode Variables */
+        --bg-main: #EDE2D8;         /* Citrus Cream */
+        --bg-card: #FFFFFF;         /* Standard white for cards/containers */
+        --text-main: #2D2D2D;       /* Charcoal Plum (dark text) */
         
-        /* Backgrounds and surfaces */
-        --light-bg: #F0F0F0;        /* Soft off-white background for overall UI */
-        --card-bg: #FFFFFF;         /* Crisp white for cards and content containers */
+        --accent-main: #A5B8AC;     /* Cucumber Peel */
+        --accent-secondary: #D6A5A1; /* Terracotta */
+        --accent-support: #C1B7C7;  /* Dusty Lilac */
         
-        /* Text and borders */
-        --text-dark: #333333;       /* Dark grey for primary text ensuring high readability */
-        --text-light: #FFFFFF;      /* White text for use on accent backgrounds, if needed */
-        --border-color: #CCCCCC;    /* Subtle border color for separations */
-        --hover-bg: #E5E5E5;        /* Light hover background for interactive elements */
+        --header-bg: #9E5A59;       /* Midnight Moss (darker header background) */
+        
+        /* Additional or optional brand colors (if needed) */
+        --highlight: #EABF95;       /* Hazy Marigold, for special highlights */
+        
+        /* Generic border or hover colors (can refine to match brand) */
+        --border-color: #CBC3BA;    /* Soft neutral border */
+        --hover-bg: #E2DBD5;       /* Slightly darker than main background for hover states */
     }
-    
-    /* Base styles */
+
+    /* Base body and text */
     body {
-        background-color: var(--light-bg);
-        color: var(--text-dark);
+        background-color: var(--bg-main);
+        color: var(--text-main);
     }
-    
+
+    /* Example of how to apply the new palette */
     .value-card {
-        background-color: var(--card-bg);
-        border-left: 4px solid var(--blue-main);
+        background-color: var(--bg-card);
+        border-left: 4px solid var(--accent-main);
         transition: all 0.3s;
     }
     .value-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    
+
     .tag {
         background-color: var(--hover-bg);
         border-radius: 9999px;
@@ -56,13 +60,13 @@
         cursor: pointer;
     }
     .tag.selected {
-        background-color: var(--blue-main);
-        color: var(--text-light);
+        background-color: var(--accent-main);
+        color: #FFFFFF;
     }
     .tag.selected:hover {
-        background-color: var(--purple-main);
+        background-color: var(--accent-secondary);
     }
-    
+
     .filter-column {
         max-height: 300px;
         overflow-y: auto;
@@ -72,36 +76,37 @@
         width: 6px;
     }
     .filter-column::-webkit-scrollbar-track {
-        background: var(--light-bg);
+        background: var(--bg-main);
     }
     .filter-column::-webkit-scrollbar-thumb {
         background: var(--border-color);
         border-radius: 4px;
     }
     .filter-column::-webkit-scrollbar-thumb:hover {
-        background: var(--text-dark);
+        background: var(--text-main);
     }
+
     .filter-header {
         position: sticky;
         top: 0;
-        background-color: var(--light-bg);
+        background-color: var(--bg-main);
         z-index: 10;
         padding: 8px 0;
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 8px;
         font-weight: 600;
     }
-    
+
     /* Value example styles */
     .value-example {
-        background-color: rgba(74, 144, 226, 0.1);
+        background-color: rgba(165, 184, 172, 0.1); /* faint overlay of Cucumber Peel */
         border-radius: 0.5rem;
         padding: 1rem;
         margin: 0.75rem 0 1.25rem 0;
         font-style: italic;
-        border-left: 3px solid var(--blue-main);
+        border-left: 3px solid var(--accent-main);
     }
-    
+
     /* Main search bar */
     .main-search-container {
         position: relative;
@@ -110,7 +115,7 @@
     .main-search-input {
         width: 100%;
         padding: 0.75rem 1rem 0.75rem 3rem;
-        background-color: var(--light-bg);
+        background-color: var(--bg-main);
         border: 1px solid var(--border-color);
         border-radius: 0.5rem;
         font-size: 1rem;
@@ -119,8 +124,8 @@
     }
     .main-search-input:focus {
         outline: none;
-        border-color: var(--blue-main);
-        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        border-color: var(--accent-main);
+        box-shadow: 0 0 0 3px rgba(165, 184, 172, 0.2);
     }
     .main-search-icon {
         position: absolute;
@@ -139,18 +144,15 @@
         cursor: pointer;
         display: none;
     }
-    
-    /* Related Values Styles */
-    .related-values-section {
-        margin-top: 1rem;
-    }
+
+    /* Related Values */
     .related-values-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 0.75rem;
     }
     .related-value-card {
-        background-color: var(--card-bg);
+        background-color: var(--bg-card);
         border-radius: 0.5rem;
         padding: 0.75rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -158,7 +160,7 @@
         cursor: pointer;
         display: flex;
         flex-direction: column;
-        border-left: 3px solid var(--blue-main);
+        border-left: 3px solid var(--accent-main);
         position: relative;
         overflow: hidden;
     }
@@ -170,28 +172,22 @@
         font-weight: 600;
         font-size: 0.875rem;
         margin-bottom: 0.5rem;
-        color: var(--text-dark);
-    }
-    .shared-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-        font-size: 0.675rem;
+        color: var(--text-main);
     }
     .shared-tag {
-        background-color: rgba(74, 144, 226, 0.1);
-        color: var(--blue-main);
+        background-color: rgba(165, 184, 172, 0.1);
+        color: var(--accent-main);
         padding: 0.125rem 0.375rem;
         border-radius: 4px;
-        border: 1px solid rgba(74, 144, 226, 0.3);
+        border: 1px solid rgba(165, 184, 172, 0.3);
     }
     .related-tooltip {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(74, 144, 226, 0.95);
-        color: var(--text-light);
+        background: rgba(165, 184, 172, 0.9);
+        color: #FFFFFF;
         padding: 0.5rem;
         transform: translateY(100%);
         transition: transform 0.2s ease;
@@ -202,7 +198,8 @@
     .related-value-card:hover .related-tooltip {
         transform: translateY(0);
     }
-    
+
+    /* Toggles, filters, etc. */
     .toggle-container {
         padding: 0.25rem;
         background-color: var(--hover-bg);
@@ -224,7 +221,7 @@
         top: 2px;
         width: 50%;
         border-radius: 9999px;
-        background-color: var(--light-bg);
+        background-color: var(--bg-main);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s;
     }
@@ -242,22 +239,22 @@
         opacity: 0;
         margin: 0;
     }
-    
     .count-badge {
-        background-color: var(--blue-main);
-        color: var(--text-light);
+        background-color: var(--accent-main);
+        color: #FFFFFF;
         border-radius: 9999px;
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
         margin-left: 0.5rem;
     }
-    
+
+    /* Alphabetical Nav */
     .alpha-nav {
         position: fixed;
         left: 20px;
         top: 50%;
         transform: translateY(-50%);
-        background-color: var(--light-bg);
+        background-color: var(--bg-main);
         border-radius: 20px;
         padding: 8px 4px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -268,31 +265,32 @@
     .alpha-nav a {
         font-size: 0.75rem;
         padding: 4px 8px;
-        color: var(--blue-main);
+        color: var(--accent-main);
         text-align: center;
         border-radius: 4px;
         transition: all 0.2s;
         text-decoration: none;
     }
-    .alpha-nav a:hover, 
+    .alpha-nav a:hover,
     .alpha-nav a.active {
-        background-color: var(--blue-main);
-        color: var(--text-light);
+        background-color: var(--accent-main);
+        color: #FFFFFF;
     }
     .alpha-nav .nav-divider {
         height: 1px;
-        background-color: rgba(74, 144, 226, 0.2);
+        background-color: rgba(165, 184, 172, 0.2);
         margin: 4px 0;
         width: 80%;
         align-self: center;
     }
-    
+
+    /* Back to top button */
     .back-to-top {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: var(--purple-main);
-        color: var(--text-light);
+        background-color: var(--header-bg); /* Using Midnight Moss for a deeper color */
+        color: #FFFFFF;
         border-radius: 50%;
         width: 40px;
         height: 40px;
@@ -314,13 +312,14 @@
         transform: translateY(-5px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
-    
+
+    /* Language toggle */
     .language-toggle {
         position: absolute;
         top: 20px;
         right: 20px;
-        background-color: var(--blue-main);
-        color: var(--text-light);
+        background-color: var(--accent-main);
+        color: #FFFFFF;
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 0.875rem;
@@ -329,9 +328,10 @@
         transition: all 0.3s;
     }
     .language-toggle:hover {
-        background-color: #407ac1;
+        background-color: var(--accent-secondary);
     }
-    
+
+    /* Collapsible value card content */
     .value-card-content {
         overflow: hidden;
         max-height: 0;
@@ -344,14 +344,14 @@
     }
     .value-card-toggle {
         cursor: pointer;
-        color: var(--blue-main);
+        color: var(--accent-main);
         font-weight: 500;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 4px 0;
         margin-top: 8px;
-        border-top: 1px solid rgba(74, 144, 226, 0.1);
+        border-top: 1px solid rgba(165, 184, 172, 0.2);
     }
     .value-card-toggle i {
         margin-left: 6px;
@@ -360,31 +360,42 @@
     .value-card.expanded .value-card-toggle i {
         transform: rotate(180deg);
     }
-    
+
+    /* Section labels */
     .section-label {
         display: flex;
         align-items: center;
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: var(--purple-main);
+        color: var(--accent-support);
         font-weight: 600;
         margin-bottom: 0.75rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(162, 155, 254, 0.2);
+        border-bottom: 1px solid rgba(193, 183, 199, 0.2);
     }
     .section-label i {
         margin-right: 0.5rem;
     }
-    
+
+    /* Header or other large backgrounds */
+    header {
+        background-color: var(--header-bg);
+        color: #FFFFFF;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Footer */
     .footer {
         margin-top: 40px;
         padding: 20px 0;
         text-align: center;
-        border-top: 1px solid rgba(74, 144, 226, 0.2);
+        border-top: 1px solid rgba(165, 184, 172, 0.2);
     }
     .footer a {
-        color: var(--purple-main);
+        color: var(--accent-secondary);
         font-weight: 500;
         text-decoration: none;
         transition: all 0.2s;
@@ -392,7 +403,7 @@
     .footer a:hover {
         text-decoration: underline;
     }
-    
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .alpha-nav {
