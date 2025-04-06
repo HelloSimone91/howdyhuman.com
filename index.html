@@ -6,25 +6,21 @@
     <title>The Howdy Human Compendium of Values</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <style>
+ <style>
     :root {
-        /* Brand Board – Medium Mode Variables */
-        --bg-main: #EDE2D8;         /* Citrus Cream */
-        --bg-card: #FFFFFF;         /* Standard white for cards/containers */
-        --text-main: #2D2D2D;       /* Charcoal Plum (dark text) */
+        /* Core Palette */
+        --bg-main: #ECE0DE;          /* Main background with a subtle red undertone */
+        --header-bg: #9E5A59;        /* Rich maroon for header and primary accents */
+        --card-bg: #FFFFFF;          /* White for cards and content blocks */
         
-        --accent-main: #A5B8AC;     /* Cucumber Peel */
-        --accent-secondary: #D6A5A1; /* Terracotta */
-        --accent-support: #C1B7C7;  /* Dusty Lilac */
+        --text-main: #2D2D2D;        /* Dark gray text for readability */
+        --text-light: #FFFFFF;       /* White text for maroon backgrounds */
         
-        --header-bg: #9E5A59;       /* Midnight Moss (darker header background) */
+        --accent-main: #9E5A59;      /* Same maroon for borders/buttons to unify design */
+        --accent-secondary: #D6A5A1; /* Softer terracotta for hover states or secondary highlights */
         
-        /* Additional or optional brand colors (if needed) */
-        --highlight: #EABF95;       /* Hazy Marigold, for special highlights */
-        
-        /* Generic border or hover colors (can refine to match brand) */
-        --border-color: #CBC3BA;    /* Soft neutral border */
-        --hover-bg: #E2DBD5;       /* Slightly darker than main background for hover states */
+        --border-color: #C8BBB9;     /* Neutral border color */
+        --hover-bg: #E7DAD7;         /* Light hover background (slightly darker than main bg) */
     }
 
     /* Base body and text */
@@ -33,9 +29,18 @@
         color: var(--text-main);
     }
 
-    /* Example of how to apply the new palette */
+    /* Header Example */
+    header {
+        background-color: var(--header-bg);
+        color: var(--text-light);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Value card container */
     .value-card {
-        background-color: var(--bg-card);
+        background-color: var(--card-bg);
         border-left: 4px solid var(--accent-main);
         transition: all 0.3s;
     }
@@ -44,8 +49,20 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    /* Example text highlight box */
+    .value-example {
+        background-color: rgba(158, 90, 89, 0.1); /* faint overlay of maroon */
+        border-left: 3px solid var(--accent-main);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 0.75rem 0 1.25rem 0;
+        font-style: italic;
+    }
+
+    /* Tags */
     .tag {
         background-color: var(--hover-bg);
+        color: var(--text-main);
         border-radius: 9999px;
         padding: 0.25rem 0.75rem;
         font-size: 0.75rem;
@@ -53,7 +70,7 @@
         margin-bottom: 0.5rem;
         display: inline-flex;
         align-items: center;
-        transition: all 0.2s ease;
+        transition: background-color 0.2s ease;
     }
     .tag:hover {
         background-color: var(--border-color);
@@ -61,12 +78,13 @@
     }
     .tag.selected {
         background-color: var(--accent-main);
-        color: #FFFFFF;
+        color: var(--text-light);
     }
     .tag.selected:hover {
         background-color: var(--accent-secondary);
     }
 
+    /* Filter columns with scrollbars */
     .filter-column {
         max-height: 300px;
         overflow-y: auto;
@@ -85,7 +103,6 @@
     .filter-column::-webkit-scrollbar-thumb:hover {
         background: var(--text-main);
     }
-
     .filter-header {
         position: sticky;
         top: 0;
@@ -95,16 +112,6 @@
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 8px;
         font-weight: 600;
-    }
-
-    /* Value example styles */
-    .value-example {
-        background-color: rgba(165, 184, 172, 0.1); /* faint overlay of Cucumber Peel */
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin: 0.75rem 0 1.25rem 0;
-        font-style: italic;
-        border-left: 3px solid var(--accent-main);
     }
 
     /* Main search bar */
@@ -125,7 +132,7 @@
     .main-search-input:focus {
         outline: none;
         border-color: var(--accent-main);
-        box-shadow: 0 0 0 3px rgba(165, 184, 172, 0.2);
+        box-shadow: 0 0 0 3px rgba(158, 90, 89, 0.2);
     }
     .main-search-icon {
         position: absolute;
@@ -145,14 +152,14 @@
         display: none;
     }
 
-    /* Related Values */
+    /* Related values */
     .related-values-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 0.75rem;
     }
     .related-value-card {
-        background-color: var(--bg-card);
+        background-color: var(--card-bg);
         border-radius: 0.5rem;
         padding: 0.75rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -175,19 +182,19 @@
         color: var(--text-main);
     }
     .shared-tag {
-        background-color: rgba(165, 184, 172, 0.1);
+        background-color: rgba(158, 90, 89, 0.1);
         color: var(--accent-main);
         padding: 0.125rem 0.375rem;
         border-radius: 4px;
-        border: 1px solid rgba(165, 184, 172, 0.3);
+        border: 1px solid rgba(158, 90, 89, 0.3);
     }
     .related-tooltip {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(165, 184, 172, 0.9);
-        color: #FFFFFF;
+        background: rgba(158, 90, 89, 0.9);
+        color: var(--text-light);
         padding: 0.5rem;
         transform: translateY(100%);
         transition: transform 0.2s ease;
@@ -199,7 +206,7 @@
         transform: translateY(0);
     }
 
-    /* Toggles, filters, etc. */
+    /* Toggles & filters container */
     .toggle-container {
         padding: 0.25rem;
         background-color: var(--hover-bg);
@@ -239,16 +246,18 @@
         opacity: 0;
         margin: 0;
     }
+
+    /* Badge count */
     .count-badge {
         background-color: var(--accent-main);
-        color: #FFFFFF;
+        color: var(--text-light);
         border-radius: 9999px;
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
         margin-left: 0.5rem;
     }
 
-    /* Alphabetical Nav */
+    /* Alphabetical nav */
     .alpha-nav {
         position: fixed;
         left: 20px;
@@ -274,11 +283,11 @@
     .alpha-nav a:hover,
     .alpha-nav a.active {
         background-color: var(--accent-main);
-        color: #FFFFFF;
+        color: var(--text-light);
     }
     .alpha-nav .nav-divider {
         height: 1px;
-        background-color: rgba(165, 184, 172, 0.2);
+        background-color: rgba(158, 90, 89, 0.2);
         margin: 4px 0;
         width: 80%;
         align-self: center;
@@ -289,8 +298,8 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: var(--header-bg); /* Using Midnight Moss for a deeper color */
-        color: #FFFFFF;
+        background-color: var(--header-bg);
+        color: var(--text-light);
         border-radius: 50%;
         width: 40px;
         height: 40px;
@@ -319,13 +328,13 @@
         top: 20px;
         right: 20px;
         background-color: var(--accent-main);
-        color: #FFFFFF;
+        color: var(--text-light);
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 0.875rem;
         font-weight: 500;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: background-color 0.3s;
     }
     .language-toggle:hover {
         background-color: var(--accent-secondary);
@@ -351,7 +360,7 @@
         justify-content: center;
         padding: 4px 0;
         margin-top: 8px;
-        border-top: 1px solid rgba(165, 184, 172, 0.2);
+        border-top: 1px solid rgba(158, 90, 89, 0.2);
     }
     .value-card-toggle i {
         margin-left: 6px;
@@ -368,23 +377,14 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: var(--accent-support);
+        color: var(--accent-secondary);
         font-weight: 600;
         margin-bottom: 0.75rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(193, 183, 199, 0.2);
+        border-bottom: 1px solid rgba(214, 165, 161, 0.2);
     }
     .section-label i {
         margin-right: 0.5rem;
-    }
-
-    /* Header or other large backgrounds */
-    header {
-        background-color: var(--header-bg);
-        color: #FFFFFF;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
     }
 
     /* Footer */
@@ -392,7 +392,7 @@
         margin-top: 40px;
         padding: 20px 0;
         text-align: center;
-        border-top: 1px solid rgba(165, 184, 172, 0.2);
+        border-top: 1px solid rgba(158, 90, 89, 0.2);
     }
     .footer a {
         color: var(--accent-secondary);
@@ -579,996 +579,1015 @@
 
         // Values data with examples
         const values = [
-            // Original values
-            {
-                name: "Courage",
-                description: "The ability to confront fear, pain, danger, uncertainty, or intimidation. It is not merely the absence of fear but the strength to act despite it.",
-                example: "Speaking up in a group setting: Sharing your thoughts or concerns in a meeting, even when it feels uncomfortable or risky, demonstrates courage in advocating for what you believe is right.",
-                category: "Personal",
-                tags: ["challenge", "face", "overcome", "confront", "brave", "boldly", "stand", "speak", "defend"]
-            },
-            {
-                name: "Honesty",
-                description: "The quality of being truthful and sincere. It involves being straightforward, open, and genuine in your words and actions.",
-                example: "Admitting mistakes: Acknowledging when you've made an error at work and taking responsibility for it, rather than making excuses or blaming others, shows honesty and builds trust.",
-                category: "Interpersonal",
-                tags: ["truth", "speak", "admit", "acknowledge", "confess", "disclose", "reveal", "share", "tell"]
-            },
-            {
-                name: "Compassion",
-                description: "A deep awareness of the suffering of another accompanied by the wish to relieve it. It combines empathy with a desire to take action.",
-                example: "Supporting a grieving friend: Taking time to listen, offer practical help, and be present for someone experiencing loss demonstrates compassion through both understanding and action.",
-                category: "Interpersonal",
-                tags: ["care", "help", "support", "understand", "listen", "empathize", "comfort", "assist", "nurture"]
-            },
-            {
-                name: "Integrity",
-                description: "The quality of being honest and having strong moral principles. It involves doing the right thing even when no one is watching.",
-                example: "Refraining from gossip: Refraining from speaking negatively about others, even when it might be tempting to do so, shows respect for others and their reputation.",
-                category: "Personal",
-                tags: ["uphold", "maintain", "practice", "live", "demonstrate", "exhibit", "show", "honor", "embody"]
-            },
-            {
-                name: "Perseverance",
-                description: "Steady persistence in a course of action in spite of difficulties, obstacles, or discouragement. It's the determination to keep going despite challenges.",
-                example: "Continuing education: Pursuing a degree or certification while balancing work and family responsibilities, despite setbacks or slow progress, demonstrates commitment to long-term goals.",
-                category: "Personal",
-                tags: ["persist", "continue", "endure", "overcome", "strive", "push", "pursue", "sustain", "withstand"]
-            },
-            {
-                name: "Gratitude",
-                description: "The quality of being thankful and showing appreciation for what you have or what others do for you.",
-                example: "Daily reflection: Taking time each evening to identify three positive things that happened that day cultivates awareness of life's gifts and strengthens resilience.",
-                category: "Personal",
-                tags: ["appreciate", "thank", "recognize", "acknowledge", "value", "treasure", "express", "show", "demonstrate"]
-            },
-            {
-                name: "Respect",
-                description: "A feeling of deep admiration for someone or something based on their abilities, qualities, or achievements. It involves treating others with consideration and dignity.",
-                example: "Active listening: Giving someone your full attention when they speak, asking clarifying questions, and acknowledging their perspective shows respect for their thoughts and experiences.",
-                category: "Interpersonal",
-                tags: ["honor", "admire", "value", "appreciate", "listen", "consider", "acknowledge", "recognize", "treat"]
-            },
-            {
-                name: "Responsibility",
-                description: "The state or fact of being accountable for something within one's power, control, or management.",
-                example: "Environmental stewardship: Reducing personal waste, conserving resources, and supporting sustainable practices shows responsibility for the planet's well-being and future generations.",
-                category: "Personal",
-                tags: ["accept", "take", "fulfill", "assume", "handle", "manage", "complete", "own", "undertake"]
-            },
-            {
-                name: "Empathy",
-                description: "The ability to understand and share the feelings of another. It involves putting yourself in someone else's shoes and seeing the world from their perspective.",
-                example: "Supporting a struggling colleague: Noticing when a team member is having difficulty and offering help based on understanding their specific challenges demonstrates empathy in the workplace.",
-                category: "Interpersonal",
-                tags: ["understand", "feel", "connect", "relate", "share", "sense", "perceive", "recognize", "acknowledge"]
-            },
-            {
-                name: "Justice",
-                description: "The quality of being fair and reasonable, often associated with the administration of law and the fair treatment of all individuals.",
-                example: "Advocating for equal access: Working to ensure that public resources and opportunities are available to all members of a community, especially those traditionally marginalized, promotes justice.",
-                category: "Social",
-                tags: ["promote", "defend", "uphold", "fight", "advocate", "support", "stand", "speak", "protect"]
-            },
-            {
-                name: "Kindness",
-                description: "The quality of being friendly, generous, and considerate. It involves small acts that can make a big difference in others' lives.",
-                example: "Helping a stranger: Taking a moment to assist someone who dropped their belongings, is lost, or needs directions shows how simple acts of kindness create a more compassionate world.",
-                category: "Interpersonal",
-                tags: ["help", "share", "offer", "extend", "give", "provide", "support", "assist", "serve"]
-            },
-            {
-                name: "Humility",
-                description: "The quality of having a modest or low view of one's importance. It involves recognizing your limitations and being open to learning and growth.",
-                example: "Seeking feedback: Actively asking for and thoughtfully considering constructive criticism on your work demonstrates humility through acknowledging there is always room to improve.",
-                category: "Personal",
-                tags: ["acknowledge", "accept", "recognize", "learn", "listen", "admit", "yield", "surrender", "embrace"]
-            },
-            
-            // New values (alphabetical order)
-            {
-                name: "Acceptance",
-                description: "The willingness to embrace reality as it is without attempting to change it. It involves recognizing and allowing things or situations to be as they are without resistance.",
-                example: "Adapting to unexpected changes: When a project deadline gets moved up unexpectedly, choosing to accept the new timeline and adjust your plans accordingly rather than dwelling on frustration.",
-                category: "Personal",
-                tags: ["embrace", "receive", "welcome", "allow", "permit", "tolerate", "acknowledge", "recognize", "include"]
-            },
-            {
-                name: "Accountability",
-                description: "The obligation or willingness to accept responsibility for one's actions and their consequences. It involves answering for outcomes rather than making excuses.",
-                example: "Project oversight: Taking ownership of a team project's results, whether successful or not, and being willing to explain decisions made throughout the process.",
-                category: "Personal",
-                tags: ["answer", "report", "explain", "justify", "own", "accept", "acknowledge", "address", "resolve"]
-            },
-            {
-                name: "Achievement",
-                description: "The accomplishment of a goal or task through effort, skill, or courage. It represents the successful completion of something meaningful.",
-                example: "Marathon completion: Training for months and successfully finishing your first marathon, celebrating the personal milestone and the discipline it required.",
-                category: "Personal",
-                tags: ["accomplish", "attain", "reach", "complete", "earn", "succeed", "realize", "fulfill", "master"]
-            },
-            {
-                name: "Action",
-                description: "The process of doing something to address a situation or pursue a goal, rather than just thinking or talking about it. It focuses on moving from idea to implementation.",
-                example: "Community clean-up: Instead of just discussing the problem of litter in your neighborhood, organizing and participating in a community clean-up day.",
-                category: "Personal",
-                tags: ["do", "perform", "execute", "implement", "conduct", "carry out", "undertake", "pursue", "initiate"]
-            },
-            {
-                name: "Adventure",
-                description: "An unusual, exciting, or daring experience that involves risk, discovery, and exploration. It embraces the unknown and values new experiences.",
-                example: "Solo travel: Taking a trip to a country you've never visited before, without a detailed itinerary, allowing yourself to discover new places and experiences spontaneously.",
-                category: "Personal",
-                tags: ["explore", "discover", "experience", "journey", "venture", "risk", "seek", "travel", "embrace"]
-            },
-            {
-                name: "Advocacy",
-                description: "The public support or recommendation of a particular cause or policy. It involves speaking up for those who may not have a voice or for issues that need attention.",
-                example: "Disability rights: Speaking at a city council meeting to advocate for improved accessibility in public spaces, representing those whose needs are often overlooked.",
-                category: "Social",
-                tags: ["champion", "support", "defend", "promote", "speak", "represent", "advance", "argue", "lobby"]
-            },
-            {
-                name: "Ambition",
-                description: "A strong desire to achieve something that requires determination and hard work. It involves setting high goals and being driven to accomplish them.",
-                example: "Career advancement: Setting a five-year career plan that includes specific milestones, educational achievements, and leadership positions you aim to attain.",
-                category: "Personal",
-                tags: ["aspire", "strive", "seek", "pursue", "desire", "aim", "drive", "reach", "advance"]
-            },
-            {
-                name: "Appreciation",
-                description: "The recognition and enjoyment of the good qualities of someone or something. It involves noticing and valuing what you have rather than focusing on what's missing.",
-                example: "Team recognition: Taking time during a team meeting to specifically highlight the unique contributions of each team member and how their work added value to a project.",
-                category: "Interpersonal",
-                tags: ["value", "recognize", "acknowledge", "cherish", "treasure", "admire", "respect", "notice", "praise"]
-            },
-            {
-                name: "Approachability",
-                description: "The quality of being easy to meet, talk to, or engage with. It creates an environment where others feel comfortable seeking help, sharing ideas, or giving feedback.",
-                example: "Open-door policy: As a manager, maintaining regular office hours when your team knows they can stop by with questions or concerns without needing a formal appointment.",
-                category: "Interpersonal",
-                tags: ["welcome", "engage", "connect", "invite", "include", "listen", "receive", "respond", "interact"]
-            },
-            {
-                name: "Authenticity",
-                description: "The quality of being genuine and true to one's own personality, spirit, or character. It involves presenting yourself honestly rather than trying to be something you're not.",
-                example: "Professional communication: Speaking in your natural voice and sharing your true perspective in workplace discussions, even when it might differ from popular opinion.",
-                category: "Personal",
-                tags: ["express", "reveal", "represent", "embody", "demonstrate", "live", "practice", "maintain", "honor"]
-            },
-            {
-                name: "Balance",
-                description: "The state of equilibrium or equipoise between different elements. It involves giving appropriate attention to various aspects of life rather than focusing too much on any single area.",
-                example: "Work-life boundaries: Setting clear time limits for work and protecting time for family, hobbies, and self-care, ensuring no single aspect of life dominates the others.",
-                category: "Personal",
-                tags: ["harmonize", "integrate", "manage", "distribute", "allocate", "proportion", "regulate", "stabilize", "calibrate"]
-            },
-            {
-                name: "Beauty",
-                description: "The quality present in a thing or person that gives intense pleasure or deep satisfaction to the senses or mind. It recognizes and appreciates aesthetic harmony.",
-                example: "Garden creation: Designing and maintaining a garden that combines colors, textures, and seasonal variations to create an aesthetically pleasing outdoor space.",
-                category: "Personal",
-                tags: ["appreciate", "create", "design", "craft", "express", "arrange", "compose", "admire", "perceive"]
-            },
-            {
-                name: "Benevolence",
-                description: "The disposition to do good and act charitably toward others. It involves kindness and goodwill that expects nothing in return.",
-                example: "Anonymous donation: Providing financial support to a family in need while deliberately choosing to remain anonymous, focusing on their benefit rather than recognition.",
-                category: "Interpersonal",
-                tags: ["give", "help", "support", "assist", "provide", "contribute", "offer", "serve", "benefit"]
-            },
-            {
-                name: "Boldness",
-                description: "The willingness to take risks and act confidently. It involves stepping outside of comfort zones and conventional boundaries to pursue what matters.",
-                example: "Career pivot: Leaving an established career path to pursue a new direction more aligned with your values and passions, despite the uncertainty and potential obstacles.",
-                category: "Personal",
-                tags: ["risk", "venture", "initiate", "challenge", "pioneer", "lead", "break", "push", "advance"]
-            },
-            {
-                name: "Bravery",
-                description: "The quality of facing and dealing with anything dangerous or difficult. It involves confronting fear, pain, danger, uncertainty, or intimidation.",
-                example: "Medical intervention: Stepping forward to perform first aid in an emergency situation when others are hesitant, despite your own anxiety about the situation.",
-                category: "Personal",
-                tags: ["face", "confront", "encounter", "withstand", "endure", "overcome", "challenge", "stand", "defend"]
-            },
-            {
-                name: "Camaraderie",
-                description: "A spirit of friendly good-fellowship and mutual trust among people who spend a lot of time together. It creates bonds that support both individual and group success.",
-                example: "Team traditions: Establishing regular team rituals, like monthly lunches or celebration of milestones, that build connection and shared identity beyond work tasks.",
-                category: "Interpersonal",
-                tags: ["bond", "connect", "relate", "share", "support", "trust", "unite", "ally", "associate"]
-            },
-            {
-                name: "Capitalism",
-                description: "An economic system based on private ownership of capital goods and the means of production, with the creation of goods and services for profit. It values free markets and competition.",
-                example: "Entrepreneurship: Starting and growing your own business by identifying a market need, taking financial risks, and working to build a profitable enterprise in a competitive market.",
-                category: "Social",
-                tags: ["invest", "profit", "compete", "build", "grow", "market", "trade", "own", "develop"]
-            },
-            {
-                name: "Caring",
-                description: "The practice of looking after those who need assistance or support. It involves displaying kindness and concern for the welfare of others.",
-                example: "Elder support: Regularly checking in on an elderly neighbor who lives alone, helping with groceries or home maintenance, and providing companionship.",
-                category: "Interpersonal",
-                tags: ["attend", "nurture", "protect", "watch", "tend", "look after", "support", "help", "assist"]
-            },
-            {
-                name: "Celebration",
-                description: "The acknowledgment of a significant event, achievement, or milestone with festivities or ceremonies. It involves taking time to honor and enjoy accomplishments.",
-                example: "Team achievement: Organizing a special event to recognize your team's successful completion of a challenging project, with activities that highlight individual contributions.",
-                category: "Interpersonal",
-                tags: ["honor", "recognize", "commemorate", "observe", "mark", "acknowledge", "rejoice", "praise", "toast"]
-            },
-            {
-                name: "Challenge",
-                description: "Something that tests strength, skill, or ability, especially in a way that is interesting. It involves embracing difficult situations as opportunities for growth.",
-                example: "Learning a language: Committing to learn a new language in your 40s, pushing through the initial confusion and difficulty because you value the mental stretch and new perspectives.",
-                category: "Personal",
-                tags: ["test", "push", "stretch", "confront", "tackle", "undertake", "face", "attempt", "endeavor"]
-            },
-            {
-                name: "Charisma",
-                description: "The compelling attractiveness or charm that can inspire devotion in others. It involves the ability to connect with and influence people through presence and communication.",
-                example: "Inspiring presentation: Delivering a talk that captivates an audience through authentic storytelling, passionate delivery, and connecting your message to their values and needs.",
-                category: "Interpersonal",
-                tags: ["inspire", "attract", "engage", "connect", "influence", "motivate", "captivate", "energize", "charm"]
-            },
-            {
-                name: "Choice",
-                description: "The act of selecting or making a decision when faced with two or more possibilities. It values the freedom and responsibility to determine one's own path.",
-                example: "Lifestyle design: Intentionally choosing where to live, how to work, and how to structure your time based on your priorities rather than following conventional expectations.",
-                category: "Personal",
-                tags: ["decide", "select", "pick", "opt", "determine", "elect", "prefer", "choose", "judge"]
-            },
-            {
-                name: "Collaboration",
-                description: "The action of working with someone to produce or create something. It values the combination of different perspectives and skills toward a common goal.",
-                example: "Cross-functional project: Working with colleagues from different departments, each contributing unique expertise to develop a new product that no single team could create alone.",
-                category: "Interpersonal",
-                tags: ["cooperate", "partner", "coordinate", "contribute", "participate", "team", "join", "unite", "cocreate"]
-            },
-            {
-                name: "Comedy",
-                description: "The quality of being amusing or comic, especially as expressed in literature or speech. It values humor and the ability to evoke laughter and joy.",
-                example: "Workplace humor: Using appropriate humor to ease tension during a stressful project, helping the team maintain perspective and positive connection while addressing challenges.",
-                category: "Interpersonal",
-                tags: ["amuse", "entertain", "joke", "laugh", "play", "jest", "delight", "lighten", "humor"]
-            },
-            {
-                name: "Comfort",
-                description: "A state of physical ease and freedom from pain or constraint. It values creating environments and experiences that promote well-being and ease.",
-                example: "Home design: Creating a living space with furniture, lighting, and organization that supports relaxation, ease of movement, and peace of mind for yourself and guests.",
-                category: "Personal",
-                tags: ["ease", "relax", "soothe", "calm", "console", "reassure", "support", "nurture", "provide"]
-            },
-            {
-                name: "Commitment",
-                description: "The state or quality of being dedicated to a cause, activity, or relationship. It involves following through on promises and persisting despite challenges.",
-                example: "Marriage vows: Consistently prioritizing your relationship through daily actions and decisions that honor your promises, even during difficult periods or conflicts.",
-                category: "Personal",
-                tags: ["dedicate", "devote", "pledge", "promise", "engage", "persist", "adhere", "follow through", "remain"]
-            },
-            {
-                name: "Communication",
-                description: "The imparting or exchanging of information or news. It values clear expression and active listening to promote understanding between people.",
-                example: "Difficult conversation: Addressing a conflict with a colleague directly and respectfully, ensuring you understand their perspective before expressing your own concerns.",
-                category: "Interpersonal",
-                tags: ["express", "convey", "share", "discuss", "explain", "clarify", "listen", "engage", "connect"]
-            },
-            {
-                name: "Community",
-                description: "A feeling of fellowship with others as a result of sharing common attitudes, interests, and goals. It values connection and mutual support among people.",
-                example: "Neighborhood initiative: Starting a community garden that brings neighbors together to grow food, share knowledge, and create a shared space for connection.",
-                category: "Social",
-                tags: ["connect", "participate", "contribute", "belong", "engage", "support", "share", "unite", "build"]
-            },
-            {
-                name: "Confidence",
-                description: "The feeling or belief that one can rely on someone or something; firm trust. It involves self-assurance and belief in one's abilities.",
-                example: "Public speaking: Delivering a presentation to a large audience with clarity and poise, trusting in your preparation and expertise on the subject matter.",
-                category: "Personal",
-                tags: ["believe", "trust", "rely", "assert", "assume", "know", "practice", "demonstrate", "show"]
-            },
-            {
-                name: "Connection",
-                description: "A relationship in which a person, thing, or idea is linked or associated with something else. It values meaningful bonds between people, ideas, or experiences.",
-                example: "Mentorship relationship: Developing a deep professional relationship that goes beyond simple advice-giving to include mutual learning and genuine interest in each other's growth.",
-                category: "Interpersonal",
-                tags: ["link", "bond", "relate", "join", "unite", "associate", "bridge", "engage", "integrate"]
-            },
-            {
-                name: "Cooperation",
-                description: "The process of working together to the same end. It values collaboration and mutual assistance rather than competition.",
-                example: "Community project: Organizing neighbors to build a playground, with everyone contributing according to their skills and available time toward the shared goal.",
-                category: "Interpersonal",
-                tags: ["assist", "aid", "help", "support", "collaborate", "coordinate", "participate", "contribute", "share"]
-            },
-            {
-                name: "Creativity",
-                description: "The use of the imagination or original ideas, especially in the production of an artistic work. It values novel thinking and expression.",
-                example: "Problem-solving: Developing an innovative solution to a persistent business challenge by approaching it from an entirely different perspective than previously tried.",
-                category: "Personal",
-                tags: ["invent", "imagine", "design", "conceive", "develop", "innovate", "originate", "generate", "craft"]
-            },
-            {
-                name: "Curiosity",
-                description: "A strong desire to know or learn something. It involves asking questions and seeking deeper understanding rather than accepting things at face value.",
-                example: "Learning journey: Diving into a subject that interests you, reading multiple perspectives, asking questions, and exploring related topics simply because you want to understand it better.",
-                category: "Personal",
-                tags: ["explore", "investigate", "question", "wonder", "examine", "probe", "inquire", "discover", "learn"]
-            },
-            {
-                name: "Determination",
-                description: "The quality of being resolute and firmness of purpose. It involves persisting toward goals despite obstacles or discouragement.",
-                example: "Skill mastery: Practicing a musical instrument daily for years, working through plateaus and frustrations, to gradually develop proficiency and eventually mastery.",
-                category: "Personal",
-                tags: ["persist", "resolve", "decide", "commit", "pursue", "overcome", "endure", "press on", "continue"]
-            },
-            {
-                name: "Discipline",
-                description: "The practice of training people to obey rules or a code of behavior, or training oneself to improve. It involves structured habits and consistent practice.",
-                example: "Morning routine: Maintaining a consistent early morning routine of meditation, exercise, and planning, regardless of mood or weather, to support daily well-being and productivity.",
-                category: "Personal",
-                tags: ["practice", "train", "develop", "maintain", "adhere", "follow", "regulate", "establish", "control"]
-            },
-            {
-                name: "Effectiveness",
-                description: "The degree to which something is successful in producing a desired result. It focuses on achieving real outcomes rather than just activity.",
-                example: "Meeting management: Redesigning how team meetings are run to ensure they address key decisions efficiently and lead to clear action items with responsible parties.",
-                category: "Personal",
-                tags: ["achieve", "accomplish", "produce", "deliver", "execute", "complete", "fulfill", "realize", "attain"]
-            },
-            {
-                name: "Equality",
-                description: "The state of being equal, especially in status, rights, and opportunities. It values fairness and justice for all people regardless of their identity or background.",
-                example: "Hiring practices: Implementing blind resume reviews and structured interviews to ensure all candidates are evaluated on the same criteria, reducing unconscious bias.",
-                category: "Social",
-                tags: ["balance", "equalize", "level", "match", "standardize", "harmonize", "align", "treat", "distribute"]
-            },
-            {
-                name: "Experiment",
-                description: "A scientific procedure undertaken to make a discovery, test a hypothesis, or demonstrate a known fact. It values testing ideas and learning through trial and error.",
-                example: "Product development: Creating multiple prototypes of a new product and systematically testing each with users to gather feedback before finalizing the design.",
-                category: "Personal",
-                tags: ["test", "try", "explore", "attempt", "investigate", "examine", "probe", "analyze", "verify"]
-            },
-            {
-                name: "Exploration",
-                description: "The action of traveling in or through an unfamiliar area in order to learn about it. It values discovery and venturing into the unknown.",
-                example: "Cultural immersion: Taking a sabbatical to live in a different country, learning the language, customs, and daily life patterns rather than just visiting as a tourist.",
-                category: "Personal",
-                tags: ["discover", "search", "investigate", "examine", "survey", "study", "venture", "journey", "probe"]
-            },
-            {
-                name: "Fairness",
-                description: "The quality of making judgments that are free from discrimination and impartiality and in accordance with the rules. It values equitable treatment.",
-                example: "Resource allocation: Ensuring team resources, recognition, and opportunities are distributed based on objective criteria rather than personal preference or bias.",
-                category: "Social",
-                tags: ["balance", "equalize", "moderate", "adjust", "proportion", "harmonize", "judge", "assess", "treat"]
-            },
-            {
-                name: "Family",
-                description: "A group of people who are related to each other, especially parents and their children. It values close relationships and support among relatives.",
-                example: "Family traditions: Maintaining regular family gatherings and creating meaningful rituals that strengthen bonds across generations and create shared memories.",
-                category: "Interpersonal",
-                tags: ["nurture", "support", "care", "connect", "love", "protect", "provide", "cherish", "prioritize"]
-            },
-            {
-                name: "Fine Art",
-                description: "Creative art, especially visual art whose products are to be appreciated primarily or solely for their imaginative, aesthetic, or intellectual content.",
-                example: "Studio practice: Dedicating regular time to develop your painting technique and create work that expresses your unique artistic vision without commercial considerations.",
-                category: "Personal",
-                tags: ["create", "express", "compose", "craft", "design", "appreciate", "study", "display", "interpret"]
-            },
-            {
-                name: "Flexibility",
-                description: "The quality of bending easily without breaking; willingness to change or compromise. It values adaptability and openness to change.",
-                example: "Project adaptation: Willingly changing your approach when unexpected obstacles arise, finding alternative solutions rather than rigidly sticking to the original plan.",
-                category: "Personal",
-                tags: ["adapt", "adjust", "modify", "accommodate", "yield", "bend", "transform", "pivot", "shift"]
-            },
-            {
-                name: "Foresight",
-                description: "The ability to predict or the action of predicting what will happen or be needed in the future. It values thinking ahead and preparing for potential scenarios.",
-                example: "Financial planning: Setting up emergency savings, insurance, and retirement accounts early in your career, anticipating future needs before they become urgent.",
-                category: "Personal",
-                tags: ["predict", "anticipate", "forecast", "envision", "project", "plan", "prepare", "consider", "foresee"]
-            },
-            {
-                name: "Forgiveness",
-                description: "The action or process of forgiving or being forgiven. It involves letting go of resentment and moving forward rather than holding onto grievances.",
-                example: "Relationship repair: Consciously working through hurt feelings after a friend's betrayal, choosing to release anger and rebuild trust through honest conversation.",
-                category: "Interpersonal",
-                tags: ["release", "pardon", "absolve", "exonerate", "excuse", "free", "reconcile", "accept", "heal"]
-            },
-            {
-                name: "Freedom",
-                description: "The power or right to act, speak, or think as one wants without hindrance or restraint. It values autonomy and self-determination.",
-                example: "Independent work: Creating a freelance career that allows you to choose your projects, set your own hours, and work from locations that suit your lifestyle.",
-                category: "Personal",
-                tags: ["choose", "determine", "decide", "express", "move", "act", "think", "speak", "direct"]
-            },
-            {
-                name: "Friendship",
-                description: "A relationship of mutual affection between people. It values close, supportive, and enjoyable connections with others.",
-                example: "Consistent connection: Maintaining regular contact with a friend who moved away, making time for video calls and visits despite busy schedules and distance.",
-                category: "Interpersonal",
-                tags: ["connect", "share", "support", "enjoy", "confide", "trust", "listen", "understand", "appreciate"]
-            },
-            {
-                name: "Fun",
-                description: "Enjoyment, amusement, or lighthearted pleasure. It values activities that bring joy and playfulness into life.",
-                example: "Game night: Organizing regular evenings devoted to playing board games or sports with friends, focusing on laughter and enjoyment rather than competition.",
-                category: "Personal",
-                tags: ["enjoy", "play", "laugh", "amuse", "delight", "entertain", "celebrate", "revel", "engage"]
-            },
-            {
-                name: "Grace",
-                description: "Smoothness and elegance of movement; courteous goodwill. It can also refer to unmerited divine assistance given to humans for their regeneration or sanctification.",
-                example: "Conflict resolution: Responding to criticism with calm dignity, addressing concerns without becoming defensive or retaliating, maintaining everyone's dignity in the process.",
-                category: "Interpersonal",
-                tags: ["move", "act", "respond", "extend", "offer", "display", "communicate", "forgive", "accept"]
-            },
-            {
-                name: "Growth",
-                description: "The process of developing or maturing physically, mentally, or spiritually. It values continuous improvement and development rather than stagnation.",
-                example: "Skill development: Deliberately putting yourself in challenging situations that require you to develop new abilities, seeking feedback and gradually improving over time.",
-                category: "Personal",
-                tags: ["develop", "learn", "improve", "advance", "expand", "progress", "evolve", "strengthen", "mature"]
-            },
-            {
-                name: "Happiness",
-                description: "The state of being happy; contentment, joy, or satisfaction. It values positive emotions and a general sense of well-being.",
-                example: "Intentional activities: Regularly scheduling activities that bring you joy, like hiking in nature or cooking meals with friends, making them priorities in your life.",
-                category: "Personal",
-                tags: ["enjoy", "appreciate", "celebrate", "delight", "savor", "cherish", "experience", "relish", "embrace"]
-            },
-            {
-                name: "Health",
-                description: "The state of being free from illness or injury; a person's mental or physical condition. It values well-being and vitality.",
-                example: "Preventive care: Maintaining regular exercise, balanced nutrition, adequate sleep, and medical check-ups to support long-term physical and mental well-being.",
-                category: "Personal",
-                tags: ["maintain", "improve", "strengthen", "nourish", "protect", "exercise", "rest", "balance", "monitor"]
-            },
-            {
-                name: "History",
-                description: "The study of past events, particularly in human affairs. It values understanding where we came from and how it shapes the present.",
-                example: "Family research: Documenting your family's stories, traditions, and experiences through interviews with older relatives and collecting photographs and artifacts.",
-                category: "Social",
-                tags: ["study", "document", "preserve", "record", "remember", "analyze", "research", "teach", "learn"]
-            },
-            {
-                name: "Hope",
-                description: "A feeling of expectation and desire for a certain thing to happen. It involves optimism about future outcomes even in difficult circumstances.",
-                example: "Recovery support: Encouraging someone going through addiction treatment by focusing on possibilities for the future while acknowledging the reality of the struggle.",
-                category: "Personal",
-                tags: ["anticipate", "expect", "look forward", "believe", "trust", "envision", "imagine", "inspire", "aspire"]
-            },
-            {
-                name: "Humor",
-                description: "The quality of being amusing or comic, especially as expressed in literature or speech. It values finding and sharing joy through laughter.",
-                example: "Self-deprecating story: Sharing a funny story about your own mistake at a team gathering, creating connection through shared laughter and showing you don't take yourself too seriously.",
-                category: "Interpersonal",
-                tags: ["laugh", "joke", "amuse", "entertain", "play", "create", "share", "enjoy", "lighten"]
-            },
-            {
-                name: "Imagination",
-                description: "The faculty or action of forming new ideas, or images or concepts of external objects not present to the senses. It values creative thinking beyond what exists.",
-                example: "Visionary planning: Creating an innovative approach to a community challenge by imagining entirely new possibilities rather than incremental improvements to existing solutions.",
-                category: "Personal",
-                tags: ["envision", "create", "dream", "invent", "conceive", "visualize", "conceptualize", "design", "formulate"]
-            },
-            {
-                name: "Impact",
-                description: "A marked effect or influence. It values making a meaningful difference in people's lives or in the world.",
-                example: "Mentoring youth: Dedicating time to regularly mentor underserved youth, focusing on building skills and opportunities that can transform their future possibilities.",
-                category: "Social",
-                tags: ["influence", "affect", "change", "transform", "shape", "alter", "modify", "improve", "revolutionize"]
-            },
-            {
-                name: "Independence",
-                description: "Freedom from the control, influence, support, aid, or the like, of others. It values self-reliance and autonomy.",
-                example: "Self-sufficient living: Developing skills and systems that allow you to manage your own needs, like growing food, maintaining your home, and solving problems without depending on others.",
-                category: "Personal",
-                tags: ["manage", "decide", "direct", "control", "maintain", "sustain", "operate", "function", "lead"]
-            },
-            {
-                name: "Initiative",
-                description: "The ability to assess and initiate things independently. It involves taking action without being prompted by others.",
-                example: "Process improvement: Noticing an inefficient workflow and developing a better system on your own initiative, implementing it to benefit the whole team.",
-                category: "Personal",
-                tags: ["begin", "start", "launch", "instigate", "introduce", "establish", "create", "originate", "undertake"]
-            },
-            {
-                name: "Inner Peace",
-                description: "A state of being mentally and spiritually at peace, with enough knowledge and understanding to keep oneself strong in the face of discord or stress.",
-                example: "Meditation practice: Maintaining a daily meditation practice that helps you stay centered and calm even during stressful situations or conflicts.",
-                category: "Personal",
-                tags: ["cultivate", "maintain", "practice", "develop", "nurture", "find", "create", "experience", "embody"]
-            },
-            {
-                name: "Innovation",
-                description: "The action or process of innovating; a new method, idea, product, etc. It values creative approaches to problems and continuous improvement.",
-                example: "Product reinvention: Completely reimagining an existing product to make it more sustainable, user-friendly, and effective rather than making small incremental changes.",
-                category: "Personal",
-                tags: ["create", "design", "develop", "pioneer", "revolutionize", "transform", "reinvent", "originate", "advance"]
-            },
-            {
-                name: "Intuition",
-                description: "The ability to understand something immediately, without the need for conscious reasoning. It values trusting your instincts and subconscious knowledge.",
-                example: "Gut feeling: Making a major life decision, such as accepting a job offer, based partly on your intuitive sense of fit, after considering rational factors.",
-                category: "Personal",
-                tags: ["sense", "feel", "perceive", "know", "recognize", "understand", "discern", "detect", "trust"]
-            },
-            {
-                name: "Knowledge",
-                description: "Facts, information, and skills acquired by a person through experience or education; the theoretical or practical understanding of a subject.",
-                example: "Lifelong learning: Consistently reading books, taking courses, and seeking new information in both your professional field and areas of personal interest.",
-                category: "Personal",
-                tags: ["learn", "study", "understand", "research", "investigate", "discover", "examine", "explore", "comprehend"]
-            },
-            {
-                name: "Laughter",
-                description: "The action or sound of laughing. It values joy, humor, and the release that comes from shared amusement.",
-                example: "Comedy appreciation: Regularly seeking out humor through comedy shows, funny books, or time with friends who make you laugh, valuing how it relieves stress and creates connection.",
-                category: "Interpersonal",
-                tags: ["enjoy", "share", "create", "experience", "express", "release", "connect", "appreciate", "embrace"]
-            },
-            {
-                name: "Leadership",
-                description: "The action of leading a group of people or an organization. It involves influencing, motivating, and enabling others to contribute toward organizational success.",
-                example: "Team development: Guiding your team through a challenging project by providing clear direction, removing obstacles, and empowering each person to contribute their best work.",
-                category: "Interpersonal",
-                tags: ["guide", "direct", "inspire", "influence", "motivate", "empower", "develop", "mentor", "serve"]
-            },
-            {
-                name: "Learning",
-                description: "The acquisition of knowledge or skills through experience, study, or by being taught. It values continuous growth and development.",
-                example: "Interdisciplinary study: Deliberately studying subjects outside your main field to gain new perspectives and create connections between different areas of knowledge.",
-                category: "Personal",
-                tags: ["study", "discover", "explore", "research", "investigate", "understand", "absorb", "master", "practice"]
-            },
-            {
-                name: "Legacy",
-                description: "Something handed down from an ancestor or predecessor. It values the lasting impact of one's life and work beyond one's lifetime.",
-                example: "Knowledge sharing: Creating comprehensive documentation of your professional expertise to help future practitioners, ensuring your insights continue to benefit others.",
-                category: "Social",
-                tags: ["build", "create", "leave", "establish", "develop", "pass on", "invest", "shape", "influence"]
-            },
-            {
-                name: "Love",
-                description: "An intense feeling of deep affection. It can be romantic, familial, platonic, or universal, but always involves deep care and connection.",
-                example: "Unconditional support: Consistently showing up for someone important in your life through both joyful and difficult times, without judgment or expectation of return.",
-                category: "Interpersonal",
-                tags: ["care", "cherish", "adore", "treasure", "value", "nurture", "support", "connect", "bond"]
-            },
-            {
-                name: "Loyalty",
-                description: "The quality of being faithful to someone or something. It involves standing by commitments and people through difficulties.",
-                example: "Friend support: Standing by a friend during a personal crisis, offering consistent support even when it requires significant time or emotional investment from you.",
-                category: "Interpersonal",
-                tags: ["commit", "defend", "support", "maintain", "uphold", "honor", "serve", "protect", "remain"]
-            },
-            {
-                name: "Luxury",
-                description: "The state of great comfort and extravagant living. It values refinement, quality, and exceptional experiences.",
-                example: "Quality investment: Saving to purchase high-quality, well-crafted items that provide exceptional comfort or beauty, valuing craftsmanship and materials over quantity.",
-                category: "Personal",
-                tags: ["indulge", "enjoy", "appreciate", "savor", "experience", "acquire", "select", "choose", "curate"]
-            },
-            {
-                name: "Meditation",
-                description: "The practice of focusing one's mind for a period of time, in silence or with the aid of chanting, for religious or spiritual purposes or as a method of relaxation.",
-                example: "Daily practice: Setting aside time each morning to sit in quiet awareness, training your attention and developing deeper self-understanding through regular practice.",
-                category: "Personal",
-                tags: ["practice", "center", "focus", "reflect", "observe", "breathe", "calm", "attend", "contemplate"]
-            },
-            {
-                name: "Mental Health",
-                description: "A person's condition with regard to their psychological and emotional well-being. It values maintaining balanced thoughts and emotions.",
-                example: "Therapy commitment: Regularly attending therapy sessions to work through personal challenges, develop coping skills, and improve emotional regulation and self-awareness.",
-                category: "Personal",
-                tags: ["maintain", "nurture", "monitor", "improve", "support", "balance", "regulate", "develop", "protect"]
-            },
-            {
-                name: "Mentorship",
-                description: "The guidance provided by a mentor, especially an experienced person in a company or educational institution. It values sharing knowledge to help others develop.",
-                example: "Career guidance: Taking a junior colleague under your wing, offering regular coaching sessions and opportunities for growth while sharing your experience and networks.",
-                category: "Interpersonal",
-                tags: ["guide", "teach", "support", "develop", "advise", "share", "coach", "nurture", "help"]
-            },
-            {
-                name: "Mindfulness",
-                description: "The quality or state of being conscious or aware of something. It involves paying attention to the present moment, observing thoughts and feelings without judgment.",
-                example: "Present-moment awareness: Bringing full attention to everyday activities like eating or walking, noticing sensations, thoughts, and emotions without getting caught up in them.",
-                category: "Personal",
-                tags: ["observe", "notice", "attend", "focus", "realize", "recognize", "acknowledge", "practice", "experience"]
-            },
-            {
-                name: "Mission",
-                description: "An important assignment carried out for political, religious, or commercial purposes. It involves a strong sense of purpose and direction.",
-                example: "Purpose-driven career: Choosing work specifically aligned with addressing a social problem you deeply care about, making career decisions based on impact rather than just advancement.",
-                category: "Personal",
-                tags: ["pursue", "fulfill", "accomplish", "achieve", "drive", "dedicate", "commit", "focus", "serve"]
-            },
-            {
-                name: "Money",
-                description: "A current medium of exchange in the form of coins and banknotes. While not a traditional value, some view financial resources as important to security and freedom.",
-                example: "Financial discipline: Creating and following a detailed budget that allows you to meet present needs while systematically building savings for future goals.",
-                category: "Personal",
-                tags: ["earn", "save", "invest", "manage", "budget", "allocate", "acquire", "build", "grow"]
-            },
-            {
-                name: "Movement",
-                description: "The act of moving the body or parts of the body. It values physical activity and the expression of ideas through bodily motion.",
-                example: "Dance practice: Dedicating regular time to learn and practice dance, valuing the physical expression, health benefits, and joy that comes through movement.",
-                category: "Personal",
-                tags: ["exercise", "train", "practice", "perform", "engage", "express", "flow", "develop", "explore"]
-            },
-            {
-                name: "Networking",
-                description: "The action or process of interacting with others to exchange information and develop professional or social contacts. It values building connections.",
-                example: "Community building: Consistently attending and contributing to industry events and online forums, focusing on creating mutually beneficial relationships rather than transactions.",
-                category: "Interpersonal",
-                tags: ["connect", "exchange", "link", "relate", "communicate", "engage", "introduce", "build", "establish"]
-            },
-            {
-                name: "Open-mindedness",
-                description: "The willingness to consider new ideas, opinions, and concepts without prejudgment. It values receptivity to different perspectives.",
-                example: "Opinion revision: Changing your position on a political issue after engaging seriously with viewpoints and evidence that challenge your previous assumptions.",
-                category: "Personal",
-                tags: ["consider", "explore", "examine", "listen", "evaluate", "question", "learn", "adapt", "accept"]
-            },
-            {
-                name: "Optimism",
-                description: "Hopefulness and confidence about the future or the successful outcome of something. It values positive expectations even in difficult circumstances.",
-                example: "Solution focus: Approaching a major setback by focusing on possible solutions and opportunities rather than dwelling on problems or placing blame.",
-                category: "Personal",
-                tags: ["hope", "expect", "believe", "trust", "anticipate", "envision", "look forward", "encourage", "inspire"]
-            },
-            {
-                name: "Partnership",
-                description: "A relationship between individuals or groups that is characterized by mutual cooperation and responsibility for the achievement of a specified goal.",
-                example: "Business alliance: Forming a business relationship with another company that combines complementary strengths to create something neither could achieve alone.",
-                category: "Interpersonal",
-                tags: ["collaborate", "cooperate", "ally", "join", "share", "build", "develop", "create", "maintain"]
-            },
-            {
-                name: "Patience",
-                description: "The capacity to accept or tolerate delay, trouble, or suffering without getting angry or upset. It values calm persistence over time.",
-                example: "Skill development: Taking a gradual approach to learning a complex skill like playing an instrument, accepting that mastery requires consistent practice over years.",
-                category: "Personal",
-                tags: ["wait", "endure", "persist", "tolerate", "accept", "bear", "withstand", "continue", "remain"]
-            },
-            {
-                name: "Philanthropy",
-                description: "The desire to promote the welfare of others, expressed especially by the generous donation of money to good causes. It values giving to help others.",
-                example: "Strategic giving: Researching organizations addressing causes you care about, then making significant regular donations to those making the most effective impact.",
-                category: "Social",
-                tags: ["give", "donate", "support", "contribute", "fund", "help", "assist", "share", "provide"]
-            },
-            {
-                name: "Physical Health",
-                description: "The condition of your body, taking into consideration everything from the absence of disease to fitness level. It values bodily well-being.",
-                example: "Comprehensive fitness: Following a balanced regimen that includes cardiovascular exercise, strength training, flexibility work, and proper recovery to maintain overall health.",
-                category: "Personal",
-                tags: ["exercise", "nourish", "strengthen", "rest", "train", "maintain", "develop", "practice", "protect"]
-            },
-            {
-                name: "Piety",
-                description: "The quality of being religious or reverent. It involves devotion and commitment to religious observances and beliefs.",
-                example: "Daily devotion: Setting aside specific times each day for prayer, scripture reading, or meditation as part of your commitment to your faith tradition.",
-                category: "Personal",
-                tags: ["pray", "worship", "reverence", "practice", "observe", "follow", "honor", "respect", "devotion"]
-            },
-            {
-                name: "Positive Attitude",
-                description: "A state of mind that envisions and expects favorable results. It values constructive thinking patterns and emotional outlook.",
-                example: "Challenge reframing: Habitually looking for opportunities within setbacks, choosing to focus on what can be learned or gained rather than what was lost.",
-                category: "Personal",
-                tags: ["choose", "practice", "maintain", "cultivate", "develop", "exercise", "demonstrate", "exhibit", "show"]
-            },
-            {
-                name: "Pragmatism",
-                description: "A practical approach to problems and affairs. It values dealing with things sensibly and realistically rather than theoretically or ideally.",
-                example: "Resource allocation: Making decisions based on concrete results and available resources rather than ideal scenarios, focusing on what works over what should work.",
-                category: "Personal",
-                tags: ["apply", "implement", "use", "adapt", "focus", "develop", "execute", "employ", "utilize"]
-            },
-            {
-                name: "Presence",
-                description: "The state or fact of existing, occurring, or being present in a place or thing. It values being fully engaged in the current moment.",
-                example: "Deep listening: Giving someone your complete attention during a conversation, putting away distractions and focusing on truly understanding rather than planning your response.",
-                category: "Personal",
-                tags: ["attend", "focus", "notice", "engage", "experience", "observe", "be", "remain", "participate"]
-            },
-            {
-                name: "Professionalism",
-                description: "The competence or skill expected of a professional. It values meeting high standards in work behavior, appearance, and output.",
-                example: "Client communication: Maintaining clear, timely, and courteous communication with clients even during stressful periods, upholding standards regardless of circumstances.",
-                category: "Personal",
-                tags: ["maintain", "demonstrate", "uphold", "practice", "exhibit", "display", "conduct", "represent", "show"]
-            },
-            {
-                name: "Purpose",
-                description: "The reason for which something is done or created or for which something exists. It values meaning and direction in life activities.",
-                example: "Career alignment: Choosing work that connects directly to your core values and contributes to something you believe is important, even if it requires sacrifice in other areas.",
-                category: "Personal",
-                tags: ["pursue", "discover", "fulfill", "find", "define", "create", "live", "express", "embody"]
-            },
-            {
-                name: "Quality",
-                description: "The standard of something as measured against other things of a similar kind; the degree of excellence of something. It values high standards.",
-                example: "Craftsmanship: Taking extra time to perfect details in your work that others might not notice, committed to excellence regardless of whether it will be recognized.",
-                category: "Personal",
-                tags: ["create", "ensure", "maintain", "improve", "achieve", "deliver", "produce", "craft", "perfect"]
-            },
-            {
-                name: "Recognition",
-                description: "The acknowledgment of something's existence, validity, or legality. For people, it involves appreciation of their efforts, achievements, or rights.",
-                example: "Team appreciation: Creating a system for regularly highlighting team members' contributions, ensuring their efforts are visibly acknowledged and valued.",
-                category: "Interpersonal",
-                tags: ["acknowledge", "appreciate", "honor", "notice", "praise", "celebrate", "commend", "highlight", "award"]
-            },
-            {
-                name: "Recovery",
-                description: "A return to a normal state of health, mind, or strength. It values healing and restoration after injury, illness, or difficult experiences.",
-                example: "Addiction sobriety: Committing to a program of recovery from substance abuse, embracing support systems and lifestyle changes necessary for sustained health.",
-                category: "Personal",
-                tags: ["heal", "restore", "reclaim", "rebuild", "regain", "overcome", "rehabilitate", "mend", "strengthen"]
-            },
-            {
-                name: "Reliability",
-                description: "The quality of being trustworthy or of performing consistently well. It values dependability and consistency in actions and commitments.",
-                example: "Consistent follow-through: Building a reputation for always completing what you promise, on time and to standard, becoming someone others know they can count on.",
-                category: "Personal",
-                tags: ["fulfill", "deliver", "complete", "uphold", "maintain", "honor", "execute", "accomplish", "meet"]
-            },
-            {
-                name: "Representation",
-                description: "The action of speaking or acting on behalf of someone or the state of being so represented. It values inclusion of diverse perspectives and identities.",
-                example: "Inclusive leadership: Ensuring diverse voices are included in decision-making processes, actively seeking participation from underrepresented groups.",
-                category: "Social",
-                tags: ["include", "speak", "advocate", "embody", "reflect", "symbolize", "stand", "present", "portray"]
-            },
-            {
-                name: "Resilience",
-                description: "The capacity to recover quickly from difficulties; toughness. It values the ability to bounce back from adversity and adapt to challenge.",
-                example: "Setback response: Responding to a major professional disappointment by acknowledging the pain, learning from the experience, and redirecting energy toward new opportunities.",
-                category: "Personal",
-                tags: ["recover", "adapt", "overcome", "withstand", "rebound", "persist", "endure", "strengthen", "grow"]
-            },
-            {
-                name: "Romance",
-                description: "A feeling of excitement and mystery associated with love, or a love affair between two people. It values emotional and passionate connection.",
-                example: "Relationship nurturing: Regularly planning special dates and expressing affection creatively to maintain the emotional and physical spark in a long-term relationship.",
-                category: "Interpersonal",
-                tags: ["love", "adore", "pursue", "woo", "cherish", "connect", "express", "kindle", "share"]
-            },
-            {
-                name: "Safety",
-                description: "The condition of being protected from or unlikely to cause danger, risk, or injury. It values security and protection from harm.",
-                example: "Community watch: Organizing neighbors to look out for each other's homes and children, creating systems for communication during emergencies.",
-                category: "Personal",
-                tags: ["protect", "secure", "defend", "shield", "guard", "prevent", "ensure", "maintain", "preserve"]
-            },
-            {
-                name: "Self Care",
-                description: "The practice of taking an active role in protecting one's own well-being and happiness, particularly during periods of stress. It values maintaining personal health.",
-                example: "Preventive practices: Maintaining regular habits that support your physical and mental health, such as adequate sleep, healthy eating, exercise, and relaxation.",
-                category: "Personal",
-                tags: ["nurture", "protect", "maintain", "restore", "prioritize", "attend", "respect", "preserve", "rejuvenate"]
-            },
-            {
-                name: "Self Expression",
-                description: "The expression of one's feelings, thoughts, or ideas, especially in writing, art, music, or dance. It values authentic personal communication.",
-                example: "Creative writing: Maintaining a regular writing practice that allows you to explore and express your unique thoughts, feelings, and perspectives.",
-                category: "Personal",
-                tags: ["create", "show", "demonstrate", "display", "communicate", "share", "reveal", "manifest", "represent"]
-            },
-            {
-                name: "Self-Actualization",
-                description: "The realization or fulfillment of one's talents and potentialities. It values becoming the best version of oneself that one can be.",
-                example: "Deliberate challenge: Consistently seeking opportunities that push you to grow beyond your current capabilities, working to fulfill your potential in areas you value.",
-                category: "Personal",
-                tags: ["develop", "fulfill", "realize", "become", "achieve", "grow", "express", "manifest", "create"]
-            },
-            {
-                name: "Self-Awareness",
-                description: "Conscious knowledge of one's own character, feelings, motives, and desires. It values understanding oneself clearly and honestly.",
-                example: "Reflective journaling: Maintaining a regular practice of writing about your reactions, patterns, and growth, actively seeking to understand yourself better over time.",
-                category: "Personal",
-                tags: ["reflect", "examine", "understand", "recognize", "acknowledge", "observe", "monitor", "analyze", "know"]
-            },
-            {
-                name: "Self-Compassion",
-                description: "Extending compassion to oneself in instances of perceived inadequacy, failure, or general suffering. It values treating oneself with kindness.",
-                example: "Failure response: Speaking to yourself with the same kindness you would offer a friend after making a mistake, recognizing your common humanity rather than harsh self-criticism.",
-                category: "Personal",
-                tags: ["nurture", "accept", "forgive", "understand", "support", "comfort", "love", "embrace", "acknowledge"]
-            },
-            {
-                name: "Self-control",
-                description: "The ability to control oneself, in particular one's emotions and desires or the expression of them in one's behavior, especially in difficult situations.",
-                example: "Emotion regulation: Remaining calm and composed during a heated argument, choosing your response rather than reacting impulsively to provocation.",
-                category: "Personal",
-                tags: ["manage", "regulate", "restrain", "govern", "discipline", "moderate", "contain", "direct", "master"]
-            },
-            {
-                name: "Selflessness",
-                description: "Concern more with the needs and wishes of others than with one's own. It values putting others before oneself.",
-                example: "Volunteer service: Dedicating significant personal time to help others without expectation of recognition or reward, focused entirely on meeting others' needs.",
-                category: "Interpersonal",
-                tags: ["give", "serve", "help", "support", "sacrifice", "assist", "provide", "contribute", "offer"]
-            },
-            {
-                name: "Service",
-                description: "The action of helping or doing work for someone. It values contributing to the well-being of others or a larger cause.",
-                example: "Community volunteering: Regularly volunteering at a local food bank or shelter, focusing on making a consistent contribution to those in need.",
-                category: "Interpersonal",
-                tags: ["help", "assist", "support", "provide", "contribute", "work", "give", "aid", "attend"]
-            },
-            {
-                name: "Sovereignty",
-                description: "Supreme power or authority. At the personal level, it involves self-determination and autonomy over one's own life and decisions.",
-                example: "Financial independence: Building sufficient resources and income streams to make life decisions based on your values rather than external pressures or necessities.",
-                category: "Personal",
-                tags: ["control", "determine", "decide", "govern", "direct", "rule", "manage", "command", "regulate"]
-            },
-            {
-                name: "Spirituality",
-                description: "The quality of being concerned with the human spirit or soul as opposed to material or physical things. It values connection to something larger than oneself.",
-                example: "Contemplative practice: Engaging in regular meditation, prayer, or time in nature that connects you to a sense of meaning beyond yourself and everyday concerns.",
-                category: "Personal",
-                tags: ["connect", "explore", "seek", "practice", "experience", "develop", "cultivate", "discover", "understand"]
-            },
-            {
-                name: "Sports",
-                description: "An activity involving physical exertion and skill in which an individual or team competes against another or others for entertainment.",
-                example: "Team participation: Committing to regular practice and games with a recreational sports team, valuing both the physical activity and camaraderie with teammates.",
-                category: "Personal",
-                tags: ["play", "compete", "train", "practice", "participate", "improve", "develop", "engage", "perform"]
-            },
-            {
-                name: "Sportsmanship",
-                description: "Fair and generous behavior or treatment of others, especially in a sports contest. It values respect for rules, officials, and opponents.",
-                example: "Gracious competition: Congratulating opponents after a loss, acknowledging their good play rather than making excuses or displaying resentment.",
-                category: "Interpersonal",
-                tags: ["respect", "honor", "congratulate", "acknowledge", "accept", "demonstrate", "display", "show", "exhibit"]
-            },
-            {
-                name: "Stability",
-                description: "The state of being stable; resistance to change, deterioration, or displacement. It values predictability and steadiness in life.",
-                example: "Routine maintenance: Creating and maintaining consistent daily routines and regular habits that provide structure and predictability amid life's uncertainties.",
-                category: "Personal",
-                tags: ["maintain", "establish", "ensure", "build", "preserve", "secure", "create", "provide", "sustain"]
-            },
-            {
-                name: "Stewardship",
-                description: "The responsible overseeing and protection of something considered worth caring for and preserving. It values careful and responsible management.",
-                example: "Land conservation: Managing property with practices that preserve soil health, biodiversity, and water quality for future generations, not just current benefit.",
-                category: "Social",
-                tags: ["care", "manage", "protect", "preserve", "maintain", "guard", "oversee", "safeguard", "conserve"]
-            },
-            {
-                name: "Stillness",
-                description: "The absence of movement or sound. It values quiet, calm, and peace rather than constant activity or noise.",
-                example: "Silent retreat: Setting aside a weekend for silence and stillness, removing yourself from technology and conversation to experience deeper levels of quiet.",
-                category: "Personal",
-                tags: ["practice", "experience", "cultivate", "seek", "find", "create", "embrace", "maintain", "enter"]
-            },
-            {
-                name: "Strategy",
-                description: "A plan of action designed to achieve a long-term or overall aim. It values thoughtful planning rather than merely reacting to circumstances.",
-                example: "Career planning: Mapping a long-term professional development path with specific skills to acquire, positions to target, and timing for transitions.",
-                category: "Personal",
-                tags: ["plan", "develop", "create", "design", "implement", "execute", "evaluate", "adjust", "direct"]
-            },
-            {
-                name: "Sustainability",
-                description: "The ability to maintain at a certain level, particularly avoiding depletion of natural resources to maintain ecological balance. It values long-term viability.",
-                example: "Lifestyle choices: Making daily decisions about consumption, transportation, and energy use that reflect concern for environmental impact and future generations.",
-                category: "Social",
-                tags: ["maintain", "conserve", "preserve", "protect", "balance", "reuse", "reduce", "recycle", "renew"]
-            },
-            {
-                name: "Synergy",
-                description: "The interaction or cooperation of two or more organizations, substances, or other agents to produce a combined effect greater than the sum of their separate effects.",
-                example: "Collaborative project: Combining complementary skills with team members to create results that exceed what any individual could accomplish alone.",
-                category: "Interpersonal",
-                tags: ["combine", "unite", "integrate", "collaborate", "coordinate", "harmonize", "merge", "blend", "connect"]
-            },
-            {
-                name: "Teaching",
-                description: "The occupation, profession, or work of a teacher; imparting knowledge or skill. It values sharing knowledge to empower others.",
-                example: "Skill transfer: Taking time to thoroughly teach colleagues a specialized skill you've mastered, ensuring they understand principles, not just procedures.",
-                category: "Interpersonal",
-                tags: ["instruct", "explain", "guide", "demonstrate", "show", "train", "educate", "mentor", "develop"]
-            },
-            {
-                name: "Teamwork",
-                description: "The combined action of a group of people, especially when effective and efficient. It values collaboration toward shared goals.",
-                example: "Collaborative project: Working closely with team members with diverse skills to complete a complex project, with everyone contributing their strengths.",
-                category: "Interpersonal",
-                tags: ["collaborate", "cooperate", "contribute", "support", "participate", "assist", "coordinate", "partner", "join"]
-            },
-            {
-                name: "Technology",
-                description: "The application of scientific knowledge for practical purposes, especially in industry. It values innovation and the tools that extend human capabilities.",
-                example: "Digital creation: Using software to design and produce creative work that wouldn't be possible with traditional methods, expanding what you can express or accomplish.",
-                category: "Social",
-                tags: ["develop", "utilize", "apply", "create", "innovate", "implement", "improve", "design", "build"]
-            },
-            {
-                name: "Thoughtfulness",
-                description: "The quality of being considerate and mindful of others' needs and feelings. It involves taking time to think about how one's actions affect others.",
-                example: "Personalized attention: Remembering important details about colleagues' lives and preferences, then using that knowledge to make them feel valued and understood.",
-                category: "Interpersonal",
-                tags: ["consider", "reflect", "ponder", "contemplate", "deliberate", "think", "examine", "analyze", "evaluate"]
-            },
-            {
-                name: "Tolerance",
-                description: "The ability or willingness to tolerate the existence of opinions or behavior that one dislikes or disagrees with. It values acceptance of diversity.",
-                example: "Diverse community: Actively working to make your neighborhood or organization welcoming to people of different backgrounds, beliefs, and lifestyles.",
-                category: "Interpersonal",
-                tags: ["accept", "respect", "accommodate", "allow", "understand", "embrace", "permit", "acknowledge", "recognize"]
-            },
-            {
-                name: "Trust",
-                description: "Firm belief in the reliability, truth, ability, or strength of someone or something. It values confidence in relationships and interactions.",
-                example: "Team delegation: Assigning important tasks to team members and giving them autonomy to complete them, resisting the urge to micromanage or constantly check in.",
-                category: "Interpersonal",
-                tags: ["believe", "rely", "depend", "confide", "count on", "entrust", "commit", "faith", "confidence"]
-            },
-            {
-                name: "Truth",
-                description: "The quality or state of being true; that which is true or in accordance with fact or reality. It values honesty and accuracy in information.",
-                example: "Scientific integrity: Reporting research findings completely and accurately, even when the results don't match your hypothesis or might disappoint sponsors.",
-                category: "Personal",
-                tags: ["seek", "speak", "discover", "reveal", "uncover", "verify", "confirm", "validate", "establish"]
-            },
-            {
-                name: "Unity",
-                description: "The state of being united or forming a whole. It values harmony and cohesion among diverse elements or people.",
-                example: "Community building: Creating events and initiatives that bring together diverse members of your community to build relationships across differences.",
-                category: "Social",
-                tags: ["connect", "join", "harmonize", "integrate", "combine", "unify", "bring together", "coalesce", "merge"]
-            },
-            {
-                name: "Versatility",
-                description: "The ability to adapt or be adapted to many different functions or activities. It values flexibility and breadth of capability.",
-                example: "Skill diversity: Intentionally developing a wide range of professional and personal skills that allow you to adapt to different situations and solve various problems.",
-                category: "Personal",
-                tags: ["adapt", "adjust", "flex", "modify", "transform", "change", "accommodate", "shift", "alter"]
-            },
-            {
-                name: "Vision",
-                description: "The ability to think about or plan the future with imagination or wisdom. It values looking ahead and imagining possibilities beyond current reality.",
-                example: "Organizational direction: Creating a compelling picture of where your organization could be in five years, inspiring others to work toward that future state.",
-                category: "Personal",
-                tags: ["imagine", "envision", "foresee", "conceptualize", "create", "design", "develop", "formulate", "plan"]
-            },
-            {
-                name: "Willingness",
-                description: "The quality or state of being prepared to do something; readiness. It values an open attitude toward requests, suggestions, or opportunities.",
-                example: "Volunteer attitude: Consistently offering to help with tasks outside your job description when needed, showing readiness to contribute beyond expectations.",
-                category: "Personal",
-                tags: ["agree", "accept", "volunteer", "offer", "consent", "participate", "engage", "embrace", "undertake"]
-            },
-            {
-                name: "Wisdom",
-                description: "The quality of having experience, knowledge, and good judgment; the quality of being wise. It values depth of understanding and sound judgment.",
-                example: "Mentorship: Sharing insights gained from your experiences--both successes and failures--to help others navigate similar situations with greater understanding.",
-                category: "Personal",
-                tags: ["understand", "discern", "perceive", "consider", "contemplate", "reflect", "comprehend", "judge", "recognize"]
-            },
-            {
-                name: "Work Ethic",
-                description: "The principle that hard work is intrinsically virtuous or worthy of reward. It values diligence, dedication, and commitment to tasks.",
-                example: "Project completion: Staying late to complete an important project deadline, demonstrating commitment to quality and reliability even when it requires personal sacrifice.",
-                category: "Personal",
-                tags: ["work", "strive", "persist", "apply", "endeavor", "commit", "dedicate", "pursue", "labor"]
-            }
+            const values = [
+    {
+        name: "Acceptance",
+        description: "A set of guiding principles that shape behavior and decisions in a group or organization.",
+        example: "During a team meeting, the group embraces differing opinions, demonstrating acceptance of diverse perspectives.",
+        category: "Social",
+        tags: ["principles", "guide", "embrace", "integrate", "decide"]
+    },
+    {
+        name: "Accountability",
+        description: "Taking responsibility for one's actions and being answerable for their outcomes.",
+        example: "When a project goes off track, taking ownership and addressing the issues shows accountability.",
+        category: "Personal",
+        tags: ["responsibility", "answer", "own", "admit", "explain"]
+    },
+    {
+        name: "Achievement",
+        description: "Reaching goals and fulfilling your potential through hard work and determination.",
+        example: "Completing a challenging project ahead of schedule exemplifies achievement.",
+        category: "Personal",
+        tags: ["succeed", "attain", "complete", "fulfill", "excel"]
+    },
+    {
+        name: "Action",
+        description: "Taking steps to achieve a goal or complete a task.",
+        example: "Launching a new initiative at work demonstrates the power of action.",
+        category: "Personal",
+        tags: ["act", "execute", "move", "initiate", "perform"]
+    },
+    {
+        name: "Adventure",
+        description: "A willingness to take risks and explore new experiences for enjoyment and growth.",
+        example: "Embarking on a solo backpacking trip in a foreign country captures the spirit of adventure.",
+        category: "Personal",
+        tags: ["explore", "risk", "venture", "discover", "experience"]
+    },
+    {
+        name: "Advocacy",
+        description: "Speaking up for what is right and supporting others to create positive change in the community.",
+        example: "Attending a city council meeting to support a local cause is a clear act of advocacy.",
+        category: "Social",
+        tags: ["support", "champion", "defend", "speak", "promote"]
+    },
+    {
+        name: "AmbiguityIn",
+        description: "The quality of being open to more than one interpretation or having unclear meaning.",
+        example: "Interpreting a complex piece of art in multiple ways shows an appreciation for ambiguity.",
+        category: "Personal",
+        tags: ["interpret", "open", "explore", "question", "analyze"]
+    },
+    {
+        name: "Ambition",
+        description: "A strong desire to achieve goals and succeed in life, turning dreams into reality through hard work and overcoming challenges.",
+        example: "Setting a multi‐year career goal and diligently working toward it illustrates ambition.",
+        category: "Personal",
+        tags: ["aspire", "strive", "pursue", "dream", "excel"]
+    },
+    {
+        name: "Appreciation",
+        description: "Showing gratitude and recognizing the good things or people in life.",
+        example: "Thanking a colleague publicly for their hard work reflects genuine appreciation.",
+        category: "Interpersonal",
+        tags: ["recognize", "value", "thank", "cherish", "acknowledge"]
+    },
+    {
+        name: "Approachability",
+        description: "Being open and friendly to others, making it easy for them to talk and share their thoughts.",
+        example: "Keeping an open‐door policy at work demonstrates approachability.",
+        category: "Interpersonal",
+        tags: ["welcome", "engage", "connect", "invite", "listen"]
+    },
+    {
+        name: "Authenticity",
+        description: "Being true to oneself and honest with others, showing real feelings and beliefs.",
+        example: "Sharing personal experiences honestly during a conversation showcases authenticity.",
+        category: "Personal",
+        tags: ["genuine", "real", "honest", "express", "true"]
+    },
+    {
+        name: "Balance",
+        description: "Maintaining a fair and even distribution of different elements in life or work.",
+        example: "Juggling professional responsibilities with personal time exemplifies balance.",
+        category: "Personal",
+        tags: ["equalize", "stabilize", "integrate", "harmonize", "moderate"]
+    },
+    {
+        name: "Beauty",
+        description: "An aesthetic quality that pleases the senses and evokes feelings of joy or admiration.",
+        example: "Admiring a breathtaking sunset reflects an appreciation for beauty.",
+        category: "Personal",
+        tags: ["admire", "appreciate", "inspire", "enchant", "capture"]
+    },
+    {
+        name: "Benevolence",
+        description: "Showing kindness and helping others without expecting anything in return.",
+        example: "Volunteering at a local shelter out of genuine care is an act of benevolence.",
+        category: "Interpersonal",
+        tags: ["kindness", "give", "help", "support", "care"]
+    },
+    {
+        name: "Boldness",
+        description: "Taking risks and facing challenges with confidence, even when afraid.",
+        example: "Proposing a new idea in a competitive meeting is an act of boldness.",
+        category: "Personal",
+        tags: ["dare", "risk", "challenge", "courage", "venture"]
+    },
+    {
+        name: "Bravery",
+        description: "Facing fears and challenges with courage, even when feeling scared or uncertain.",
+        example: "Standing up for someone in need despite personal fear demonstrates bravery.",
+        category: "Personal",
+        tags: ["courage", "face", "confront", "defy", "stand"]
+    },
+    {
+        name: "Camaraderie",
+        description: "Building strong relationships and trust among people working together, creating a sense of friendship and support.",
+        example: "Organizing team‐building activities that foster mutual trust exemplifies camaraderie.",
+        category: "Interpersonal",
+        tags: ["bond", "connect", "unite", "support", "share"]
+    },
+    {
+        name: "Capitalism",
+        description: "An economic system where individuals own businesses and property, and prices are determined by competition in the market.",
+        example: "Launching a startup in a competitive market reflects the principles of capitalism.",
+        category: "Social",
+        tags: ["market", "compete", "invest", "own", "innovate"]
+    },
+    {
+        name: "Caring",
+        description: "Showing kindness and concern for others, helping them when they need support.",
+        example: "Checking in on a friend during a tough time is a simple act of caring.",
+        category: "Interpersonal",
+        tags: ["nurture", "support", "assist", "tend", "cherish"]
+    },
+    {
+        name: "Celebration",
+        description: "A joyful event or gathering to honor a special occasion or achievement.",
+        example: "Throwing a party to celebrate a major milestone demonstrates celebration.",
+        category: "Interpersonal",
+        tags: ["honor", "rejoice", "commemorate", "observe", "fest"]
+    },
+    {
+        name: "Challenge",
+        description: "Facing a difficult task or problem that requires effort and determination to overcome.",
+        example: "Taking on a complex project at work that pushes your limits is a true challenge.",
+        category: "Personal",
+        tags: ["test", "strive", "overcome", "pursue", "tackle"]
+    },
+    {
+        name: "Charisma",
+        description: "The ability to attract, influence, and inspire others through charm and confidence.",
+        example: "Leading a group discussion with infectious energy shows charisma.",
+        category: "Interpersonal",
+        tags: ["inspire", "attract", "engage", "charm", "influence"]
+    },
+    {
+        name: "Choice",
+        description: "The ability to select between options or make decisions based on personal preference.",
+        example: "Choosing a career path that aligns with your passions reflects the power of choice.",
+        category: "Personal",
+        tags: ["decide", "select", "choose", "opt", "determine"]
+    },
+    {
+        name: "Collaboration",
+        description: "Working together with others to achieve common goals and share ideas effectively.",
+        example: "Collaborating with colleagues on a new project leads to innovative solutions.",
+        category: "Interpersonal",
+        tags: ["cooperate", "unite", "team", "share", "contribute"]
+    },
+    {
+        name: "Comedy",
+        description: "A form of entertainment that uses humor to make people laugh.",
+        example: "Watching a stand‐up comedy show can lift the mood and bring laughter.",
+        category: "Interpersonal",
+        tags: ["amuse", "entertain", "joke", "laugh", "play"]
+    },
+    {
+        name: "Comfort",
+        description: "A state of physical and emotional ease that makes people feel relaxed and safe.",
+        example: "Creating a cozy home environment that soothes and relaxes is a form of comfort.",
+        category: "Personal",
+        tags: ["soothe", "relax", "ease", "support", "settle"]
+    },
+    {
+        name: "Commitment",
+        description: "Being dedicated to doing what you said you would do and supporting others in achieving their goals.",
+        example: "Staying late to help a colleague meet a deadline shows strong commitment.",
+        category: "Personal",
+        tags: ["dedicate", "devote", "promise", "persist", "support"]
+    },
+    {
+        name: "Communication",
+        description: "Sharing information clearly and respectfully with others to ensure understanding and connection.",
+        example: "Expressing your ideas clearly during a team meeting reflects effective communication.",
+        category: "Interpersonal",
+        tags: ["express", "share", "listen", "clarify", "convey"]
+    },
+    {
+        name: "Community",
+        description: "A group of people who share common interests, goals, or values and support each other.",
+        example: "Participating in local events strengthens the sense of community.",
+        category: "Social",
+        tags: ["unite", "support", "engage", "connect", "belong"]
+    },
+    {
+        name: "Compassion",
+        description: "Caring for others and wanting to help them when they are suffering or in need.",
+        example: "Volunteering at a shelter to assist those in distress exemplifies compassion.",
+        category: "Interpersonal",
+        tags: ["care", "support", "empathize", "assist", "nurture"]
+    },
+    {
+        name: "Confidence",
+        description: "Believing in your own abilities and judgment to succeed in different situations.",
+        example: "Presenting your ideas assertively during a meeting shows confidence.",
+        category: "Personal",
+        tags: ["believe", "trust", "assert", "excel", "rely"]
+    },
+    {
+        name: "Connection",
+        description: "A strong bond between people that helps them understand and support each other.",
+        example: "Building a network of mentors and peers fosters deep connection.",
+        category: "Interpersonal",
+        tags: ["bond", "link", "unite", "relate", "engage"]
+    },
+    {
+        name: "Cooperation",
+        description: "Working together toward shared goals.",
+        example: "Collaborating on a community project illustrates effective cooperation.",
+        category: "Interpersonal",
+        tags: ["collaborate", "assist", "support", "team", "contribute"]
+    },
+    {
+        name: "Courage",
+        description: "The ability to face fear, difficulty, or uncertainty with bravery and determination.",
+        example: "Standing up for what you believe in, despite opposition, shows courage.",
+        category: "Personal",
+        tags: ["brave", "face", "defy", "challenge", "stand"]
+    },
+    {
+        name: "Craftsmanship",
+        description: "Creating high-quality work with attention to detail and skill.",
+        example: "A meticulously handcrafted piece of furniture reflects excellent craftsmanship.",
+        category: "Personal",
+        tags: ["create", "build", "craft", "design", "perfect"]
+    },
+    {
+        name: "Creativity",
+        description: "Using imagination and original ideas to create something new or solve problems.",
+        example: "Developing an innovative marketing campaign is an example of creativity.",
+        category: "Personal",
+        tags: ["imagine", "innovate", "design", "invent", "conceptualize"]
+    },
+    {
+        name: "Curiosity",
+        description: "A strong desire to learn or know more about something.",
+        example: "Exploring new topics through research and reading demonstrates curiosity.",
+        category: "Personal",
+        tags: ["explore", "inquire", "investigate", "question", "discover"]
+    },
+    {
+        name: "Determination",
+        description: "Staying focused on your goals and not giving up, even when things get tough.",
+        example: "Persistently working towards a challenging deadline shows determination.",
+        category: "Personal",
+        tags: ["persevere", "persist", "strive", "endure", "commit"]
+    },
+    {
+        name: "Discipline",
+        description: "Staying focused and following rules to achieve goals and complete tasks.",
+        example: "Maintaining a strict study schedule to prepare for exams is a sign of discipline.",
+        category: "Personal",
+        tags: ["focus", "follow", "regulate", "practice", "train"]
+    },
+    {
+        name: "Effectiveness",
+        description: "Using resources wisely to achieve desired results and make a positive impact through actions and decisions.",
+        example: "Optimizing team workflows to produce measurable outcomes shows effectiveness.",
+        category: "Personal",
+        tags: ["achieve", "produce", "execute", "impact", "optimize"]
+    },
+    {
+        name: "Empathy",
+        description: "Understanding and sharing the feelings of others to connect and support them better.",
+        example: "Listening attentively to a friend’s troubles reflects deep empathy.",
+        category: "Interpersonal",
+        tags: ["understand", "feel", "share", "support", "connect"]
+    },
+    {
+        name: "Equality",
+        description: "Fair treatment and equal opportunities for everyone, regardless of their differences.",
+        example: "Implementing unbiased hiring practices demonstrates a commitment to equality.",
+        category: "Social",
+        tags: ["fair", "equal", "balance", "standardize", "respect"]
+    },
+    {
+        name: "Experiment",
+        description: "Emphasizing the importance of testing new ideas and learning from outcomes.",
+        example: "Trying out a new project method to see if it improves efficiency shows a spirit of experiment.",
+        category: "Personal",
+        tags: ["test", "try", "explore", "learn", "innovate"]
+    },
+    {
+        name: "Exploration",
+        description: "The act of searching for new places, ideas, or experiences to learn and discover.",
+        example: "Traveling to unfamiliar destinations to gain new insights exemplifies exploration.",
+        category: "Personal",
+        tags: ["search", "discover", "explore", "investigate", "venture"]
+    },
+    {
+        name: "Fairness",
+        description: "Treating everyone equally and justly, ensuring that all have the same opportunities and rights.",
+        example: "Ensuring every team member gets equal opportunities in a project demonstrates fairness.",
+        category: "Social",
+        tags: ["equal", "just", "balance", "impartial", "treat"]
+    },
+    {
+        name: "Family",
+        description: "A group of people related by blood, marriage, or adoption who support and care for each other.",
+        example: "Gathering for a family reunion to celebrate shared history embodies family values.",
+        category: "Interpersonal",
+        tags: ["support", "care", "love", "unite", "cherish"]
+    },
+    {
+        name: "Fine Art",
+        description: "Creative works that express beauty or emotions through visual forms like painting, sculpture, and drawing.",
+        example: "Visiting an art gallery and appreciating the depth of expression reflects a love for fine art.",
+        category: "Personal",
+        tags: ["create", "express", "design", "interpret", "inspire"]
+    },
+    {
+        name: "Flexibility",
+        description: "Being open to change and able to adapt to new circumstances or challenges.",
+        example: "Switching project strategies when circumstances change shows flexibility.",
+        category: "Personal",
+        tags: ["adapt", "adjust", "shift", "modify", "change"]
+    },
+    {
+        name: "Foresight",
+        description: "The ability to think ahead and plan for the future by considering possible outcomes and challenges.",
+        example: "Planning your career path by anticipating industry trends demonstrates foresight.",
+        category: "Personal",
+        tags: ["anticipate", "plan", "predict", "envision", "prepare"]
+    },
+    {
+        name: "Forgiveness",
+        description: "Letting go of anger or resentment towards someone who has hurt you.",
+        example: "Choosing to move past a personal betrayal by forgiving shows true forgiveness.",
+        category: "Interpersonal",
+        tags: ["release", "pardon", "heal", "reconcile", "accept"]
+    },
+    {
+        name: "Freedom",
+        description: "The power or right to act, speak, or think without hindrance or restraint.",
+        example: "Pursuing a career that aligns with your passions without external limitations illustrates freedom.",
+        category: "Personal",
+        tags: ["liberate", "choose", "act", "express", "independence"]
+    },
+    {
+        name: "Friendship",
+        description: "A strong bond between people that involves trust, support, and caring for each other.",
+        example: "Spending quality time with close friends and supporting them during tough times demonstrates friendship.",
+        category: "Interpersonal",
+        tags: ["bond", "support", "trust", "connect", "cherish"]
+    },
+    {
+        name: "Fun",
+        description: "Enjoyment and amusement that brings joy and entertainment to people's lives.",
+        example: "Organizing a game night that makes everyone laugh shows the value of fun.",
+        category: "Personal",
+        tags: ["enjoy", "play", "laugh", "amuse", "entertain"]
+    },
+    {
+        name: "Grace",
+        description: "A kind of love and kindness that shows compassion and forgiveness to others, even when they don't deserve it.",
+        example: "Helping someone recover from a mistake with kindness demonstrates grace.",
+        category: "Interpersonal",
+        tags: ["kindness", "compassion", "forgive", "elegance", "dignity"]
+    },
+    {
+        name: "Gratitude",
+        description: "Appreciating and recognizing the good things in life and the people who contribute to our happiness.",
+        example: "Keeping a daily journal of things you're thankful for shows gratitude.",
+        category: "Personal",
+        tags: ["thank", "appreciate", "recognize", "value", "cherish"]
+    },
+    {
+        name: "Growth",
+        description: "The process of improving skills, knowledge, or size over time.",
+        example: "Taking on new challenges at work that push you to learn and expand demonstrates growth.",
+        category: "Personal",
+        tags: ["develop", "improve", "expand", "evolve", "advance"]
+    },
+    {
+        name: "Happiness",
+        description: "A state of well-being and joy that comes from positive experiences and feelings.",
+        example: "Spending time with loved ones and engaging in favorite activities brings happiness.",
+        category: "Personal",
+        tags: ["joy", "content", "smile", "enjoy", "cherish"]
+    },
+    {
+        name: "Health",
+        description: "The state of being free from illness or injury, and maintaining physical and mental well-being.",
+        example: "Regular exercise and a balanced diet are key practices for maintaining health.",
+        category: "Personal",
+        tags: ["nourish", "strengthen", "protect", "maintain", "balance"]
+    },
+    {
+        name: "History",
+        description: "Understanding the past to inform the present and future.",
+        example: "Studying historical events to gain insights into current societal trends demonstrates the value of history.",
+        category: "Social",
+        tags: ["learn", "study", "remember", "analyze", "reflect"]
+    },
+    {
+        name: "Honesty",
+        description: "Being truthful and transparent in thoughts, words, and actions without hiding or lying.",
+        example: "Admitting a mistake openly at work exemplifies honesty.",
+        category: "Personal",
+        tags: ["truth", "transparent", "sincere", "direct", "open"]
+    },
+    {
+        name: "Honor",
+        description: "Being fair and truthful in your actions and treating others with respect.",
+        example: "Upholding ethical standards in a challenging situation reflects honor.",
+        category: "Interpersonal",
+        tags: ["respect", "integrity", "fair", "uphold", "value"]
+    },
+    {
+        name: "Hope",
+        description: "A feeling of expectation and desire for a positive outcome in the future.",
+        example: "Maintaining a positive outlook during tough times shows hope.",
+        category: "Personal",
+        tags: ["expect", "desire", "aspire", "believe", "inspire"]
+    },
+    {
+        name: "Humility",
+        description: "Being humble involves recognizing and appreciating the value of others without boasting about oneself.",
+        example: "Accepting constructive criticism graciously demonstrates humility.",
+        category: "Personal",
+        tags: ["modest", "grounded", "respect", "acknowledge", "learn"]
+    },
+    {
+        name: "Humor",
+        description: "A way of thinking or expressing ideas that makes people laugh or feel good.",
+        example: "Sharing a lighthearted joke during a tense meeting showcases humor.",
+        category: "Interpersonal",
+        tags: ["laugh", "joke", "entertain", "amuse", "lighten"]
+    },
+    {
+        name: "Imagination",
+        description: "The ability to create ideas or images in your mind that are not present in the real world.",
+        example: "Dreaming up innovative solutions to complex problems reflects imagination.",
+        category: "Personal",
+        tags: ["create", "envision", "dream", "innovate", "visualize"]
+    },
+    {
+        name: "Impact",
+        description: "Making a positive difference in people's lives or the world around us.",
+        example: "Volunteering to mentor youth can have a lasting impact on the community.",
+        category: "Social",
+        tags: ["influence", "change", "affect", "transform", "improve"]
+    },
+    {
+        name: "Independence",
+        description: "The ability to make choices and act freely without being controlled by others.",
+        example: "Choosing your own career path without undue influence shows independence.",
+        category: "Personal",
+        tags: ["self-reliance", "autonomy", "freedom", "choose", "determine"]
+    },
+    {
+        name: "Initiative",
+        description: "Taking action to make things better or to start new projects without waiting for others to do it first.",
+        example: "Proposing a new project idea and taking steps to launch it demonstrates initiative.",
+        category: "Personal",
+        tags: ["start", "lead", "propose", "begin", "act"]
+    },
+    {
+        name: "Inner Peace",
+        description: "A state of mental and emotional calmness, free from stress and anxiety.",
+        example: "Practicing meditation daily helps maintain inner peace.",
+        category: "Personal",
+        tags: ["calm", "balance", "center", "soothe", "reflect"]
+    },
+    {
+        name: "Innovation",
+        description: "Creating new ideas and better ways to solve problems or improve things.",
+        example: "Developing a cutting-edge product to address a common challenge exemplifies innovation.",
+        category: "Personal",
+        tags: ["create", "invent", "revolutionize", "improve", "design"]
+    },
+    {
+        name: "Integrity",
+        description: "Living honestly and being true to oneself and others, even when facing challenges, builds trust and connection.",
+        example: "Standing by your values even when it's difficult shows integrity.",
+        category: "Personal",
+        tags: ["honesty", "trust", "principles", "ethics", "truth"]
+    },
+    {
+        name: "Intuition",
+        description: "The ability to understand something immediately, without needing to think about it or use logic.",
+        example: "Making a quick decision based on a gut feeling demonstrates intuition.",
+        category: "Personal",
+        tags: ["sense", "instinct", "feel", "perceive", "discern"]
+    },
+    {
+        name: "Justice",
+        description: "Fair treatment for everyone, ensuring that rights are respected and wrongs are corrected.",
+        example: "Advocating for equal opportunities in the workplace shows a commitment to justice.",
+        category: "Social",
+        tags: ["fair", "equal", "law", "impartial", "defend"]
+    },
+    {
+        name: "Kindness",
+        description: "Being friendly and helpful to others, showing care and consideration in your actions and words.",
+        example: "Offering a smile or helping a stranger in need demonstrates kindness.",
+        category: "Interpersonal",
+        tags: ["care", "help", "support", "compassion", "tender"]
+    },
+    {
+        name: "Knowledge",
+        description: "Understanding and using information, facts, and skills gained through experience or education.",
+        example: "Continuously learning through books and courses shows a dedication to knowledge.",
+        category: "Personal",
+        tags: ["learn", "study", "research", "understand", "educate"]
+    },
+    {
+        name: "Laughter",
+        description: "A joyful expression often shared in response to humor or fun situations.",
+        example: "Sharing a hearty laugh with friends can lift everyone's spirits.",
+        category: "Interpersonal",
+        tags: ["laugh", "enjoy", "smile", "joke", "merriment"]
+    },
+    {
+        name: "Leadership",
+        description: "Guiding and inspiring others to work together towards common goals.",
+        example: "Taking charge of a project and motivating your team illustrates leadership.",
+        category: "Interpersonal",
+        tags: ["guide", "inspire", "motivate", "direct", "mentor"]
+    },
+    {
+        name: "Learning",
+        description: "Gaining knowledge or skills through study, experience, or teaching.",
+        example: "Attending workshops and seeking feedback to improve your abilities shows learning.",
+        category: "Personal",
+        tags: ["study", "grow", "develop", "educate", "absorb"]
+    },
+    {
+        name: "Legacy",
+        description: "Leaving a positive impact on future generations through actions and values.",
+        example: "Mentoring others and creating lasting projects contributes to your legacy.",
+        category: "Social",
+        tags: ["inspire", "impact", "leave", "build", "contribute"]
+    },
+    {
+        name: "Love",
+        description: "A deep feeling of affection and care for someone or something.",
+        example: "Expressing care and spending quality time with loved ones demonstrates love.",
+        category: "Interpersonal",
+        tags: ["cherish", "care", "value", "nurture", "embrace"]
+    },
+    {
+        name: "Loyalty",
+        description: "Being loyal involves staying true to someone or something, supporting them through good times and bad.",
+        example: "Standing by a friend in difficult times shows true loyalty.",
+        category: "Interpersonal",
+        tags: ["support", "commit", "dedicate", "stand by", "trust"]
+    },
+    {
+        name: "Luxury",
+        description: "A state of great comfort or elegance, often involving expensive items or experiences.",
+        example: "Enjoying high-quality dining and refined surroundings reflects an appreciation for luxury.",
+        category: "Personal",
+        tags: ["indulge", "savor", "enjoy", "refine", "experience"]
+    },
+    {
+        name: "Meditation",
+        description: "A practice that helps calm the mind and focus on the present moment.",
+        example: "Setting aside time each morning to meditate helps create a sense of calm.",
+        category: "Personal",
+        tags: ["calm", "focus", "reflect", "breathe", "center"]
+    },
+    {
+        name: "Mental Health",
+        description: "A state of well-being where individuals can cope with stress, work productively, and contribute to their community.",
+        example: "Prioritizing regular therapy and self-care routines is key to maintaining mental health.",
+        category: "Personal",
+        tags: ["balance", "support", "heal", "nurture", "maintain"]
+    },
+    {
+        name: "Mentorship",
+        description: "Supporting and guiding others to help them grow and succeed, sharing knowledge, experience, and support.",
+        example: "Offering regular advice and sharing your expertise with a junior colleague shows mentorship.",
+        category: "Interpersonal",
+        tags: ["guide", "support", "teach", "advise", "mentor"]
+    },
+    {
+        name: "Mindfulness",
+        description: "Being aware of the present moment and accepting thoughts and feelings without judgment.",
+        example: "Practicing mindful breathing during a busy day helps maintain focus and calm.",
+        category: "Personal",
+        tags: ["observe", "attend", "accept", "focus", "breathe"]
+    },
+    {
+        name: "Mission",
+        description: "A clear statement that describes the purpose and goals of an organization or group.",
+        example: "Defining a company’s core objectives during a strategic meeting reflects its mission.",
+        category: "Social",
+        tags: ["purpose", "goal", "aim", "drive", "vision"]
+    },
+    {
+        name: "Money",
+        description: "A medium of exchange used to buy goods and services.",
+        example: "Managing your finances wisely demonstrates an understanding of money.",
+        category: "Personal",
+        tags: ["earn", "save", "spend", "invest", "budget"]
+    },
+    {
+        name: "Movement",
+        description: "The act of changing position or location, often involving physical activity or effort.",
+        example: "Regularly engaging in exercise and dance shows the value of movement.",
+        category: "Personal",
+        tags: ["move", "exercise", "shift", "change", "active"]
+    },
+    {
+        name: "Networking",
+        description: "Building and maintaining relationships with people to share information and opportunities.",
+        example: "Attending industry events to build professional connections demonstrates networking.",
+        category: "Interpersonal",
+        tags: ["connect", "link", "build", "engage", "relate"]
+    },
+    {
+        name: "Open-mindedness",
+        description: "Being willing to consider new ideas and different viewpoints without judging them right away.",
+        example: "Listening carefully to alternative perspectives during a discussion shows open-mindedness.",
+        category: "Personal",
+        tags: ["consider", "explore", "learn", "adapt", "accept"]
+    },
+    {
+        name: "Optimism",
+        description: "A hopeful attitude that looks for good outcomes and believes in positive possibilities.",
+        example: "Seeing challenges as opportunities for growth reflects optimism.",
+        category: "Personal",
+        tags: ["hope", "believe", "expect", "inspire", "uplift"]
+    },
+    {
+        name: "Partnership",
+        description: "Working together with others to achieve common goals and build strong relationships.",
+        example: "Forming a strategic alliance to tackle a large project demonstrates partnership.",
+        category: "Interpersonal",
+        tags: ["collaborate", "cooperate", "ally", "support", "join"]
+    },
+    {
+        name: "Patience",
+        description: "The ability to wait calmly and without frustration for something to happen or for a situation to change.",
+        example: "Waiting calmly for results during a long process shows patience.",
+        category: "Personal",
+        tags: ["wait", "endure", "tolerate", "persevere", "remain"]
+    },
+    {
+        name: "Perseverance",
+        description: "Sticking with a task or goal even when it gets tough or takes a long time.",
+        example: "Continuing to work on a challenging project despite setbacks demonstrates perseverance.",
+        category: "Personal",
+        tags: ["persist", "endure", "continue", "strive", "commit"]
+    },
+    {
+        name: "Philanthropy",
+        description: "Helping others by giving money, time, or resources to support causes that improve people's lives and communities.",
+        example: "Donating regularly to charities that work for social good is an act of philanthropy.",
+        category: "Social",
+        tags: ["donate", "support", "contribute", "assist", "give"]
+    },
+    {
+        name: "Physical Health",
+        description: "Being physically healthy involves maintaining a strong body through regular exercise, good nutrition, and proper rest.",
+        example: "Following a balanced workout routine and healthy diet demonstrates a commitment to physical health.",
+        category: "Personal",
+        tags: ["exercise", "nourish", "train", "protect", "maintain"]
+    },
+    {
+        name: "Piety",
+        description: "A deep respect and devotion to something sacred or holy, often shown through actions and beliefs.",
+        example: "Observing religious practices with sincerity and reverence reflects piety.",
+        category: "Personal",
+        tags: ["revere", "honor", "worship", "devote", "respect"]
+    },
+    {
+        name: "Positive Attitude",
+        description: "Staying hopeful and cheerful, even when things are tough, helps to create a better environment and encourages others.",
+        example: "Maintaining a smile and upbeat outlook during challenging times shows a positive attitude.",
+        category: "Personal",
+        tags: ["cheer", "uplift", "encourage", "inspire", "optimism"]
+    },
+    {
+        name: "Pragmatism",
+        description: "This value emphasizes practical solutions and actions that work effectively in real-life situations.",
+        example: "Choosing a solution that addresses immediate needs rather than an idealistic option demonstrates pragmatism.",
+        category: "Personal",
+        tags: ["practical", "realistic", "apply", "adapt", "solve"]
+    },
+    {
+        name: "Presence",
+        description: "Being fully engaged and attentive in the moment, showing awareness of one’s surroundings and the people in it.",
+        example: "Putting away your phone during conversations to truly engage shows presence.",
+        category: "Personal",
+        tags: ["attend", "engage", "observe", "focus", "participate"]
+    },
+    {
+        name: "Professionalism",
+        description: "Showing respect, responsibility, and good behavior in the workplace or any professional setting.",
+        example: "Dressing appropriately and meeting deadlines consistently demonstrates professionalism.",
+        category: "Personal",
+        tags: ["respect", "conduct", "excel", "behave", "honor"]
+    },
+    {
+        name: "Purpose",
+        description: "A reason for doing something that guides actions and decisions.",
+        example: "Choosing a career that aligns with your core values shows a clear sense of purpose.",
+        category: "Personal",
+        tags: ["guide", "direct", "motivate", "inspire", "aim"]
+    },
+    {
+        name: "Quality",
+        description: "Being committed to excellence and ensuring that products or services meet high standards.",
+        example: "Paying attention to every detail in your work reflects a dedication to quality.",
+        category: "Personal",
+        tags: ["excellence", "craft", "perfect", "refine", "achieve"]
+    },
+    {
+        name: "Recognition",
+        description: "Valuing and acknowledging the contributions and achievements of others.",
+        example: "Highlighting a coworker's success during a meeting shows recognition.",
+        category: "Interpersonal",
+        tags: ["acknowledge", "appreciate", "praise", "commend", "honor"]
+    },
+    {
+        name: "Recovery",
+        description: "A process of returning to a normal state after a difficult situation or injury.",
+        example: "Following a rigorous rehabilitation program after an injury exemplifies recovery.",
+        category: "Personal",
+        tags: ["heal", "restore", "rebuild", "regain", "renew"]
+    },
+    {
+        name: "Reliability",
+        description: "Being dependable and consistently doing what you say you will do.",
+        example: "Completing tasks on time, every time, shows reliability.",
+        category: "Personal",
+        tags: ["depend", "trust", "commit", "consistent", "steady"]
+    },
+    {
+        name: "Representation",
+        description: "The act of showing or depicting ideas, people, or groups in a way that reflects their true nature and experiences.",
+        example: "Creating art that accurately reflects cultural diversity demonstrates representation.",
+        category: "Social",
+        tags: ["depict", "reflect", "symbolize", "show", "portray"]
+    },
+    {
+        name: "Resilience",
+        description: "The ability to bounce back from difficulties and keep going despite challenges.",
+        example: "Recovering from a setback and learning from the experience shows resilience.",
+        category: "Personal",
+        tags: ["bounce", "recover", "adapt", "persist", "endure"]
+    },
+    {
+        name: "Respect",
+        description: "Treating others with kindness and valuing their feelings, opinions, and rights.",
+        example: "Listening attentively and valuing others' perspectives shows respect.",
+        category: "Interpersonal",
+        tags: ["honor", "value", "treat", "appreciate", "defer"]
+    },
+    {
+        name: "Responsibility",
+        description: "Being accountable for your actions and making sure you do what you promise.",
+        example: "Taking ownership of your work and following through on commitments demonstrates responsibility.",
+        category: "Personal",
+        tags: ["accountable", "duty", "commit", "own", "follow-through"]
+    },
+    {
+        name: "Romance",
+        description: "A deep emotional connection and attraction between people, often involving love and affection.",
+        example: "Planning a thoughtful date that reflects deep care is an expression of romance.",
+        category: "Interpersonal",
+        tags: ["love", "affection", "cherish", "adore", "enchant"]
+    },
+    {
+        name: "Safety",
+        description: "Being safe involves taking actions to protect yourself and others from harm or danger.",
+        example: "Installing proper security measures at home demonstrates a commitment to safety.",
+        category: "Personal",
+        tags: ["protect", "secure", "guard", "ensure", "shield"]
+    },
+    {
+        name: "Self Care",
+        description: "Taking time to care for your mental, emotional, and physical well-being to feel better and live healthier.",
+        example: "Regularly scheduling relaxation and wellness activities shows self care.",
+        category: "Personal",
+        tags: ["nurture", "heal", "restore", "prioritize", "maintain"]
+    },
+    {
+        name: "Self Expression",
+        description: "The ability to share thoughts, feelings, and ideas openly and honestly.",
+        example: "Creating art or writing personal reflections can be a powerful form of self expression.",
+        category: "Personal",
+        tags: ["express", "share", "communicate", "reveal", "display"]
+    },
+    {
+        name: "Self-Actualization",
+        description: "Reaching your full potential by growing, learning, and becoming the best version of yourself.",
+        example: "Pursuing lifelong education and personal challenges is a form of self-actualization.",
+        category: "Personal",
+        tags: ["develop", "grow", "achieve", "realize", "evolve"]
+    },
+    {
+        name: "Self-Awareness",
+        description: "Understanding your own thoughts, feelings, and actions to improve yourself and your relationships with others.",
+        example: "Reflecting on your behavior through journaling demonstrates self-awareness.",
+        category: "Personal",
+        tags: ["reflect", "understand", "observe", "analyze", "acknowledge"]
+    },
+    {
+        name: "Self-Compassion",
+        description: "Being kind and understanding to yourself during tough times or when you make mistakes.",
+        example: "Treating yourself with the same kindness you offer others during setbacks shows self-compassion.",
+        category: "Personal",
+        tags: ["care", "kind", "nurture", "accept", "forgive"]
+    },
+    {
+        name: "Self-control",
+        description: "The ability to manage your emotions, thoughts, and behaviors to achieve goals and make good choices.",
+        example: "Resisting impulsive reactions during a heated discussion is an act of self-control.",
+        category: "Personal",
+        tags: ["manage", "regulate", "restrain", "discipline", "control"]
+    },
+    {
+        name: "Selflessness",
+        description: "Putting the needs and feelings of others before your own and helping them without expecting anything in return.",
+        example: "Volunteering your time without seeking recognition shows selflessness.",
+        category: "Interpersonal",
+        tags: ["give", "sacrifice", "support", "serve", "help"]
+    },
+    {
+        name: "Service",
+        description: "Helping others by providing assistance, support, or care.",
+        example: "Participating in community service projects reflects a commitment to service.",
+        category: "Interpersonal",
+        tags: ["assist", "help", "support", "contribute", "volunteer"]
+    },
+    {
+        name: "Sovereignty",
+        description: "The ability of a group or country to govern itself and make its own decisions without outside interference.",
+        example: "A nation asserting its right to self-governance demonstrates sovereignty.",
+        category: "Social",
+        tags: ["govern", "autonomy", "independence", "control", "self-rule"]
+    },
+    {
+        name: "Spirituality",
+        description: "A deep connection to something greater than oneself, often involving personal beliefs and practices that provide meaning and purpose in life.",
+        example: "Regular meditation and reflection on life's bigger questions reflect spirituality.",
+        category: "Personal",
+        tags: ["connect", "reflect", "believe", "inspire", "seek"]
+    },
+    {
+        name: "Sports",
+        description: "Activities that involve physical exertion and skill, often played individually or in teams for competition or enjoyment.",
+        example: "Participating in a local soccer league demonstrates a love for sports.",
+        category: "Personal",
+        tags: ["play", "compete", "train", "engage", "perform"]
+    },
+    {
+        name: "Sportsmanship",
+        description: "Treating opponents with respect and fairness, showing graciousness in winning or losing.",
+        example: "Congratulating the opposing team after a match displays true sportsmanship.",
+        category: "Interpersonal",
+        tags: ["respect", "fair", "honor", "gracious", "compete"]
+    },
+    {
+        name: "Stability",
+        description: "Staying steady and balanced in difficult situations without being easily shaken or changed.",
+        example: "Maintaining consistent routines during turbulent times demonstrates stability.",
+        category: "Personal",
+        tags: ["steady", "balance", "secure", "constant", "firm"]
+    },
+    {
+        name: "Stewardship",
+        description: "Caring for and managing resources responsibly to ensure their health and availability for the future.",
+        example: "Implementing sustainable practices in business reflects responsible stewardship.",
+        category: "Social",
+        tags: ["manage", "protect", "preserve", "conserve", "sustain"]
+    },
+    {
+        name: "Stillness",
+        description: "A state of calmness and peace that allows for clear thinking and reflection.",
+        example: "Taking time for quiet meditation amidst a busy day exemplifies stillness.",
+        category: "Personal",
+        tags: ["calm", "quiet", "reflect", "pause", "meditate"]
+    },
+    {
+        name: "Strategy",
+        description: "A plan to achieve specific goals by using available resources effectively.",
+        example: "Developing a detailed business plan to outperform competitors shows strategic thinking.",
+        category: "Personal",
+        tags: ["plan", "design", "execute", "organize", "aim"]
+    },
+    {
+        name: "Sustainability",
+        description: "The ability to meet our needs today without harming the ability of future generations to meet theirs.",
+        example: "Choosing renewable energy sources reflects a commitment to sustainability.",
+        category: "Social",
+        tags: ["conserve", "renew", "preserve", "balance", "protect"]
+    },
+    {
+        name: "Synergy",
+        description: "Working together in a way that creates better results than individuals could achieve alone.",
+        example: "Combining diverse talents on a team project to achieve outstanding results shows synergy.",
+        category: "Interpersonal",
+        tags: ["combine", "collaborate", "integrate", "unite", "amplify"]
+    },
+    {
+        name: "Teaching",
+        description: "Helping others learn new things through guidance and sharing knowledge.",
+        example: "Conducting a workshop to impart valuable skills is an example of teaching.",
+        category: "Interpersonal",
+        tags: ["instruct", "educate", "guide", "mentor", "explain"]
+    },
+    {
+        name: "Teamwork",
+        description: "Working together with others to achieve a common goal and support each other.",
+        example: "Collaborating on a project where everyone contributes their strengths demonstrates effective teamwork.",
+        category: "Interpersonal",
+        tags: ["collaborate", "support", "unite", "coordinate", "contribute"]
+    },
+    {
+        name: "Technology",
+        description: "The use of scientific knowledge and tools to solve problems and improve lives.",
+        example: "Utilizing the latest software to enhance productivity reflects an embrace of technology.",
+        category: "Social",
+        tags: ["innovate", "develop", "apply", "build", "engineer"]
+    },
+    {
+        name: "Thoughtfulness",
+        description: "Showing care and consideration for others' feelings and needs in every action and decision.",
+        example: "Remembering a friend’s birthday and sending a personal note is a thoughtful gesture.",
+        category: "Interpersonal",
+        tags: ["consider", "reflect", "care", "mindful", "attend"]
+    },
+    {
+        name: "Tolerance",
+        description: "Respecting and accepting differences in others, even when you don't agree with them.",
+        example: "Listening to different perspectives without judgment shows tolerance.",
+        category: "Interpersonal",
+        tags: ["accept", "respect", "embrace", "understand", "forgive"]
+    },
+    {
+        name: "Trust",
+        description: "Being honest and reliable with others creates a strong bond and encourages openness.",
+        example: "Delegating tasks to team members and believing they will succeed shows trust.",
+        category: "Interpersonal",
+        tags: ["rely", "believe", "depend", "confide", "commit"]
+    },
+    {
+        name: "Truth",
+        description: "Being honest and accurate, reflecting reality without lies or deceit.",
+        example: "Presenting data transparently in a report embodies the value of truth.",
+        category: "Personal",
+        tags: ["honesty", "accurate", "validate", "verify", "reveal"]
+    },
+    {
+        name: "Unity",
+        description: "Bringing people together to work towards a common goal and support each other.",
+        example: "Organizing community events that foster a sense of belonging reflects unity.",
+        category: "Social",
+        tags: ["unite", "join", "connect", "integrate", "merge"]
+    },
+    {
+        name: "Versatility",
+        description: "The ability to adapt to new situations and handle different tasks effectively.",
+        example: "Taking on diverse roles at work shows versatility in your skill set.",
+        category: "Personal",
+        tags: ["adapt", "adjust", "flex", "vary", "shift"]
+    },
+    {
+        name: "Vision",
+        description: "Creating a clear and inspiring picture of the future that guides decisions and motivates people.",
+        example: "Articulating a long-term strategic plan for your organization that inspires your team shows vision.",
+        category: "Personal",
+        tags: ["imagine", "envision", "plan", "guide", "inspire"]
+    },
+    {
+        name: "Willingness",
+        description: "A readiness to do what is needed or to accept new ideas and experiences.",
+        example: "Volunteering for new projects outside your comfort zone demonstrates willingness.",
+        category: "Personal",
+        tags: ["ready", "accept", "volunteer", "engage", "offer"]
+    },
+    {
+        name: "Wisdom",
+        description: "The ability to make good decisions based on knowledge, experience, and understanding.",
+        example: "Offering advice grounded in both personal experience and careful thought is an expression of wisdom.",
+        category: "Personal",
+        tags: ["insight", "judgment", "understand", "discern", "experience"]
+    },
+    {
+        name: "Work Ethic",
+        description: "Having a strong work ethic means being dedicated, responsible, and putting in effort to complete tasks well.",
+        example: "Consistently going above and beyond in your job responsibilities demonstrates a strong work ethic.",
+        category: "Personal",
+        tags: ["dedication", "commitment", "diligence", "responsibility", "effort"]
+    }
         ];
 
         // Filter state
