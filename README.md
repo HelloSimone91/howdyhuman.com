@@ -1,8 +1,8 @@
-<i> The Howdy Human Compendium of Values </i>
+<i> The Howdy Human Dictionary of Values </i>
 
 
 # Overview
-The Howdy Human Compendium of Values  is an interactive web application that helps users discover and explore a comprehensive dictionary of human values. The app provides detailed descriptions, practical examples, and interactive filtering to understand how values manifest in daily life.
+The Howdy Human Dictionary of Values  is an interactive web application that helps users discover and explore a comprehensive dictionary of human values. The app provides detailed descriptions, practical examples, and interactive filtering to understand how values manifest in daily life.
 
 ## Features
 
