@@ -5,19 +5,20 @@ const filterState = {
     categories: [],
     tags: [],
     searchTerm: '',
-    matchAll: true, // true for ALL (AND), false for ANY (OR)
+    matchAll: true,
     sortMethod: 'name'
 };
 
-// Language state
+// Language and Values
 let currentLanguage = 'en';
+let values = [];
 
-// DOM elements
+// DOM Elements
 let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
     matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
-    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
+    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle, expandCollapseBtn;
 
-// Wait for DOM to load
+// Wait for DOM
 document.addEventListener('DOMContentLoaded', function() {
     try {
         // Get DOM elements
@@ -40,15 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
         alphaNav = document.getElementById('alphaNav');
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
+        expandCollapseBtn = document.getElementById('expandCollapseBtn');
 
         setupUI();
-        initializeValuesDictionary();
+        fetchValues(currentLanguage);
     } catch (error) {
         console.error('Initialization error:', error);
     }
 });
 
-// Basic app setup
+// Setup
 function setupUI() {
     setupFilterToggle();
     setupMatchTypeToggle();
@@ -57,194 +59,81 @@ function setupUI() {
     setupAlphaNav();
     setupBackToTop();
     setupLanguageToggle();
+    setupExpandCollapseControls(); // <<<<<< ADD THIS
 }
 
-// Search bar functionality
-function setupSearch() {
-    mainSearchInput.addEventListener('input', () => {
-        filterState.searchTerm = mainSearchInput.value.toLowerCase();
-        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
+// Fetch Values
+async function fetchValues(language) {
+    const fileName = (language === 'es') ? 'values-es.json' : 'values-en.json';
+    try {
+        const response = await fetch(fileName);
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        values = await response.json();
         filterValues();
-        updateActiveFilters();
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-        mainSearchInput.value = '';
-        filterState.searchTerm = '';
-        clearSearchBtn.style.display = 'none';
-        filterValues();
-        updateActiveFilters();
-    });
-
-    sortSelect.addEventListener('change', () => {
-        filterState.sortMethod = sortSelect.value;
-        filterValues();
-    });
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
 }
 
-// Toggle filters open/closed
-function setupFilterToggle() {
-    toggleFilters.addEventListener('click', () => {
-        filtersContainer.classList.toggle('collapsed');
-        document.getElementById('toggleFiltersText').textContent = filtersContainer.classList.contains('collapsed') ? 'Show Filters' : 'Hide Filters';
-        document.getElementById('toggleFiltersIcon').classList.toggle('fa-chevron-down');
-        document.getElementById('toggleFiltersIcon').classList.toggle('fa-chevron-up');
-    });
-}
+// Search functionality
+function setupSearch() { /* ... */ }
 
-// Match ALL / ANY tags
-function setupMatchTypeToggle() {
-    matchAll.addEventListener('click', () => {
-        filterState.matchAll = true;
-        toggleSlide.classList.remove('right');
-        filterValues();
-    });
-    matchAny.addEventListener('click', () => {
-        filterState.matchAll = false;
-        toggleSlide.classList.add('right');
-        filterValues();
-    });
-}
+// Filter toggle, match type toggle, alpha nav, back to top, etc...
+// (your previous code is fine for those, just paste back what you had)
 
-// Clear all filters
-function setupClearFilters() {
-    clearFilters.addEventListener('click', () => {
-        filterState.categories = [];
-        filterState.tags = [];
-        filterState.searchTerm = '';
-        document.querySelectorAll('.tag.selected').forEach(tag => tag.classList.remove('selected'));
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-        mainSearchInput.value = '';
-        clearSearchBtn.style.display = 'none';
-        filterValues();
-        updateActiveFilters();
-    });
-}
+// --- Expand / Collapse All Cards ---
+function setupExpandCollapseControls() {
+    if (!expandCollapseBtn) return;
 
-// Scroll alphabet navigation
-function setupAlphaNav() {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    alphabet.forEach(letter => {
-        const link = document.createElement('a');
-        link.href = `#section-${letter}`;
-        link.textContent = letter;
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = document.getElementById(`section-${letter}`);
-            if (section) section.scrollIntoView({ behavior: 'smooth' });
-        });
-        alphaNav.appendChild(link);
-    });
-}
+    expandCollapseBtn.addEventListener('click', () => {
+        const cards = document.querySelectorAll('.value-card');
+        const allExpanded = Array.from(cards).every(card => card.classList.contains('expanded'));
 
-// Scroll back to top button
-function setupBackToTop() {
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTop.classList.add('visible');
+        if (allExpanded) {
+            cards.forEach(card => collapseCard(card));
+            expandCollapseBtn.textContent = 'Expand All';
         } else {
-            backToTop.classList.remove('visible');
+            cards.forEach(card => expandCard(card));
+            expandCollapseBtn.textContent = 'Collapse All';
         }
     });
 
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// Language toggle (placeholder)
-function setupLanguageToggle() {
-    languageToggle.addEventListener('click', () => {
-        if (currentLanguage === 'en') {
-            currentLanguage = 'es';
-            languageToggle.textContent = 'In English';
-            alert('Spanish translation coming soon!');
-        } else {
-            currentLanguage = 'en';
-            languageToggle.textContent = 'En español';
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.value-card-toggle')) {
+            setTimeout(updateExpandCollapseButtonText, 100);
         }
     });
 }
 
-// Filter and display values
-function filterValues() {
-    let filtered = values;
-
-    // Search term
-    if (filterState.searchTerm) {
-        filtered = filtered.filter(value =>
-            value.name.toLowerCase().includes(filterState.searchTerm) ||
-            value.description.toLowerCase().includes(filterState.searchTerm) ||
-            value.example.toLowerCase().includes(filterState.searchTerm) ||
-            value.tags.some(tag => tag.toLowerCase().includes(filterState.searchTerm))
-        );
-    }
-
-    // Categories
-    if (filterState.categories.length) {
-        filtered = filtered.filter(value => filterState.categories.includes(value.category));
-    }
-
-    // Tags
-    if (filterState.tags.length) {
-        if (filterState.matchAll) {
-            filtered = filtered.filter(value => filterState.tags.every(tag => value.tags.includes(tag)));
-        } else {
-            filtered = filtered.filter(value => value.tags.some(tag => filterState.tags.includes(tag)));
-        }
-    }
-
-    // Sort
-    filtered.sort((a, b) => {
-        if (filterState.sortMethod === 'name') {
-            return a.name.localeCompare(b.name);
-        } else {
-            return a.category.localeCompare(b.category) || a.name.localeCompare(b.name);
-        }
-    });
-
-    displayValues(filtered);
+function updateExpandCollapseButtonText() {
+    const cards = document.querySelectorAll('.value-card');
+    const allExpanded = Array.from(cards).every(card => card.classList.contains('expanded'));
+    expandCollapseBtn.textContent = allExpanded ? 'Collapse All' : 'Expand All';
 }
 
-// Actually render values
-function displayValues(valuesToDisplay) {
-    valuesList.innerHTML = '';
-
-    if (valuesToDisplay.length === 0) {
-        valuesList.innerHTML = `<div class="p-8 text-center">No matching values found.</div>`;
-        return;
-    }
-
-    valuesToDisplay.forEach(value => {
-        const card = document.createElement('div');
-        card.className = 'value-card p-4 mb-4';
-
-        card.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="text-lg font-semibold">${value.name}</h3>
-                <span class="category-badge">${value.category}</span>
-            </div>
-            <p class="mb-2">${value.description}</p>
-            <div class="value-example">${value.example}</div>
-            <div class="flex flex-wrap mt-2">
-                ${value.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
-        `;
-
-        valuesList.appendChild(card);
-    });
-
-    updateValuesCount(valuesToDisplay.length);
+function expandCard(card) {
+    card.classList.add('expanded');
+    const toggleButton = card.querySelector('.value-card-toggle');
+    if (toggleButton) toggleButton.innerHTML = 'Read less <i class="fas fa-chevron-up"></i>';
+    triggerPulse(card);
 }
 
-// Update counter
-function updateValuesCount(count) {
-    if (valuesCount) {
-        valuesCount.textContent = count || 0;
-    }
+function collapseCard(card) {
+    card.classList.remove('expanded');
+    const toggleButton = card.querySelector('.value-card-toggle');
+    if (toggleButton) toggleButton.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+    triggerPulse(card);
 }
 
-// Update active filters display
-function updateActiveFilters() {
-    // (You can leave this empty or add a badge feature later)
+function triggerPulse(card) {
+    card.classList.add('pulse');
+    setTimeout(() => {
+        card.classList.remove('pulse');
+    }, 600);
 }
+
+// --- Values rendering ---
+function filterValues() { /* ... same logic you had ... */ }
+function displayValues(valuesToDisplay) { /* ... same logic you had ... */ }
+function updateValuesCount(count) { /* ... */ }
+function updateActiveFilters() { /* ... */ }
