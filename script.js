@@ -1,6 +1,6 @@
 // script.js
 
-// script.js
+
 
 let values = []; // <-- define values so it's available globally
 
