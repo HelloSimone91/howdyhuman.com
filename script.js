@@ -1,21 +1,9 @@
 // script.js
 
+// Language and Values
+let currentLanguage = 'en';
+let values = []; 
 
-
-let values = []; // <-- define values so it's available globally
-
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('values-en.json')
-        .then(response => response.json())
-        .then(data => {
-            values = data;
-            setupUI();
-            initializeValuesDictionary();
-        })
-        .catch(error => {
-            console.error('Error loading values-en.json:', error);
-        });
-});
 // Filter state
 const filterState = {
     categories: [],
@@ -25,17 +13,14 @@ const filterState = {
     sortMethod: 'name'
 };
 
-// Language and Values
-let currentLanguage = 'en';
-let values = [];
-
 // DOM Elements
 let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
     matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
     toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle, expandCollapseBtn;
 
+
 // Wait for DOM
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Get DOM elements
         searchInput = document.getElementById('searchInput');
@@ -59,8 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         languageToggle = document.getElementById('languageToggle');
         expandCollapseBtn = document.getElementById('expandCollapseBtn');
 
-        setupUI();
-        fetchValues(currentLanguage);
+        setupUI(); // sets up your event listeners etc
+
+        await fetchValues(currentLanguage); // important: await fetching values
+        initializeValuesDictionary(); // now we have values, now we can initialize
+
     } catch (error) {
         console.error('Initialization error:', error);
     }
