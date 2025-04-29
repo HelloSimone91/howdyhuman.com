@@ -161,8 +161,7 @@ function filterValues() {
     displayValues(filtered);
 }
 
-function initializeValuesDictionary() {
-    filterValues();
+
 }
 
 function displayValues(valuesToDisplay) { /* same rendering logic you already had */ }
