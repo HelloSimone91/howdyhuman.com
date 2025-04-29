@@ -1,5 +1,21 @@
 // script.js
 
+// script.js
+
+let values = []; // <-- define values so it's available globally
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('values-en.json')
+        .then(response => response.json())
+        .then(data => {
+            values = data;
+            setupUI();
+            initializeValuesDictionary();
+        })
+        .catch(error => {
+            console.error('Error loading values-en.json:', error);
+        });
+});
 // Filter state
 const filterState = {
     categories: [],
