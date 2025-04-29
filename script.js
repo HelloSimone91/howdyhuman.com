@@ -28,26 +28,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-function initializeValuesDictionary() {
-    if (!valuesList) return;
-
-    valuesList.innerHTML = ''; // Clear current list
-
-    values.forEach(value => {
-        const card = document.createElement('div');
-        card.className = 'value-card';
-        card.innerHTML = `
-            <h2 class="text-xl font-semibold mb-2">${value.name}</h2>
-            <p class="text-gray-700 mb-2">${value.description}</p>
-            <div class="text-sm text-gray-500">${value.example}</div>
-        `;
-        valuesList.appendChild(card);
-    });
-
-    updateValuesCount(values.length);
-}
-
-// --- Helper Functions ---
+// --- DOM Helpers ---
 function getDOMElements() {
     searchInput = document.getElementById('searchInput');
     mainSearchInput = document.getElementById('mainSearchInput');
@@ -71,6 +52,18 @@ function getDOMElements() {
     expandCollapseBtn = document.getElementById('expandCollapseBtn');
 }
 
+// --- Setup UI ---
+function setupUI() {
+    setupSearch();
+    setupFilterToggle();
+    setupMatchTypeToggle();
+    setupAlphaNav();
+    setupBackToTop();
+    setupLanguageToggle();
+    setupExpandCollapseControls();
+}
+
+// --- Fetch Values ---
 async function fetchValues(language) {
     const fileName = (language === 'es') ? 'values-es.json' : 'values-en.json';
     try {
@@ -83,56 +76,48 @@ async function fetchValues(language) {
     }
 }
 
-function setupUI() {
-    setupSearch();
-    setupFilterToggle();
-    setupMatchTypeToggle();
-    setupAlphaNav();
-    setupBackToTop();
-    setupLanguageToggle();
-    setupExpandCollapseControls();
-}
+// --- Initialize the Values List ---
+function initializeValuesDictionary() {
+    if (!valuesList) return;
 
-// --- Search Setup ---
-function setupSearch() {
-    if (!mainSearchInput || !clearSearchBtn) return;
+    valuesList.innerHTML = '';
 
-    mainSearchInput.addEventListener('input', () => {
-        filterState.searchTerm = mainSearchInput.value.toLowerCase();
-        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
-        filterValues();
+    values.forEach(value => {
+        const card = document.createElement('div');
+        card.className = 'value-card group mb-4 border rounded-lg p-4 shadow-md transition-all duration-300';
+        card.innerHTML = `
+            <div class="flex justify-between items-center cursor-pointer value-card-header">
+                <h2 class="text-lg font-semibold">${value.name}</h2>
+                <button class="value-card-toggle text-purple-600 hover:text-purple-800">
+                    Read more <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="value-card-body mt-2 hidden">
+                <p class="text-gray-700 mb-2">${value.description}</p>
+                <div class="text-sm text-gray-500">${value.example}</div>
+            </div>
+        `;
+        valuesList.appendChild(card);
+
+        const toggleBtn = card.querySelector('.value-card-toggle');
+        const body = card.querySelector('.value-card-body');
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('hidden');
+            card.classList.toggle('expanded');
+
+            toggleBtn.innerHTML = body.classList.contains('hidden') 
+                ? 'Read more <i class="fas fa-chevron-down"></i>' 
+                : 'Read less <i class="fas fa-chevron-up"></i>';
+
+            triggerPulse(card);
+        });
     });
 
-    clearSearchBtn.addEventListener('click', () => {
-        mainSearchInput.value = '';
-        filterState.searchTerm = '';
-        clearSearchBtn.style.display = 'none';
-        filterValues();
-    });
+    updateValuesCount(values.length);
 }
 
-// --- Language Toggle (Coming Soon) ---
-function setupLanguageToggle() {
-    if (!languageToggle) return;
-    languageToggle.addEventListener('click', () => {
-        alert('Coming soon!');
-    });
-}
-
-// --- Alpha Navigation Setup ---
-function setupAlphaNav() { /* same as before */ }
-
-// --- Back to Top Button ---
-function setupBackToTop() { /* same as before */ }
-
-// --- Filter and Match Type Toggles ---
-function setupFilterToggle() { /* same as before */ }
-function setupMatchTypeToggle() { /* same as before */ }
-
-// --- Expand / Collapse Controls ---
-function setupExpandCollapseControls() { /* same as before */ }
-
-// --- Filtering and Rendering ---
+// --- Filtering Logic ---
 function filterValues() {
     let filtered = values;
 
@@ -161,9 +146,111 @@ function filterValues() {
     displayValues(filtered);
 }
 
+function displayValues(valuesToDisplay) {
+    if (!valuesList) return;
+    valuesList.innerHTML = '';
 
+    valuesToDisplay.forEach(value => {
+        const card = document.createElement('div');
+        card.className = 'value-card group mb-4 border rounded-lg p-4 shadow-md transition-all duration-300';
+        card.innerHTML = `
+            <div class="flex justify-between items-center cursor-pointer value-card-header">
+                <h2 class="text-lg font-semibold">${value.name}</h2>
+                <button class="value-card-toggle text-purple-600 hover:text-purple-800">
+                    Read more <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="value-card-body mt-2 hidden">
+                <p class="text-gray-700 mb-2">${value.description}</p>
+                <div class="text-sm text-gray-500">${value.example}</div>
+            </div>
+        `;
+        valuesList.appendChild(card);
+
+        const toggleBtn = card.querySelector('.value-card-toggle');
+        const body = card.querySelector('.value-card-body');
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('hidden');
+            card.classList.toggle('expanded');
+
+            toggleBtn.innerHTML = body.classList.contains('hidden') 
+                ? 'Read more <i class="fas fa-chevron-down"></i>' 
+                : 'Read less <i class="fas fa-chevron-up"></i>';
+
+            triggerPulse(card);
+        });
+    });
+
+    updateValuesCount(valuesToDisplay.length);
 }
 
-function displayValues(valuesToDisplay) { /* same rendering logic you already had */ }
-function updateValuesCount(count) { /* same as before */ }
-function updateActiveFilters() { /* same as before */ }
+// --- Expand / Collapse All Controls ---
+function setupExpandCollapseControls() {
+    if (!expandCollapseBtn) return;
+
+    expandCollapseBtn.addEventListener('click', () => {
+        const cards = document.querySelectorAll('.value-card');
+        const allExpanded = Array.from(cards).every(card => card.classList.contains('expanded'));
+
+        cards.forEach(card => {
+            const body = card.querySelector('.value-card-body');
+            const toggleBtn = card.querySelector('.value-card-toggle');
+
+            if (allExpanded) {
+                body.classList.add('hidden');
+                card.classList.remove('expanded');
+                toggleBtn.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+            } else {
+                body.classList.remove('hidden');
+                card.classList.add('expanded');
+                toggleBtn.innerHTML = 'Read less <i class="fas fa-chevron-up"></i>';
+            }
+        });
+
+        expandCollapseBtn.textContent = allExpanded ? 'Expand All' : 'Collapse All';
+    });
+}
+
+function triggerPulse(card) {
+    card.classList.add('pulse');
+    setTimeout(() => {
+        card.classList.remove('pulse');
+    }, 600);
+}
+
+// --- UI Setup (Search, Filters, Alpha Nav, etc) ---
+function setupSearch() {
+    if (!mainSearchInput || !clearSearchBtn) return;
+
+    mainSearchInput.addEventListener('input', () => {
+        filterState.searchTerm = mainSearchInput.value.toLowerCase();
+        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
+        filterValues();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+        mainSearchInput.value = '';
+        filterState.searchTerm = '';
+        clearSearchBtn.style.display = 'none';
+        filterValues();
+    });
+}
+
+function setupFilterToggle() { /* same simple toggle you had */ }
+function setupMatchTypeToggle() { /* your match any / all toggle */ }
+function setupAlphaNav() { /* optional alphabet nav */ }
+function setupBackToTop() { /* optional scroll-to-top */ }
+
+// --- Language Toggle ---
+function setupLanguageToggle() {
+    if (!languageToggle) return;
+    languageToggle.addEventListener('click', () => {
+        alert('Coming soon!');
+    });
+}
+
+// --- Values Counters ---
+function updateValuesCount(count) {
+    if (valuesCount) valuesCount.textContent = `${count} values found`;
+}
