@@ -28,6 +28,25 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
+function initializeValuesDictionary() {
+    if (!valuesList) return;
+
+    valuesList.innerHTML = ''; // Clear current list
+
+    values.forEach(value => {
+        const card = document.createElement('div');
+        card.className = 'value-card';
+        card.innerHTML = `
+            <h2 class="text-xl font-semibold mb-2">${value.name}</h2>
+            <p class="text-gray-700 mb-2">${value.description}</p>
+            <div class="text-sm text-gray-500">${value.example}</div>
+        `;
+        valuesList.appendChild(card);
+    });
+
+    updateValuesCount(values.length);
+}
+
 // --- Helper Functions ---
 function getDOMElements() {
     searchInput = document.getElementById('searchInput');
