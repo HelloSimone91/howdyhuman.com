@@ -1,4 +1,4 @@
-// script.js - Howdy Human Dictionary
+// script.js - Howdy Human Dictionary - FINAL BUILD
 
 // --- Global Variables ---
 let currentLanguage = 'en';
@@ -12,23 +12,22 @@ const filterState = {
     sortMethod: 'name'
 };
 
-let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
-    matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
+let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
+    matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
     toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle, expandCollapseBtn;
 
-// --- Initialize ---
+// --- Initialize on DOM Content Loaded ---
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         getDOMElements();
         setupUI();
         await fetchValues(currentLanguage);
-        initializeValuesDictionary();
+        filterValues();
     } catch (error) {
         console.error('Initialization error:', error);
     }
 });
 
-// --- Get Elements ---
 function getDOMElements() {
     searchInput = document.getElementById('searchInput');
     mainSearchInput = document.getElementById('mainSearchInput');
@@ -52,17 +51,6 @@ function getDOMElements() {
     expandCollapseBtn = document.getElementById('expandCollapseBtn');
 }
 
-// --- Setup UI ---
-function setupUI() {
-    setupSearch();
-    setupFilterToggle();
-    setupMatchTypeToggle();
-    setupAlphaNav();
-    setupBackToTop();
-    setupLanguageToggle();
-    setupExpandCollapseControls();
-}
-
 // --- Fetch Values ---
 async function fetchValues(language) {
     const fileName = (language === 'es') ? 'values-es.json' : 'values-en.json';
@@ -75,23 +63,53 @@ async function fetchValues(language) {
     }
 }
 
-// --- Initialize Values List ---
-function initializeValuesDictionary() {
-    filterValues();
+// --- Setup UI ---
+function setupUI() {
+    setupSearch();
+    setupFilterToggle();
+    setupMatchTypeToggle();
+    setupAlphaNav();
+    setupBackToTop();
+    setupLanguageToggle();
+    setupExpandCollapseControls();
 }
 
-// --- Filter and Display ---
+function setupSearch() {
+    if (!mainSearchInput || !clearSearchBtn) return;
+
+    mainSearchInput.addEventListener('input', () => {
+        filterState.searchTerm = mainSearchInput.value.toLowerCase();
+        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
+        filterValues();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+        mainSearchInput.value = '';
+        filterState.searchTerm = '';
+        clearSearchBtn.style.display = 'none';
+        filterValues();
+    });
+}
+
+function setupLanguageToggle() {
+    if (!languageToggle) return;
+    languageToggle.addEventListener('click', () => {
+        alert('Coming soon!');
+    });
+}
+
+// --- Filtering Logic ---
 function filterValues() {
     let filtered = values;
 
     if (filterState.searchTerm) {
-        const term = filterState.searchTerm.toLowerCase();
-        filtered = filtered.filter(value =>
-            value.name.toLowerCase().includes(term) ||
-            value.description.toLowerCase().includes(term) ||
-            value.example.toLowerCase().includes(term) ||
-            value.tags.some(tag => tag.toLowerCase().includes(term))
-        );
+        filtered = filtered.filter(value => {
+            const nameMatch = value.name.toLowerCase().includes(filterState.searchTerm);
+            const descriptionMatch = value.description.toLowerCase().includes(filterState.searchTerm);
+            const exampleMatch = value.example?.toLowerCase().includes(filterState.searchTerm);
+            const tagMatch = value.tags?.some(tag => tag.toLowerCase().includes(filterState.searchTerm));
+            return nameMatch || descriptionMatch || exampleMatch || tagMatch;
+        });
     }
 
     if (filterState.categories.length > 0) {
@@ -109,6 +127,7 @@ function filterValues() {
     displayValues(filtered);
 }
 
+// --- Display Values ---
 function displayValues(valuesToDisplay) {
     if (!valuesList) return;
 
@@ -116,112 +135,74 @@ function displayValues(valuesToDisplay) {
 
     valuesToDisplay.forEach(value => {
         const card = document.createElement('div');
-        card.className = 'value-card group mb-4 border rounded-lg p-4 shadow-md transition-all duration-300';
+        card.className = 'value-card';
+
         card.innerHTML = `
-            <div class="flex justify-between items-center cursor-pointer value-card-header">
-                <h2 class="text-lg font-semibold">${value.name}</h2>
-                <button class="value-card-toggle text-purple-600 hover:text-purple-800">
-                    Read more <i class="fas fa-chevron-down"></i>
-                </button>
+            <div class="value-card-header">
+                <h2>${value.name}</h2>
+                <span class="category-tag">${value.category}</span>
+                <button class="value-card-toggle">Read more <i class="fas fa-chevron-down"></i></button>
             </div>
-            <div class="value-card-body mt-2 hidden">
-                <p class="text-gray-700 mb-2">${value.description}</p>
-                <div class="text-sm text-gray-500">${value.example}</div>
+            <div class="value-card-body">
+                <p class="description">${value.description}</p>
+
+                <div class="example-box">
+                    <h4>Example in Real Life</h4>
+                    <p>${value.example}</p>
+                </div>
+
+                <div class="verbs-section">
+                    <h4>Associated Verbs</h4>
+                    <div class="tags-container">
+                        ${value.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="related-section">
+                    <h4>Related Values</h4>
+                    <div class="tags-container">
+                        ${getRelatedValues(value).map(rel => `<span class="tag related-tag" data-name="${rel.name}">${rel.name}</span>`).join('')}
+                    </div>
+                </div>
             </div>
         `;
+
         valuesList.appendChild(card);
+    });
 
-        const toggleBtn = card.querySelector('.value-card-toggle');
-        const body = card.querySelector('.value-card-body');
+    setupExpandCollapseLogic();
+}
 
-        toggleBtn.addEventListener('click', () => {
-            body.classList.toggle('hidden');
+function setupExpandCollapseLogic() {
+    const toggles = document.querySelectorAll('.value-card-toggle');
+
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            const card = e.target.closest('.value-card');
             card.classList.toggle('expanded');
-
-            toggleBtn.innerHTML = body.classList.contains('hidden')
-                ? 'Read more <i class="fas fa-chevron-down"></i>'
-                : 'Read less <i class="fas fa-chevron-up"></i>';
-
-            triggerPulse(card);
+            const isExpanded = card.classList.contains('expanded');
+            toggle.innerHTML = isExpanded ? 'Read less <i class="fas fa-chevron-up"></i>' : 'Read more <i class="fas fa-chevron-down"></i>';
         });
     });
 
-    updateValuesCount(valuesToDisplay.length);
-}
-
-// --- Expand / Collapse Controls ---
-function setupExpandCollapseControls() {
-    if (!expandCollapseBtn) return;
-
-    expandCollapseBtn.addEventListener('click', () => {
-        const cards = document.querySelectorAll('.value-card');
-        const allExpanded = Array.from(cards).every(card => card.classList.contains('expanded'));
-
-        cards.forEach(card => {
-            const body = card.querySelector('.value-card-body');
-            const toggleBtn = card.querySelector('.value-card-toggle');
-
-            if (allExpanded) {
-                body.classList.add('hidden');
-                card.classList.remove('expanded');
-                toggleBtn.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
-            } else {
-                body.classList.remove('hidden');
-                card.classList.add('expanded');
-                toggleBtn.innerHTML = 'Read less <i class="fas fa-chevron-up"></i>';
+    document.querySelectorAll('.related-tag').forEach(tag => {
+        tag.addEventListener('click', (e) => {
+            const name = e.target.dataset.name;
+            const match = Array.from(document.querySelectorAll('.value-card')).find(card => 
+                card.querySelector('h2').textContent.trim() === name);
+            if (match) {
+                match.classList.add('pulse');
+                setTimeout(() => match.classList.remove('pulse'), 600);
             }
         });
-
-        expandCollapseBtn.textContent = allExpanded ? 'Expand All' : 'Collapse All';
     });
 }
 
-function triggerPulse(card) {
-    card.classList.add('pulse');
-    setTimeout(() => {
-        card.classList.remove('pulse');
-    }, 600);
-}
+function getRelatedValues(currentValue) {
+    if (!currentValue.tags) return [];
 
-// --- Search Setup ---
-function setupSearch() {
-    if (!mainSearchInput || !clearSearchBtn) return;
-
-    mainSearchInput.addEventListener('input', () => {
-        filterState.searchTerm = mainSearchInput.value;
-        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
-        filterValues();
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-        mainSearchInput.value = '';
-        filterState.searchTerm = '';
-        clearSearchBtn.style.display = 'none';
-        filterValues();
-    });
-}
-
-// --- Language Toggle ---
-function setupLanguageToggle() {
-    if (!languageToggle) return;
-    languageToggle.addEventListener('click', () => {
-        alert('Coming soon!');
-    });
-}
-
-// --- AlphaNav Setup ---
-function setupAlphaNav() { /* Skipped for now - you can add back if needed */ }
-
-// --- Back to Top Setup ---
-function setupBackToTop() { /* Skipped for now - you can add back if needed */ }
-
-// --- Filter Toggles ---
-function setupFilterToggle() { /* Skipped for now - you can add back if needed */ }
-function setupMatchTypeToggle() { /* Skipped for now - you can add back if needed */ }
-
-// --- Values Count ---
-function updateValuesCount(count) {
-    if (valuesCount) {
-        valuesCount.textContent = `${count} values found`;
-    }
+    return values.filter(v =>
+        v.name !== currentValue.name &&
+        v.tags?.some(tag => currentValue.tags.includes(tag))
+    ).slice(0, 3);
 }
