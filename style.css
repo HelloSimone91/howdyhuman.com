@@ -116,6 +116,20 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     margin: 0;
 }
+.expand-collapse-btn {
+    background-color: #6B46C1; /* Deep purple */
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.expand-collapse-btn:hover {
+    background-color: #553C9A; /* Slightly darker on hover */
+    transform: translateY(-2px);
+}
 
 /* Alphabetical Navigation */
 .alpha-nav {
@@ -151,6 +165,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 80%;
     align-self: center;
 }
+
 
 /* Back To Top Button */
 .back-to-top {
