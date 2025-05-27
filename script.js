@@ -1,208 +1,2088 @@
-// script.js - Howdy Human Dictionary - FINAL BUILD
+// Debug status message
+function showStatus(message, isError = false) {
+    console.log(message);
+    // Create a status element if it doesn't exist
+    let statusEl = document.getElementById('appStatus');
+    if (!statusEl) {
+        statusEl = document.createElement('div');
+        statusEl.id = 'appStatus';
+        statusEl.style.position = 'fixed';
+        statusEl.style.bottom = '20px';
+        statusEl.style.right = '20px';
+        statusEl.style.padding = '12px 16px';
+        statusEl.style.borderRadius = '8px';
+        statusEl.style.zIndex = '1000';
+        statusEl.style.transition = 'opacity 0.5s';
+        statusEl.style.fontSize = '14px';
+        document.body.appendChild(statusEl);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            statusEl.style.opacity = '0';
+            setTimeout(() => statusEl.remove(), 500);
+        }, 5000);
+    }
+    
+    if (isError) {
+        statusEl.className = 'status-error';
+    } else {
+        statusEl.className = 'status-success';
+    }
+    
+    statusEl.textContent = message;
+}
 
-// --- Global Variables ---
-let currentLanguage = 'en';
+// Global state variables
 let values = [];
-
 const filterState = {
     categories: [],
     tags: [],
     searchTerm: '',
-    matchAll: true,
+    matchAll: true, // true for ALL (AND), false for ANY (OR)
     sortMethod: 'name'
 };
+let currentLanguage = 'en';
 
-let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
-    matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
-    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle, expandCollapseBtn;
+// DOM element variables
+let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
+    matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
+    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
 
-// --- Initialize on DOM Content Loaded ---
-document.addEventListener('DOMContentLoaded', async function() {
+// Function to load and initialize values based on language
+function loadAndInitializeValues(languageCode) {
+    clearAllFilters(); // Reset filters when language changes
+    const filename = `values-${languageCode}.json`;
+    const languageName = languageCode === 'en' ? 'English' : 'Español';
+
+    showStatus(`Loading ${languageName} dictionary...`);
+
+    fetch(filename)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status} for ${filename}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            values = data; // Update the global values array
+            initializeValuesDictionary(); // Re-initialize UI components that depend on 'values'
+            updateValuesCount(); // Update the displayed count of values
+            showStatus(`Dictionary loaded in ${languageName}.`);
+        })
+        .catch(error => {
+            console.error(`Error fetching ${filename}:`, error);
+            showStatus(`Could not load ${languageName} data. Please try refreshing.`, true);
+            values = []; // Clear or reset values to prevent using stale/incorrect data
+            if (languageCode === 'en') { // If primary language fails, attempt fallback or clear UI
+                 fallbackInitialization(); // Shows a simplified list or error
+            } else { // If a secondary language fails, perhaps revert to English or clear UI
+                // Optionally, try loading English again or just clear the list
+                valuesList.innerHTML = `<p class="text-red-500 text-center">Failed to load ${languageName} data. Please select another language or refresh.</p>`;
+                updateValuesCount(); // Update count to 0
+            }
+        });
+}
+    
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
     try {
-        getDOMElements();
-        setupUI();
-        await fetchValues(currentLanguage);
-        filterValues();
+        // Get DOM elements
+        searchInput = document.getElementById('searchInput');
+        mainSearchInput = document.getElementById('mainSearchInput');
+        clearSearchBtn = document.getElementById('clearSearch');
+        sortSelect = document.getElementById('sortSelect');
+        tagFilters = document.getElementById('tagFilters');
+        categoryFilters = document.getElementById('categoryFilters');
+        valuesList = document.getElementById('valuesList');
+        matchAll = document.getElementById('matchAll');
+        matchAny = document.getElementById('matchAny');
+        toggleSlide = document.getElementById('toggleSlide');
+        activeFilters = document.getElementById('activeFilters');
+        clearFilters = document.getElementById('clearFilters');
+        filterCount = document.getElementById('filterCount');
+        toggleFilters = document.getElementById('toggleFilters');
+        filtersContainer = document.getElementById('filtersContainer');
+        valuesCount = document.getElementById('valuesCount');
+        alphaNav = document.getElementById('alphaNav');
+        backToTop = document.getElementById('backToTop');
+        languageToggle = document.getElementById('languageToggle');
+        
+        // Verify critical elements were found (valuesList is most critical for display)
+        if (!valuesList) {
+            console.error("Critical DOM element #valuesList not found.");
+            // Display a user-facing error if this happens, as the app cannot function.
+            document.body.innerHTML = '<p style="color: red; text-align: center; padding-top: 50px;">Critical error: UI components missing. Please contact support.</p>';
+            return; 
+        }
+
+        // Set up non-data-dependent UI elements and event listeners
+        setupFilterToggle();
+        setupMatchTypeToggle();
+        setupAlphaNav(); // Should be safe as it just populates links
+        setupBackToTop();
+        setupLanguageToggle(); // Sets up the toggle button listener
+
+        // Event listeners for search and sort
+        if (mainSearchInput) {
+            mainSearchInput.addEventListener('input', () => {
+                filterState.searchTerm = mainSearchInput.value.toLowerCase();
+                if (clearSearchBtn) clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
+                filterValues();
+                updateActiveFilters();
+            });
+        }
+
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                if (mainSearchInput) mainSearchInput.value = '';
+                filterState.searchTerm = '';
+                clearSearchBtn.style.display = 'none';
+                filterValues();
+                updateActiveFilters();
+            });
+        }
+        
+        if (sortSelect) {
+            sortSelect.addEventListener('change', () => {
+                filterState.sortMethod = sortSelect.value;
+                filterValues();
+            });
+        }
+
+        if (clearFilters) {
+            clearFilters.addEventListener('click', clearAllFilters);
+        }
+        
+        // Initial load of English data
+        loadAndInitializeValues('en');
+
     } catch (error) {
-        console.error('Initialization error:', error);
+        console.error("Error during DOMContentLoaded initialization:", error);
+        showStatus(`Error initializing app: ${error.message}`, true);
+        
+        // Fallback initialization to ensure basic functionality
+        fallbackInitialization();
     }
 });
 
-function getDOMElements() {
-    searchInput = document.getElementById('searchInput');
-    mainSearchInput = document.getElementById('mainSearchInput');
-    clearSearchBtn = document.getElementById('clearSearch');
-    sortSelect = document.getElementById('sortSelect');
-    tagFilters = document.getElementById('tagFilters');
-    categoryFilters = document.getElementById('categoryFilters');
-    valuesList = document.getElementById('valuesList');
-    matchAll = document.getElementById('matchAll');
-    matchAny = document.getElementById('matchAny');
-    toggleSlide = document.getElementById('toggleSlide');
-    activeFilters = document.getElementById('activeFilters');
-    clearFilters = document.getElementById('clearFilters');
-    filterCount = document.getElementById('filterCount');
-    toggleFilters = document.getElementById('toggleFilters');
-    filtersContainer = document.getElementById('filtersContainer');
-    valuesCount = document.getElementById('valuesCount');
-    alphaNav = document.getElementById('alphaNav');
-    backToTop = document.getElementById('backToTop');
-    languageToggle = document.getElementById('languageToggle');
-    expandCollapseBtn = document.getElementById('expandCollapseBtn');
-}
-
-// --- Fetch Values ---
-async function fetchValues(language) {
-    const fileName = (language === 'es') ? 'values-es.json' : 'values-en.json';
-    try {
-        const response = await fetch(fileName);
-        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-        values = await response.json();
-    } catch (error) {
-        console.error('Fetch error:', error);
-    }
-}
-
-// --- Setup UI ---
-function setupUI() {
-    setupSearch();
-    setupFilterToggle();
-    setupMatchTypeToggle();
-    setupAlphaNav();
-    setupBackToTop();
-    setupLanguageToggle();
-    setupExpandCollapseControls();
-}
-
-function setupSearch() {
-    if (!mainSearchInput || !clearSearchBtn) return;
-
-    mainSearchInput.addEventListener('input', () => {
-        filterState.searchTerm = mainSearchInput.value.toLowerCase();
-        clearSearchBtn.style.display = filterState.searchTerm ? 'block' : 'none';
-        filterValues();
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-        mainSearchInput.value = '';
-        filterState.searchTerm = '';
-        clearSearchBtn.style.display = 'none';
-        filterValues();
-    });
-}
-
-function setupLanguageToggle() {
-    if (!languageToggle) return;
-    languageToggle.addEventListener('click', () => {
-        alert('Coming soon!');
-    });
-}
-
-// --- Filtering Logic ---
-function filterValues() {
-    let filtered = values;
-
-    if (filterState.searchTerm) {
-        filtered = filtered.filter(value => {
-            const nameMatch = value.name.toLowerCase().includes(filterState.searchTerm);
-            const descriptionMatch = value.description.toLowerCase().includes(filterState.searchTerm);
-            const exampleMatch = value.example?.toLowerCase().includes(filterState.searchTerm);
-            const tagMatch = value.tags?.some(tag => tag.toLowerCase().includes(filterState.searchTerm));
-            return nameMatch || descriptionMatch || exampleMatch || tagMatch;
-        });
-    }
-
-    if (filterState.categories.length > 0) {
-        filtered = filtered.filter(value => filterState.categories.includes(value.category));
-    }
-
-    if (filterState.tags.length > 0) {
-        if (filterState.matchAll) {
-            filtered = filtered.filter(value => filterState.tags.every(tag => value.tags.includes(tag)));
-        } else {
-            filtered = filtered.filter(value => filterState.tags.some(tag => value.tags.includes(tag)));
-        }
-    }
-
-    displayValues(filtered);
-}
-
-// --- Display Values ---
-function displayValues(valuesToDisplay) {
-    if (!valuesList) return;
-
-    valuesList.innerHTML = '';
-
-    valuesToDisplay.forEach(value => {
-        const card = document.createElement('div');
-        card.className = 'value-card';
-
-        card.innerHTML = `
-            <div class="value-card-header">
-                <h2>${value.name}</h2>
-                <span class="category-tag">${value.category}</span>
-                <button class="value-card-toggle">Read more <i class="fas fa-chevron-down"></i></button>
-            </div>
-            <div class="value-card-body">
-                <p class="description">${value.description}</p>
-
-                <div class="example-box">
-                    <h4>Example in Real Life</h4>
-                    <p>${value.example}</p>
-                </div>
-
-                <div class="verbs-section">
-                    <h4>Associated Verbs</h4>
-                    <div class="tags-container">
-                        ${value.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                </div>
-
-                <div class="related-section">
-                    <h4>Related Values</h4>
-                    <div class="tags-container">
-                        ${getRelatedValues(value).map(rel => `<span class="tag related-tag" data-name="${rel.name}">${rel.name}</span>`).join('')}
-                    </div>
-                </div>
-            </div>
-        `;
-
-        valuesList.appendChild(card);
-    });
-
-    setupExpandCollapseLogic();
-}
-
-function setupExpandCollapseLogic() {
-    const toggles = document.querySelectorAll('.value-card-toggle');
-
-    toggles.forEach(toggle => {
-        toggle.addEventListener('click', (e) => {
-            const card = e.target.closest('.value-card');
-            card.classList.toggle('expanded');
-            const isExpanded = card.classList.contains('expanded');
-            toggle.innerHTML = isExpanded ? 'Read less <i class="fas fa-chevron-up"></i>' : 'Read more <i class="fas fa-chevron-down"></i>';
-        });
-    });
-
-    document.querySelectorAll('.related-tag').forEach(tag => {
-        tag.addEventListener('click', (e) => {
-            const name = e.target.dataset.name;
-            const match = Array.from(document.querySelectorAll('.value-card')).find(card => 
-                card.querySelector('h2').textContent.trim() === name);
-            if (match) {
-                match.classList.add('pulse');
-                setTimeout(() => match.classList.remove('pulse'), 600);
+// Setup alphabetical navigation
+function setupAlphaNav() {
+    if (!alphaNav) return;
+    alphaNav.innerHTML = ''; // Clear previous links if any
+    // Create array of alphabet letters
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    
+    // Add each letter
+    alphabet.forEach(letter => {
+        const link = document.createElement('a');
+        link.href = `#section-${letter}`;
+        link.textContent = letter;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = document.getElementById(`section-${letter}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // If section doesn't exist, find closest available section
+                findClosestSection(letter);
             }
         });
+        alphaNav.appendChild(link);
+    });
+    
+    // Add divider
+    const divider = document.createElement('div');
+    divider.classList.add('nav-divider');
+    alphaNav.appendChild(divider);
+    
+    // Add "Skip to Bottom" link
+    const skipToBottom = document.createElement('a');
+    skipToBottom.href = "#bottom";
+    skipToBottom.textContent = "↓";
+    skipToBottom.title = "Skip to bottom";
+    skipToBottom.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    });
+    alphaNav.appendChild(skipToBottom);
+}
+
+// Find closest available section for a letter
+function findClosestSection(letter) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const letterIndex = alphabet.indexOf(letter);
+    
+    // Try next letters
+    for (let i = letterIndex + 1; i < alphabet.length; i++) {
+        const section = document.getElementById(`section-${alphabet[i]}`);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+    }
+    
+    // If no next letter, try previous letters
+    for (let i = letterIndex - 1; i >= 0; i--) {
+        const section = document.getElementById(`section-${alphabet[i]}`);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+    }
+}
+
+// Setup back to top button
+function setupBackToTop() {
+    if (!backToTop) return;
+    
+    // Show back to top button when scrolled down
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+    
+    // Scroll to top when clicked
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 }
 
-function getRelatedValues(currentValue) {
-    if (!currentValue.tags) return [];
-
-    return values.filter(v =>
-        v.name !== currentValue.name &&
-        v.tags?.some(tag => currentValue.tags.includes(tag))
-    ).slice(0, 3);
+// Setup language toggle
+function setupLanguageToggle() {
+    if (!languageToggle) return;
+    
+    languageToggle.addEventListener('click', () => {
+        if (currentLanguage === 'en') {
+            currentLanguage = 'es';
+            languageToggle.textContent = 'In English';
+            loadAndInitializeValues('es');
+        } else {
+            currentLanguage = 'en';
+            languageToggle.textContent = 'En español';
+            loadAndInitializeValues('en');
+        }
+    });
 }
+
+// Update values count display
+function updateValuesCount() { // Removed count parameter, will use global values.length
+    if (valuesCount) {
+        valuesCount.textContent = count || (values && values.length) || 0;
+    }
+}
+
+// Setup filter toggle button
+function setupFilterToggle() {
+    if (!toggleFilters || !filtersContainer) return; // Add guard clauses
+    toggleFilters.addEventListener('click', () => {
+        filtersContainer.classList.toggle('collapsed');
+        const isCollapsed = filtersContainer.classList.contains('collapsed');
+        
+        // Update text and icon
+        const toggleText = document.getElementById('toggleFiltersText');
+        const toggleIcon = document.getElementById('toggleFiltersIcon');
+        if (toggleText) toggleText.textContent = isCollapsed ? 'Show Filters' : 'Hide Filters';
+        if (toggleIcon) {
+            toggleIcon.classList.remove(isCollapsed ? 'fa-chevron-up' : 'fa-chevron-down');
+            toggleIcon.classList.add(isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up');
+        }
+    });
+}
+
+// Setup match type toggle
+function setupMatchTypeToggle() {
+    if (!matchAll || !matchAny || !toggleSlide) return; // Add guard clauses
+    matchAll.addEventListener('click', () => {
+        if (!filterState.matchAll) {
+            filterState.matchAll = true;
+            toggleSlide.classList.remove('right');
+            matchAll.classList.remove('opacity-75');
+            matchAll.classList.add('text-purple-800');
+            matchAny.classList.remove('text-purple-800');
+            matchAny.classList.add('opacity-75');
+            filterValues();
+        }
+    });
+    
+    matchAny.addEventListener('click', () => {
+        if (filterState.matchAll) {
+            filterState.matchAll = false;
+            toggleSlide.classList.add('right');
+            matchAny.classList.remove('opacity-75');
+            matchAny.classList.add('text-purple-800');
+            matchAll.classList.remove('text-purple-800');
+            matchAll.classList.add('opacity-75');
+            filterValues();
+        }
+    });
+}
+
+// Clear all filters
+function clearAllFilters() {
+    // Reset filter state
+    filterState.categories = [];
+    filterState.tags = [];
+    filterState.searchTerm = '';
+    
+    // Reset UI elements
+    document.querySelectorAll('.tag.selected').forEach(tag => {
+        tag.classList.remove('selected');
+        if (tag.querySelector('.tag-icon')) {
+            tag.querySelector('.tag-icon').remove();
+        }
+    });
+    
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    if (mainSearchInput) mainSearchInput.value = '';
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+    
+    // Update UI
+    updateActiveFilters();
+    filterValues();
+    
+    showStatus("All filters cleared");
+}
+
+// Fallback initialization if there's an error
+function fallbackInitialization() {
+    console.log("Using fallback initialization...");
+    
+    // Create a fallback display of values
+    if (valuesList) {
+        valuesList.innerHTML = `
+            <div class="bg-yellow-100 p-4 rounded-md mb-4">
+                <p>There was an issue loading the interactive dictionary. Here's a simplified version:</p>
+            </div>
+            <div class="space-y-4">
+                ${(typeof values !== 'undefined' && values.length > 0 ? values : [{name: "Error", description: "Could not load values.", example: "", category: "Error", tags: []}]).map(value => `
+                    <div class="p-4 bg-filter-bg rounded-md shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">${value.name}</h3>
+                            <span class="text-sm opacity-75 category-badge">${value.category}</span>
+                        </div>
+                        <p class="mb-3">${value.description}</p>
+                        <div class="value-example">
+                            <div class="section-label"><i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE</div>
+                            ${value.example}
+                        </div>
+                        <div>
+                            <div class="section-label"><i class="fas fa-tags"></i> ASSOCIATED VERBS</div>
+                            <div class="flex flex-wrap">
+                                ${value.tags.map(tag => `
+                                    <span class="tag">${tag}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+}
+
+// Initialize value dictionary
+function initializeValuesDictionary() {
+    if (!values || values.length === 0) {
+        console.error("Values data is not available for initialization.");
+        showStatus("Could not initialize dictionary: data not loaded.", true);
+        if (valuesList) valuesList.innerHTML = '<p class="text-red-500 text-center">Error: Values data could not be loaded.</p>';
+        return;
+    }
+    try {
+        console.log("Initializing dictionary with", values.length, "values");
+        
+        // Filter out verbs that only appear once
+        const verbCounts = {};
+        values.forEach(value => {
+            if (value.tags && Array.isArray(value.tags)) { // Ensure tags exist and is an array
+                value.tags.forEach(tag => {
+                    verbCounts[tag] = (verbCounts[tag] || 0) + 1;
+                });
+            } else {
+                value.tags = []; // Ensure tags is an array if it's missing or not an array
+            }
+        });
+        
+        // Update values to remove single-occurrence verbs
+        values.forEach(value => {
+            value.tags = value.tags.filter(tag => verbCounts[tag] > 1);
+        });
+
+        // Populate category filters
+        if (categoryFilters) {
+            categoryFilters.innerHTML = ''; // Clear existing filters
+            // Get unique categories
+            const categories = [...new Set(values.map(value => value.category))].sort();
+            
+            // Create category filters
+            categories.forEach(category => {
+                const categoryContainer = document.createElement('div');
+                categoryContainer.classList.add('flex', 'items-center');
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `category-${category}`;
+                checkbox.classList.add('mr-2', 'form-checkbox', 'h-4', 'w-4', 'text-purple-600', 'rounded');
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        if (!filterState.categories.includes(category)) {
+                            filterState.categories.push(category);
+                        }
+                    } else {
+                        filterState.categories = filterState.categories.filter(c => c !== category);
+                    }
+                    filterValues();
+                    updateActiveFilters();
+                });
+                
+                const label = document.createElement('label');
+                label.htmlFor = `category-${category}`;
+                label.textContent = category;
+                label.classList.add('text-sm', 'select-none');
+                
+                // Count values in this category
+                const count = values.filter(value => value.category === category).length;
+                const countSpan = document.createElement('span');
+                countSpan.textContent = `(${count})`;
+                countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
+                label.appendChild(countSpan);
+                
+                categoryContainer.appendChild(checkbox);
+                categoryContainer.appendChild(label);
+                categoryFilters.appendChild(categoryContainer);
+            });
+        }
+
+        // Populate tag filters
+        if (tagFilters) {
+            tagFilters.innerHTML = ''; // Clear existing filters
+            // Collect all unique tags that appear multiple times
+            const allTags = new Set();
+            Object.entries(verbCounts).forEach(([tag, count]) => {
+                if (count > 1) {
+                    allTags.add(tag);
+                }
+            });
+
+            // Create tag filters
+            Array.from(allTags).sort().forEach(tag => {
+                const tagContainer = document.createElement('div');
+                tagContainer.classList.add('flex', 'items-center');
+                
+                // Create tag element for filter section
+                const tagElement = document.createElement('span');
+                tagElement.textContent = tag;
+                tagElement.classList.add('tag');
+                tagElement.dataset.tag = tag;
+                
+                // Count values with this tag
+                const count = values.filter(value => value.tags.includes(tag)).length;
+                const countSpan = document.createElement('span');
+                countSpan.textContent = `(${count})`;
+                countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
+                tagElement.appendChild(countSpan);
+                
+                // Add click event to toggle selection
+                tagElement.addEventListener('click', () => {
+                    tagElement.classList.toggle('selected');
+                    
+                    if (tagElement.classList.contains('selected')) {
+                        const icon = document.createElement('i');
+                        icon.classList.add('fas', 'fa-check', 'tag-icon');
+                        tagElement.prepend(icon);
+                        
+                        if (!filterState.tags.includes(tag)) {
+                            filterState.tags.push(tag);
+                        }
+                    } else {
+                        const icon = tagElement.querySelector('.tag-icon');
+                        if (icon) icon.remove();
+                        
+                        filterState.tags = filterState.tags.filter(t => t !== tag);
+                    }
+                    
+                    filterValues();
+                    updateActiveFilters();
+                });
+                
+                tagFilters.appendChild(tagElement);
+            });
+        }
+
+        // Initial display of values
+        console.log("Displaying values...");
+        filterValues();
+        
+    } catch (error) {
+        console.error("Error initializing dictionary:", error);
+        showStatus("Error loading values dictionary", true);
+        
+        // Try fallback
+        if (valuesList) {
+            valuesList.innerHTML = `
+                <div class="status-error p-4 rounded-md">
+                    <h3 class="font-bold mb-2">Error Loading Dictionary</h3>
+                    <p>${error.message}</p>
+                    <p class="mt-2">Please reload the page or try again later.</p>
+                </div>
+            `;
+        }
+    }
+}
+
+// Update active filters display
+function updateActiveFilters() {
+    if (!activeFilters || !clearFilters) return;
+    
+    const hasFilters = filterState.categories.length > 0 || 
+                       filterState.tags.length > 0 || 
+                       filterState.searchTerm;
+    
+    // Show/hide elements based on filters
+    clearFilters.classList.toggle('hidden', !hasFilters);
+    const noActiveFiltersEl = document.getElementById('noActiveFilters');
+    if (noActiveFiltersEl) noActiveFiltersEl.style.display = hasFilters ? 'none' : 'block';
+    
+    // Clear existing active filters
+    const currentActiveBadges = activeFilters.querySelectorAll('.active-filter');
+    currentActiveBadges.forEach(filter => filter.remove());
+    
+    // Add category filters
+    filterState.categories.forEach(category => {
+        addActiveFilterBadge(category, 'category');
+    });
+    
+    // Add tag filters
+    filterState.tags.forEach(tag => {
+        addActiveFilterBadge(tag, 'tag');
+    });
+    
+    // Add search filter
+    if (filterState.searchTerm) {
+        addActiveFilterBadge(`"${filterState.searchTerm}"`, 'search');
+    }
+}
+
+// Add active filter badge
+function addActiveFilterBadge(text, type) {
+    if (!activeFilters) return;
+    
+    const badge = document.createElement('div');
+    badge.classList.add('active-filter', 'text-xs', 'rounded-full', 'px-3', 'py-1', 'flex', 'items-center', 'mr-2', 'mb-2');
+    
+    // Add icon based on type
+    const icon = document.createElement('i');
+    if (type === 'category') {
+        icon.classList.add('fas', 'fa-folder');
+    } else if (type === 'tag') {
+        icon.classList.add('fas', 'fa-tag');
+    } else if (type === 'search') {
+        icon.classList.add('fas', 'fa-search');
+    }
+    icon.classList.add('mr-1', 'opacity-75');
+    badge.appendChild(icon);
+    
+    // Add text
+    const textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    badge.appendChild(textSpan);
+    
+    // Add remove button
+    const removeButton = document.createElement('button');
+    removeButton.classList.add('ml-1', 'text-gray-600', 'hover:text-gray-800');
+    removeButton.innerHTML = '<i class="fas fa-times-circle"></i>';
+    removeButton.addEventListener('click', () => {
+        if (type === 'category') {
+            filterState.categories = filterState.categories.filter(c => c !== text);
+            // Update checkbox
+            const checkbox = document.getElementById(`category-${text}`);
+            if (checkbox) checkbox.checked = false;
+        } else if (type === 'tag') {
+            filterState.tags = filterState.tags.filter(t => t !== text);
+            // Update tag
+            updateTagSelection(text, false);
+        } else if (type === 'search') {
+            filterState.searchTerm = '';
+            if (mainSearchInput) mainSearchInput.value = '';
+            if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+        }
+        
+        filterValues();
+        updateActiveFilters();
+    });
+    badge.appendChild(removeButton);
+    
+    activeFilters.appendChild(badge);
+}
+
+// Update tag selection state
+function updateTagSelection(tag, isSelected) {
+    if (!tagFilters) return;
+    // Update tag in filter section
+    const tagElements = tagFilters.querySelectorAll('.tag');
+    tagElements.forEach(tagElement => {
+        if (tagElement.dataset.tag === tag) {
+            tagElement.classList.toggle('selected', isSelected);
+            
+            if (isSelected && !tagElement.querySelector('.tag-icon')) {
+                const icon = document.createElement('i');
+                icon.classList.add('fas', 'fa-check', 'tag-icon');
+                tagElement.prepend(icon);
+            } else if (!isSelected) {
+                const icon = tagElement.querySelector('.tag-icon');
+                if (icon) icon.remove();
+            }
+        }
+    });
+}
+
+// Highlight a tag in the filter section
+function highlightTag(tagName) {
+    if (!tagFilters || !filtersContainer) return; // Add guard clauses
+    try {
+        console.log("Highlighting tag:", tagName);
+        
+        // Check if tag is already in filters
+        if (filterState.tags.includes(tagName)) {
+            // Just focus on the existing tag
+            const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
+                .find(el => el.dataset.tag === tagName);
+            
+            if (tagElement) {
+                tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Add a pulsing animation
+                tagElement.classList.add('animate-pulse');
+                setTimeout(() => {
+                    tagElement.classList.remove('animate-pulse');
+                }, 2000);
+            }
+            
+            return;
+        }
+        
+        // Add the tag to filters
+        filterState.tags.push(tagName);
+        
+        // Update UI
+        updateTagSelection(tagName, true);
+        updateActiveFilters();
+        filterValues();
+        
+        // Find and highlight the tag element
+        const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
+            .find(el => el.dataset.tag === tagName);
+        
+        if (tagElement) {
+            // Ensure filters are visible
+            filtersContainer.classList.remove('collapsed');
+            const toggleText = document.getElementById('toggleFiltersText');
+            const toggleIcon = document.getElementById('toggleFiltersIcon');
+            if (toggleText) toggleText.textContent = 'Hide Filters';
+            if (toggleIcon) {
+                 toggleIcon.classList.remove('fa-chevron-down');
+                 toggleIcon.classList.add('fa-chevron-up');
+            }
+            
+            // Scroll to tag and highlight
+            tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            tagElement.classList.add('animate-pulse');
+            setTimeout(() => {
+                tagElement.classList.remove('animate-pulse');
+            }, 2000);
+        }
+        
+        // Show status
+        showStatus(`Showing values tagged with "${tagName}"`);
+        
+    } catch (error) {
+        console.error("Error highlighting tag:", error);
+        showStatus(`Error highlighting tag: ${error.message}`, true);
+    }
+}
+
+// Find related values based on shared tags
+function findRelatedValues(value) {
+    if (!values || !value || !value.tags) return []; // Guard against undefined values or tags
+
+    const related = [];
+    
+    values.forEach(otherValue => {
+        if (!otherValue || otherValue.name === value.name || !otherValue.tags) return; // Guard against undefined otherValue or its tags
+        
+        // Find shared tags
+        const sharedTags = otherValue.tags.filter(tag => value.tags.includes(tag));
+        
+        if (sharedTags.length > 0) {
+            related.push({
+                name: otherValue.name,
+                category: otherValue.category,
+                matchCount: sharedTags.length,
+                matchPercent: Math.round((sharedTags.length / Math.max(value.tags.length, otherValue.tags.length)) * 100),
+                sharedTags
+            });
+        }
+    });
+    
+    // Sort by number of matches (descending)
+    related.sort((a, b) => b.matchCount - a.matchCount);
+    
+    // Return top 3
+    return related.slice(0, 3);
+}
+
+// Display values in the dictionary
+function displayValues(valuesToDisplay) {
+    if (!valuesList) return; // Guard clause
+    try {
+        console.log("Displaying", valuesToDisplay.length, "values");
+        
+        valuesList.innerHTML = '';
+        
+        // Update the count of filtered values
+        updateValuesCount(valuesToDisplay.length);
+
+        if (valuesToDisplay.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.classList.add('p-8', 'text-center');
+            
+            const icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-search', 'opacity-25', 'text-5xl', 'mb-4');
+            
+            const message = document.createElement('p');
+            message.textContent = 'No values match your search criteria.';
+            message.classList.add('opacity-75', 'text-lg', 'mb-4');
+            
+            const suggestion = document.createElement('p');
+            suggestion.textContent = 'Try adjusting your filters or search terms.';
+            suggestion.classList.add('opacity-50', 'text-sm');
+            
+            const resetButton = document.createElement('button');
+            resetButton.textContent = 'Reset Filters';
+            resetButton.classList.add('mt-4', 'reset-btn');
+            resetButton.addEventListener('click', clearAllFilters);
+            
+            noResults.appendChild(icon);
+            noResults.appendChild(message);
+            noResults.appendChild(suggestion);
+            noResults.appendChild(resetButton);
+            
+            valuesList.appendChild(noResults);
+            return;
+        }
+
+        // Group values by first letter for alphabetical sections
+        const valuesByLetter = {};
+        valuesToDisplay.forEach(value => {
+            const firstLetter = value.name.charAt(0).toUpperCase();
+            if (!valuesByLetter[firstLetter]) {
+                valuesByLetter[firstLetter] = [];
+            }
+            valuesByLetter[firstLetter].push(value);
+        });
+        
+        // Create sections for each letter
+        Object.keys(valuesByLetter).sort().forEach(letter => {
+            // Create section header
+            const sectionHeader = document.createElement('div');
+            sectionHeader.id = `section-${letter}`;
+            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'pb-2', 'border-b', 'border-gray-300');
+            sectionHeader.textContent = letter;
+            valuesList.appendChild(sectionHeader);
+            
+            // Add values for this letter
+            valuesByLetter[letter].forEach(value => {
+                const card = document.createElement('div');
+                card.classList.add('value-card', 'p-4', 'rounded-md', 'shadow-sm', 'mb-4');
+                
+                const header = document.createElement('div');
+                header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+                
+                const title = document.createElement('h3');
+                title.textContent = value.name;
+                title.dataset.value = value.name; // Add for related value navigation
+                title.classList.add('text-lg', 'font-semibold');
+                
+                const category = document.createElement('span');
+                category.textContent = value.category;
+                category.classList.add('category-badge');
+                category.addEventListener('click', () => {
+                    // Add category to filters
+                    if (!filterState.categories.includes(value.category)) {
+                        filterState.categories.push(value.category);
+                        // Update checkbox
+                        const checkbox = document.getElementById(`category-${value.category}`);
+                        if (checkbox) checkbox.checked = true;
+                        filterValues();
+                        updateActiveFilters();
+                        
+                        // Show status
+                        showStatus(`Showing values in category: ${value.category}`);
+                    }
+                });
+                
+                header.appendChild(title);
+                header.appendChild(category);
+                
+                const description = document.createElement('p');
+                description.textContent = value.description;
+                description.classList.add('mb-4');
+                
+                // Create content container (for collapsible functionality)
+                const contentContainer = document.createElement('div');
+                contentContainer.classList.add('value-card-content');
+                
+                // Add the example of value in action with label
+                const exampleContainer = document.createElement('div');
+                exampleContainer.classList.add('mb-4');
+                
+                const exampleLabel = document.createElement('div');
+                exampleLabel.innerHTML = '<i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE';
+                exampleLabel.classList.add('section-label');
+                exampleContainer.appendChild(exampleLabel);
+                
+                const example = document.createElement('div');
+                example.textContent = value.example;
+                example.classList.add('value-example');
+                exampleContainer.appendChild(example);
+                
+                contentContainer.appendChild(exampleContainer);
+                
+                // Add tags with label
+                const tagsSection = document.createElement('div');
+                tagsSection.classList.add('mb-3');
+                
+                const tagsLabel = document.createElement('div');
+                tagsLabel.innerHTML = '<i class="fas fa-tags"></i> ASSOCIATED VERBS';
+                tagsLabel.classList.add('section-label');
+                tagsSection.appendChild(tagsLabel);
+                
+                const tagsContainer = document.createElement('div');
+                tagsContainer.classList.add('flex', 'flex-wrap');
+                
+                if (value.tags && Array.isArray(value.tags)) { // Check if tags exist
+                    value.tags.forEach(tag => {
+                        const tagElement = document.createElement('span');
+                        tagElement.textContent = tag;
+                        tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
+                        tagElement.title = `Show all values tagged with "${tag}"`;
+                        // Add click event to filter by this tag
+                        tagElement.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            // Find this tag in the filter section and activate it
+                            highlightTag(tag);
+                        });
+                        tagsContainer.appendChild(tagElement);
+                    });
+                }
+                
+                tagsSection.appendChild(tagsContainer);
+                contentContainer.appendChild(tagsSection);
+                
+                // Add related values section
+                const relatedValues = findRelatedValues(value);
+                if (relatedValues.length > 0) {
+                    const relatedSection = document.createElement('div');
+                    relatedSection.classList.add('mb-3');
+                    
+                    const relatedLabel = document.createElement('div');
+                    relatedLabel.innerHTML = '<i class="fas fa-link"></i> RELATED VALUES';
+                    relatedLabel.classList.add('section-label');
+                    relatedSection.appendChild(relatedLabel);
+                    
+                    const relatedGrid = document.createElement('div');
+                    relatedGrid.classList.add('related-values-grid');
+                    
+                    relatedValues.forEach(related => {
+                        const relatedCard = document.createElement('div');
+                        relatedCard.classList.add('related-value-card');
+                        
+                        const relatedName = document.createElement('div');
+                        relatedName.textContent = related.name;
+                        relatedName.classList.add('related-value-name');
+                        
+                        const sharedTagsContainer = document.createElement('div');
+                        sharedTagsContainer.classList.add('shared-tags');
+                        
+                        // Add a subset of shared tags (up to 3)
+                        const tagsToShow = related.sharedTags.slice(0, 3);
+                        tagsToShow.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.textContent = tag;
+                            tagElement.classList.add('shared-tag');
+                            sharedTagsContainer.appendChild(tagElement);
+                        });
+                        
+                        // Add tooltip that appears on hover
+                        const tooltip = document.createElement('div');
+                        tooltip.textContent = 'Click to view this value';
+                        tooltip.classList.add('related-tooltip');
+                        
+                        relatedCard.appendChild(relatedName);
+                        relatedCard.appendChild(sharedTagsContainer);
+                        relatedCard.appendChild(tooltip);
+                        
+                        // Add click event to navigate to related value
+                        relatedCard.addEventListener('click', () => {
+                            const relatedValueCard = Array.from(valuesList.querySelectorAll('.value-card'))
+                                .find(card => card.querySelector(`h3[data-value="${related.name}"]`));
+                            
+                            if (relatedValueCard) {
+                                relatedValueCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                // Highlight the card
+                                relatedValueCard.classList.add('ring-2', 'ring-indigo-500');
+                                setTimeout(() => {
+                                    relatedValueCard.classList.remove('ring-2', 'ring-indigo-500');
+                                }, 2000);
+                                
+                                // Expand the card if it's collapsed
+                                if (!relatedValueCard.classList.contains('expanded')) {
+                                    const toggle = relatedValueCard.querySelector('.value-card-toggle');
+                                    if (toggle) toggle.click();
+                                }
+                            }
+                        });
+                        
+                        relatedGrid.appendChild(relatedCard);
+                    });
+                    
+                    relatedSection.appendChild(relatedGrid);
+                    contentContainer.appendChild(relatedSection);
+                }
+                
+                // Add toggle button
+                const toggleButton = document.createElement('div');
+                toggleButton.classList.add('value-card-toggle');
+                toggleButton.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+                toggleButton.addEventListener('click', () => {
+                    card.classList.toggle('expanded');
+                    toggleButton.innerHTML = card.classList.contains('expanded') 
+                        ? 'Read less <i class="fas fa-chevron-up"></i>' 
+                        : 'Read more <i class="fas fa-chevron-down"></i>';
+                });
+                
+                card.appendChild(header);
+                card.appendChild(description);
+                card.appendChild(contentContainer);
+                card.appendChild(toggleButton);
+                
+                valuesList.appendChild(card);
+            });
+        });
+        
+        // Add anchor for bottom of page
+        const bottomAnchor = document.createElement('div');
+        bottomAnchor.id = 'bottom';
+        valuesList.appendChild(bottomAnchor);
+        
+        console.log("Values displayed successfully");
+    } catch (error) {
+        console.error("Error displaying values:", error);
+        
+        if (valuesList) {
+            valuesList.innerHTML = `
+                <div class="status-error p-4 rounded-md">
+                    <h3 class="font-bold mb-2">Error Displaying Values</h3>
+                    <p>${error.message}</p>
+                </div>
+                
+                <!-- Fallback display -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-4">Values List:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        ${(typeof values !== 'undefined' && values.length > 0 ? values : [{name: "Error", description: "Could not load values.", example: "", category: "Error", tags: []}]).map(v => `<li>${v.name} - ${v.category}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+    }
+}
+
+// Filter values based on search input and selected tags/categories
+function filterValues() {
+    if (!values) { // Guard clause for undefined values
+        console.error("Values array is not initialized. Cannot filter.");
+        if (valuesList) valuesList.innerHTML = '<p class="text-red-500 text-center">Error: Data not loaded, cannot filter values.</p>';
+        return;
+    }
+    try {
+        console.log("Filtering values...", filterState);
+        
+        let filtered = values;
+        
+        // Filter by search term
+        if (filterState.searchTerm) {
+            filtered = filtered.filter(value => {
+                const nameMatch = value.name.toLowerCase().includes(filterState.searchTerm);
+                const descriptionMatch = value.description.toLowerCase().includes(filterState.searchTerm);
+                const exampleMatch = value.example.toLowerCase().includes(filterState.searchTerm);
+                const tagMatch = value.tags && value.tags.some(tag => tag.toLowerCase().includes(filterState.searchTerm));
+                return nameMatch || descriptionMatch || exampleMatch || tagMatch;
+            });
+        }
+        
+        // Filter by categories
+        if (filterState.categories.length > 0) {
+            filtered = filtered.filter(value => 
+                filterState.categories.includes(value.category)
+            );
+        }
+        
+        // Filter by tags
+        if (filterState.tags.length > 0) {
+            if (filterState.matchAll) {
+                // Match ALL tags (AND logic)
+                filtered = filtered.filter(value => 
+                    value.tags && filterState.tags.every(tag => value.tags.includes(tag))
+                );
+            } else {
+                // Match ANY tag (OR logic)
+                filtered = filtered.filter(value =>
+                    value.tags && filterState.tags.some(tag => value.tags.includes(tag))
+                );
+            }
+        }
+        
+        // Sort results
+        if (filterState.sortMethod === 'name') {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (filterState.sortMethod === 'category') {
+            filtered.sort((a, b) => {
+                const categoryCompare = a.category.localeCompare(b.category);
+                if (categoryCompare === 0) {
+                    return a.name.localeCompare(b.name);
+                }
+                return categoryCompare;
+            });
+        }
+        
+        console.log("Found", filtered.length, "matching values");
+        displayValues(filtered);
+        
+    } catch (error) {
+        console.error("Error filtering values:", error);
+        showStatus("Error filtering values", true);
+        
+        // Display all values as fallback
+        displayValues(values);
+    }
+}
+        description: "The willingness to embrace what is, rather than what should be or might have been. It involves making peace with yourself, others, and life's imperfections.",
+        example: "After months of struggling with chronic pain, Sarah practiced acceptance by acknowledging her new limitations while finding different ways to remain active and connected with others, rather than dwelling on her previous capabilities.",
+        category: "Personal",
+        tags: ["embrace", "receive", "welcome", "allow", "permit", "tolerate", "acknowledge", "recognize", "include"]
+    },
+    {
+        name: "Accountability",
+        description: "Taking responsibility for one's actions and being answerable for their outcomes.",
+        example: "After the project missed its deadline, the team leader demonstrated accountability by acknowledging the mistakes and developing a plan to fix them.",
+        category: "Personal",
+        tags: ["answer", "report", "explain", "justify", "own", "accept", "acknowledge", "address", "resolve"]
+    },
+    {
+        name: "Achievement",
+        description: "Reaching goals and fulfilling your potential through hard work and determination.",
+        example: "After years of study and practice, earning her medical degree represented a significant achievement that opened doors to help others.",
+        category: "Personal",
+        tags: ["accomplish", "attain", "reach", "complete", "earn", "succeed", "realize", "fulfill", "master"]
+    },
+    {
+        name: "Action",
+        description: "Taking steps to achieve a goal or complete a task.",
+        example: "Instead of just talking about helping the homeless, she took action by organizing a community drive for winter clothing and necessities.",
+        category: "Personal",
+        tags: ["do", "perform", "execute", "implement", "conduct", "carry out", "undertake", "pursue", "initiate"]
+    },
+    {
+        name: "Adventure",
+        description: "A willingness to take risks and explore new experiences for enjoyment and growth.",
+        example: "She embraced adventure by accepting a job in a foreign country where she knew no one and didn't speak the language.",
+        category: "Personal",
+        tags: ["explore", "discover", "experience", "journey", "venture", "risk", "seek", "travel", "embrace"]
+    },
+    {
+        name: "Advocacy",
+        description: "Speaking up for what is right and supporting others to create positive change in the community.",
+        example: "The teacher practiced advocacy by addressing the school board about the need for more resources for students with disabilities.",
+        category: "Social",
+        tags: ["champion", "support", "defend", "promote", "speak", "represent", "advance", "argue", "lobby"]
+    },
+    {
+        name: "Ambiguity",
+        description: "The quality of being open to more than one interpretation or having unclear meaning.",
+        example: "The poem's ambiguity allows readers to find their own meaning in the verses, making it personally relevant to each person.",
+        category: "Personal",
+        tags: ["interpret", "question", "consider", "explore", "analyze", "navigate", "accept", "understand", "appreciate"]
+    },
+    {
+        name: "Ambition",
+        description: "A strong desire to achieve goals and turn dreams into reality drives people to work hard and overcome challenges.",
+        example: "Her ambition to become the first person in her family to graduate from college motivated her to study late into the night despite working full-time.",
+        category: "Personal",
+        tags: ["aspire", "strive", "seek", "pursue", "desire", "aim", "drive", "reach", "advance"]
+    },
+    {
+        name: "Appreciation",
+        description: "Showing gratitude and recognizing the good things or people in life.",
+        example: "The manager expressed appreciation by writing personalized thank-you notes highlighting each team member's specific contributions to the successful project.",
+        category: "Interpersonal",
+        tags: ["value", "recognize", "acknowledge", "cherish", "treasure", "admire", "respect", "notice", "praise"]
+    },
+    {
+        name: "Approachability",
+        description: "Being open and friendly to others, making it easy for them to talk and share their thoughts.",
+        example: "The CEO demonstrated approachability by eating lunch in the company cafeteria and welcoming employees to sit and chat with her.",
+        category: "Interpersonal",
+        tags: ["welcome", "engage", "connect", "invite", "include", "listen", "receive", "respond", "interact"]
+    },
+    {
+        name: "Authenticity",
+        description: "Being true to oneself and honest with others, showing real feelings and beliefs.",
+        example: "During the job interview, she showed authenticity by honestly discussing both her strengths and areas where she needed growth.",
+        category: "Personal",
+        tags: ["express", "reveal", "represent", "embody", "demonstrate", "live", "practice", "maintain", "honor"]
+    },
+    {
+        name: "Balance",
+        description: "Maintaining a fair and even distribution of different elements in life or work.",
+        example: "She achieved balance by dedicating time each week to her career, family, health, and personal interests without letting any one area dominate.",
+        category: "Personal",
+        tags: ["harmonize", "integrate", "manage", "distribute", "allocate", "proportion", "regulate", "stabilize", "calibrate"]
+    },
+    {
+        name: "Beauty",
+        description: "An aesthetic quality that pleases the senses and evokes feelings of joy or admiration.",
+        example: "The community garden brought beauty to the once-abandoned lot, creating a space where people could experience nature's colors, scents, and textures.",
+        category: "Personal",
+        tags: ["appreciate", "create", "design", "craft", "express", "arrange", "compose", "admire", "perceive"]
+    },
+    {
+        name: "Benevolence",
+        description: "Showing kindness and helping others without expecting anything in return.",
+        example: "After the storm, neighbors demonstrated benevolence by sharing generators, clearing fallen trees from each other's properties, and cooking meals for those without power.",
+        category: "Interpersonal",
+        tags: ["give", "help", "support", "assist", "provide", "contribute", "offer", "serve", "benefit"]
+    },
+    {
+        name: "Boldness",
+        description: "Taking risks and facing challenges with confidence, even when afraid.",
+        example: "She showed boldness by being the first to speak up about unfair practices in the workplace, despite the risk to her position.",
+        category: "Personal",
+        tags: ["risk", "venture", "initiate", "challenge", "pioneer", "lead", "break", "push", "advance"]
+    },
+    {
+        name: "Bravery",
+        description: "Facing fears and challenges with courage, even when feeling scared or uncertain.",
+        example: "The child demonstrated bravery by giving his speech to the entire school despite his fear of public speaking.",
+        category: "Personal",
+        tags: ["face", "confront", "encounter", "withstand", "endure", "overcome", "challenge", "stand", "defend"]
+    },
+    {
+        name: "Camaraderie",
+        description: "Building strong relationships and trust among people working together, creating a sense of friendship and support.",
+        example: "The team developed camaraderie through shared challenges, celebrations of small wins, and supporting each other during setbacks.",
+        category: "Interpersonal",
+        tags: ["bond", "connect", "relate", "share", "support", "trust", "unite", "ally", "associate"]
+    },
+    {
+        name: "Capitalism",
+        description: "An economic system where individuals own businesses and property, and prices are determined by competition in the market.",
+        example: "The entrepreneur embodied capitalism by investing her savings to start a small business, taking risks, and responding to market demands.",
+        category: "Social",
+        tags: ["invest", "profit", "compete", "build", "grow", "market", "trade", "own", "develop"]
+    },
+    {
+        name: "Caring",
+        description: "Showing kindness and concern for others, helping them when they need support.",
+        example: "The nurse demonstrated caring by sitting with the anxious patient, explaining procedures thoroughly, and checking in frequently to ensure comfort.",
+        category: "Interpersonal",
+        tags: ["attend", "nurture", "protect", "watch", "tend", "look after", "support", "help", "assist"]
+    },
+    {
+        name: "Celebration",
+        description: "A joyful event or gathering to honor a special occasion or achievement.",
+        example: "The team organized a celebration to recognize their colleague's ten years with the company, sharing stories and presenting a meaningful gift.",
+        category: "Interpersonal",
+        tags: ["honor", "recognize", "commemorate", "observe", "mark", "acknowledge", "rejoice", "praise", "toast"]
+    },
+    {
+        name: "Challenge",
+        description: "Facing a difficult task or problem that requires effort and determination to overcome.",
+        example: "Learning a new language presented a welcome challenge that pushed her to develop new skills and ways of thinking.",
+        category: "Personal",
+        tags: ["test", "push", "stretch", "confront", "tackle", "undertake", "face", "attempt", "endeavor"]
+    },
+    {
+        name: "Charisma",
+        description: "The ability to attract, influence, and inspire others through charm and confidence.",
+        example: "The speaker's charisma captivated the audience, making complex concepts accessible and inspiring many to take action on environmental issues.",
+        category: "Interpersonal",
+        tags: ["inspire", "attract", "engage", "connect", "influence", "motivate", "captivate", "energize", "charm"]
+    },
+    {
+        name: "Choice",
+        description: "The ability to select between options or make decisions based on personal preference.",
+        example: "The school empowered students by giving them choice in their projects, allowing them to pursue topics that genuinely interested them.",
+        category: "Personal",
+        tags: ["decide", "select", "pick", "opt", "determine", "elect", "prefer", "choose", "judge"]
+    },
+    {
+        name: "Collaboration",
+        description: "Working together with others to achieve common goals and share ideas effectively.",
+        example: "The habitat restoration project succeeded through collaboration between scientists, community volunteers, and government officials, each contributing different expertise.",
+        category: "Interpersonal",
+        tags: ["cooperate", "partner", "coordinate", "contribute", "participate", "team", "join", "unite", "cocreate"]
+    },
+    {
+        name: "Comedy",
+        description: "A form of entertainment that uses humor to make people laugh.",
+        example: "She used comedy during her presentation to make complex information more engaging and memorable for the audience.",
+        category: "Interpersonal",
+        tags: ["amuse", "entertain", "joke", "laugh", "play", "jest", "delight", "lighten", "humor"]
+    },
+    {
+        name: "Comfort",
+        description: "A state of physical and emotional ease that makes people feel relaxed and safe.",
+        example: "The counselor created an environment of comfort by arranging soft seating, speaking gently, and assuring confidentiality.",
+        category: "Personal",
+        tags: ["ease", "relax", "soothe", "calm", "console", "reassure", "support", "nurture", "provide"]
+    },
+    {
+        name: "Commitment",
+        description: "Being dedicated to doing what you said you would do and supporting others in achieving their goals.",
+        example: "Despite numerous obstacles, she showed commitment to the literacy program by volunteering every week for five years, helping hundreds learn to read.",
+        category: "Personal",
+        tags: ["dedicate", "devote", "pledge", "promise", "engage", "persist", "adhere", "follow through", "remain"]
+    },
+    {
+        name: "Communication",
+        description: "Sharing information clearly and respectfully with others to ensure understanding and connection.",
+        example: "The manager practiced effective communication by explaining project goals clearly, listening to team concerns, and providing regular updates on progress.",
+        category: "Interpersonal",
+        tags: ["express", "convey", "share", "discuss", "explain", "clarify", "listen", "engage", "connect"]
+    },
+    {
+        name: "Community",
+        description: "A group of people who share common interests, goals, or values and support each other.",
+        example: "After the natural disaster, the neighborhood demonstrated the power of community by organizing meals, sharing resources, and helping rebuild homes.",
+        category: "Social",
+        tags: ["connect", "participate", "contribute", "belong", "engage", "support", "share", "unite", "build"]
+    },
+    {
+        name: "Compassion",
+        description: "Caring for others and wanting to help them when they are suffering or in need.",
+        example: "The volunteer showed compassion by sitting with homeless individuals, listening to their stories, and connecting them with resources while treating them with dignity.",
+        category: "Interpersonal",
+        tags: ["care", "help", "support", "understand", "listen", "empathize", "comfort", "assist", "nurture"]
+    },
+    {
+        name: "Confidence",
+        description: "Believing in your own abilities and judgment to succeed in different situations.",
+        example: "After months of preparation, she approached the presentation with confidence, speaking clearly and responding thoughtfully to challenging questions.",
+        category: "Personal",
+        tags: ["believe", "trust", "rely", "assert", "assume", "know", "practice", "demonstrate", "show"]
+    },
+    {
+        name: "Connection",
+        description: "A strong bond between people that helps them understand and support each other.",
+        example: "Through weekly video calls over many years, the grandparents and grandchildren maintained a meaningful connection despite living thousands of miles apart.",
+        category: "Interpersonal",
+        tags: ["link", "bond", "relate", "join", "unite", "associate", "bridge", "engage", "integrate"]
+    },
+    {
+        name: "Cooperation",
+        description: "Working together toward shared goals.",
+        example: "The international climate initiative succeeded through cooperation between countries that put aside differences to address shared environmental challenges.",
+        category: "Interpersonal",
+        tags: ["assist", "aid", "help", "support", "collaborate", "coordinate", "participate", "contribute", "share"]
+    },
+    {
+        name: "Courage",
+        description: "The ability to face fear, difficulty, or uncertainty with bravery and determination.",
+        example: "She showed courage by standing up to workplace bullying, reporting the behavior even though it risked her position in the company.",
+        category: "Personal",
+        tags: ["challenge", "face", "overcome", "confront", "brave", "boldly", "stand", "speak", "defend"]
+    },
+    {
+        name: "Craftsmanship",
+        description: "Creating high-quality work with attention to detail and skill.",
+        example: "The furniture maker demonstrated craftsmanship by carefully selecting materials, using precise joinery techniques, and finishing each piece by hand.",
+        category: "Personal",
+        tags: ["create", "build", "make", "design", "craft", "construct", "fabricate", "form", "produce"]
+    },
+    {
+        name: "Creativity",
+        description: "Using imagination and original ideas to create something new or solve problems.",
+        example: "The teacher showed creativity by designing a classroom economy that made learning math concepts engaging through real-world applications.",
+        category: "Personal",
+        tags: ["invent", "imagine", "design", "conceive", "develop", "innovate", "originate", "generate", "craft"]
+    },
+    {
+        name: "Curiosity",
+        description: "A strong desire to learn or know more about something.",
+        example: "The scientist's curiosity led her to question existing theories and design experiments that eventually resulted in a breakthrough discovery.",
+        category: "Personal",
+        tags: ["explore", "investigate", "question", "wonder", "examine", "probe", "inquire", "discover", "learn"]
+    },
+    {
+        name: "Determination",
+        description: "Staying focused on your goals and not giving up, even when things get tough.",
+        example: "After being rejected by multiple publishers, the author's determination kept her revising and submitting her manuscript until it was finally accepted.",
+        category: "Personal",
+        tags: ["persist", "resolve", "decide", "commit", "pursue", "overcome", "endure", "press on", "continue"]
+    },
+    {
+        name: "Discipline",
+        description: "Staying focused and following rules to achieve goals and complete tasks.",
+        example: "The athlete's discipline was evident in her daily training routine, carefully monitored nutrition, and consistent sleep schedule.",
+        category: "Personal",
+        tags: ["practice", "train", "develop", "maintain", "adhere", "follow", "regulate", "establish", "control"]
+    },
+    {
+        name: "Effectiveness",
+        description: "Being effective involves getting the desired results and making a positive impact through actions and decisions.",
+        example: "The new program demonstrated effectiveness by reaching more people with fewer resources while achieving better outcomes than previous initiatives.",
+        category: "Personal",
+        tags: ["achieve", "accomplish", "produce", "deliver", "execute", "complete", "fulfill", "realize", "attain"]
+    },
+    {
+        name: "Empathy",
+        description: "Understanding and sharing the feelings of others to connect and support them better.",
+        example: "The manager showed empathy by adjusting deadlines and workloads when a team member shared they were going through a difficult family situation.",
+        category: "Interpersonal",
+        tags: ["understand", "feel", "connect", "relate", "share", "sense", "perceive", "recognize", "acknowledge"]
+    },
+    {
+        name: "Equality",
+        description: "Fair treatment and equal opportunities for everyone, regardless of their differences.",
+        example: "The company promoted equality by implementing blind resume screening and standardized interview questions to reduce unconscious bias in hiring.",
+        category: "Social",
+        tags: ["balance", "equalize", "level", "match", "standardize", "harmonize", "align", "treat", "distribute"]
+    },
+    {
+        name: "Experiment",
+        description: "A value represents the importance or worth of something, guiding decisions and actions in life.",
+        example: "The teacher encouraged students to experiment with different approaches to problem-solving rather than focusing only on finding the right answer.",
+        category: "Personal",
+        tags: ["test", "try", "explore", "attempt", "investigate", "examine", "probe", "analyze", "verify"]
+    },
+    {
+        name: "Exploration",
+        description: "The act of searching for new places, ideas, or experiences to learn and discover.",
+        example: "The company dedicated time each week for employees to pursue exploration of topics outside their usual responsibilities, leading to innovative solutions.",
+        category: "Personal",
+        tags: ["discover", "search", "investigate", "examine", "survey", "study", "venture", "journey", "probe"]
+    },
+    {
+        name: "Fairness",
+        description: "Treating everyone equally and justly, ensuring that all have the same opportunities and rights.",
+        example: "The referee demonstrated fairness by applying the rules consistently for both teams, regardless of the score or circumstances.",
+        category: "Social",
+        tags: ["balance", "equalize", "moderate", "adjust", "proportion", "harmonize", "judge", "assess", "treat"]
+    },
+    {
+        name: "Family",
+        description: "A group of people related by blood, marriage, or adoption who support and care for each other.",
+        example: "Despite living in different countries, they maintained strong family connections through weekly video calls, shared online photo albums, and annual reunions.",
+        category: "Interpersonal",
+        tags: ["nurture", "support", "care", "connect", "love", "protect", "provide", "cherish", "prioritize"]
+    },
+    {
+        name: "Fine Art",
+        description: "Creative works that express beauty or emotions through visual forms like painting, sculpture, and drawing.",
+        example: "The community center's fine art program allowed residents to express themselves through painting, sculpture, and other visual media.",
+        category: "Personal",
+        tags: ["create", "express", "compose", "craft", "design", "appreciate", "study", "display", "interpret"]
+    },
+    {
+        name: "Flexibility",
+        description: "Being open to change and able to adapt to new circumstances or challenges.",
+        example: "When the outdoor event was threatened by rain, the coordinator showed flexibility by quickly creating a backup indoor plan that still met all objectives.",
+        category: "Personal",
+        tags: ["adapt", "adjust", "modify", "accommodate", "yield", "bend", "transform", "pivot", "shift"]
+    },
+    {
+        name: "Foresight",
+        description: "The ability to think ahead and plan for the future by considering possible outcomes and challenges.",
+        example: "The business leader showed foresight by investing in digital infrastructure years before the pandemic made remote work essential.",
+        category: "Personal",
+        tags: ["predict", "anticipate", "forecast", "envision", "project", "plan", "prepare", "consider", "foresee"]
+    },
+    {
+        name: "Forgiveness",
+        description: "Letting go of anger or resentment towards someone who has hurt you.",
+        example: "After a serious disagreement that threatened their friendship, she practiced forgiveness by having an honest conversation and choosing to move forward without holding a grudge.",
+        category: "Interpersonal",
+        tags: ["release", "pardon", "absolve", "exonerate", "excuse", "free", "reconcile", "accept", "heal"]
+    },
+    {
+        name: "Freedom",
+        description: "The power or right to act, speak, or think without hindrance or restraint.",
+        example: "The remote work policy gave employees freedom to choose their working hours and location, resulting in higher productivity and job satisfaction.",
+        category: "Personal",
+        tags: ["choose", "determine", "decide", "express", "move", "act", "think", "speak", "direct"]
+    },
+    {
+        name: "Friendship",
+        description: "A strong bond between people that involves trust, support, and caring for each other.",
+        example: "Their friendship endured for decades through life's challenges, offering consistent support, honest feedback, and shared celebrations.",
+        category: "Interpersonal",
+        tags: ["connect", "share", "support", "enjoy", "confide", "trust", "listen", "understand", "appreciate"]
+    },
+    {
+        name: "Fun",
+        description: "Enjoyment and amusement that brings joy and entertainment to people's lives.",
+        example: "The teacher incorporated fun into math lessons through games and real-world challenges, helping students develop a love for the subject.",
+        category: "Personal",
+        tags: ["enjoy", "play", "laugh", "amuse", "delight", "entertain", "celebrate", "revel", "engage"]
+    },
+    {
+        name: "Grace",
+        description: "A kind of love and kindness that shows compassion and forgiveness to others, even when they don't deserve it.",
+        example: "When a new employee made a costly mistake, the manager responded with grace, focusing on learning opportunities rather than blame or punishment.",
+        category: "Interpersonal",
+        tags: ["move", "act", "respond", "extend", "offer", "display", "communicate", "forgive", "accept"]
+    },
+    {
+        name: "Gratitude",
+        description: "Appreciating and recognizing the good things in life and the people who contribute to our happiness.",
+        example: "She practiced gratitude by keeping a daily journal noting three things she was thankful for, gradually shifting her focus to life's positive aspects.",
+        category: "Personal",
+        tags: ["appreciate", "thank", "recognize", "acknowledge", "value", "treasure", "express", "show", "demonstrate"]
+    },
+    {
+        name: "Growth",
+        description: "The process of improving skills, knowledge, or size over time.",
+        example: "The company focused on employee growth by providing mentoring, educational opportunities, and gradually increasing responsibilities.",
+        category: "Personal",
+        tags: ["develop", "learn", "improve", "advance", "expand", "progress", "evolve", "strengthen", "mature"]
+    },
+    {
+        name: "Happiness",
+        description: "A state of well-being and joy that comes from positive experiences and feelings.",
+        example: "Rather than pursuing material possessions, she found happiness through meaningful relationships, purposeful work, and regular time in nature.",
+        category: "Personal",
+        tags: ["enjoy", "appreciate", "celebrate", "delight", "savor", "cherish", "experience", "relish", "embrace"]
+    },
+    {
+        name: "Health",
+        description: "The state of being free from illness or injury, and maintaining physical and mental well-being.",
+        example: "She prioritized her health by establishing consistent sleep patterns, preparing nutritious meals, exercising regularly, and practicing stress management.",
+        category: "Personal",
+        tags: ["maintain", "improve", "strengthen", "nourish", "protect", "exercise", "rest", "balance", "monitor"]
+    },
+    {
+        name: "History",
+        description: "The value refers to the importance or worth of something in terms of its usefulness or significance.",
+        example: "The museum preserved local history by collecting artifacts, recording oral histories from elders, and creating interactive exhibits for the community.",
+        category: "Social",
+        tags: ["study", "document", "preserve", "record", "remember", "analyze", "research", "teach", "learn"]
+    },
+    {
+        name: "Honesty",
+        description: "Being truthful and transparent in thoughts, words, and actions without hiding or lying.",
+        example: "When the company encountered financial difficulties, the CEO demonstrated honesty by clearly communicating the challenges to employees and stakeholders.",
+        category: "Interpersonal",
+        tags: ["truth", "speak", "admit", "acknowledge", "confess", "disclose", "reveal", "share", "tell"]
+    },
+    {
+        name: "Honor",
+        description: "Being fair and truthful in your actions and treating others with respect.",
+        example: "The competitor showed honor by pointing out a scoring error that benefited them unfairly, even though it meant potentially losing the championship.",
+        category: "Personal",
+        tags: ["respect", "integrity", "dignity", "ethical", "principled", "moral", "virtuous", "noble", "upright"]
+    },
+    {
+        name: "Hope",
+        description: "A feeling of expectation and desire for a positive outcome in the future.",
+        example: "Despite receiving a difficult diagnosis, she maintained hope by focusing on promising new treatments and making meaningful plans for the future.",
+        category: "Personal",
+        tags: ["anticipate", "expect", "look forward", "believe", "trust", "envision", "imagine", "inspire", "aspire"]
+    },
+    {
+        name: "Humility",
+        description: "Being humble involves recognizing and appreciating the value of others without boasting about oneself.",
+        example: "Despite being an expert in her field, she showed humility by acknowledging what she still had to learn and recognizing others' contributions to projects.",
+        category: "Personal",
+        tags: ["acknowledge", "accept", "recognize", "learn", "listen", "admit", "yield", "surrender", "embrace"]
+    },
+    {
+        name: "Humor",
+        description: "A way of thinking or expressing ideas that makes people laugh or feel good.",
+        example: "The team leader used humor to help everyone relax during tense situations and to build connections among team members from different backgrounds.",
+        category: "Interpersonal",
+        tags: ["laugh", "joke", "amuse", "entertain", "play", "create", "share", "enjoy", "lighten"]
+    },
+    {
+        name: "Imagination",
+        description: "The ability to create ideas or images in your mind that are not present in the real world.",
+        example: "The architect used imagination to design a building that not only met functional requirements but also inspired wonder and connected with its natural surroundings.",
+        category: "Personal",
+        tags: ["envision", "create", "dream", "invent", "conceive", "visualize", "conceptualize", "design", "formulate"]
+    },
+    {
+        name: "Impact",
+        description: "Making a positive difference in people's lives or the world around us.",
+        example: "The literacy program had tremendous impact, helping thousands of adults learn to read and significantly improving their employment opportunities and self-confidence.",
+        category: "Social",
+        tags: ["influence", "affect", "change", "transform", "shape", "alter", "modify", "improve", "revolutionize"]
+    },
+    {
+        name: "Independence",
+        description: "The ability to make choices and act freely without being controlled by others.",
+        example: "After years of practice, the teenager with disabilities achieved independence by learning to use public transportation and manage daily responsibilities.",
+        category: "Personal",
+        tags: ["manage", "decide", "direct", "control", "maintain", "sustain", "operate", "function", "lead"]
+    },
+    {
+        name: "Initiative",
+        description: "Taking action to make things better or to start new projects without waiting for others to do it first.",
+        example: "Noticing that new employees struggled to navigate company systems, she took initiative by creating a comprehensive onboarding guide without being asked.",
+        category: "Personal",
+        tags: ["begin", "start", "launch", "instigate", "introduce", "establish", "create", "originate", "undertake"]
+    },
+    {
+        name: "Inner Peace",
+        description: "A state of mental and emotional calmness, free from stress and anxiety.",
+        example: "Through daily meditation and mindfulness practices, she cultivated inner peace that allowed her to remain calm and centered even during challenging situations.",
+        category: "Personal",
+        tags: ["cultivate", "maintain", "practice", "develop", "nurture", "find", "create", "experience", "embody"]
+    },
+    {
+        name: "Innovation",
+        description: "Creating new ideas and better ways to solve problems or improve things.",
+        example: "The company encouraged innovation by setting aside time for employees to experiment with new ideas and celebrating creative failures as learning opportunities.",
+        category: "Personal",
+        tags: ["create", "design", "develop", "pioneer", "revolutionize", "transform", "reinvent", "originate", "advance"]
+    },
+    {
+        name: "Integrity",
+        description: "Living honestly and being true to oneself and others, even when facing challenges, builds trust and connection.",
+        example: "The executive demonstrated integrity by declining a profitable contract because the client's practices didn't align with the company's environmental values.",
+        category: "Personal",
+        tags: ["uphold", "maintain", "practice", "live", "demonstrate", "exhibit", "show", "honor", "embody"]
+    },
+    {
+        name: "Intuition",
+        description: "The ability to understand something immediately, without needing to think about it or use logic.",
+        example: "The experienced doctor used her intuition to investigate symptoms that seemed minor but suggested a more serious underlying condition.",
+        category: "Personal",
+        tags: ["sense", "feel", "perceive", "know", "recognize", "understand", "discern", "detect", "trust"]
+    },
+    {
+        name: "Justice",
+        description: "Fair treatment for everyone, ensuring that rights are respected and wrongs are corrected.",
+        example: "The organization worked for justice by providing free legal representation to community members who couldn't afford legal help when facing eviction.",
+        category: "Social",
+        tags: ["promote", "defend", "uphold", "fight", "advocate", "support", "stand", "speak", "protect"]
+    },
+    {
+        name: "Kindness",
+        description: "Being friendly and helpful to others, showing care and consideration in your actions and words.",
+        example: "The busy executive practiced kindness by learning the names of maintenance staff, asking about their families, and expressing appreciation for their work.",
+        category: "Interpersonal",
+        tags: ["help", "share", "offer", "extend", "give", "provide", "support", "assist", "serve"]
+    },
+    {
+        name: "Knowledge",
+        description: "Understanding and using information, facts, and skills gained through experience or education.",
+        example: "The mentor shared knowledge accumulated over decades in the field, helping new professionals avoid common pitfalls and accelerate their development.",
+        category: "Personal",
+        tags: ["learn", "study", "understand", "research", "investigate", "discover", "examine", "explore", "comprehend"]
+    },
+    {
+        name: "Laughter",
+        description: "A joyful expression often shared in response to humor or fun situations.",
+        example: "The family prioritized laughter during difficult times, finding moments for games and jokes that provided essential emotional relief.",
+        category: "Interpersonal",
+        tags: ["enjoy", "share", "create", "experience", "express", "release", "connect", "appreciate", "embrace"]
+    },
+    {
+        name: "Leadership",
+        description: "Guiding and inspiring others to work together towards common goals.",
+        example: "During the crisis, she demonstrated leadership by staying calm, clearly communicating priorities, and empowering team members to make decisions in their areas.",
+        category: "Interpersonal",
+        tags: ["guide", "direct", "inspire", "influence", "motivate", "empower", "develop", "mentor", "serve"]
+    },
+    {
+        name: "Learning",
+        description: "Gaining knowledge or skills through study, experience, or teaching.",
+        example: "Even after 40 years in the field, the surgeon prioritized learning by attending conferences, reading research, and seeking feedback from colleagues.",
+        category: "Personal",
+        tags: ["study", "discover", "explore", "research", "investigate", "understand", "absorb", "master", "practice"]
+    },
+    {
+        name: "Legacy",
+        description: "Leaving a positive impact on future generations through actions and values.",
+        example: "The philanthropist created a legacy by establishing a foundation that would continue funding educational opportunities long after her lifetime.",
+        category: "Social",
+        tags: ["build", "create", "leave", "establish", "develop", "pass on", "invest", "shape", "influence"]
+    },
+    {
+        name: "Love",
+        description: "A deep feeling of affection and care for someone or something.",
+        example: "The parents demonstrated love by providing consistent support, setting healthy boundaries, and encouraging their children to pursue their own interests.",
+        category: "Interpersonal",
+        tags: ["care", "cherish", "adore", "treasure", "value", "nurture", "support", "connect", "bond"]
+    },
+    {
+        name: "Loyalty",
+        description: "Being loyal involves staying true to someone or something, supporting them through good times and bad.",
+        example: "Despite receiving better job offers, she showed loyalty to the company that had supported her during difficult personal times.",
+        category: "Interpersonal",
+        tags: ["commit", "defend", "support", "maintain", "uphold", "honor", "serve", "protect", "remain"]
+    },
+    {
+        name: "Luxury",
+        description: "A state of great comfort or elegance, often involving expensive items or experiences.",
+        example: "The boutique hotel offered luxury through personalized service, handcrafted furnishings, and exceptional attention to every detail of the guest experience.",
+        category: "Personal",
+        tags: ["indulge", "enjoy", "appreciate", "savor", "experience", "acquire", "select", "choose", "curate"]
+    },
+    {
+        name: "Meditation",
+        description: "A practice that helps calm the mind and focus on the present moment.",
+        example: "She incorporated meditation into her daily routine, spending fifteen minutes each morning focusing on her breath and observing her thoughts without judgment.",
+        category: "Personal",
+        tags: ["practice", "center", "focus", "reflect", "observe", "breathe", "calm", "attend", "contemplate"]
+    },
+    {
+        name: "Mental Health",
+        description: "A state of well-being where individuals can cope with stress, work productively, and contribute to their community.",
+        example: "The company prioritized mental health by providing counseling services, stress management training, and flexible scheduling during difficult times.",
+        category: "Personal",
+        tags: ["maintain", "nurture", "monitor", "improve", "support", "balance", "regulate", "develop", "protect"]
+    },
+    {
+        name: "Mentorship",
+        description: "Helping others grow by sharing knowledge, experience, and support.",
+        example: "The experienced engineer provided mentorship to new team members, offering guidance on technical challenges and career navigation.",
+        category: "Interpersonal",
+        tags: ["guide", "teach", "support", "develop", "advise", "share", "coach", "nurture", "help"]
+    },
+    {
+        name: "Mindfulness",
+        description: "Being aware of the present moment and accepting thoughts and feelings without judgment.",
+        example: "During the high-pressure meeting, she practiced mindfulness by noticing her rising stress, taking deliberate breaths, and refocusing on the current discussion.",
+        category: "Personal",
+        tags: ["observe", "notice", "attend", "focus", "realize", "recognize", "acknowledge", "practice", "experience"]
+    },
+    {
+        name: "Mission",
+        description: "A mission is a clear statement that describes the purpose and goals of an organization or group.",
+        example: "The nonprofit's mission to provide technology education to underserved communities guided all their program decisions and resource allocations.",
+        category: "Personal",
+        tags: ["pursue", "fulfill", "accomplish", "achieve", "drive", "dedicate", "commit", "focus", "serve"]
+    },
+    {
+        name: "Money",
+        description: "A medium of exchange used to buy goods and services.",
+        example: "Rather than focusing only on accumulating money, she viewed it as a tool for creating security, supporting causes she valued, and providing opportunities.",
+        category: "Personal",
+        tags: ["earn", "save", "invest", "manage", "budget", "allocate", "acquire", "build", "grow"]
+    },
+    {
+        name: "Movement",
+        description: "The act of changing position or location, often involving physical activity or effort.",
+        example: "The physical therapist incorporated different forms of movement into the rehabilitation plan, gradually rebuilding strength and mobility.",
+        category: "Personal",
+        tags: ["exercise", "train", "practice", "perform", "engage", "express", "flow", "develop", "explore"]
+    },
+    {
+        name: "Networking",
+        description: "Building and maintaining relationships with people to share information and opportunities.",
+        example: "She approached networking as relationship-building rather than transaction, focusing on how she could help others and creating genuine connections.",
+        category: "Interpersonal",
+        tags: ["connect", "exchange", "link", "relate", "communicate", "engage", "introduce", "build", "establish"]
+    },
+    {
+        name: "Open-mindedness",
+        description: "Being willing to consider new ideas and different viewpoints without judging them right away.",
+        example: "When team members proposed an approach contrary to his initial plan, the director demonstrated open-mindedness by listening carefully and incorporating their insights.",
+        category: "Personal",
+        tags: ["consider", "explore", "examine", "listen", "evaluate", "question", "learn", "adapt", "accept"]
+    },
+    {
+        name: "Optimism",
+        description: "A hopeful attitude that looks for good outcomes and believes in positive possibilities.",
+        example: "During the company's challenging transition, the leader maintained optimism by acknowledging difficulties while highlighting progress and opportunities ahead.",
+        category: "Personal",
+        tags: ["hope", "expect", "believe", "trust", "anticipate", "envision", "look forward", "encourage", "inspire"]
+    },
+    {
+        name: "Partnership",
+        description: "Working together with others to achieve common goals and build strong relationships.",
+        example: "The two organizations formed a partnership that combined their different strengths to create a more comprehensive approach to community health.",
+        category: "Interpersonal",
+        tags: ["collaborate", "cooperate", "ally", "join", "share", "build", "develop", "create", "maintain"]
+    },
+    {
+        name: "Patience",
+        description: "The ability to wait calmly and without frustration for something to happen or for a situation to change.",
+        example: "The teacher showed patience by explaining the concept multiple times using different approaches until each student understood.",
+        category: "Personal",
+        tags: ["wait", "endure", "persist", "tolerate", "accept", "bear", "withstand", "continue", "remain"]
+    },
+    {
+        name: "Perseverance",
+        description: "Sticking with a task or goal even when it gets tough or takes a long time.",
+        example: "After multiple failed prototypes over three years, the inventor's perseverance finally led to a working design that solved the problem.",
+        category: "Personal",
+        tags: ["persist", "continue", "endure", "overcome", "strive", "push", "pursue", "sustain", "withstand"]
+    },
+    {
+        name: "Philanthropy",
+        description: "Helping others by giving money, time, or resources to support causes that improve people's lives and communities.",
+        example: "The entrepreneur practiced philanthropy by donating a significant portion of profits to education programs and volunteering monthly at community centers.",
+        category: "Social",
+        tags: ["give", "donate", "support", "contribute", "fund", "help", "assist", "share", "provide"]
+    },
+    {
+        name: "Physical Health",
+        description: "Being physically healthy involves maintaining a strong body through regular exercise, good nutrition, and proper rest.",
+        example: "She maintained her physical health through daily walks, balanced meals with plenty of vegetables, and prioritizing eight hours of sleep each night.",
+        category: "Personal",
+        tags: ["exercise", "nourish", "strengthen", "rest", "train", "maintain", "develop", "practice", "protect"]
+    },
+    {
+        name: "Piety",
+        description: "A deep respect and devotion to something sacred or holy, often shown through actions and beliefs.",
+        example: "His piety was evident in his daily prayer practice, regular attendance at worship services, and how he applied his religious teachings to ethical decisions.",
+        category: "Personal",
+        tags: ["pray", "worship", "reverence", "practice", "observe", "follow", "honor", "respect", "devotion"]
+    },
+    {
+        name: "Positive Attitude",
+        description: "Staying hopeful and cheerful, even when things are tough, helps to create a better environment and encourages others.",
+        example: "Despite facing significant project setbacks, the team leader maintained a positive attitude, focusing on solutions and acknowledging each step forward.",
+        category: "Personal",
+        tags: ["choose", "practice", "maintain", "cultivate", "develop", "exercise", "demonstrate", "exhibit", "show"]
+    },
+    {
+        name: "Pragmatism",
+        description: "This value emphasizes practical solutions and actions that work effectively in real-life situations.",
+        example: "The manager's pragmatism led her to implement immediate workable solutions rather than waiting for perfect ones, allowing the project to move forward.",
+        category: "Personal",
+        tags: ["apply", "implement", "use", "adapt", "focus", "develop", "execute", "employ", "utilize"]
+    },
+    {
+        name: "Presence",
+        description: "Being fully engaged and attentive in the moment, showing awareness of one's surroundings and the people in it.",
+        example: "During conversations, she demonstrated presence by putting away her phone, maintaining eye contact, and responding thoughtfully to what was being said.",
+        category: "Personal",
+        tags: ["attend", "focus", "notice", "engage", "experience", "observe", "be", "remain", "participate"]
+    },
+    {
+        name: "Professionalism",
+        description: "Showing respect, responsibility, and good behavior in the workplace or any professional setting.",
+        example: "Even during the tense meeting, she maintained professionalism by speaking calmly, focusing on facts rather than emotions, and treating everyone with respect.",
+        category: "Personal",
+        tags: ["maintain", "demonstrate", "uphold", "practice", "exhibit", "display", "conduct", "represent", "show"]
+    },
+    {
+        name: "Purpose",
+        description: "A reason for doing something that guides actions and decisions.",
+        example: "After volunteering with homeless youth, she found her purpose in developing affordable housing solutions, which guided her career choices thereafter.",
+        category: "Personal",
+        tags: ["pursue", "discover", "fulfill", "find", "define", "create", "live", "express", "embody"]
+    },
+    {
+        name: "Quality",
+        description: "Being committed to excellence and ensuring that products or services meet high standards.",
+        example: "The artisan baker demonstrated quality by sourcing the finest ingredients, perfecting techniques over years, and refusing to sell anything below her standards.",
+        category: "Personal",
+        tags: ["create", "ensure", "maintain", "improve", "achieve", "deliver", "produce", "craft", "perfect"]
+    },
+    {
+        name: "Recognition",
+        description: "Valuing and acknowledging the contributions and achievements of others.",
+        example: "The director practiced recognition by highlighting team members' specific contributions during meetings and writing personal thank-you notes for exceptional work.",
+        category: "Interpersonal",
+        tags: ["acknowledge", "appreciate", "honor", "notice", "praise", "celebrate", "commend", "highlight", "award"]
+    },
+    {
+        name: "Recovery",
+        description: "A process of returning to a normal state after a difficult situation or injury.",
+        example: "After the surgical procedure, she committed to her recovery by following rehabilitation exercises, gradually increasing activity, and maintaining a positive mindset.",
+        category: "Personal",
+        tags: ["heal", "restore", "reclaim", "rebuild", "regain", "overcome", "rehabilitate", "mend", "strengthen"]
+    },
+    {
+        name: "Reliability",
+        description: "Being dependable and consistently doing what you say you will do.",
+        example: "The supplier demonstrated reliability by delivering materials on time for every order over five years, even during industry-wide shortages.",
+        category: "Personal",
+        tags: ["fulfill", "deliver", "complete", "uphold", "maintain", "honor", "execute", "accomplish", "meet"]
+    },
+    {
+        name: "Representation",
+        description: "The act of showing or depicting ideas, people, or groups in a way that reflects their true nature and experiences.",
+        example: "The media company improved representation by ensuring its stories included diverse perspectives and were created by teams with varied backgrounds and experiences.",
+        category: "Social",
+        tags: ["include", "speak", "advocate", "embody", "reflect", "symbolize", "stand", "present", "portray"]
+    },
+    {
+        name: "Resilience",
+        description: "The ability to bounce back from difficulties and keep going despite challenges.",
+        example: "After losing a major client, the small business showed resilience by rapidly developing new services and rebuilding stronger than before.",
+        category: "Personal",
+        tags: ["recover", "adapt", "overcome", "withstand", "rebound", "persist", "endure", "strengthen", "grow"]
+    },
+    {
+        name: "Respect",
+        description: "Treating others with kindness and valuing their feelings, opinions, and rights.",
+        example: "The debate moderator ensured an atmosphere of respect by establishing clear guidelines for discussion and intervening when participants became dismissive.",
+        category: "Interpersonal",
+        tags: ["honor", "admire", "value", "appreciate", "listen", "consider", "acknowledge", "recognize", "treat"]
+    },
+    {
+        name: "Responsibility",
+        description: "Being accountable for your actions and making sure you do what you promise.",
+        example: "When the project went over budget, the manager took responsibility by acknowledging his oversight, developing a plan to address it, and communicating transparently.",
+        category: "Personal",
+        tags: ["accept", "take", "fulfill", "assume", "handle", "manage", "complete", "own", "undertake"]
+    },
+    {
+        name: "Romance",
+        description: "A deep emotional connection and attraction between people, often involving love and affection.",
+        example: "After twenty years of marriage, they maintained romance through weekly date nights, thoughtful gestures, and continuing to learn about each other's changing interests.",
+        category: "Interpersonal",
+        tags: ["love", "adore", "pursue", "woo", "cherish", "connect", "express", "kindle", "share"]
+    },
+    {
+        name: "Safety",
+        description: "Being safe involves taking actions to protect yourself and others from harm or danger.",
+        example: "The construction company prioritized safety by implementing thorough training programs, regular equipment checks, and a culture where anyone could stop work if they observed a hazard.",
+        category: "Personal",
+        tags: ["protect", "secure", "defend", "shield", "guard", "prevent", "ensure", "maintain", "preserve"]
+    },
+    {
+        name: "Self Care",
+        description: "Taking time to care for your mental, emotional, and physical well-being to feel better and live healthier.",
+        example: "Despite her busy schedule, she practiced self-care by setting aside time each day for exercise, maintaining boundaries around work hours, and connecting regularly with friends.",
+        category: "Personal",
+        tags: ["nurture", "protect", "maintain", "restore", "prioritize", "attend", "respect", "preserve", "rejuvenate"]
+    },
+    {
+        name: "Self Expression",
+        description: "The ability to share thoughts, feelings, and ideas openly and honestly.",
+        example: "The arts program encouraged self-expression by providing various mediums and techniques for students to communicate their unique perspectives and experiences.",
+        category: "Personal",
+        tags: ["create", "show", "demonstrate", "display", "communicate", "share", "reveal", "manifest", "represent"]
+    },
+    {
+        name: "Self-Actualization",
+        description: "Reaching your full potential by growing, learning, and becoming the best version of yourself.",
+        example: "After years of dedicated practice, education, and self-reflection, the musician achieved self-actualization by creating original compositions that transformed her field.",
+        category: "Personal",
+        tags: ["develop", "fulfill", "realize", "become", "achieve", "grow", "express", "manifest", "create"]
+    },
+    {
+        name: "Self-Awareness",
+        description: "Understanding your own thoughts, feelings, and actions to improve yourself and your relationships with others.",
+        example: "Through journaling and reflection, he developed self-awareness about how his communication style affected others, allowing him to make positive changes.",
+        category: "Personal",
+        tags: ["reflect", "examine", "understand", "recognize", "acknowledge", "observe", "monitor", "analyze", "know"]
+    },
+    {
+        name: "Self-Compassion",
+        description: "Being kind and understanding to yourself during tough times or when you make mistakes.",
+        example: "After missing an important deadline, she practiced self-compassion by acknowledging her disappointment without harsh self-criticism, then focusing on what she could learn.",
+        category: "Personal",
+        tags: ["nurture", "accept", "forgive", "understand", "support", "comfort", "love", "embrace", "acknowledge"]
+    },
+    {
+        name: "Self-control",
+        description: "The ability to manage your emotions, thoughts, and behaviors to achieve goals and make good choices.",
+        example: "Despite feeling angry about the unfair criticism, he demonstrated self-control by taking a deep breath, responding calmly, and addressing the issue constructively.",
+        category: "Personal",
+        tags: ["manage", "regulate", "restrain", "govern", "discipline", "moderate", "contain", "direct", "master"]
+    },
+    {
+        name: "Selflessness",
+        description: "Putting the needs and feelings of others before your own and helping them without expecting anything in return.",
+        example: "The volunteer showed selflessness by spending her vacation building homes in disaster-affected areas rather than taking a personal holiday.",
+        category: "Interpersonal",
+        tags: ["give", "serve", "help", "support", "sacrifice", "assist", "provide", "contribute", "offer"]
+    },
+    {
+        name: "Service",
+        description: "Helping others by providing assistance, support, or care.",
+        example: "The restaurant's commitment to service was evident in how staff remembered regular customers' preferences and went beyond expectations to create special experiences.",
+        category: "Interpersonal",
+        tags: ["help", "assist", "support", "provide", "contribute", "work", "give", "aid", "attend"]
+    },
+    {
+        name: "Sovereignty",
+        description: "The ability of a group or country to govern itself and make its own decisions without outside interference.",
+        example: "The indigenous community fought to maintain sovereignty over their ancestral lands, ensuring they could make decisions about resource use and development.",
+        category: "Personal",
+        tags: ["control", "determine", "decide", "govern", "direct", "rule", "manage", "command", "regulate"]
+    },
+    {
+        name: "Spirituality",
+        description: "A deep connection to something greater than oneself, often involving personal beliefs and practices that provide meaning and purpose in life.",
+        example: "She nurtured her spirituality through regular meditation, time in nature, and participating in a community that shared her belief in interconnectedness.",
+        category: "Personal",
+        tags: ["connect", "explore", "seek", "practice", "experience", "develop", "cultivate", "discover", "understand"]
+    },
+    {
+        name: "Sports",
+        description: "Activities that involve physical exertion and skill, often played individually or in teams for competition or enjoyment.",
+        example: "The community invested in sports programs that taught children not just athletic skills but also teamwork, perseverance, and fair play.",
+        category: "Personal",
+        tags: ["play", "compete", "train", "practice", "participate", "improve", "develop", "engage", "perform"]
+    },
+    {
+        name: "Sportsmanship",
+        description: "Treating opponents with respect and fairness, showing graciousness in winning or losing.",
+        example: "After the championship game, the losing team demonstrated excellent sportsmanship by sincerely congratulating the winners and thanking the officials.",
+        category: "Interpersonal",
+        tags: ["respect", "honor", "congratulate", "acknowledge", "accept", "demonstrate", "display", "show", "exhibit"]
+    },
+    {
+        name: "Stability",
+        description: "Staying steady and balanced in difficult situations without being easily shaken or changed.",
+        example: "During the company merger, the manager provided stability by maintaining regular team meetings, clear communication, and consistent expectations.",
+        category: "Personal",
+        tags: ["maintain", "establish", "ensure", "build", "preserve", "secure", "create", "provide", "sustain"]
+    },
+    {
+        name: "Stewardship",
+        description: "Caring for and managing resources responsibly to ensure their health and availability for the future.",
+        example: "The family farm practiced stewardship by using sustainable methods that preserved soil health and biodiversity for future generations.",
+        category: "Social",
+        tags: ["care", "manage", "protect", "preserve", "maintain", "guard", "oversee", "safeguard", "conserve"]
+    },
+    {
+        name: "Stillness",
+        description: "A state of calmness and peace that allows for clear thinking and reflection.",
+        example: "Before making major decisions, she sought stillness through meditation and quiet walks in nature, allowing her to access deeper wisdom.",
+        category: "Personal",
+        tags: ["practice", "experience", "cultivate", "seek", "find", "create", "embrace", "maintain", "enter"]
+    },
+    {
+        name: "Strategy",
+        description: "A plan to achieve specific goals by using available resources effectively.",
+        example: "Rather than reacting to market changes, the company developed a strategy with clear objectives, resource allocation, and contingency plans.",
+        category: "Personal",
+        tags: ["plan", "develop", "create", "design", "implement", "execute", "evaluate", "adjust", "direct"]
+    },
+    {
+        name: "Sustainability",
+        description: "The ability to meet our needs today without harming the ability of future generations to meet theirs.",
+        example: "The building was designed with sustainability in mind, using renewable energy, water reclamation systems, and materials with minimal environmental impact.",
+        category: "Social",
+        tags: ["maintain", "conserve", "preserve", "protect", "balance", "reuse", "reduce", "recycle", "renew"]
+    },
+    {
+        name: "Synergy",
+        description: "Working together in a way that creates better results than individuals could achieve alone.",
+        example: "The marketing and product development teams achieved synergy by collaborating closely, resulting in innovations that better met customer needs than either could create independently.",
+        category: "Interpersonal",
+        tags: ["combine", "unite", "integrate", "collaborate", "coordinate", "harmonize", "merge", "blend", "connect"]
+    },
+    {
+        name: "Teaching",
+        description: "Helping others learn new things through guidance and sharing knowledge.",
+        example: "The mentor excelled at teaching by adapting her approach to each person's learning style and creating opportunities for hands-on practice.",
+        category: "Interpersonal",
+        tags: ["instruct", "explain", "guide", "demonstrate", "show", "train", "educate", "mentor", "develop"]
+    },
+    {
+        name: "Teamwork",
+        description: "Working together with others to achieve a common goal and support each other.",
+        example: "The emergency response demonstrated excellent teamwork as medical staff, firefighters, and police coordinated their efforts seamlessly to save lives.",
+        category: "Interpersonal",
+        tags: ["collaborate", "cooperate", "contribute", "support", "participate", "assist", "coordinate", "partner", "join"]
+    },
+    {
+        name: "Technology",
+        description: "The use of scientific knowledge and tools to solve problems and improve lives.",
+        example: "The organization leveraged technology to connect isolated elderly individuals with healthcare providers and family members during the pandemic.",
+        category: "Social",
+        tags: ["develop", "utilize", "apply", "create", "innovate", "implement", "improve", "design", "build"]
+    },
+    {
+        name: "Thoughtfulness",
+        description: "Showing care and consideration for others' feelings and needs in every action and decision.",
+        example: "The manager demonstrated thoughtfulness by remembering team members' professional goals and creating opportunities aligned with their aspirations.",
+        category: "Interpersonal",
+        tags: ["consider", "reflect", "ponder", "contemplate", "deliberate", "think", "examine", "analyze", "evaluate"]
+    },
+    {
+        name: "Tolerance",
+        description: "Respecting and accepting differences in others, even when you don't agree with them.",
+        example: "The community practiced tolerance by creating spaces where people of different faiths could share their traditions and learn from each other respectfully.",
+        category: "Interpersonal",
+        tags: ["accept", "respect", "accommodate", "allow", "understand", "embrace", "permit", "acknowledge", "recognize"]
+    },
+    {
+        name: "Trust",
+        description: "Being honest and reliable with others creates a strong bond and encourages openness.",
+        example: "The leader built trust by consistently following through on commitments, admitting mistakes, and sharing information transparently with the team.",
+        category: "Interpersonal",
+        tags: ["believe", "rely", "depend", "confide", "count on", "entrust", "commit", "faith", "confidence"]
+    },
+    {
+        name: "Truth",
+        description: "Being honest and accurate, reflecting reality without lies or deceit.",
+        example: "The journalist pursued truth by verifying facts with multiple sources and presenting findings even when they contradicted popular narratives.",
+        category: "Personal",
+        tags: ["seek", "speak", "discover", "reveal", "uncover", "verify", "confirm", "validate", "establish"]
+    },
+    {
+        name: "Unity",
+        description: "Bringing people together to work towards a common goal and support each other.",
+        example: "The community crisis center fostered unity by creating structures for neighbors from different backgrounds to work together on shared challenges.",
+        category: "Social",
+        tags: ["connect", "join", "harmonize", "integrate", "combine", "unify", "bring together", "coalesce", "merge"]
+    },
+    {
+        name: "Versatility",
+        description: "The ability to adapt to new situations and handle different tasks effectively.",
+        example: "The small business owner demonstrated versatility by quickly pivoting to online services when in-person operations became impossible during the pandemic.",
+        category: "Personal",
+        tags: ["adapt", "adjust", "flex", "modify", "transform", "change", "accommodate", "shift", "alter"]
+    },
+    {
+        name: "Vision",
+        description: "Creating a clear and inspiring picture of the future that guides decisions and motivates people.",
+        example: "The founder's vision of affordable healthcare for all communities guided the organization's growth and strategic partnerships for decades.",
+        category: "Personal",
+        tags: ["imagine", "envision", "foresee", "conceptualize", "create", "design", "develop", "formulate", "plan"]
+    },
+    {
+        name: "Willingness",
+        description: "A readiness to do what is needed or to accept new ideas and experiences.",
+        example: "When the project faced unexpected challenges, the team's willingness to adjust their approach and learn new skills allowed them to succeed despite the obstacles.",
+        category: "Personal",
+        tags: ["agree", "accept", "volunteer", "offer", "consent", "participate", "engage", "embrace", "undertake"]
+    },
+    {
+        name: "Wisdom",
+        description: "The ability to make good decisions based on knowledge, experience, and understanding.",
+        example: "The elder demonstrated wisdom by listening carefully before offering advice that considered both immediate needs and long-term implications.",
+        category: "Personal",
+        tags: ["understand", "discern", "perceive", "consider", "contemplate", "reflect", "comprehend", "judge", "recognize"]
+    },
+    {
+        name: "Work Ethic",
+        description: "Having a strong work ethic means being dedicated, responsible, and putting in effort to complete tasks well.",
+        example: "Her work ethic was evident in how she consistently arrived early, gave full attention to quality details, and willingly helped colleagues complete team projects.",
+        category: "Personal",
+        tags: ["work", "strive", "persist", "apply", "endeavor", "commit", "dedicate", "pursue", "labor"]
+    }
+];
+
