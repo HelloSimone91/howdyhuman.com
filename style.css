@@ -185,15 +185,41 @@ button, input, select {
 }
 
 /* Expand / Collapse Smooth Transition */
-.value-card .expandable-content {
+/* Styles moved and merged from index.html */
+.value-card-content { /* Renamed from .expandable-content */
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.5s ease;
+    opacity: 0; /* Added from index.html */
+    transition: max-height 0.5s ease, opacity 0.3s ease 0.1s; /* Merged from index.html */
 }
 
-.value-card.expanded .expandable-content {
-    max-height: 500px;
-    margin-top: 1rem;
+.value-card.expanded .value-card-content { /* Renamed from .expandable-content */
+    max-height: 1500px; /* Updated from index.html (was 500px), arbitrary large height */
+    opacity: 1; /* Added from index.html */
+    margin-top: 1rem; /* Kept from original style.css expandable-content */
+}
+
+/* Keyframe animation for bounce effect */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    70% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Apply animation to value cards on expand */
+.value-card.expanded {
+    background: #fffefc;
+    border: 1px solid #E2D6C7;
+    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Added animation */
 }
 
 /* Active Filters Count */

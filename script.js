@@ -74,6 +74,32 @@ function setupUI() {
     setupExpandCollapseControls();
 }
 
+function setupExpandCollapseControls() {
+    if (!expandCollapseBtn) return;
+
+    expandCollapseBtn.addEventListener('click', () => {
+        const isExpanding = expandCollapseBtn.textContent.includes('Expand All');
+        const allCards = document.querySelectorAll('.value-card');
+
+        allCards.forEach(card => {
+            const toggleButton = card.querySelector('.value-card-toggle');
+            if (isExpanding) {
+                card.classList.add('expanded');
+                if (toggleButton) {
+                    toggleButton.innerHTML = 'Read less <i class="fas fa-chevron-up"></i>';
+                }
+            } else {
+                card.classList.remove('expanded');
+                if (toggleButton) {
+                    toggleButton.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+                }
+            }
+        });
+
+        expandCollapseBtn.textContent = isExpanding ? 'Collapse All' : 'Expand All';
+    });
+}
+
 function setupSearch() {
     if (!mainSearchInput || !clearSearchBtn) return;
 
@@ -171,6 +197,31 @@ function displayValues(valuesToDisplay) {
     });
 
     setupExpandCollapseLogic();
+    updateGlobalExpandCollapseButtonState(); // Call after initial display
+}
+
+function updateGlobalExpandCollapseButtonState() {
+    if (!expandCollapseBtn) return;
+
+    const allCards = document.querySelectorAll('.value-card');
+    if (allCards.length === 0) {
+        expandCollapseBtn.textContent = 'Expand All';
+        // expandCollapseBtn.disabled = true; // Consider disabling if no cards
+        return;
+    }
+    // expandCollapseBtn.disabled = false; // Ensure enabled if cards exist
+
+    const allExpanded = Array.from(allCards).every(card => card.classList.contains('expanded'));
+    const allCollapsed = Array.from(allCards).every(card => !card.classList.contains('expanded'));
+
+    if (allExpanded) {
+        expandCollapseBtn.textContent = 'Collapse All';
+    } else if (allCollapsed) {
+        expandCollapseBtn.textContent = 'Expand All';
+    } else {
+        // Mixed state, default to "Expand All" as per refined instructions
+        expandCollapseBtn.textContent = 'Expand All';
+    }
 }
 
 function setupExpandCollapseLogic() {
@@ -182,6 +233,7 @@ function setupExpandCollapseLogic() {
             card.classList.toggle('expanded');
             const isExpanded = card.classList.contains('expanded');
             toggle.innerHTML = isExpanded ? 'Read less <i class="fas fa-chevron-up"></i>' : 'Read more <i class="fas fa-chevron-down"></i>';
+            updateGlobalExpandCollapseButtonState(); // Call after individual toggle
         });
     });
 
