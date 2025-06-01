@@ -139,6 +139,8 @@ button, input, select {
     flex-direction: column;
     width: 40px; /* Define a fixed width */
     z-index: 100; /* Ensure it's above other content if not already set high enough */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 #alphaNav a {
