@@ -7,7 +7,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    padding-left: 50px; /* Add padding to the left of the body */
+    /* padding-left: 50px; */ /* Add padding to the left of the body - Now handled by JS */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -137,7 +137,9 @@ button, input, select {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    width: 40px; /* Define a fixed width */
+    align-items: center; /* Center items horizontally now that width is flexible */
+    max-width: 45px;
+    min-width: 20px;
     z-index: 100; /* Ensure it's above other content if not already set high enough */
     max-height: 90vh;
     overflow-y: auto;
@@ -148,10 +150,11 @@ button, input, select {
     margin: 0.3rem 0;
     text-align: center;
     font-weight: 600;
-    color: #6B46C1;
+    color: var(--accent-primary);
     text-decoration: none;
-    font-size: 0.75rem;
-    padding: 3px 6px;
+    font-size: 1.8vh; /* Responsive font size */
+    padding: 0.2vh 0.1vw; /* Responsive padding */
+    line-height: 1.2; /* Added line-height */
     transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 

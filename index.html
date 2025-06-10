@@ -1672,6 +1672,19 @@
         let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList, 
             matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount, 
             toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
+
+        // Function to adjust body padding based on alphaNav width
+        function adjustBodyPadding() {
+            const alphaNavElement = document.getElementById('alphaNav');
+            if (alphaNavElement) {
+                const alphaNavWidth = alphaNavElement.offsetWidth;
+                document.body.style.paddingLeft = alphaNavWidth + 10 + 'px';
+            }
+        }
+
+        // Adjust padding on DOMContentLoaded and window resize
+        document.addEventListener('DOMContentLoaded', adjustBodyPadding);
+        window.addEventListener('resize', adjustBodyPadding);
             
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
