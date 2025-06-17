@@ -2061,7 +2061,7 @@
 // script.js - Howdy Human Dictionary - FINAL BUILD
 
 // --- Global Variables ---
-let currentLanguage = 'en';
+
 let values = [];
 
 const filterState = {
