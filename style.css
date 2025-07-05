@@ -1,7 +1,7 @@
 :root {
     /* Medium mode color palette */
     --cucumber-peel: #A588AC;
-    --terracotta: #D6A5A1;
+    --dusty-lilac: #D6A5A1;
     --supportive-sections: #C1B7C7;
     --soft-sky: #A5A5BD;
     --midnight-moss: #E9E5A9;
@@ -21,7 +21,7 @@
     --text-main: #444444;
     --card-bg: #F6F0EA; /* Lighter cream, not pure white */
     --accent-primary: var(--cucumber-peel);
-    --accent-secondary: var(--terracotta);
+    --accent-secondary: var(--dusty-lilac);
     --card-border: var(--supportive-sections);
     --section-label: var(--muted-teal);
     --header-text: var(--powder-denim);
