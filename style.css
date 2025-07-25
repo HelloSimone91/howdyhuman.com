@@ -484,6 +484,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Status messages */
+#appStatus {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    z-index: 1000;
+    transition: opacity 0.5s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
 .status-success {
     background-color: #E6F1EE;
     color: var(--muted-teal);
@@ -494,6 +508,32 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #F2E4E3;
     color: #A05252;
     border: 1px solid #A05252;
+}
+
+.status-action-button {
+    margin-left: 16px;
+    padding: 4px 8px;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.status-action-button:hover {
+    opacity: 1;
+}
+
+.status-success .status-action-button {
+    border-color: var(--muted-teal);
+    color: var(--muted-teal);
+}
+
+.status-error .status-action-button {
+    border-color: #A05252;
+    color: #A05252;
 }
 
 /* Active filter badges */
