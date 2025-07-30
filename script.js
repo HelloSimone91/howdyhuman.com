@@ -265,21 +265,6 @@ function setupLanguageToggle() {
     });
 }
 
-function updateFilterControls() {
-    // Update category checkboxes
-    document.querySelectorAll('#categoryFilters input[type="checkbox"]').forEach(checkbox => {
-        const category = checkbox.id.replace('category-', '');
-        checkbox.checked = filterState.categories.includes(category);
-    });
-
-    // Update tag selections
-    document.querySelectorAll('#tagFilters .tag').forEach(tagElement => {
-        const tag = tagElement.dataset.tag;
-        const isSelected = filterState.tags.includes(tag);
-        updateTagSelection(tag, isSelected);
-    });
-}
-
 // Update values count display
 function updateValuesCount(count) {
     if (valuesCount) {
@@ -663,6 +648,21 @@ function updateTagSelection(tag, isSelected) {
                 if (icon) icon.remove();
             }
         }
+    });
+}
+
+function updateFilterControls() {
+    // Update category checkboxes
+    document.querySelectorAll('#categoryFilters input[type="checkbox"]').forEach(checkbox => {
+        const category = checkbox.id.replace('category-', '');
+        checkbox.checked = filterState.categories.includes(category);
+    });
+
+    // Update tag selections
+    document.querySelectorAll('#tagFilters .tag').forEach(tagElement => {
+        const tag = tagElement.dataset.tag;
+        const isSelected = filterState.tags.includes(tag);
+        updateTagSelection(tag, isSelected);
     });
 }
 
