@@ -1,27 +1,17 @@
 // Debug status message
-function showStatus(message, isError = false) {
+function showStatus(message, isError = false, action = null) {
     console.log(message);
     // Create a status element if it doesn't exist
     let statusEl = document.getElementById('appStatus');
-    if (!statusEl) {
-        statusEl = document.createElement('div');
-        statusEl.id = 'appStatus';
-        statusEl.style.position = 'fixed';
-        statusEl.style.bottom = '20px';
-        statusEl.style.right = '20px';
-        statusEl.style.padding = '12px 16px';
-        statusEl.style.borderRadius = '8px';
-        statusEl.style.zIndex = '1000';
-        statusEl.style.transition = 'opacity 0.5s';
-        statusEl.style.fontSize = '14px';
-        document.body.appendChild(statusEl);
-
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-            statusEl.style.opacity = '0';
-            setTimeout(() => statusEl.remove(), 500);
-        }, 5000);
+    if (statusEl) {
+        statusEl.remove();
     }
+    statusEl = document.createElement('div');
+    statusEl.id = 'appStatus';
+    statusEl.setAttribute('role', 'alert');
+    statusEl.setAttribute('aria-live', 'assertive');
+    document.body.appendChild(statusEl);
+
 
     if (isError) {
         statusEl.className = 'status-error';
@@ -29,7 +19,27 @@ function showStatus(message, isError = false) {
         statusEl.className = 'status-success';
     }
 
-    statusEl.textContent = message;
+    const messageEl = document.createElement('span');
+    messageEl.textContent = message;
+    statusEl.appendChild(messageEl);
+
+    if (action) {
+        const actionButton = document.createElement('button');
+        actionButton.textContent = action.text;
+        actionButton.className = 'status-action-button';
+        actionButton.onclick = () => {
+            action.onClick();
+            statusEl.style.opacity = '0';
+            setTimeout(() => statusEl.remove(), 500);
+        };
+        statusEl.appendChild(actionButton);
+    } else {
+        // Auto-hide after 5 seconds if no action
+        setTimeout(() => {
+            statusEl.style.opacity = '0';
+            setTimeout(() => statusEl.remove(), 500);
+        }, 5000);
+    }
 }
 
 // Values data will be fetched from JSON file
@@ -255,6 +265,21 @@ function setupLanguageToggle() {
     });
 }
 
+function updateFilterControls() {
+    // Update category checkboxes
+    document.querySelectorAll('#categoryFilters input[type="checkbox"]').forEach(checkbox => {
+        const category = checkbox.id.replace('category-', '');
+        checkbox.checked = filterState.categories.includes(category);
+    });
+
+    // Update tag selections
+    document.querySelectorAll('#tagFilters .tag').forEach(tagElement => {
+        const tag = tagElement.dataset.tag;
+        const isSelected = filterState.tags.includes(tag);
+        updateTagSelection(tag, isSelected);
+    });
+}
+
 // Update values count display
 function updateValuesCount(count) {
     if (valuesCount) {
@@ -326,6 +351,7 @@ function clearAllFilters() {
     if (clearSearchBtn) clearSearchBtn.style.display = 'none';
 
     // Update UI
+    updateFilterControls();
     updateActiveFilters();
     filterValues();
 
@@ -700,6 +726,43 @@ function highlightTag(tagName) {
     }
 }
 
+// Widen filters to include a specific value
+function widenFiltersForValue(valueName) {
+    const value = values.find(v => v.name === valueName);
+    if (!value) return;
+
+    // Save current filters for undo
+    const previousFilterState = JSON.parse(JSON.stringify(filterState));
+
+    // Widen filters
+    if (!filterState.categories.includes(value.category)) {
+        filterState.categories.push(value.category);
+    }
+    value.tags.forEach(tag => {
+        if (!filterState.tags.includes(tag)) {
+            filterState.tags.push(tag);
+        }
+    });
+
+    // Update UI
+    updateFilterControls();
+    updateActiveFilters();
+    filterValues(valueName);
+
+    // Show status with undo
+    showStatus(`Filters widened to include "${valueName}"`, false, {
+        text: "Undo",
+        onClick: () => {
+            // Restore previous filters
+            Object.assign(filterState, previousFilterState);
+            updateFilterControls();
+            updateActiveFilters();
+            filterValues();
+            showStatus("Filters restored");
+        }
+    });
+}
+
 // Find related values based on shared tags
 function findRelatedValues(value) {
     const related = [];
@@ -729,7 +792,7 @@ function findRelatedValues(value) {
 }
 
 // Display values in the dictionary
-function displayValues(valuesToDisplay) {
+function displayValues(valuesToDisplay, valueToHighlight = null) {
     try {
         console.log("Displaying", valuesToDisplay.length, "values");
         if (!valuesList) return;
@@ -934,6 +997,9 @@ function displayValues(valuesToDisplay) {
                                 if (!relatedValueCard.classList.contains('expanded')) {
                                     relatedValueCard.querySelector('.value-card-toggle').click();
                                 }
+                            } else {
+                                // If the card is not visible, widen the filters
+                                widenFiltersForValue(related.name);
                             }
                         });
 
@@ -969,6 +1035,24 @@ function displayValues(valuesToDisplay) {
         bottomAnchor.id = 'bottom';
         valuesList.appendChild(bottomAnchor);
 
+        if (valueToHighlight) {
+            const cardToHighlight = Array.from(valuesList.querySelectorAll('.value-card'))
+                .find(card => card.querySelector(`h3[data-value="${valueToHighlight}"]`));
+
+            if (cardToHighlight) {
+                cardToHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                cardToHighlight.classList.add('ring-2', 'ring-indigo-500');
+                setTimeout(() => {
+                    cardToHighlight.classList.remove('ring-2', 'ring-indigo-500');
+                }, 2000);
+
+                // Expand the card if it's collapsed
+                if (!cardToHighlight.classList.contains('expanded')) {
+                    cardToHighlight.querySelector('.value-card-toggle').click();
+                }
+            }
+        }
+
         console.log("Values displayed successfully");
     } catch (error) {
         console.error("Error displaying values:", error);
@@ -993,7 +1077,7 @@ function displayValues(valuesToDisplay) {
 }
 
 // Filter values based on search input and selected tags/categories
-function filterValues() {
+function filterValues(valueToHighlight = null) {
     try {
         console.log("Filtering values...", filterState);
 
@@ -1040,7 +1124,7 @@ function filterValues() {
         }
 
         console.log("Found", filtered.length, "matching values");
-        displayValues(filtered);
+        displayValues(filtered, valueToHighlight);
 
     } catch (error) {
         console.error("Error filtering values:", error);
