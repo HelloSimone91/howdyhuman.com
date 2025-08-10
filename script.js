@@ -268,7 +268,7 @@ function setupLanguageToggle() {
 // Update values count display
 function updateValuesCount(count) {
     if (valuesCount) {
-        valuesCount.textContent = count || values.length;
+        valuesCount.textContent = typeof count === 'number' ? count : values.length;
     }
 }
 
