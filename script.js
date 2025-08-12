@@ -274,15 +274,18 @@ function updateValuesCount(count) {
 
 // Setup filter toggle button
 function setupFilterToggle() {
-    toggleFilters.addEventListener('click', () => {
-        filtersContainer.classList.toggle('collapsed');
+    const updateToggle = () => {
         const isCollapsed = filtersContainer.classList.contains('collapsed');
-
-        // Update text and icon
         document.getElementById('toggleFiltersText').textContent = isCollapsed ? 'Show Filters' : 'Hide Filters';
         const icon = document.getElementById('toggleFiltersIcon');
-        icon.classList.remove(isCollapsed ? 'fa-chevron-up' : 'fa-chevron-down');
-        icon.classList.add(isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down', isCollapsed);
+        icon.classList.toggle('fa-chevron-up', !isCollapsed);
+    };
+
+    updateToggle();
+    toggleFilters.addEventListener('click', () => {
+        filtersContainer.classList.toggle('collapsed');
+        updateToggle();
     });
 }
 

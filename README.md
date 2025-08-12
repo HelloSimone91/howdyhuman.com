@@ -35,10 +35,10 @@ for hosting my domain <br>
 ## Usage
 ### Values Dictionary
 - Use the search bar to find specific values <br>
-- Click "Show Filters" to access advanced filtering options <br>
+- Filters are visible by default; click "Hide Filters" to collapse the filter section <br>
 - Apply filters to narrow down the values list: <br>
         - Select categories (Personal, Interpersonal, Social) <br>
-        - Choose specific action verbs (tags) <br> 
+        - Choose specific action verbs (tags) <br>
         - Select between matching ALL or ANY tags <br>
 - Click on tags to see related values <br>
 - Explore connections between values through the related values section <br>
