@@ -316,6 +316,23 @@ function setupMatchTypeToggle() {
     });
 }
 
+// Setup show more/less buttons for filter columns
+function setupFilterExpanders() {
+    document.querySelectorAll('.filter-column').forEach(column => {
+        const button = column.querySelector('.show-more-btn');
+        if (!button) return;
+
+        const isOverflowing = column.scrollHeight > column.clientHeight;
+        button.style.display = isOverflowing ? 'block' : 'none';
+        button.textContent = column.classList.contains('expanded') ? 'Show Less' : 'Show More';
+
+        button.onclick = () => {
+            column.classList.toggle('expanded');
+            button.textContent = column.classList.contains('expanded') ? 'Show Less' : 'Show More';
+        };
+    });
+}
+
 // Clear all filters
 function clearAllFilters() {
     // Reset filter state
@@ -531,6 +548,7 @@ function initializeValuesDictionary() {
         // Initial display of values
         console.log("Displaying values...");
         filterValues();
+        setupFilterExpanders();
 
     } catch (error) {
         console.error("Error initializing dictionary:", error);
