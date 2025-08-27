@@ -586,7 +586,7 @@ function addActiveFilterBadge(text, type) {
     if (!activeFilters) return;
 
     const badge = document.createElement('div');
-    badge.classList.add('active-filter', 'text-xs', 'rounded-full', 'px-3', 'py-1', 'flex', 'items-center', 'mr-2', 'mb-2');
+    badge.classList.add('active-filter', 'text-sm', 'rounded-full', 'px-3', 'py-1', 'flex', 'items-center', 'mr-2', 'mb-2');
 
     // Add icon based on type
     const icon = document.createElement('i');
@@ -883,7 +883,7 @@ function displayValues(valuesToDisplay) {
 
                 const description = document.createElement('p');
                 description.textContent = value.description;
-                description.classList.add('mb-4');
+                description.classList.add('mb-4', 'value-description');
 
                 // Create content container (for collapsible functionality)
                 const contentContainer = document.createElement('div');
