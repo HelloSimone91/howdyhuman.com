@@ -152,6 +152,13 @@ button, .value-card-toggle, .status-action-button {
     font-size: 1.25rem;
 }
 
+.filter-caption {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+    font-weight: 400;
+}
+
 /* Value example styles */
 .value-example {
     background-color: var(--tag-bg);
