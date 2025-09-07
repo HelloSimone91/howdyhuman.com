@@ -39,7 +39,7 @@ for hosting my domain <br>
 - Apply filters to narrow down the values list: <br>
         - Select categories (Personal, Interpersonal, Social) <br>
         - Choose specific action verbs (tags) <br>
-        - Select between matching ALL or ANY tags <br>
+        - Choose whether to match all selected verbs or any selected verb <br>
 - Click on tags to see related values <br>
 - Explore connections between values through the related values section <br>
 
