@@ -50,7 +50,7 @@ const filterState = {
     categories: [],
     tags: [],
     searchTerm: '',
-    matchAll: true, // true for ALL (AND), false for ANY (OR)
+    matchAll: false, // true for ALL (AND), false for ANY (OR)
     sortMethod: 'name'
 };
 
