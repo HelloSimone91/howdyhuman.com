@@ -60,7 +60,11 @@ let currentLanguage = 'en';
 // Initialize DOM elements
 let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
     matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
-    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
+    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle,
+    currentLetterDisplay;
+
+// Scroll spy handler reference
+let scrollSpyHandler;
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -160,11 +164,17 @@ function setupAlphaNav() {
     // Create array of alphabet letters
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
+    // Current letter display at top of nav
+    currentLetterDisplay = document.createElement('div');
+    currentLetterDisplay.classList.add('current-letter');
+    alphaNav.appendChild(currentLetterDisplay);
+
     // Add each letter
     alphabet.forEach(letter => {
         const link = document.createElement('a');
         link.href = `#section-${letter}`;
         link.textContent = letter;
+        link.dataset.letter = letter;
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const section = document.getElementById(`section-${letter}`);
@@ -220,6 +230,38 @@ function findClosestSection(letter) {
             return;
         }
     }
+}
+
+// Highlight current section letter in navigation
+function setupScrollSpy() {
+    if (!alphaNav || !currentLetterDisplay) return;
+
+    const sections = document.querySelectorAll('.letter-section');
+    const links = alphaNav.querySelectorAll('a[data-letter]');
+
+    const handler = () => {
+        let current = sections.length > 0 ? sections[0].id.replace('section-','') : '';
+        for (const section of sections) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 100) {
+                current = section.id.replace('section-','');
+            } else {
+                break;
+            }
+        }
+
+        currentLetterDisplay.textContent = current;
+        links.forEach(link => {
+            link.classList.toggle('active', link.dataset.letter === current);
+        });
+    };
+
+    if (scrollSpyHandler) {
+        window.removeEventListener('scroll', scrollSpyHandler);
+    }
+    scrollSpyHandler = handler;
+    window.addEventListener('scroll', handler);
+    handler();
 }
 
 // Setup back to top button
@@ -861,7 +903,7 @@ function displayValues(valuesToDisplay) {
             // Create section header
             const sectionHeader = document.createElement('div');
             sectionHeader.id = `section-${letter}`;
-            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'pb-2', 'border-b', 'border-gray-300');
+            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'pb-2', 'border-b', 'border-gray-300', 'letter-section');
             sectionHeader.textContent = letter;
             valuesList.appendChild(sectionHeader);
 
@@ -1049,6 +1091,9 @@ function displayValues(valuesToDisplay) {
         const bottomAnchor = document.createElement('div');
         bottomAnchor.id = 'bottom';
         valuesList.appendChild(bottomAnchor);
+
+        // Set up scroll spy for active letter display
+        setupScrollSpy();
 
         console.log("Values displayed successfully");
     } catch (error) {
