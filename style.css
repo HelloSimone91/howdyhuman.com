@@ -360,6 +360,14 @@ button, .value-card-toggle, .status-action-button {
     z-index: 40;
 }
 
+.alpha-nav .current-letter {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
+}
+
 .alpha-nav a {
     font-size: 1.5rem;
     padding: 4px 8px;
