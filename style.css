@@ -369,9 +369,9 @@ button, .value-card-toggle, .status-action-button {
     align-items: center;
     overflow-x: auto;
     white-space: nowrap;
-    background-color: var(--card-bg);
+    background-color: transparent;
     padding: 1rem 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
 }
 
 .alpha-nav-horizontal a {
@@ -379,7 +379,7 @@ button, .value-card-toggle, .status-action-button {
     font-size: 1rem;
     padding: 0.25rem 0.5rem;
     margin-right: 0.25rem;
-    color: var(--accent-primary);
+    color: var(--text-main);
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s;
