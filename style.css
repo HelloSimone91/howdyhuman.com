@@ -363,14 +363,14 @@ button, .value-card-toggle, .status-action-button {
 /* Horizontal alphabetical navigation */
 .alpha-nav-horizontal {
     position: sticky;
-    top: 3.5rem;
+    top: 4rem;
     z-index: 40;
     display: flex;
     align-items: center;
     overflow-x: auto;
     white-space: nowrap;
     background-color: var(--card-bg);
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
