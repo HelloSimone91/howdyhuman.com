@@ -298,6 +298,7 @@ button, .value-card-toggle, .status-action-button {
     border-radius: 9999px;
     display: inline-flex;
     position: relative;
+    overflow: hidden;
 }
 
 .toggle-button {
@@ -311,9 +312,10 @@ button, .value-card-toggle, .status-action-button {
 
 .toggle-slide {
     position: absolute;
-    height: calc(100% - 4px);
     top: 2px;
-    width: 50%;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(50% - 2px);
     border-radius: 9999px;
     background-color: var(--card-bg);
     box-shadow: 0 1px 5px rgba(0,0,0,0.08);
@@ -321,7 +323,7 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .toggle-slide.right {
-    transform: translateX(calc(100% - 4px));
+    transform: translateX(100%);
 }
 
 .filters-container {
