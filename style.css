@@ -179,7 +179,7 @@ button, .value-card-toggle, .status-action-button {
     position: sticky;
     top: 0;
     z-index: 50;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     background-color: var(--bg-main);
 }
 
@@ -363,7 +363,7 @@ button, .value-card-toggle, .status-action-button {
 /* Horizontal alphabetical navigation */
 .alpha-nav-horizontal {
     position: sticky;
-    top: 4.5rem;
+    top: 3.5rem;
     z-index: 40;
     display: flex;
     overflow-x: auto;
