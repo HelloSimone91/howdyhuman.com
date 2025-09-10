@@ -65,6 +65,13 @@ let currentLanguage = 'en';
 // Scroll spy handler reference
 let scrollSpyHandler;
 
+// Helper to calculate the offset for alpha navigation
+function getAlphaNavOffset() {
+    if (!alphaNav) return 0;
+    const top = parseInt(getComputedStyle(alphaNav).top, 10);
+    return alphaNav.offsetHeight + (isNaN(top) ? 0 : top);
+}
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     try {
@@ -173,7 +180,10 @@ function setupAlphaNav() {
             e.preventDefault();
             const section = document.getElementById(`section-${letter}`);
             if (section) {
-                window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
+                window.scrollTo({
+                    top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
+                    behavior: 'smooth'
+                });
             } else {
                 // If section doesn't exist, find closest available section
                 findClosestSection(letter);
@@ -192,7 +202,10 @@ function findClosestSection(letter) {
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
+            window.scrollTo({
+                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
+                behavior: 'smooth'
+            });
             return;
         }
     }
@@ -201,7 +214,10 @@ function findClosestSection(letter) {
     for (let i = letterIndex - 1; i >= 0; i--) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
+            window.scrollTo({
+                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
+                behavior: 'smooth'
+            });
             return;
         }
     }
@@ -218,7 +234,7 @@ function setupScrollSpy() {
         let current = sections.length > 0 ? sections[0].id.replace('section-','') : '';
         for (const section of sections) {
             const rect = section.getBoundingClientRect();
-            if (rect.top <= 100) {
+            if (rect.top <= getAlphaNavOffset()) {
                 current = section.id.replace('section-','');
             } else {
                 break;
