@@ -366,6 +366,7 @@ button, .value-card-toggle, .status-action-button {
     top: 4.5rem;
     z-index: 40;
     display: flex;
+    align-items: center;
     overflow-x: auto;
     white-space: nowrap;
     background-color: var(--card-bg);
