@@ -345,51 +345,38 @@ button, .value-card-toggle, .status-action-button {
     margin-left: 0.5rem;
 }
 
-/* Alphabetical navigation */
-.alpha-nav {
-    position: fixed;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    padding: 8px 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
+/* Horizontal alphabetical navigation */
+.alpha-nav-horizontal {
+    position: sticky;
+    top: 0;
     z-index: 40;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: var(--card-bg);
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-.alpha-nav .current-letter {
-    font-size: 1.75rem;
-    font-weight: bold;
-    text-align: center;
+.alpha-nav-horizontal a {
+    flex: 0 0 auto;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
     color: var(--accent-primary);
-    margin-bottom: 4px;
-}
-
-.alpha-nav a {
-    font-size: 1.5rem;
-    padding: 4px 8px;
-    color: var(--accent-primary);
-    text-align: center;
     border-radius: 4px;
-    transition: all 0.2s;
     text-decoration: none;
+    transition: background-color 0.2s;
 }
 
-.alpha-nav a:hover,
-.alpha-nav a.active {
+.alpha-nav-horizontal a:last-child {
+    margin-right: 0;
+}
+
+.alpha-nav-horizontal a:hover,
+.alpha-nav-horizontal a.active {
     background-color: var(--accent-primary);
     color: var(--card-bg);
-}
-
-.alpha-nav .nav-divider {
-    height: 1px;
-    background-color: rgba(186, 104, 200, 0.2);
-    margin: 4px 0;
-    width: 80%;
-    align-self: center;
 }
 
 /* Back to top button */
@@ -609,8 +596,3 @@ button, .value-card-toggle, .status-action-button {
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
-    .alpha-nav {
-        display: none;
-    }
-}

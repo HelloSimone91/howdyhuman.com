@@ -58,10 +58,9 @@ const filterState = {
 let currentLanguage = 'en';
 
 // Initialize DOM elements
-let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
-    matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
-    toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle,
-    currentLetterDisplay;
+    let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
+        matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
+        toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
 
 // Scroll spy handler reference
 let scrollSpyHandler;
@@ -164,12 +163,7 @@ function setupAlphaNav() {
     // Create array of alphabet letters
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-    // Current letter display at top of nav
-    currentLetterDisplay = document.createElement('div');
-    currentLetterDisplay.classList.add('current-letter');
-    alphaNav.appendChild(currentLetterDisplay);
-
-    // Add each letter
+    // Add each letter link
     alphabet.forEach(letter => {
         const link = document.createElement('a');
         link.href = `#section-${letter}`;
@@ -179,7 +173,7 @@ function setupAlphaNav() {
             e.preventDefault();
             const section = document.getElementById(`section-${letter}`);
             if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
+                window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
             } else {
                 // If section doesn't exist, find closest available section
                 findClosestSection(letter);
@@ -187,25 +181,6 @@ function setupAlphaNav() {
         });
         alphaNav.appendChild(link);
     });
-
-    // Add divider
-    const divider = document.createElement('div');
-    divider.classList.add('nav-divider');
-    alphaNav.appendChild(divider);
-
-    // Add "Skip to Bottom" link
-    const skipToBottom = document.createElement('a');
-    skipToBottom.href = "#bottom";
-    skipToBottom.textContent = "↓";
-    skipToBottom.title = "Skip to bottom";
-    skipToBottom.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
-    });
-    alphaNav.appendChild(skipToBottom);
 }
 
 // Find closest available section for a letter
@@ -217,7 +192,7 @@ function findClosestSection(letter) {
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
             return;
         }
     }
@@ -226,7 +201,7 @@ function findClosestSection(letter) {
     for (let i = letterIndex - 1; i >= 0; i--) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
             return;
         }
     }
@@ -234,7 +209,7 @@ function findClosestSection(letter) {
 
 // Highlight current section letter in navigation
 function setupScrollSpy() {
-    if (!alphaNav || !currentLetterDisplay) return;
+    if (!alphaNav) return;
 
     const sections = document.querySelectorAll('.letter-section');
     const links = alphaNav.querySelectorAll('a[data-letter]');
@@ -250,7 +225,6 @@ function setupScrollSpy() {
             }
         }
 
-        currentLetterDisplay.textContent = current;
         links.forEach(link => {
             link.classList.toggle('active', link.dataset.letter === current);
         });
