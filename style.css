@@ -33,6 +33,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+::selection {
+    background-color: var(--accent-primary);
+    color: var(--card-bg);
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--header-text);
 }
@@ -171,8 +176,11 @@ button, .value-card-toggle, .status-action-button {
 
 /* Main search bar */
 .main-search-container {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 50;
     margin-bottom: 1.5rem;
+    background-color: var(--bg-main);
 }
 
 .main-search-input {
@@ -185,6 +193,11 @@ button, .value-card-toggle, .status-action-button {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
     color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-search-input::placeholder {
+    color: var(--text-secondary);
 }
 
 .main-search-input:focus {
@@ -348,7 +361,7 @@ button, .value-card-toggle, .status-action-button {
 /* Horizontal alphabetical navigation */
 .alpha-nav-horizontal {
     position: sticky;
-    top: 0;
+    top: 4.5rem;
     z-index: 40;
     display: flex;
     overflow-x: auto;
