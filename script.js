@@ -877,7 +877,7 @@ function displayValues(valuesToDisplay) {
             // Create section header
             const sectionHeader = document.createElement('div');
             sectionHeader.id = `section-${letter}`;
-            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'pb-2', 'border-b', 'border-gray-300', 'letter-section');
+            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'py-2', 'border-b', 'border-gray-300', 'letter-section');
             sectionHeader.textContent = letter;
             valuesList.appendChild(sectionHeader);
 
