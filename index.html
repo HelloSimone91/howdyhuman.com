@@ -64,78 +64,82 @@
             </div>
         </header>
 
-        <!-- Alphabetical Navigation -->
-        <nav class="alpha-nav-horizontal" id="alphaNav">
-            <!-- Will be populated by JavaScript -->
-        </nav>
+        <div class="values-layout">
+            <!-- Alphabetical Navigation -->
+            <nav class="alpha-nav-vertical" id="alphaNav">
+                <!-- Will be populated by JavaScript -->
+            </nav>
 
-        <!-- Advanced Filters Section -->
-        <div id="filtersContainer" class="filters-container mb-6 p-4">
-            <!-- Match Type Toggle -->
-            <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
-                <div class="flex items-center">
-                    <span class="text-sm font-medium mr-2">Match Type:</span>
-                    <div class="toggle-container">
-                        <div id="toggleSlide" class="toggle-slide right"></div>
-                        <button id="matchAll" class="toggle-button opacity-75">All Selected Verbs</button>
-                        <button id="matchAny" class="toggle-button text-purple-800">Any Selected Verb</button>
-                    </div>
-                </div>
-                
-                <!-- Sort Options -->
-                <div class="flex items-center">
-                    <label for="sortSelect" class="text-sm font-medium mr-2">Sort By:</label>
-                    <select 
-                        id="sortSelect" 
-                        class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg"
-                    >
-                        <option value="name">Name</option>
-                        <option value="category">Category</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Three-Column Layout for Filters -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Column 1: Categories -->
-                <div class="filter-column p-2 rounded-md">
-                    <div class="filter-header">Categories</div>
-                    <div id="categoryFilters" class="space-y-2">
-                        <!-- Categories will be added here by JavaScript -->
-                    </div>
-                    <button class="show-more-btn">Show More</button>
-                </div>
-                
-                <!-- Column 2: Tags/Verbs -->
-                <div class="filter-column p-2 rounded-md">
-                    <div class="filter-header">Verbs <span class="filter-caption">tags</span></div>
-                    <div id="tagFilters" class="space-y-1">
-                        <!-- Tags will be added here by JavaScript -->
-                    </div>
-                    <button class="show-more-btn">Show More</button>
-                </div>
-                
-                <!-- Column 3: Active Filters -->
-                <div class="filter-column p-2 rounded-md">
-                    <div class="filter-header">Active Filters</div>
-                    
-                    <!-- Active Filters -->
-                    <div>
-                        <div id="activeFilters" class="flex flex-wrap">
-                            <span id="noActiveFilters" class="text-xs opacity-75 italic">No active filters</span>
-                            <!-- Active filters will be added here by JavaScript -->
+            <div class="values-column">
+                <!-- Advanced Filters Section -->
+                <div id="filtersContainer" class="filters-container mb-6 p-4">
+                    <!-- Match Type Toggle -->
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium mr-2">Match Type:</span>
+                            <div class="toggle-container">
+                                <div id="toggleSlide" class="toggle-slide right"></div>
+                                <button id="matchAll" class="toggle-button opacity-75">All Selected Verbs</button>
+                                <button id="matchAny" class="toggle-button text-purple-800">Any Selected Verb</button>
+                            </div>
                         </div>
-                        <button id="clearFilters" class="mt-4 reset-btn hidden">
-                            Clear All Filters
-                        </button>
+
+                        <!-- Sort Options -->
+                        <div class="flex items-center">
+                            <label for="sortSelect" class="text-sm font-medium mr-2">Sort By:</label>
+                            <select
+                                id="sortSelect"
+                                class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg"
+                            >
+                                <option value="name">Name</option>
+                                <option value="category">Category</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Three-Column Layout for Filters -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Column 1: Categories -->
+                        <div class="filter-column p-2 rounded-md">
+                            <div class="filter-header">Categories</div>
+                            <div id="categoryFilters" class="space-y-2">
+                                <!-- Categories will be added here by JavaScript -->
+                            </div>
+                            <button class="show-more-btn">Show More</button>
+                        </div>
+
+                        <!-- Column 2: Tags/Verbs -->
+                        <div class="filter-column p-2 rounded-md">
+                            <div class="filter-header">Verbs <span class="filter-caption">tags</span></div>
+                            <div id="tagFilters" class="space-y-1">
+                                <!-- Tags will be added here by JavaScript -->
+                            </div>
+                            <button class="show-more-btn">Show More</button>
+                        </div>
+
+                        <!-- Column 3: Active Filters -->
+                        <div class="filter-column p-2 rounded-md">
+                            <div class="filter-header">Active Filters</div>
+
+                            <!-- Active Filters -->
+                            <div>
+                                <div id="activeFilters" class="flex flex-wrap">
+                                    <span id="noActiveFilters" class="text-xs opacity-75 italic">No active filters</span>
+                                    <!-- Active filters will be added here by JavaScript -->
+                                </div>
+                                <button id="clearFilters" class="mt-4 reset-btn hidden">
+                                    Clear All Filters
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Values List -->
-        <div id="valuesList" class="space-y-4">
-            <!-- Values cards will be added here by JavaScript -->
+                <!-- Values List -->
+                <div id="valuesList" class="space-y-4">
+                    <!-- Values cards will be added here by JavaScript -->
+                </div>
+            </div>
         </div>
         
         <!-- Footer -->

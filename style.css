@@ -360,39 +360,99 @@ button, .value-card-toggle, .status-action-button {
     margin-left: 0.5rem;
 }
 
-/* Horizontal alphabetical navigation */
-.alpha-nav-horizontal {
-    position: sticky;
-    top: 4rem;
-    z-index: 40;
+/* Values layout */
+.values-layout {
     display: flex;
-    align-items: center;
-    overflow-x: auto;
-    white-space: nowrap;
-    background-color: transparent;
-    padding: 1rem 1rem;
-    box-shadow: none;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-top: 1rem;
 }
 
-.alpha-nav-horizontal a {
-    flex: 0 0 auto;
+.values-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Vertical alphabetical navigation */
+.alpha-nav-vertical {
+    position: sticky;
+    top: 6.5rem;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.5rem 0;
+    align-self: flex-start;
+    min-width: 3.5rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+}
+
+.alpha-nav-vertical a {
+    display: block;
+    text-align: center;
     font-size: 1rem;
-    padding: 0.25rem 0.5rem;
-    margin-right: 0.25rem;
-    color: var(--text-main);
-    border-radius: 4px;
+    font-weight: 500;
+    padding: 0.35rem 0.65rem;
+    color: var(--text-secondary);
+    border-radius: 9999px;
     text-decoration: none;
-    transition: background-color 0.2s;
+    transition: color 0.2s ease, background-color 0.2s ease, font-weight 0.2s ease, transform 0.2s ease;
 }
 
-.alpha-nav-horizontal a:last-child {
-    margin-right: 0;
+.alpha-nav-vertical a:hover,
+.alpha-nav-vertical a:focus {
+    color: var(--text-main);
+    background-color: var(--filter-bg);
+    font-weight: 600;
 }
 
-.alpha-nav-horizontal a:hover,
-.alpha-nav-horizontal a.active {
-    background-color: var(--accent-primary);
-    color: var(--card-bg);
+.alpha-nav-vertical a:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.alpha-nav-vertical a.active {
+    color: var(--accent-secondary);
+    background-color: var(--card-bg);
+    font-weight: 700;
+    box-shadow: inset 4px 0 0 var(--accent-secondary);
+}
+
+.alpha-nav-vertical a.active:hover,
+.alpha-nav-vertical a.active:focus {
+    background-color: var(--filter-bg);
+}
+
+@media (max-width: 1024px) {
+    .values-layout {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .values-layout {
+        flex-direction: column;
+    }
+
+    .alpha-nav-vertical {
+        position: static;
+        top: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        gap: 0.5rem;
+        padding: 0.5rem 0 0.25rem;
+        justify-content: flex-start;
+    }
+
+    .alpha-nav-vertical a {
+        flex: 0 0 auto;
+    }
 }
 
 /* Back to top button */
