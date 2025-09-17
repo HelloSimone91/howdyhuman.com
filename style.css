@@ -360,39 +360,67 @@ button, .value-card-toggle, .status-action-button {
     margin-left: 0.5rem;
 }
 
-/* Horizontal alphabetical navigation */
-.alpha-nav-horizontal {
+/* Values layout */
+.values-layout {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .values-layout {
+        grid-template-columns: 220px 1fr;
+        align-items: start;
+    }
+}
+
+/* Vertical alphabetical navigation */
+.alpha-nav-vertical {
     position: sticky;
     top: 4rem;
     z-index: 40;
     display: flex;
-    align-items: center;
-    overflow-x: auto;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
     background-color: transparent;
-    padding: 1rem 1rem;
     box-shadow: none;
 }
 
-.alpha-nav-horizontal a {
-    flex: 0 0 auto;
+.alpha-nav-vertical a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1rem;
     padding: 0.25rem 0.5rem;
-    margin-right: 0.25rem;
     color: var(--text-main);
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.2s;
 }
 
-.alpha-nav-horizontal a:last-child {
-    margin-right: 0;
-}
-
-.alpha-nav-horizontal a:hover,
-.alpha-nav-horizontal a.active {
+.alpha-nav-vertical a:hover,
+.alpha-nav-vertical a.active {
     background-color: var(--accent-primary);
     color: var(--card-bg);
+}
+
+@media (min-width: 1024px) {
+    .alpha-nav-vertical {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        padding: 1rem;
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        max-height: calc(100vh - 6rem);
+        overflow-y: auto;
+    }
+
+    .alpha-nav-vertical a {
+        width: 100%;
+        padding: 0.35rem 0.75rem;
+    }
 }
 
 /* Back to top button */
