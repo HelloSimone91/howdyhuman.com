@@ -58,18 +58,102 @@ const filterState = {
 let currentLanguage = 'en';
 
 // Initialize DOM elements
-    let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
+    let searchInput, mainSearchInput, mainSearchContainer, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
         toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
 
 // Scroll spy handler reference
 let scrollSpyHandler;
 
+const ALPHA_NAV_STATE_CLASSES = {
+    active: ['is-active', 'active'],
+    above: ['is-above'],
+    below: ['is-below']
+};
+
+function getAlphaNavElement() {
+    if (alphaNav && document.body.contains(alphaNav)) {
+        return alphaNav;
+    }
+
+    alphaNav = document.querySelector('.alpha-nav-vertical');
+    if (!alphaNav) {
+        alphaNav = document.getElementById('alphaNav');
+    }
+
+    return alphaNav;
+}
+
+function updateAlphaNavLinkState(link, state) {
+    const validStates = Object.keys(ALPHA_NAV_STATE_CLASSES);
+    const normalizedState = validStates.includes(state) ? state : null;
+
+    validStates.forEach(key => {
+        const shouldHaveState = key === normalizedState;
+        ALPHA_NAV_STATE_CLASSES[key].forEach(className => {
+            link.classList.toggle(className, shouldHaveState);
+        });
+    });
+}
+
 // Helper to calculate the offset for alpha navigation
 function getAlphaNavOffset() {
-    if (!alphaNav) return 0;
-    const top = parseInt(getComputedStyle(alphaNav).top, 10);
-    return alphaNav.offsetHeight + (isNaN(top) ? 0 : top);
+    const stickyElements = new Set();
+
+    if (mainSearchContainer) {
+        stickyElements.add(mainSearchContainer);
+    }
+
+    document.querySelectorAll('[data-alpha-nav-offset]').forEach(element => {
+        stickyElements.add(element);
+    });
+
+    const nav = getAlphaNavElement();
+    if (nav && nav.dataset && nav.dataset.offsetTargets) {
+        nav.dataset.offsetTargets
+            .split(',')
+            .map(selector => selector.trim())
+            .filter(Boolean)
+            .forEach(selector => {
+                try {
+                    document.querySelectorAll(selector).forEach(element => stickyElements.add(element));
+                } catch (error) {
+                    console.warn(`Invalid selector in alpha nav offsetTargets: ${selector}`, error);
+                }
+            });
+    }
+
+    let totalOffset = 0;
+
+    stickyElements.forEach(element => {
+        if (!element || !document.body.contains(element)) {
+            return;
+        }
+
+        const styles = getComputedStyle(element);
+        if (styles.position !== 'sticky' && styles.position !== 'fixed') {
+            return;
+        }
+
+        const height = element.offsetHeight;
+        if (!height) {
+            return;
+        }
+
+        const marginBottom = parseFloat(styles.marginBottom) || 0;
+        const marginTop = parseFloat(styles.marginTop) || 0;
+        const stickyTop = parseFloat(styles.top);
+        const topOffset = isNaN(stickyTop) ? 0 : stickyTop;
+
+        if (styles.position === 'fixed') {
+            totalOffset = Math.max(totalOffset, height + marginBottom + marginTop + topOffset);
+            return;
+        }
+
+        totalOffset += height + marginBottom + Math.max(topOffset, 0);
+    });
+
+    return Math.max(totalOffset, 0);
 }
 
 // Wait for DOM to be fully loaded
@@ -80,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get DOM elements
         searchInput = document.getElementById('searchInput');
         mainSearchInput = document.getElementById('mainSearchInput');
+        mainSearchContainer = document.querySelector('.main-search-container');
         clearSearchBtn = document.getElementById('clearSearch');
         sortSelect = document.getElementById('sortSelect');
         tagFilters = document.getElementById('tagFilters');
@@ -94,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleFilters = document.getElementById('toggleFilters');
         filtersContainer = document.getElementById('filtersContainer');
         valuesCount = document.getElementById('valuesCount');
-        alphaNav = document.getElementById('alphaNav');
+        alphaNav = getAlphaNavElement();
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
 
@@ -165,7 +250,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Setup alphabetical navigation
 function setupAlphaNav() {
-    if (!alphaNav) return;
+    const nav = getAlphaNavElement();
+    if (!nav) return;
+
+    alphaNav = nav;
+    nav.innerHTML = '';
 
     // Create array of alphabet letters
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -180,16 +269,27 @@ function setupAlphaNav() {
             e.preventDefault();
             const section = document.getElementById(`section-${letter}`);
             if (section) {
-                window.scrollTo({
-                    top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                    behavior: 'smooth'
-                });
+                scrollSectionIntoView(section);
             } else {
                 // If section doesn't exist, find closest available section
                 findClosestSection(letter);
             }
         });
-        alphaNav.appendChild(link);
+        nav.appendChild(link);
+    });
+}
+
+function scrollSectionIntoView(section) {
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const offset = getAlphaNavOffset();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const targetPosition = rect.top + scrollTop - offset;
+
+    window.scrollTo({
+        top: Math.max(targetPosition, 0),
+        behavior: 'smooth'
     });
 }
 
@@ -202,10 +302,7 @@ function findClosestSection(letter) {
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            window.scrollTo({
-                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                behavior: 'smooth'
-            });
+            scrollSectionIntoView(section);
             return;
         }
     }
@@ -214,10 +311,7 @@ function findClosestSection(letter) {
     for (let i = letterIndex - 1; i >= 0; i--) {
         const section = document.getElementById(`section-${alphabet[i]}`);
         if (section) {
-            window.scrollTo({
-                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                behavior: 'smooth'
-            });
+            scrollSectionIntoView(section);
             return;
         }
     }
@@ -225,32 +319,57 @@ function findClosestSection(letter) {
 
 // Highlight current section letter in navigation
 function setupScrollSpy() {
-    if (!alphaNav) return;
+    const nav = getAlphaNavElement();
+    if (!nav) return;
 
-    const sections = document.querySelectorAll('.letter-section');
-    const links = alphaNav.querySelectorAll('a[data-letter]');
+    alphaNav = nav;
+
+    const sections = Array.from(document.querySelectorAll('.letter-section'));
+    const links = Array.from(nav.querySelectorAll('a[data-letter]'));
 
     const handler = () => {
-        let current = sections.length > 0 ? sections[0].id.replace('section-','') : '';
-        for (const section of sections) {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= getAlphaNavOffset()) {
-                current = section.id.replace('section-','');
+        const offset = getAlphaNavOffset();
+        const sectionInfo = sections.map(section => ({
+            element: section,
+            letter: section.id.replace('section-', ''),
+            rect: section.getBoundingClientRect()
+        }));
+
+        let current = sectionInfo.length > 0 ? sectionInfo[0].letter : '';
+        for (const info of sectionInfo) {
+            if (info.rect.top - offset <= 0) {
+                current = info.letter;
             } else {
                 break;
             }
         }
 
+        const sectionMap = new Map(sectionInfo.map(info => [info.letter, info]));
+
         links.forEach(link => {
-            link.classList.toggle('active', link.dataset.letter === current);
+            const letter = link.dataset.letter;
+            const info = sectionMap.get(letter);
+
+            let state = 'below';
+            if (current && letter === current) {
+                state = 'active';
+            } else if (info) {
+                state = info.rect.top - offset < 0 ? 'above' : 'below';
+            } else if (current && letter < current) {
+                state = 'above';
+            }
+
+            updateAlphaNavLinkState(link, state);
         });
     };
 
     if (scrollSpyHandler) {
         window.removeEventListener('scroll', scrollSpyHandler);
+        window.removeEventListener('resize', scrollSpyHandler);
     }
     scrollSpyHandler = handler;
     window.addEventListener('scroll', handler);
+    window.addEventListener('resize', handler);
     handler();
 }
 

@@ -64,11 +64,6 @@
             </div>
         </header>
 
-        <!-- Alphabetical Navigation -->
-        <nav class="alpha-nav-horizontal" id="alphaNav">
-            <!-- Will be populated by JavaScript -->
-        </nav>
-
         <!-- Advanced Filters Section -->
         <div id="filtersContainer" class="filters-container mb-6 p-4">
             <!-- Match Type Toggle -->
@@ -133,9 +128,15 @@
             </div>
         </div>
 
-        <!-- Values List -->
-        <div id="valuesList" class="space-y-4">
-            <!-- Values cards will be added here by JavaScript -->
+        <!-- Alphabetical Navigation & Values List -->
+        <div class="values-layout">
+            <nav class="alpha-nav-vertical" id="alphaNav" data-offset-targets=".main-search-container">
+                <!-- Will be populated by JavaScript -->
+            </nav>
+
+            <div id="valuesList" class="space-y-4">
+                <!-- Values cards will be added here by JavaScript -->
+            </div>
         </div>
         
         <!-- Footer -->
