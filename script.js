@@ -60,16 +60,39 @@ let currentLanguage = 'en';
 // Initialize DOM elements
     let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
-        toggleFilters, filtersContainer, valuesCount, alphaNav, backToTop, languageToggle;
+        toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, backToTop, languageToggle;
 
-// Scroll spy handler reference
-let scrollSpyHandler;
+// Scroll spy observer reference
+let scrollSpyObserver;
 
 // Helper to calculate the offset for alpha navigation
 function getAlphaNavOffset() {
     if (!alphaNav) return 0;
-    const top = parseInt(getComputedStyle(alphaNav).top, 10);
-    return alphaNav.offsetHeight + (isNaN(top) ? 0 : top);
+    const styles = getComputedStyle(alphaNav);
+    const position = styles.position;
+    const top = parseInt(styles.top, 10);
+    const hasTopOffset = !Number.isNaN(top) && styles.top !== 'auto';
+
+    let offset = 0;
+
+    if ((position === 'sticky' || position === 'fixed') && hasTopOffset) {
+        offset += top;
+    }
+
+    const offsetTargets = alphaNav.dataset.offsetTargets;
+    if (offsetTargets) {
+        offsetTargets.split(',').forEach(selector => {
+            const target = document.querySelector(selector.trim());
+            if (target) {
+                const targetStyles = getComputedStyle(target);
+                if (['sticky', 'fixed'].includes(targetStyles.position)) {
+                    offset += target.offsetHeight;
+                }
+            }
+        });
+    }
+
+    return offset;
 }
 
 // Wait for DOM to be fully loaded
@@ -95,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filtersContainer = document.getElementById('filtersContainer');
         valuesCount = document.getElementById('valuesCount');
         alphaNav = document.getElementById('alphaNav');
+        alphaNavList = alphaNav ? alphaNav.querySelector('.alpha-nav-list') : null;
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
 
@@ -163,19 +187,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Update active letter in alphabetical navigation
+function setActiveLetter(letter) {
+    if (!alphaNavList) return;
+
+    const items = alphaNavList.querySelectorAll('.alpha-nav-item');
+    items.forEach(item => {
+        const isActive = item.dataset.letter === letter;
+        item.classList.toggle('active', isActive);
+
+        const link = item.querySelector('.alpha-nav-link');
+        if (link) {
+            if (isActive) {
+                link.setAttribute('aria-current', 'true');
+                link.classList.add('active');
+            } else {
+                link.removeAttribute('aria-current');
+                link.classList.remove('active');
+            }
+        }
+    });
+}
+
 // Setup alphabetical navigation
 function setupAlphaNav() {
-    if (!alphaNav) return;
+    if (!alphaNavList) return;
 
     // Create array of alphabet letters
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
     // Add each letter link
+    alphaNavList.innerHTML = '';
     alphabet.forEach(letter => {
+        const item = document.createElement('li');
+        item.className = 'alpha-nav-item';
+
         const link = document.createElement('a');
+        link.className = 'alpha-nav-link';
         link.href = `#section-${letter}`;
         link.textContent = letter;
         link.dataset.letter = letter;
+        link.setAttribute('aria-label', `Jump to values that start with the letter ${letter}`);
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const section = document.getElementById(`section-${letter}`);
@@ -184,12 +236,15 @@ function setupAlphaNav() {
                     top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
                     behavior: 'smooth'
                 });
+                setActiveLetter(letter);
             } else {
                 // If section doesn't exist, find closest available section
                 findClosestSection(letter);
             }
         });
-        alphaNav.appendChild(link);
+        item.dataset.letter = letter;
+        item.appendChild(link);
+        alphaNavList.appendChild(item);
     });
 }
 
@@ -206,6 +261,7 @@ function findClosestSection(letter) {
                 top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
                 behavior: 'smooth'
             });
+            setActiveLetter(alphabet[i]);
             return;
         }
     }
@@ -218,6 +274,7 @@ function findClosestSection(letter) {
                 top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
                 behavior: 'smooth'
             });
+            setActiveLetter(alphabet[i]);
             return;
         }
     }
@@ -225,33 +282,57 @@ function findClosestSection(letter) {
 
 // Highlight current section letter in navigation
 function setupScrollSpy() {
-    if (!alphaNav) return;
+    if (!alphaNavList) return;
 
     const sections = document.querySelectorAll('.letter-section');
-    const links = alphaNav.querySelectorAll('a[data-letter]');
 
-    const handler = () => {
-        let current = sections.length > 0 ? sections[0].id.replace('section-','') : '';
-        for (const section of sections) {
+    if (scrollSpyObserver) {
+        scrollSpyObserver.disconnect();
+    }
+
+    if (!sections.length) {
+        setActiveLetter('');
+        return;
+    }
+
+    let currentLetter = '';
+    const sectionsArray = Array.from(sections);
+
+    const updateActiveLetter = () => {
+        const offset = getAlphaNavOffset();
+        let nearestSection = sectionsArray[0];
+
+        for (const section of sectionsArray) {
             const rect = section.getBoundingClientRect();
-            if (rect.top <= getAlphaNavOffset()) {
-                current = section.id.replace('section-','');
+            if (rect.top - offset <= 0) {
+                nearestSection = section;
             } else {
                 break;
             }
         }
 
-        links.forEach(link => {
-            link.classList.toggle('active', link.dataset.letter === current);
-        });
+        if (nearestSection) {
+            const letter = nearestSection.id.replace('section-', '');
+            if (letter !== currentLetter) {
+                currentLetter = letter;
+                setActiveLetter(letter);
+            }
+        }
     };
 
-    if (scrollSpyHandler) {
-        window.removeEventListener('scroll', scrollSpyHandler);
-    }
-    scrollSpyHandler = handler;
-    window.addEventListener('scroll', handler);
-    handler();
+    const observerOptions = {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0.4
+    };
+
+    scrollSpyObserver = new IntersectionObserver(() => {
+        updateActiveLetter();
+    }, observerOptions);
+
+    sectionsArray.forEach(section => scrollSpyObserver.observe(section));
+
+    updateActiveLetter();
 }
 
 // Setup back to top button

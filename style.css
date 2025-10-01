@@ -376,50 +376,154 @@ button, .value-card-toggle, .status-action-button {
 /* Vertical alphabetical navigation */
 .alpha-nav-vertical {
     position: sticky;
-    top: 4rem;
+    top: 20px;
     z-index: 40;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    padding: 0.75rem 0.5rem;
-    background-color: transparent;
-    box-shadow: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(128, 90, 213, 0.12);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
-.alpha-nav-vertical a {
-    display: inline-flex;
+.alpha-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    scrollbar-width: thin;
+}
+
+.alpha-nav-list::-webkit-scrollbar {
+    height: 6px;
+}
+
+.alpha-nav-list::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 90, 213, 0.35);
+    border-radius: 999px;
+}
+
+.alpha-nav-item {
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+
+.alpha-nav-link {
+    display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.75rem;
     color: var(--text-main);
-    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
-    transition: background-color 0.2s;
+    border-radius: 6px;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
 }
 
-.alpha-nav-vertical a:hover,
-.alpha-nav-vertical a.active {
+.alpha-nav-link:hover,
+.alpha-nav-link:focus,
+.alpha-nav-link:focus-visible {
+    background-color: rgba(128, 90, 213, 0.12);
+    color: var(--header-text);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(128, 90, 213, 0.15);
+}
+
+.alpha-nav-item.active {
+    transform: translateX(4px);
+}
+
+.alpha-nav-item.active .alpha-nav-link {
     background-color: var(--accent-primary);
     color: var(--card-bg);
+    box-shadow: 0 2px 6px rgba(128, 90, 213, 0.25);
+    font-weight: 600;
+}
+
+.alpha-nav-vertical::-webkit-scrollbar {
+    width: 6px;
+}
+
+.alpha-nav-vertical::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 90, 213, 0.35);
+    border-radius: 999px;
+}
+
+.alpha-nav-vertical::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 90, 213, 0.6);
 }
 
 @media (min-width: 1024px) {
     .alpha-nav-vertical {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.25rem;
-        padding: 1rem;
-        background-color: var(--card-bg);
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-        max-height: calc(100vh - 6rem);
-        overflow-y: auto;
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .alpha-nav-vertical {
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        overflow-y: hidden;
+        overflow-x: auto;
+        max-height: none;
+        border-radius: 12px;
     }
 
-    .alpha-nav-vertical a {
-        width: 100%;
-        padding: 0.35rem 0.75rem;
+    .alpha-nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem;
+    }
+
+    .alpha-nav-item.active {
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 4.5rem;
+    }
+
+    .alpha-nav-vertical {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        flex-direction: row;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.12);
+        gap: 0.35rem;
+    }
+
+    .alpha-nav-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .alpha-nav-item {
+        flex: 0 0 auto;
+    }
+
+    .alpha-nav-link {
+        min-width: 2.5rem;
     }
 }
 
