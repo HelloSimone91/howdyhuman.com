@@ -1145,7 +1145,7 @@ function displayValues(valuesToDisplay) {
                 toggleButton.addEventListener('click', () => {
                     card.classList.toggle('expanded');
                     toggleButton.innerHTML = card.classList.contains('expanded')
-                        ? 'Read less <i class="fas fa-chevron-up"></i>'
+                        ? 'Read less <i class="fas fa-chevron-down"></i>'
                         : 'Read more <i class="fas fa-chevron-down"></i>';
                 });
 
