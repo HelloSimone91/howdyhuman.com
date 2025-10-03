@@ -599,11 +599,6 @@ button, .value-card-toggle, .status-action-button {
 
 .value-card-toggle i {
     margin-left: 6px;
-    transition: transform 0.3s;
-}
-
-.value-card.expanded .value-card-toggle i {
-    transform: rotate(180deg);
 }
 
 /* Section labels */
