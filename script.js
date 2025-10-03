@@ -1141,12 +1141,37 @@ function displayValues(valuesToDisplay) {
                 // Add toggle button
                 const toggleButton = document.createElement('div');
                 toggleButton.classList.add('value-card-toggle');
-                toggleButton.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+                toggleButton.setAttribute('role', 'button');
+                toggleButton.setAttribute('tabindex', '0');
+                toggleButton.setAttribute('aria-expanded', 'false');
+
+                const toggleLabel = document.createElement('span');
+                toggleLabel.classList.add('value-card-toggle__label');
+                toggleLabel.textContent = 'Read more';
+
+                const toggleIcon = document.createElement('i');
+                toggleIcon.classList.add('fas', 'fa-chevron-down');
+
+                toggleButton.appendChild(toggleLabel);
+                toggleButton.appendChild(toggleIcon);
+
+                const updateToggleState = (isExpanded) => {
+                    toggleLabel.textContent = isExpanded ? 'Read less' : 'Read more';
+                    toggleIcon.classList.toggle('fa-chevron-up', isExpanded);
+                    toggleIcon.classList.toggle('fa-chevron-down', !isExpanded);
+                    toggleButton.setAttribute('aria-expanded', String(isExpanded));
+                };
+
                 toggleButton.addEventListener('click', () => {
                     card.classList.toggle('expanded');
-                    toggleButton.innerHTML = card.classList.contains('expanded')
-                        ? 'Read less <i class="fas fa-chevron-up"></i>'
-                        : 'Read more <i class="fas fa-chevron-down"></i>';
+                    updateToggleState(card.classList.contains('expanded'));
+                });
+
+                toggleButton.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleButton.click();
+                    }
                 });
 
                 card.appendChild(header);
