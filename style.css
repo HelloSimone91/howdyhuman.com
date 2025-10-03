@@ -520,6 +520,13 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-link {
         min-width: 3.25rem;
     }
+
+    .back-to-top {
+        bottom: 72px;
+        right: 16px;
+        bottom: calc(72px + env(safe-area-inset-bottom));
+        right: calc(16px + env(safe-area-inset-right));
+    }
 }
 
 /* Back to top button */
