@@ -57,6 +57,275 @@ const filterState = {
 // Language state
 let currentLanguage = 'en';
 
+// Internationalization map
+const i18n = {
+    en: {
+        languages: {
+            english: 'English',
+            spanish: 'Spanish'
+        },
+        page: {
+            title: 'The Howdy Human Dictionary of Values',
+            heading: 'The Howdy Human Dictionary of Values',
+            tagline: 'Discover values in action',
+            introDescription: 'This dictionary is designed to help you understand values not just as abstract concepts, but as active forces that shape our daily choices and actions. Each value is presented with its associated verbs - the concrete ways we embody and express these values in our lives.<br><br>',
+            introInstructions: 'Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.'
+        },
+        buttons: {
+            languageToggle: 'En español'
+        },
+        aria: {
+            languageToggle: 'Switch language',
+            alphaNav: 'Alphabetical navigation'
+        },
+        search: {
+            placeholder: 'Search values by name, description, or example...',
+            ariaLabel: 'Search values',
+            valuesLabel: 'Values'
+        },
+        filters: {
+            matchType: 'Match Type:',
+            matchAll: 'All Selected Verbs',
+            matchAny: 'Any Selected Verb',
+            sortBy: 'Sort By:',
+            sortName: 'Name',
+            sortCategory: 'Category',
+            categories: 'Categories',
+            verbs: 'Verbs',
+            verbsCaption: 'tags',
+            activeFilters: 'Active Filters',
+            showFilters: 'Show Filters',
+            hideFilters: 'Hide Filters',
+            showMore: 'Show More',
+            showLess: 'Show Less',
+            noActiveFilters: 'No active filters',
+            clearAll: 'Clear All Filters'
+        },
+        footer: {
+            learnMore: 'Learn more about this project'
+        },
+        valueCard: {
+            exampleLabel: 'EXAMPLE IN REAL LIFE',
+            associatedVerbsLabel: 'ASSOCIATED VERBS',
+            relatedValuesLabel: 'RELATED VALUES',
+            clickToView: 'Click to view this value',
+            readMore: 'Read more',
+            readLess: 'Read less',
+            showAllWithTag: 'Show all values tagged with "{{tag}}"'
+        },
+        messages: {
+            noResults: 'No values match your search criteria.',
+            suggestion: 'Try adjusting your filters or search terms.',
+            resetFilters: 'Reset Filters',
+            fallbackIntro: 'There was an issue loading the interactive dictionary. Here\'s a simplified version:',
+            errorDisplayingHeading: 'Error Displaying Values',
+            valuesListHeading: 'Values List:',
+            errorLoadingDictionaryHeading: 'Error Loading Dictionary',
+            errorLoadingDictionaryHint: 'Please reload the page or try again later.'
+        },
+        statuses: {
+            appInitializing: 'App initializing...',
+            appInitialized: 'App initialized successfully!',
+            appInitError: 'Error initializing app: {{message}}',
+            loadingValues: 'Loading {{language}} values...',
+            allFiltersCleared: 'All filters cleared',
+            errorFetchingValues: 'Error fetching values: {{message}}',
+            errorLoadingDictionary: 'Error loading values dictionary',
+            showingTaggedValues: 'Showing values tagged with "{{tag}}"',
+            errorHighlightingTag: 'Error highlighting tag: {{message}}',
+            filtersWidened: 'Filters widened to include "{{value}}"',
+            filtersRestored: 'Filters restored',
+            showingCategory: 'Showing values in category: {{category}}',
+            errorFilteringValues: 'Error filtering values'
+        },
+        actions: {
+            undo: 'Undo'
+        }
+    },
+    es: {
+        languages: {
+            english: 'inglés',
+            spanish: 'español'
+        },
+        page: {
+            title: 'El Diccionario de Valores de Howdy Human',
+            heading: 'El Diccionario de Valores de Howdy Human',
+            tagline: 'Descubre valores en acción',
+            introDescription: 'Este diccionario está diseñado para ayudarte a comprender los valores no solo como conceptos abstractos, sino como fuerzas activas que moldean nuestras decisiones y acciones diarias. Cada valor se presenta con sus verbos asociados: las formas concretas en que encarnamos y expresamos estos valores en nuestra vida.<br><br>',
+            introInstructions: 'Usa la barra de búsqueda para encontrar valores específicos, o explora por categorías y etiquetas. Haz clic en un valor para saber más al respecto y descubrir valores relacionados que comparten características similares.'
+        },
+        buttons: {
+            languageToggle: 'En inglés'
+        },
+        aria: {
+            languageToggle: 'Cambiar idioma',
+            alphaNav: 'Navegación alfabética'
+        },
+        search: {
+            placeholder: 'Busca valores por nombre, descripción o ejemplo...',
+            ariaLabel: 'Buscar valores',
+            valuesLabel: 'Valores'
+        },
+        filters: {
+            matchType: 'Tipo de coincidencia:',
+            matchAll: 'Todos los verbos seleccionados',
+            matchAny: 'Cualquier verbo seleccionado',
+            sortBy: 'Ordenar por:',
+            sortName: 'Nombre',
+            sortCategory: 'Categoría',
+            categories: 'Categorías',
+            verbs: 'Verbos',
+            verbsCaption: 'etiquetas',
+            activeFilters: 'Filtros activos',
+            showFilters: 'Mostrar filtros',
+            hideFilters: 'Ocultar filtros',
+            showMore: 'Mostrar más',
+            showLess: 'Mostrar menos',
+            noActiveFilters: 'No hay filtros activos',
+            clearAll: 'Borrar todos los filtros'
+        },
+        footer: {
+            learnMore: 'Conoce más sobre este proyecto'
+        },
+        valueCard: {
+            exampleLabel: 'EJEMPLO EN LA VIDA REAL',
+            associatedVerbsLabel: 'VERBOS ASOCIADOS',
+            relatedValuesLabel: 'VALORES RELACIONADOS',
+            clickToView: 'Haz clic para ver este valor',
+            readMore: 'Ver más',
+            readLess: 'Ver menos',
+            showAllWithTag: 'Mostrar todos los valores etiquetados con "{{tag}}"'
+        },
+        messages: {
+            noResults: 'Ningún valor coincide con tus criterios de búsqueda.',
+            suggestion: 'Intenta ajustar tus filtros o términos de búsqueda.',
+            resetFilters: 'Restablecer filtros',
+            fallbackIntro: 'Hubo un problema al cargar el diccionario interactivo. Aquí tienes una versión simplificada:',
+            errorDisplayingHeading: 'Error al mostrar los valores',
+            valuesListHeading: 'Lista de valores:',
+            errorLoadingDictionaryHeading: 'Error al cargar el diccionario',
+            errorLoadingDictionaryHint: 'Por favor, recarga la página o inténtalo de nuevo más tarde.'
+        },
+        statuses: {
+            appInitializing: 'Inicializando la aplicación...',
+            appInitialized: '¡Aplicación inicializada correctamente!',
+            appInitError: 'Error al inicializar la aplicación: {{message}}',
+            loadingValues: 'Cargando valores en {{language}}...',
+            allFiltersCleared: 'Todos los filtros se han borrado',
+            errorFetchingValues: 'Error al obtener los valores: {{message}}',
+            errorLoadingDictionary: 'Error al cargar el diccionario de valores',
+            showingTaggedValues: 'Mostrando valores etiquetados con "{{tag}}"',
+            errorHighlightingTag: 'Error al resaltar la etiqueta: {{message}}',
+            filtersWidened: 'Los filtros se ampliaron para incluir "{{value}}"',
+            filtersRestored: 'Filtros restaurados',
+            showingCategory: 'Mostrando valores en la categoría: {{category}}',
+            errorFilteringValues: 'Error al filtrar los valores'
+        },
+        actions: {
+            undo: 'Deshacer'
+        }
+    }
+};
+
+function formatTranslation(template, params = {}) {
+    if (typeof template !== 'string') return '';
+    return template.replace(/{{\s*(\w+)\s*}}/g, (_, key) => {
+        return Object.prototype.hasOwnProperty.call(params, key) ? params[key] : '';
+    });
+}
+
+function translate(key, params = {}, lang = currentLanguage) {
+    const keys = key.split('.');
+    const fallbackLang = 'en';
+    let translation = i18n[lang];
+
+    for (const segment of keys) {
+        if (translation && Object.prototype.hasOwnProperty.call(translation, segment)) {
+            translation = translation[segment];
+        } else {
+            translation = null;
+            break;
+        }
+    }
+
+    if (translation == null && lang !== fallbackLang) {
+        return translate(key, params, fallbackLang);
+    }
+
+    if (typeof translation === 'string') {
+        return formatTranslation(translation, params);
+    }
+
+    return key;
+}
+
+function translateElement(element) {
+    const key = element.dataset.i18n;
+    if (!key) return;
+
+    const mode = element.dataset.i18nMode || 'text';
+    const attr = element.dataset.i18nAttr;
+    const translation = translate(key);
+
+    if (attr) {
+        element.setAttribute(attr, translation);
+    } else if (mode === 'html') {
+        element.innerHTML = translation;
+    } else {
+        element.textContent = translation;
+    }
+}
+
+function updateFilterToggleUI() {
+    if (!filtersContainer || !toggleFilters) return;
+
+    const toggleText = document.getElementById('toggleFiltersText');
+    const icon = document.getElementById('toggleFiltersIcon');
+    const isCollapsed = filtersContainer.classList.contains('collapsed');
+
+    if (toggleText) {
+        toggleText.textContent = translate(isCollapsed ? 'filters.showFilters' : 'filters.hideFilters');
+    }
+
+    if (icon) {
+        icon.classList.toggle('fa-chevron-down', isCollapsed);
+        icon.classList.toggle('fa-chevron-up', !isCollapsed);
+    }
+}
+
+function setFiltersCollapsed(isCollapsed) {
+    if (!filtersContainer) return;
+    filtersContainer.classList.toggle('collapsed', isCollapsed);
+    updateFilterToggleUI();
+}
+
+function updateFilterExpanderButtons() {
+    document.querySelectorAll('.filter-column .show-more-btn').forEach(button => {
+        const column = button.closest('.filter-column');
+        if (!column) return;
+        const isExpanded = column.classList.contains('expanded');
+        button.textContent = translate(isExpanded ? 'filters.showLess' : 'filters.showMore');
+    });
+}
+
+function applyTranslations() {
+    document.documentElement.setAttribute('lang', currentLanguage);
+    document.title = translate('page.title');
+
+    document.querySelectorAll('[data-i18n]').forEach(translateElement);
+
+    if (languageToggle) {
+        languageToggle.setAttribute('aria-label', translate('aria.languageToggle'));
+    }
+
+    if (mainSearchInput) {
+        mainSearchInput.setAttribute('aria-label', translate('search.ariaLabel'));
+    }
+
+    updateFilterToggleUI();
+    updateFilterExpanderButtons();
+}
+
 // Initialize DOM elements
     let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
@@ -98,7 +367,7 @@ function getAlphaNavOffset() {
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     try {
-        showStatus("App initializing...");
+        showStatus(translate('statuses.appInitializing'));
 
         // Get DOM elements
         searchInput = document.getElementById('searchInput');
@@ -124,8 +393,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Verify critical elements were found
         if (!valuesList) {
-            throw new Error("Critical DOM elements could not be found");
+            throw new Error('Critical DOM elements could not be found');
         }
+
+        applyTranslations();
 
         // Set up filter toggle
         setupFilterToggle();
@@ -175,12 +446,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setupLanguageToggle();
 
         // Initialize the app
-        fetchValuesData();
+        fetchValuesData(currentLanguage);
 
-        showStatus("App initialized successfully!");
+        showStatus(translate('statuses.appInitialized'));
     } catch (error) {
         console.error("Error initializing app:", error);
-        showStatus(`Error initializing app: ${error.message}`, true);
+        showStatus(translate('statuses.appInitError', { message: error.message }), true);
 
         // Fallback initialization to ensure basic functionality
         fallbackInitialization();
@@ -362,19 +633,12 @@ function setupLanguageToggle() {
     if (!languageToggle) return;
 
     languageToggle.addEventListener('click', () => {
-        if (currentLanguage === 'en') {
-            // Switch to Spanish
-            currentLanguage = 'es';
-            languageToggle.textContent = 'In English';
-            fetchValuesData('es'); // Fetch Spanish data
-            showStatus("Loading Spanish values...");
-        } else {
-            // Switch to English
-            currentLanguage = 'en';
-            languageToggle.textContent = 'En español';
-            fetchValuesData('en'); // Fetch English data
-            showStatus("Loading English values...");
-        }
+        currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+        applyTranslations();
+
+        const languageNameKey = currentLanguage === 'en' ? 'languages.english' : 'languages.spanish';
+        showStatus(translate('statuses.loadingValues', { language: translate(languageNameKey) }));
+        fetchValuesData(currentLanguage);
     });
 }
 
@@ -387,18 +651,13 @@ function updateValuesCount(count) {
 
 // Setup filter toggle button
 function setupFilterToggle() {
-    const updateToggle = () => {
-        const isCollapsed = filtersContainer.classList.contains('collapsed');
-        document.getElementById('toggleFiltersText').textContent = isCollapsed ? 'Show Filters' : 'Hide Filters';
-        const icon = document.getElementById('toggleFiltersIcon');
-        icon.classList.toggle('fa-chevron-down', isCollapsed);
-        icon.classList.toggle('fa-chevron-up', !isCollapsed);
-    };
+    if (!toggleFilters || !filtersContainer) return;
 
-    updateToggle();
+    updateFilterToggleUI();
+
     toggleFilters.addEventListener('click', () => {
         filtersContainer.classList.toggle('collapsed');
-        updateToggle();
+        updateFilterToggleUI();
     });
 }
 
@@ -437,11 +696,16 @@ function setupFilterExpanders() {
 
         const isOverflowing = column.scrollHeight > column.clientHeight;
         button.style.display = isOverflowing ? 'block' : 'none';
-        button.textContent = column.classList.contains('expanded') ? 'Show Less' : 'Show More';
+        const setLabel = () => {
+            const key = column.classList.contains('expanded') ? 'filters.showLess' : 'filters.showMore';
+            button.textContent = translate(key);
+        };
+
+        setLabel();
 
         button.onclick = () => {
             column.classList.toggle('expanded');
-            button.textContent = column.classList.contains('expanded') ? 'Show Less' : 'Show More';
+            setLabel();
         };
     });
 }
@@ -472,7 +736,7 @@ function clearAllFilters() {
     updateActiveFilters();
     filterValues();
 
-    showStatus("All filters cleared");
+    showStatus(translate('statuses.allFiltersCleared'));
 }
 
 // Fallback initialization if there's an error
@@ -481,9 +745,12 @@ function fallbackInitialization() {
 
     // Create a fallback display of values
     if (valuesList) {
+        const fallbackIntro = translate('messages.fallbackIntro');
+        const exampleLabel = translate('valueCard.exampleLabel');
+        const associatedLabel = translate('valueCard.associatedVerbsLabel');
         valuesList.innerHTML = `
             <div class="bg-yellow-100 p-4 rounded-md mb-4">
-                <p>There was an issue loading the interactive dictionary. Here's a simplified version:</p>
+                <p>${fallbackIntro}</p>
             </div>
             <div class="space-y-4">
                 ${values.map(value => `
@@ -494,11 +761,11 @@ function fallbackInitialization() {
                         </div>
                         <p class="mb-3">${value.description}</p>
                         <div class="value-example">
-                            <div class="section-label"><i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE</div>
+                            <div class="section-label"><i class="fas fa-lightbulb"></i> ${exampleLabel}</div>
                             ${value.example}
                         </div>
                         <div>
-                            <div class="section-label"><i class="fas fa-tags"></i> ASSOCIATED VERBS</div>
+                            <div class="section-label"><i class="fas fa-tags"></i> ${associatedLabel}</div>
                             <div class="flex flex-wrap">
                                 ${value.tags.map(tag => `
                                     <span class="tag">${tag}</span>
@@ -528,7 +795,7 @@ async function fetchValuesData(lang = 'en') {
 
     } catch (error) {
         console.error("Error fetching values data:", error);
-        showStatus(`Error fetching values: ${error.message}`, true);
+        showStatus(translate('statuses.errorFetchingValues', { message: error.message }), true);
         // Attempt to load fallback or default data if primary fetch fails
         values = []; // Ensure values is empty if fetch fails
         initializeValuesDictionary(); // Initialize with empty or fallback data
@@ -665,15 +932,17 @@ function initializeValuesDictionary() {
 
     } catch (error) {
         console.error("Error initializing dictionary:", error);
-        showStatus("Error loading values dictionary", true);
+        showStatus(translate('statuses.errorLoadingDictionary'), true);
 
         // Try fallback
         if (valuesList) {
+            const heading = translate('messages.errorLoadingDictionaryHeading');
+            const hint = translate('messages.errorLoadingDictionaryHint');
             valuesList.innerHTML = `
                 <div class="status-error p-4 rounded-md">
-                    <h3 class="font-bold mb-2">Error Loading Dictionary</h3>
+                    <h3 class="font-bold mb-2">${heading}</h3>
                     <p>${error.message}</p>
-                    <p class="mt-2">Please reload the page or try again later.</p>
+                    <p class="mt-2">${hint}</p>
                 </div>
             `;
         }
@@ -821,11 +1090,7 @@ function highlightTag(tagName) {
 
         if (tagElement) {
             // Ensure filters are visible
-            filtersContainer.classList.remove('collapsed');
-            document.getElementById('toggleFiltersText').textContent = 'Hide Filters';
-            const icon = document.getElementById('toggleFiltersIcon');
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
+            setFiltersCollapsed(false);
 
             // Scroll to tag and highlight
             tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -836,11 +1101,11 @@ function highlightTag(tagName) {
         }
 
         // Show status
-        showStatus(`Showing values tagged with "${tagName}"`);
+        showStatus(translate('statuses.showingTaggedValues', { tag: tagName }));
 
     } catch (error) {
         console.error("Error highlighting tag:", error);
-        showStatus(`Error highlighting tag: ${error.message}`, true);
+        showStatus(translate('statuses.errorHighlightingTag', { message: error.message }), true);
     }
 }
 
@@ -867,14 +1132,14 @@ function widenFiltersForValue(valueName) {
     filterValues();
 
     // Show status with undo
-    showStatus(`Filters widened to include "${valueName}"`, false, {
-        text: "Undo",
+    showStatus(translate('statuses.filtersWidened', { value: valueName }), false, {
+        text: translate('actions.undo'),
         onClick: () => {
             // Restore previous filters
             Object.assign(filterState, previousFilterState);
             updateActiveFilters();
             filterValues();
-            showStatus("Filters restored");
+            showStatus(translate('statuses.filtersRestored'));
         }
     });
 
@@ -938,15 +1203,15 @@ function displayValues(valuesToDisplay) {
             icon.classList.add('fas', 'fa-search', 'opacity-25', 'text-5xl', 'mb-4');
 
             const message = document.createElement('p');
-            message.textContent = 'No values match your search criteria.';
+            message.textContent = translate('messages.noResults');
             message.classList.add('opacity-75', 'text-lg', 'mb-4');
 
             const suggestion = document.createElement('p');
-            suggestion.textContent = 'Try adjusting your filters or search terms.';
+            suggestion.textContent = translate('messages.suggestion');
             suggestion.classList.add('opacity-50', 'text-sm');
 
             const resetButton = document.createElement('button');
-            resetButton.textContent = 'Reset Filters';
+            resetButton.textContent = translate('messages.resetFilters');
             resetButton.classList.add('mt-4', 'reset-btn');
             resetButton.addEventListener('click', clearAllFilters);
 
@@ -1005,7 +1270,7 @@ function displayValues(valuesToDisplay) {
                         updateActiveFilters();
 
                         // Show status
-                        showStatus(`Showing values in category: ${value.category}`);
+                        showStatus(translate('statuses.showingCategory', { category: value.category }));
                     }
                 });
 
@@ -1025,7 +1290,7 @@ function displayValues(valuesToDisplay) {
                 exampleContainer.classList.add('mb-4');
 
                 const exampleLabel = document.createElement('div');
-                exampleLabel.innerHTML = '<i class="fas fa-lightbulb"></i> EXAMPLE IN REAL LIFE';
+                exampleLabel.innerHTML = `<i class="fas fa-lightbulb"></i> ${translate('valueCard.exampleLabel')}`;
                 exampleLabel.classList.add('section-label');
                 exampleContainer.appendChild(exampleLabel);
 
@@ -1041,7 +1306,7 @@ function displayValues(valuesToDisplay) {
                 tagsSection.classList.add('mb-3');
 
                 const tagsLabel = document.createElement('div');
-                tagsLabel.innerHTML = '<i class="fas fa-tags"></i> ASSOCIATED VERBS';
+                tagsLabel.innerHTML = `<i class="fas fa-tags"></i> ${translate('valueCard.associatedVerbsLabel')}`;
                 tagsLabel.classList.add('section-label');
                 tagsSection.appendChild(tagsLabel);
 
@@ -1052,7 +1317,7 @@ function displayValues(valuesToDisplay) {
                     const tagElement = document.createElement('span');
                     tagElement.textContent = tag;
                     tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
-                    tagElement.title = `Show all values tagged with "${tag}"`;
+                    tagElement.title = translate('valueCard.showAllWithTag', { tag });
                     // Add click event to filter by this tag
                     tagElement.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -1072,7 +1337,7 @@ function displayValues(valuesToDisplay) {
                     relatedSection.classList.add('mb-3');
 
                     const relatedLabel = document.createElement('div');
-                    relatedLabel.innerHTML = '<i class="fas fa-link"></i> RELATED VALUES';
+                    relatedLabel.innerHTML = `<i class="fas fa-link"></i> ${translate('valueCard.relatedValuesLabel')}`;
                     relatedLabel.classList.add('section-label');
                     relatedSection.appendChild(relatedLabel);
 
@@ -1101,7 +1366,7 @@ function displayValues(valuesToDisplay) {
 
                         // Add tooltip that appears on hover
                         const tooltip = document.createElement('div');
-                        tooltip.textContent = 'Click to view this value';
+                        tooltip.textContent = translate('valueCard.clickToView');
                         tooltip.classList.add('related-tooltip');
 
                         relatedCard.appendChild(relatedName);
@@ -1147,7 +1412,7 @@ function displayValues(valuesToDisplay) {
 
                 const toggleLabel = document.createElement('span');
                 toggleLabel.classList.add('value-card-toggle__label');
-                toggleLabel.textContent = 'Read more';
+                toggleLabel.textContent = translate('valueCard.readMore');
 
                 const toggleIcon = document.createElement('i');
                 toggleIcon.classList.add('fas', 'fa-chevron-down');
@@ -1156,7 +1421,7 @@ function displayValues(valuesToDisplay) {
                 toggleButton.appendChild(toggleIcon);
 
                 const updateToggleState = (isExpanded) => {
-                    toggleLabel.textContent = isExpanded ? 'Read less' : 'Read more';
+                    toggleLabel.textContent = isExpanded ? translate('valueCard.readLess') : translate('valueCard.readMore');
                     toggleIcon.classList.toggle('fa-chevron-up', isExpanded);
                     toggleIcon.classList.toggle('fa-chevron-down', !isExpanded);
                     toggleButton.setAttribute('aria-expanded', String(isExpanded));
@@ -1196,15 +1461,17 @@ function displayValues(valuesToDisplay) {
         console.error("Error displaying values:", error);
 
         if (valuesList) {
+            const heading = translate('messages.errorDisplayingHeading');
+            const listHeading = translate('messages.valuesListHeading');
             valuesList.innerHTML = `
                 <div class="status-error p-4 rounded-md">
-                    <h3 class="font-bold mb-2">Error Displaying Values</h3>
+                    <h3 class="font-bold mb-2">${heading}</h3>
                     <p>${error.message}</p>
                 </div>
 
                 <!-- Fallback display -->
                 <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-4">Values List:</h3>
+                    <h3 class="text-lg font-semibold mb-4">${listHeading}</h3>
                     <ul class="list-disc pl-5 space-y-2">
                         ${values.map(v => `<li>${v.name} - ${v.category}</li>`).join('')}
                     </ul>
@@ -1266,7 +1533,7 @@ function filterValues() {
 
     } catch (error) {
         console.error("Error filtering values:", error);
-        showStatus("Error filtering values", true);
+        showStatus(translate('statuses.errorFilteringValues'), true);
 
         // Display all values as fallback
         displayValues(values);
