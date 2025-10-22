@@ -64,6 +64,43 @@ function getAlphabetForLanguage(lang) {
     }
 }
 
+// Locale-aware comparison helper for names and categories
+function compareByName(a, b) {
+    return a.localeCompare(b, currentLanguage, { sensitivity: 'base' });
+}
+
+// Map accented initials to their base letter counterparts (preserving locale-specific letters like Ñ)
+const initialLetterMap = {
+    'Á': 'A', 'À': 'A', 'Â': 'A', 'Ä': 'A', 'Ã': 'A', 'Å': 'A', 'Ā': 'A', 'Ă': 'A', 'Ą': 'A',
+    'Æ': 'A',
+    'Ç': 'C', 'Ć': 'C', 'Č': 'C',
+    'É': 'E', 'È': 'E', 'Ê': 'E', 'Ë': 'E', 'Ē': 'E', 'Ě': 'E', 'Ę': 'E', 'Ė': 'E',
+    'Í': 'I', 'Ì': 'I', 'Î': 'I', 'Ï': 'I', 'Ī': 'I', 'Į': 'I', 'İ': 'I',
+    'Ñ': 'Ñ',
+    'Ó': 'O', 'Ò': 'O', 'Ô': 'O', 'Ö': 'O', 'Õ': 'O', 'Ø': 'O', 'Ō': 'O', 'Ő': 'O',
+    'Ú': 'U', 'Ù': 'U', 'Û': 'U', 'Ü': 'U', 'Ū': 'U', 'Ű': 'U',
+    'Ý': 'Y', 'Ÿ': 'Y'
+};
+
+function normalizeInitialLetter(name) {
+    if (!name) {
+        return '#';
+    }
+
+    const trimmed = name.trim();
+    if (!trimmed) {
+        return '#';
+    }
+
+    const firstChar = trimmed.charAt(0).toLocaleUpperCase(currentLanguage);
+    if (initialLetterMap[firstChar]) {
+        return initialLetterMap[firstChar];
+    }
+
+    const normalized = firstChar.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    return normalized.charAt(0) || firstChar;
+}
+
 // Language state
 let currentLanguage = 'en';
 let activeAlphabet = getAlphabetForLanguage(currentLanguage);
@@ -855,7 +892,7 @@ function initializeValuesDictionary() {
         // Populate category filters
         if (categoryFilters) {
             // Get unique categories
-            const categories = [...new Set(values.map(value => value.category))].sort();
+            const categories = [...new Set(values.map(value => value.category))].sort(compareByName);
 
             // Create category filters
             categories.forEach(category => {
@@ -907,7 +944,7 @@ function initializeValuesDictionary() {
             });
 
             // Create tag filters
-            Array.from(allTags).sort().forEach(tag => {
+            Array.from(allTags).sort(compareByName).forEach(tag => {
                 const tagContainer = document.createElement('div');
                 tagContainer.classList.add('flex', 'items-center');
 
@@ -1256,11 +1293,15 @@ function displayValues(valuesToDisplay) {
         // Group values by first letter for alphabetical sections
         const valuesByLetter = {};
         valuesToDisplay.forEach(value => {
-            const firstLetter = value.name.charAt(0).toUpperCase();
-            if (!valuesByLetter[firstLetter]) {
-                valuesByLetter[firstLetter] = [];
+            const normalizedLetter = normalizeInitialLetter(value.name);
+            if (!valuesByLetter[normalizedLetter]) {
+                valuesByLetter[normalizedLetter] = [];
             }
-            valuesByLetter[firstLetter].push(value);
+            valuesByLetter[normalizedLetter].push(value);
+        });
+
+        Object.values(valuesByLetter).forEach(valuesForLetter => {
+            valuesForLetter.sort((a, b) => compareByName(a.name, b.name));
         });
 
         const alphabetReference = activeAlphabet && activeAlphabet.length
@@ -1276,12 +1317,15 @@ function displayValues(valuesToDisplay) {
             const indexB = alphabetOrder[b];
 
             if (indexA !== undefined || indexB !== undefined) {
-                if (indexA === undefined) return 1;
-                if (indexB === undefined) return -1;
-                if (indexA !== indexB) return indexA - indexB;
+                const safeIndexA = indexA === undefined ? Number.POSITIVE_INFINITY : indexA;
+                const safeIndexB = indexB === undefined ? Number.POSITIVE_INFINITY : indexB;
+
+                if (safeIndexA !== safeIndexB) {
+                    return safeIndexA - safeIndexB;
+                }
             }
 
-            return a.localeCompare(b);
+            return compareByName(a, b);
         });
 
         // Create sections for each letter
@@ -1573,9 +1617,9 @@ function filterValues() {
 
         // Sort results
         if (filterState.sortMethod === 'name') {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
+            filtered.sort((a, b) => compareByName(a.name, b.name));
         } else if (filterState.sortMethod === 'category') {
-            filtered.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+            filtered.sort((a, b) => compareByName(a.category, b.category) || compareByName(a.name, b.name));
         }
 
         console.log("Found", filtered.length, "matching values");
