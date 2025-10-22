@@ -45,6 +45,12 @@ function showStatus(message, isError = false, action = null) {
 // Values data will be fetched from JSON file
 let values = [];
 
+// Language specific alphabets
+const languageAlphabets = {
+    en: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+    es: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+};
+
 // Filter state
 const filterState = {
     categories: [],
@@ -56,6 +62,31 @@ const filterState = {
 
 // Language state
 let currentLanguage = 'en';
+
+function getAlphabetForLanguage(language = currentLanguage) {
+    return languageAlphabets[language] || languageAlphabets.en;
+}
+
+function getLetterForValue(name) {
+    if (!name) return 'OTHER';
+
+    const trimmed = name.trim();
+    if (!trimmed) return 'OTHER';
+
+    const alphabet = getAlphabetForLanguage();
+    const firstChar = trimmed.charAt(0).toUpperCase();
+
+    if (alphabet.includes(firstChar)) {
+        return firstChar;
+    }
+
+    const normalized = firstChar.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (alphabet.includes(normalized)) {
+        return normalized;
+    }
+
+    return 'OTHER';
+}
 
 // Initialize DOM elements
     let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
@@ -213,8 +244,8 @@ function setActiveLetter(letter) {
 function setupAlphaNav() {
     if (!alphaNavList) return;
 
-    // Create array of alphabet letters
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    // Create array of alphabet letters for the current language
+    const alphabet = getAlphabetForLanguage();
 
     // Add each letter link
     alphaNavList.innerHTML = '';
@@ -246,35 +277,43 @@ function setupAlphaNav() {
         item.appendChild(link);
         alphaNavList.appendChild(item);
     });
+
+    setActiveLetter('');
 }
 
 // Find closest available section for a letter
 function findClosestSection(letter) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const alphabet = getAlphabetForLanguage();
     const letterIndex = alphabet.indexOf(letter);
+
+    if (letterIndex === -1) {
+        return;
+    }
 
     // Try next letters
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
-        const section = document.getElementById(`section-${alphabet[i]}`);
+        const nextLetter = alphabet[i];
+        const section = document.getElementById(`section-${nextLetter}`);
         if (section) {
             window.scrollTo({
                 top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
                 behavior: 'smooth'
             });
-            setActiveLetter(alphabet[i]);
+            setActiveLetter(nextLetter);
             return;
         }
     }
 
     // If no next letter, try previous letters
     for (let i = letterIndex - 1; i >= 0; i--) {
-        const section = document.getElementById(`section-${alphabet[i]}`);
+        const previousLetter = alphabet[i];
+        const section = document.getElementById(`section-${previousLetter}`);
         if (section) {
             window.scrollTo({
                 top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
                 behavior: 'smooth'
             });
-            setActiveLetter(alphabet[i]);
+            setActiveLetter(previousLetter);
             return;
         }
     }
@@ -366,12 +405,14 @@ function setupLanguageToggle() {
             // Switch to Spanish
             currentLanguage = 'es';
             languageToggle.textContent = 'In English';
+            setupAlphaNav();
             fetchValuesData('es'); // Fetch Spanish data
             showStatus("Loading Spanish values...");
         } else {
             // Switch to English
             currentLanguage = 'en';
             languageToggle.textContent = 'En español';
+            setupAlphaNav();
             fetchValuesData('en'); // Fetch English data
             showStatus("Loading English values...");
         }
@@ -962,20 +1003,34 @@ function displayValues(valuesToDisplay) {
         // Group values by first letter for alphabetical sections
         const valuesByLetter = {};
         valuesToDisplay.forEach(value => {
-            const firstLetter = value.name.charAt(0).toUpperCase();
-            if (!valuesByLetter[firstLetter]) {
-                valuesByLetter[firstLetter] = [];
+            const letter = getLetterForValue(value.name);
+            if (!valuesByLetter[letter]) {
+                valuesByLetter[letter] = [];
             }
-            valuesByLetter[firstLetter].push(value);
+            valuesByLetter[letter].push(value);
         });
 
-        // Create sections for each letter
-        Object.keys(valuesByLetter).sort().forEach(letter => {
+        const alphabet = getAlphabetForLanguage();
+        const orderedLetters = [
+            ...alphabet.filter(letter => valuesByLetter[letter])
+        ];
+
+        const additionalLetters = Object.keys(valuesByLetter)
+            .filter(letter => !alphabet.includes(letter))
+            .sort((a, b) => a.localeCompare(
+                b,
+                currentLanguage === 'es' ? 'es' : 'en',
+                { sensitivity: 'base' }
+            ));
+
+        [...orderedLetters, ...additionalLetters].forEach(letter => {
             // Create section header
             const sectionHeader = document.createElement('div');
             sectionHeader.id = `section-${letter}`;
             sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'py-2', 'border-b', 'border-gray-300', 'letter-section');
-            sectionHeader.textContent = letter;
+            sectionHeader.textContent = letter === 'OTHER'
+                ? (currentLanguage === 'es' ? 'Otros' : 'Other')
+                : letter;
             valuesList.appendChild(sectionHeader);
 
             // Add values for this letter
@@ -1255,10 +1310,17 @@ function filterValues() {
         }
 
         // Sort results
+        const locale = currentLanguage === 'es' ? 'es' : 'en';
         if (filterState.sortMethod === 'name') {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
+            filtered.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: 'base' }));
         } else if (filterState.sortMethod === 'category') {
-            filtered.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+            filtered.sort((a, b) => {
+                const categoryCompare = a.category.localeCompare(b.category, locale, { sensitivity: 'base' });
+                if (categoryCompare !== 0) {
+                    return categoryCompare;
+                }
+                return a.name.localeCompare(b.name, locale, { sensitivity: 'base' });
+            });
         }
 
         console.log("Found", filtered.length, "matching values");
