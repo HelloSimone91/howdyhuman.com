@@ -1,0 +1,2306 @@
+{
+  "Acceptance": {
+    "name": "Aceptación",
+    "description": "La disposición para abrazar lo que es, en lugar de lo que debería ser o pudo haber sido. Implica reconciliarte contigo, con otras personas y con las imperfecciones de la vida.",
+    "example": "Después de meses de lidiar con dolor crónico, Sarah practicó la aceptación al reconocer sus nuevas limitaciones mientras encontraba distintas maneras de mantenerse activa y conectada con otras personas, en lugar de aferrarse a sus capacidades anteriores.",
+    "tags": [
+      "abrazar",
+      "recibir",
+      "acoger",
+      "permitir",
+      "tolerar",
+      "reconocer",
+      "admitir",
+      "incluir",
+      "aceptar"
+    ]
+  },
+  "Accountability": {
+    "name": "Rendición de cuentas",
+    "description": "Asumir la responsabilidad de las propias acciones y responder por sus resultados.",
+    "example": "Después de que el proyecto no llegara a la fecha límite, la líder del equipo demostró rendición de cuentas al reconocer los errores y elaborar un plan para corregirlos.",
+    "tags": [
+      "responder",
+      "explicar",
+      "justificar",
+      "asumir",
+      "aceptar",
+      "reconocer",
+      "afrontar",
+      "corregir",
+      "cumplir"
+    ]
+  },
+  "Achievement": {
+    "name": "Logro",
+    "description": "Alcanzar metas y desarrollar tu potencial mediante esfuerzo y determinación.",
+    "example": "Tras años de estudio y práctica, obtener su título de medicina representó un logro significativo que le abrió puertas para ayudar a otras personas.",
+    "tags": [
+      "lograr",
+      "alcanzar",
+      "cumplir",
+      "conseguir",
+      "ganar",
+      "triunfar",
+      "realizar",
+      "superar",
+      "dominar"
+    ]
+  },
+  "Action": {
+    "name": "Acción",
+    "description": "Dar pasos concretos para alcanzar un objetivo o completar una tarea.",
+    "example": "En lugar de solo hablar sobre ayudar a las personas sin hogar, tomó acción al organizar una colecta comunitaria de ropa y artículos de invierno.",
+    "tags": [
+      "actuar",
+      "realizar",
+      "ejecutar",
+      "implementar",
+      "conducir",
+      "cumplir",
+      "emprender",
+      "impulsar",
+      "iniciar"
+    ]
+  },
+  "Adventure": {
+    "name": "Aventura",
+    "description": "La disposición para asumir riesgos y explorar nuevas experiencias por disfrute y crecimiento.",
+    "example": "Aceptó la aventura al tomar un trabajo en un país extranjero donde no conocía a nadie ni hablaba el idioma.",
+    "tags": [
+      "explorar",
+      "descubrir",
+      "experimentar",
+      "viajar",
+      "aventurarse",
+      "arriesgar",
+      "buscar",
+      "moverse",
+      "atreverse"
+    ]
+  },
+  "Advocacy": {
+    "name": "Defensa",
+    "description": "Alzar la voz por lo que es justo y apoyar a otras personas para crear cambios positivos en la comunidad.",
+    "example": "La docente practicó la defensa al presentarse ante la junta escolar para solicitar más recursos para el estudiantado con discapacidades.",
+    "tags": [
+      "defender",
+      "apoyar",
+      "respaldar",
+      "promover",
+      "hablar",
+      "representar",
+      "impulsar",
+      "argumentar",
+      "gestionar"
+    ]
+  },
+  "Ambiguity": {
+    "name": "Ambigüedad",
+    "description": "La cualidad de estar abierto a más de una interpretación o tener un significado poco claro.",
+    "example": "La ambigüedad del poema permite que cada persona lectora encuentre su propio significado en los versos, haciéndolo relevante de manera personal.",
+    "tags": [
+      "interpretar",
+      "preguntar",
+      "considerar",
+      "explorar",
+      "analizar",
+      "navegar",
+      "aceptar",
+      "comprender",
+      "apreciar"
+    ]
+  },
+  "Ambition": {
+    "name": "Ambición",
+    "description": "Un fuerte deseo de alcanzar metas y convertir sueños en realidad impulsa a trabajar con esfuerzo y superar desafíos.",
+    "example": "Su ambición de convertirse en la primera persona de su familia en graduarse de la universidad la motivó a estudiar hasta tarde pese a trabajar tiempo completo.",
+    "tags": [
+      "aspirar",
+      "esforzarse",
+      "buscar",
+      "perseguir",
+      "desear",
+      "apuntar",
+      "impulsarse",
+      "alcanzar",
+      "avanzar"
+    ]
+  },
+  "Appreciation": {
+    "name": "Aprecio",
+    "description": "Expresar gratitud y reconocer lo bueno de la vida o de otras personas.",
+    "example": "La gerente expresó aprecio al escribir notas de agradecimiento personalizadas que destacaban las contribuciones específicas de cada integrante del equipo al proyecto exitoso.",
+    "tags": [
+      "valorar",
+      "reconocer",
+      "agradecer",
+      "atesorar",
+      "admirar",
+      "respetar",
+      "notar",
+      "elogiar",
+      "celebrar"
+    ]
+  },
+  "Approachability": {
+    "name": "Cercanía",
+    "description": "Ser abierto y amable con las demás personas, facilitando que se acerquen y compartan sus ideas.",
+    "example": "La directora ejecutiva demostró cercanía al almorzar en la cafetería de la empresa y dar la bienvenida a quienes quisieran sentarse y conversar con ella.",
+    "tags": [
+      "acoger",
+      "conversar",
+      "conectar",
+      "invitar",
+      "incluir",
+      "escuchar",
+      "recibir",
+      "responder",
+      "interactuar"
+    ]
+  },
+  "Authenticity": {
+    "name": "Autenticidad",
+    "description": "Vivir y expresarte de manera sincera, alineada con tus valores y sentimientos reales.",
+    "example": "El artista mostró autenticidad al compartir su historia personal en la exposición, aun cuando sabía que provocaría conversaciones difíciles.",
+    "tags": [
+      "ser",
+      "expresar",
+      "mostrar",
+      "alinear",
+      "honrar",
+      "revelar",
+      "actuar",
+      "vivir",
+      "confiar"
+    ]
+  },
+  "Balance": {
+    "name": "Equilibrio",
+    "description": "Distribuir tu tiempo y energía de manera armoniosa entre diferentes responsabilidades y necesidades.",
+    "example": "Para mantener el equilibrio, reservó horas específicas para el trabajo, la familia y el descanso, evitando que una sola área consumiera todo su enfoque.",
+    "tags": [
+      "equilibrar",
+      "armonizar",
+      "ajustar",
+      "compensar",
+      "moderar",
+      "organizar",
+      "priorizar",
+      "dosificar",
+      "balancear"
+    ]
+  },
+  "Beauty": {
+    "name": "Belleza",
+    "description": "Reconocer y apreciar la armonía, la estética y la inspiración que existen en el mundo.",
+    "example": "Encontró belleza en las pequeñas flores urbanas que fotografiaba cada mañana camino al trabajo, recordándose que la naturaleza persiste incluso en la ciudad.",
+    "tags": [
+      "apreciar",
+      "admirar",
+      "observar",
+      "contemplar",
+      "disfrutar",
+      "celebrar",
+      "descubrir",
+      "inspirar",
+      "resaltar"
+    ]
+  },
+  "Benevolence": {
+    "name": "Benevolencia",
+    "description": "Desear y hacer el bien a otras personas a través de actos generosos.",
+    "example": "Su benevolencia se manifestó al organizar comidas semanales para el refugio local y escuchar con paciencia a quienes necesitaban compañía.",
+    "tags": [
+      "beneficiar",
+      "cuidar",
+      "ayudar",
+      "donar",
+      "ofrecer",
+      "aliviar",
+      "acompañar",
+      "servir",
+      "compartir"
+    ]
+  },
+  "Boldness": {
+    "name": "Audacia",
+    "description": "Atreverse a tomar decisiones valientes y expresar ideas sin miedo excesivo.",
+    "example": "Mostró audacia al proponer una estrategia radicalmente distinta en la reunión, respaldándola con datos y asumiendo el riesgo de una reacción crítica.",
+    "tags": [
+      "atreverse",
+      "arriesgar",
+      "proponer",
+      "avanzar",
+      "enfrentar",
+      "desafiar",
+      "hablar",
+      "liderar",
+      "persistir"
+    ]
+  },
+  "Bravery": {
+    "name": "Valentía",
+    "description": "Enfrentar el miedo, el peligro o la incertidumbre con determinación.",
+    "example": "Su valentía quedó clara cuando denunció la corrupción en la empresa, aun sabiendo que podría afectar su puesto.",
+    "tags": [
+      "enfrentar",
+      "afrontar",
+      "resistir",
+      "proteger",
+      "defender",
+      "actuar",
+      "denunciar",
+      "perseverar",
+      "arriesgar"
+    ]
+  },
+  "Camaraderie": {
+    "name": "Camaradería",
+    "description": "Construir lazos de confianza y apoyo mutuo dentro de un grupo.",
+    "example": "La camaradería del equipo se fortaleció durante el retiro, cuando compartieron historias personales y se animaron en actividades colaborativas.",
+    "tags": [
+      "compartir",
+      "apoyar",
+      "alentar",
+      "unir",
+      "colaborar",
+      "confiar",
+      "celebrar",
+      "conectar",
+      "acompañar"
+    ]
+  },
+  "Capitalism": {
+    "name": "Capitalismo",
+    "description": "Un sistema económico basado en la propiedad privada y la inversión para generar crecimiento y riqueza.",
+    "example": "El informe analizaba cómo el capitalismo impulsa la innovación tecnológica al incentivar a las empresas a invertir en investigación y desarrollo.",
+    "tags": [
+      "invertir",
+      "competir",
+      "innovar",
+      "producir",
+      "comerciar",
+      "crecer",
+      "financiar",
+      "arriesgar",
+      "optimizar"
+    ]
+  },
+  "Caring": {
+    "name": "Cuidado",
+    "description": "Atender las necesidades de otras personas con empatía y apoyo.",
+    "example": "Mostró cuidado al visitar a su vecina mayor cada tarde, llevarle comida y acompañarla durante sus citas médicas.",
+    "tags": [
+      "cuidar",
+      "atender",
+      "acompañar",
+      "apoyar",
+      "escuchar",
+      "alentar",
+      "sostener",
+      "ayudar",
+      "proteger"
+    ]
+  },
+  "Celebration": {
+    "name": "Celebración",
+    "description": "Un evento o reunión alegre para honrar una ocasión especial o un logro.",
+    "example": "El equipo organizó una celebración para reconocer los diez años de su colega en la empresa, compartiendo historias y entregándole un regalo significativo.",
+    "tags": [
+      "honrar",
+      "reconocer",
+      "conmemorar",
+      "observar",
+      "marcar",
+      "agradecer",
+      "brindar",
+      "festejar",
+      "celebrar"
+    ]
+  },
+  "Challenge": {
+    "name": "Desafío",
+    "description": "Enfrentar una tarea o problema difícil que requiere esfuerzo y determinación para superarlo.",
+    "example": "Aprender un idioma nuevo representó un desafío bienvenido que la impulsó a desarrollar habilidades y formas de pensar distintas.",
+    "tags": [
+      "desafiar",
+      "exigir",
+      "afrontar",
+      "abordar",
+      "emprender",
+      "enfrentar",
+      "intentar",
+      "superar",
+      "perseverar"
+    ]
+  },
+  "Charisma": {
+    "name": "Carisma",
+    "description": "La capacidad de atraer, influir e inspirar a otras personas mediante encanto y confianza.",
+    "example": "El carisma de la oradora cautivó al público, haciendo accesibles conceptos complejos e inspirando a muchas personas a actuar frente a los problemas ambientales.",
+    "tags": [
+      "inspirar",
+      "atraer",
+      "encantar",
+      "conectar",
+      "influir",
+      "motivar",
+      "cautivar",
+      "energizar",
+      "fascinar"
+    ]
+  },
+  "Choice": {
+    "name": "Elección",
+    "description": "La capacidad de seleccionar entre opciones o tomar decisiones según las preferencias personales.",
+    "example": "La escuela empoderó al estudiantado al darles elección en sus proyectos, permitiéndoles explorar temas que realmente les interesaban.",
+    "tags": [
+      "decidir",
+      "seleccionar",
+      "elegir",
+      "optar",
+      "determinar",
+      "preferir",
+      "escoger",
+      "deliberar",
+      "evaluar"
+    ]
+  },
+  "Collaboration": {
+    "name": "Colaboración",
+    "description": "Trabajar junto con otras personas para alcanzar metas comunes y compartir ideas con eficacia.",
+    "example": "El proyecto de restauración de hábitats prosperó gracias a la colaboración entre científicas, voluntariado comunitario y funcionariado público, cada cual aportando su experiencia.",
+    "tags": [
+      "colaborar",
+      "cooperar",
+      "coordinar",
+      "aportar",
+      "participar",
+      "aliarse",
+      "sumar",
+      "cocrear",
+      "integrar"
+    ]
+  },
+  "Comedy": {
+    "name": "Comedia",
+    "description": "Una forma de entretenimiento que utiliza el humor para provocar risa.",
+    "example": "Usó la comedia durante su presentación para hacer más accesible y memorable la información compleja.",
+    "tags": [
+      "divertir",
+      "entretener",
+      "bromear",
+      "reír",
+      "jugar",
+      "improvisar",
+      "deleitar",
+      "aligerar",
+      "parodiar"
+    ]
+  },
+  "Comfort": {
+    "name": "Confort",
+    "description": "Un estado de bienestar físico y emocional que hace que las personas se sientan relajadas y seguras.",
+    "example": "La consejera creó un entorno de confort al disponer asientos suaves, hablar con suavidad y garantizar la confidencialidad.",
+    "tags": [
+      "consolar",
+      "relajar",
+      "calmar",
+      "apaciguar",
+      "tranquilizar",
+      "abrigar",
+      "sostener",
+      "acompañar",
+      "cuidar"
+    ]
+  },
+  "Commitment": {
+    "name": "Compromiso",
+    "description": "Mantenerse dedicado a lo que dijiste que harías y apoyar a otras personas para alcanzar sus metas.",
+    "example": "A pesar de numerosos obstáculos, mostró compromiso con el programa de alfabetización al ofrecerse como voluntaria todas las semanas durante cinco años, ayudando a cientos a aprender a leer.",
+    "tags": [
+      "comprometerse",
+      "dedicar",
+      "entregarse",
+      "prometer",
+      "persistir",
+      "mantener",
+      "cumplir",
+      "apoyar",
+      "sostener"
+    ]
+  },
+  "Communication": {
+    "name": "Comunicación",
+    "description": "Compartir información con claridad y respeto para asegurar comprensión y conexión.",
+    "example": "La gerente practicó una comunicación efectiva al explicar con claridad los objetivos del proyecto, escuchar las inquietudes del equipo y ofrecer actualizaciones regulares.",
+    "tags": [
+      "expresar",
+      "transmitir",
+      "compartir",
+      "dialogar",
+      "explicar",
+      "aclarar",
+      "escuchar",
+      "intercambiar",
+      "conectar"
+    ]
+  },
+  "Community": {
+    "name": "Comunidad",
+    "description": "Un grupo de personas que comparten intereses, metas o valores y se apoyan mutuamente.",
+    "example": "Tras el desastre natural, el vecindario demostró el poder de la comunidad al organizar comidas, compartir recursos y ayudar a reconstruir hogares.",
+    "tags": [
+      "conectar",
+      "participar",
+      "contribuir",
+      "pertenecer",
+      "involucrarse",
+      "apoyar",
+      "compartir",
+      "unir",
+      "fortalecer"
+    ]
+  },
+  "Compassion": {
+    "name": "Compasión",
+    "description": "Cuidar de otras personas y querer ayudarlas cuando sufren o necesitan apoyo.",
+    "example": "La voluntaria mostró compasión al sentarse con personas sin hogar, escuchar sus historias y conectarlas con recursos tratándolas siempre con dignidad.",
+    "tags": [
+      "cuidar",
+      "ayudar",
+      "apoyar",
+      "entender",
+      "escuchar",
+      "empatizar",
+      "consolar",
+      "asistir",
+      "acompañar"
+    ]
+  },
+  "Confidence": {
+    "name": "Autoconfianza",
+    "description": "Creer en tus propias capacidades y criterio para tener éxito en distintas situaciones.",
+    "example": "Tras meses de preparación, afrontó la presentación con autoconfianza, habló con claridad y respondió a preguntas difíciles con reflexión.",
+    "tags": [
+      "creer",
+      "confiar",
+      "apoyarse",
+      "afirmar",
+      "asumir",
+      "saber",
+      "practicar",
+      "demostrar",
+      "mostrar"
+    ]
+  },
+  "Connection": {
+    "name": "Conexión",
+    "description": "Un vínculo fuerte entre personas que les ayuda a comprenderse y apoyarse.",
+    "example": "A través de videollamadas semanales durante años, abuelos y nietas mantuvieron una conexión significativa a pesar de vivir a miles de kilómetros.",
+    "tags": [
+      "vincular",
+      "relacionar",
+      "unir",
+      "juntar",
+      "asociar",
+      "acercar",
+      "compartir",
+      "dialogar",
+      "integrar"
+    ]
+  },
+  "Cooperation": {
+    "name": "Cooperación",
+    "description": "Trabajar juntas hacia objetivos compartidos.",
+    "example": "La iniciativa climática internacional tuvo éxito gracias a la cooperación entre países que dejaron de lado diferencias para abordar retos ambientales comunes.",
+    "tags": [
+      "asistir",
+      "ayudar",
+      "cooperar",
+      "apoyar",
+      "colaborar",
+      "coordinar",
+      "participar",
+      "contribuir",
+      "compartir"
+    ]
+  },
+  "Courage": {
+    "name": "Coraje",
+    "description": "La capacidad de enfrentar el miedo, la dificultad o la incertidumbre con valentía y determinación.",
+    "example": "Mostró coraje al enfrentar el acoso laboral, denunciar la conducta aunque eso pusiera en riesgo su puesto.",
+    "tags": [
+      "desafiar",
+      "enfrentar",
+      "superar",
+      "afrontar",
+      "atreverse",
+      "defender",
+      "alzar",
+      "denunciar",
+      "persistir"
+    ]
+  },
+  "Craftsmanship": {
+    "name": "Artesanía",
+    "description": "Crear cosas con habilidad, dedicación y atención al detalle.",
+    "example": "Su artesanía destacó en el mueble hecho a mano, donde cada unión fue pulida a la perfección tras horas de trabajo paciente.",
+    "tags": [
+      "crear",
+      "diseñar",
+      "tallar",
+      "pulir",
+      "fabricar",
+      "perfeccionar",
+      "detallar",
+      "dedicar",
+      "dominar"
+    ]
+  },
+  "Creativity": {
+    "name": "Creatividad",
+    "description": "Generar ideas nuevas y originales para resolver problemas o expresarse.",
+    "example": "El equipo usó su creatividad para rediseñar el servicio, incorporando sugerencias de clientes y soluciones inesperadas.",
+    "tags": [
+      "imaginar",
+      "inventar",
+      "crear",
+      "experimentar",
+      "innovar",
+      "combinar",
+      "explorar",
+      "diseñar",
+      "proponer"
+    ]
+  },
+  "Curiosity": {
+    "name": "Curiosidad",
+    "description": "El deseo de aprender más y hacer preguntas sobre cómo funciona el mundo.",
+    "example": "Su curiosidad la llevó a investigar la historia de su barrio, descubriendo relatos olvidados que compartió en un podcast comunitario.",
+    "tags": [
+      "preguntar",
+      "investigar",
+      "explorar",
+      "descubrir",
+      "indagar",
+      "examinar",
+      "aprender",
+      "observar",
+      "profundizar"
+    ]
+  },
+  "Determination": {
+    "name": "Determinación",
+    "description": "Mantener el esfuerzo constante para alcanzar una meta, incluso frente a obstáculos.",
+    "example": "La determinación de terminar el maratón la hizo entrenar antes del amanecer y seguir corriendo cuando el cansancio parecía vencerla.",
+    "tags": [
+      "persistir",
+      "insistir",
+      "perseverar",
+      "avanzar",
+      "resistir",
+      "enfocarse",
+      "cumplir",
+      "superar",
+      "mantenerse"
+    ]
+  },
+  "Discipline": {
+    "name": "Disciplina",
+    "description": "Sostener hábitos y acciones ordenadas para cumplir compromisos y objetivos.",
+    "example": "Con disciplina, dedicó tiempo diario a practicar el piano, incluso cuando prefería descansar, y logró dominar piezas complejas.",
+    "tags": [
+      "organizar",
+      "planificar",
+      "mantener",
+      "practicar",
+      "controlar",
+      "cumplir",
+      "regular",
+      "enfocarse",
+      "perseverar"
+    ]
+  },
+  "Effectiveness": {
+    "name": "Efectividad",
+    "description": "Lograr resultados deseados usando recursos de manera inteligente.",
+    "example": "La campaña demostró efectividad al combinar mensajes claros y un seguimiento cuidadoso, alcanzando las metas en menos tiempo del esperado.",
+    "tags": [
+      "lograr",
+      "optimizar",
+      "simplificar",
+      "priorizar",
+      "medir",
+      "ajustar",
+      "coordinar",
+      "cumplir",
+      "mejorar"
+    ]
+  },
+  "Empathy": {
+    "name": "Empatía",
+    "description": "Comprender y compartir los sentimientos de otras personas.",
+    "example": "Demostró empatía al escuchar sin interrumpir a su compañera y reconocer cómo la decisión afectaba su bienestar.",
+    "tags": [
+      "comprender",
+      "sentir",
+      "escuchar",
+      "acoger",
+      "ponerse en el lugar",
+      "acompañar",
+      "apoyar",
+      "reconocer",
+      "resonar"
+    ]
+  },
+  "Equality": {
+    "name": "Igualdad",
+    "description": "Tratar a todas las personas con el mismo valor y acceso a oportunidades.",
+    "example": "La organización promovió la igualdad al revisar sus políticas salariales para eliminar brechas injustificadas.",
+    "tags": [
+      "igualar",
+      "equilibrar",
+      "respetar",
+      "garantizar",
+      "incluir",
+      "proteger",
+      "defender",
+      "equiparar",
+      "valorar"
+    ]
+  },
+  "Experiment": {
+    "name": "Experimentación",
+    "description": "Probar ideas nuevas para aprender de los resultados.",
+    "example": "Implementó experimentación en el aula al permitir que el alumnado diseñara pequeñas pruebas para comprobar sus hipótesis científicas.",
+    "tags": [
+      "probar",
+      "ensayar",
+      "evaluar",
+      "iterar",
+      "ajustar",
+      "explorar",
+      "aprender",
+      "medir",
+      "descubrir"
+    ]
+  },
+  "Exploration": {
+    "name": "Exploración",
+    "description": "Investigar lo desconocido para descubrir información, lugares o experiencias.",
+    "example": "Su exploración de los humedales locales reveló especies poco documentadas y motivó un plan de conservación.",
+    "tags": [
+      "explorar",
+      "recorrer",
+      "investigar",
+      "mapear",
+      "buscar",
+      "descubrir",
+      "analizar",
+      "aprender",
+      "documentar"
+    ]
+  },
+  "Fairness": {
+    "name": "Equidad",
+    "description": "Tratar a las personas con justicia, sin favoritismos ni prejuicios.",
+    "example": "La jueza se esforzó por mantener la equidad al escuchar cada testimonio con atención y basar el fallo en los hechos.",
+    "tags": [
+      "equilibrar",
+      "impartir",
+      "respetar",
+      "considerar",
+      "evaluar",
+      "compensar",
+      "garantizar",
+      "ponderar",
+      "proteger"
+    ]
+  },
+  "Family": {
+    "name": "Familia",
+    "description": "La red de personas unidas por vínculos de afecto y cuidado mutuo.",
+    "example": "Su familia se reunió cada domingo para cocinar juntas, compartir historias y apoyarse en los retos de la semana.",
+    "tags": [
+      "cuidar",
+      "apoyar",
+      "reunir",
+      "acompañar",
+      "amar",
+      "compartir",
+      "nutrir",
+      "conectar",
+      "celebrar"
+    ]
+  },
+  "Fine Art": {
+    "name": "Bellas Artes",
+    "description": "Manifestaciones artísticas creadas para inspirar, conmover o expresar ideas profundas.",
+    "example": "El museo exhibió bellas artes contemporáneas que invitaban a reflexionar sobre la justicia social.",
+    "tags": [
+      "crear",
+      "pintar",
+      "esculpir",
+      "componer",
+      "exponer",
+      "interpretar",
+      "inspirar",
+      "emocionar",
+      "apreciar"
+    ]
+  },
+  "Flexibility": {
+    "name": "Flexibilidad",
+    "description": "Adaptarse a cambios y ajustar los planes con facilidad.",
+    "example": "Su flexibilidad permitió reconfigurar el proyecto cuando surgieron nuevas prioridades sin perder la dirección general.",
+    "tags": [
+      "adaptarse",
+      "ajustar",
+      "modificar",
+      "cambiar",
+      "transformar",
+      "acomodarse",
+      "pivotar",
+      "responder",
+      "reorganizar"
+    ]
+  },
+  "Foresight": {
+    "name": "Previsión",
+    "description": "Anticipar necesidades futuras y prepararse para ellas.",
+    "example": "Gracias a su previsión, la organización invirtió en herramientas digitales antes de la crisis y pudo seguir operando sin interrupciones.",
+    "tags": [
+      "anticipar",
+      "planear",
+      "prever",
+      "imaginar",
+      "proyectar",
+      "preparar",
+      "analizar",
+      "estimar",
+      "alertar"
+    ]
+  },
+  "Forgiveness": {
+    "name": "Perdón",
+    "description": "Liberar el resentimiento hacia quienes causaron daño y abrir espacio para sanar.",
+    "example": "Eligió el perdón cuando invitó a conversar a su amiga con quien había discutido, expresando cómo se sentía y acordando nuevas formas de cuidarse.",
+    "tags": [
+      "perdonar",
+      "liberar",
+      "sanar",
+      "soltar",
+      "comprender",
+      "reconciliar",
+      "acoger",
+      "aceptar",
+      "reparar"
+    ]
+  },
+  "Freedom": {
+    "name": "Libertad",
+    "description": "La capacidad de actuar y tomar decisiones sin restricciones injustas.",
+    "example": "La campaña defendió la libertad de prensa al exigir leyes que protegieran a periodistas de represalias.",
+    "tags": [
+      "liberar",
+      "elegir",
+      "actuar",
+      "expresar",
+      "moverse",
+      "defender",
+      "proteger",
+      "garantizar",
+      "reclamar"
+    ]
+  },
+  "Friendship": {
+    "name": "Amistad",
+    "description": "Una relación de confianza, cariño y apoyo mutuo entre personas.",
+    "example": "Su amistad se fortaleció al acompañarse en las buenas noticias y también en los momentos de duelo.",
+    "tags": [
+      "acompañar",
+      "apoyar",
+      "compartir",
+      "escuchar",
+      "cuidar",
+      "celebrar",
+      "confiar",
+      "animar",
+      "valorar"
+    ]
+  },
+  "Fun": {
+    "name": "Diversión",
+    "description": "Disfrutar actividades que generan alegría y juego.",
+    "example": "Organizaron una tarde de juegos cooperativos que llenó de diversión la sala y dejó al equipo con energía renovada.",
+    "tags": [
+      "disfrutar",
+      "jugar",
+      "reír",
+      "celebrar",
+      "explorar",
+      "bromear",
+      "relajarse",
+      "participar",
+      "animar"
+    ]
+  },
+  "Grace": {
+    "name": "Gracia",
+    "description": "Actuar con elegancia, amabilidad y calma incluso en momentos difíciles.",
+    "example": "Respondió con gracia a la crítica inesperada, agradeciendo los comentarios y buscando maneras de mejorar.",
+    "tags": [
+      "agradecer",
+      "aceptar",
+      "responder",
+      "calmar",
+      "acomodar",
+      "sonreír",
+      "escuchar",
+      "apreciar",
+      "sostener"
+    ]
+  },
+  "Gratitude": {
+    "name": "Gratitud",
+    "description": "Reconocer y agradecer lo que se recibe de la vida y de otras personas.",
+    "example": "Cultivó gratitud al escribir cada noche tres cosas pequeñas que la hicieron sonreír durante el día.",
+    "tags": [
+      "agradecer",
+      "reconocer",
+      "valorar",
+      "apreciar",
+      "celebrar",
+      "recordar",
+      "honrar",
+      "compartir",
+      "expresar"
+    ]
+  },
+  "Growth": {
+    "name": "Crecimiento",
+    "description": "Desarrollar habilidades, perspectivas y capacidades a lo largo del tiempo.",
+    "example": "Su crecimiento profesional se vio en cómo asumió nuevos retos y pidió retroalimentación constante.",
+    "tags": [
+      "crecer",
+      "aprender",
+      "mejorar",
+      "expandir",
+      "desarrollar",
+      "evolucionar",
+      "progresar",
+      "superar",
+      "reforzar"
+    ]
+  },
+  "Happiness": {
+    "name": "Felicidad",
+    "description": "Un estado de bienestar y alegría sostenidos por experiencias significativas.",
+    "example": "Encontró felicidad al dedicar tiempo semanal al voluntariado con niñas y niños, lo que le recordaba su propósito.",
+    "tags": [
+      "sonreír",
+      "disfrutar",
+      "celebrar",
+      "agradecer",
+      "compartir",
+      "apreciar",
+      "valorar",
+      "vivir",
+      "brillar"
+    ]
+  },
+  "Health": {
+    "name": "Salud",
+    "description": "El bienestar integral del cuerpo y la mente.",
+    "example": "Priorizó su salud al combinar actividad física, descanso adecuado y visitas médicas regulares.",
+    "tags": [
+      "cuidar",
+      "nutrir",
+      "descansar",
+      "moverse",
+      "prevenir",
+      "equilibrar",
+      "vigilar",
+      "fortalecer",
+      "sanar"
+    ]
+  },
+  "History": {
+    "name": "Historia",
+    "description": "El estudio y la memoria de los eventos y personas del pasado.",
+    "example": "El archivo comunitario preservó la historia del vecindario recopilando fotografías y relatos de residentes mayores.",
+    "tags": [
+      "documentar",
+      "recordar",
+      "investigar",
+      "archivar",
+      "preservar",
+      "contar",
+      "analizar",
+      "enseñar",
+      "reflexionar"
+    ]
+  },
+  "Honesty": {
+    "name": "Honestidad",
+    "description": "Decir la verdad y actuar con transparencia.",
+    "example": "La gerente mostró honestidad al reconocer un error en público y explicar cómo lo corregiría.",
+    "tags": [
+      "decir",
+      "revelar",
+      "admitir",
+      "explicar",
+      "transparentar",
+      "confesar",
+      "mostrar",
+      "contar",
+      "clarificar"
+    ]
+  },
+  "Honor": {
+    "name": "Honor",
+    "description": "Actuar con integridad y respeto hacia los valores que consideras importantes.",
+    "example": "Eligió el honor al cumplir la promesa hecha a su equipo, incluso cuando implicó un sacrificio personal.",
+    "tags": [
+      "honrar",
+      "respetar",
+      "cumplir",
+      "defender",
+      "mantener",
+      "reconocer",
+      "servir",
+      "proteger",
+      "actuar"
+    ]
+  },
+  "Hope": {
+    "name": "Esperanza",
+    "description": "Creer que el futuro puede mejorar y trabajar para hacerlo posible.",
+    "example": "La comunidad mantuvo la esperanza al plantar un jardín colectivo después de la tormenta, simbolizando nuevos comienzos.",
+    "tags": [
+      "esperar",
+      "confiar",
+      "animar",
+      "soñar",
+      "visualizar",
+      "impulsar",
+      "apoyar",
+      "persistir",
+      "sembrar"
+    ]
+  },
+  "Humility": {
+    "name": "Humildad",
+    "description": "Reconocer tus límites y aprender de otras personas sin arrogancia.",
+    "example": "Demostró humildad al admitir que necesitaba ayuda y agradecer al equipo por compartir su experiencia.",
+    "tags": [
+      "reconocer",
+      "aprender",
+      "escuchar",
+      "agradecer",
+      "servir",
+      "compartir",
+      "valorar",
+      "admitir",
+      "ajustar"
+    ]
+  },
+  "Humor": {
+    "name": "Humor",
+    "description": "Encontrar lo divertido en situaciones para aliviar tensiones y conectar con otras personas.",
+    "example": "Su humor ligero durante la reunión redujo la tensión y permitió retomar la conversación con más creatividad.",
+    "tags": [
+      "reír",
+      "bromear",
+      "relajar",
+      "aligerar",
+      "compartir",
+      "entretener",
+      "conectar",
+      "divertir",
+      "improvisar"
+    ]
+  },
+  "Imagination": {
+    "name": "Imaginación",
+    "description": "Crear imágenes e ideas en la mente para explorar posibilidades nuevas.",
+    "example": "La imaginación de la diseñadora dio vida a un prototipo que combinaba tecnología y tradición artesanal.",
+    "tags": [
+      "imaginar",
+      "soñar",
+      "visualizar",
+      "crear",
+      "explorar",
+      "inventar",
+      "idear",
+      "fantasear",
+      "innovar"
+    ]
+  },
+  "Impact": {
+    "name": "Impacto",
+    "description": "Generar un cambio significativo en personas, sistemas o entornos.",
+    "example": "El programa tuvo impacto al reducir drásticamente el desperdicio de alimentos y fortalecer las redes de apoyo barrial.",
+    "tags": [
+      "impactar",
+      "transformar",
+      "influir",
+      "cambiar",
+      "mejorar",
+      "ampliar",
+      "movilizar",
+      "fortalecer",
+      "sostener"
+    ]
+  },
+  "Independence": {
+    "name": "Independencia",
+    "description": "Tomar decisiones y actuar con autonomía.",
+    "example": "Buscó independencia al aprender a administrar sus finanzas y elegir la carrera que realmente deseaba.",
+    "tags": [
+      "autogestionar",
+      "decidir",
+      "actuar",
+      "elegir",
+      "emprender",
+      "liderar",
+      "asumir",
+      "organizar",
+      "sostenerse"
+    ]
+  },
+  "Initiative": {
+    "name": "Iniciativa",
+    "description": "Dar el primer paso sin esperar instrucciones.",
+    "example": "Mostró iniciativa al crear un plan de bienvenida para las nuevas personas del equipo antes de que se lo solicitaran.",
+    "tags": [
+      "iniciar",
+      "proponer",
+      "actuar",
+      "anticipar",
+      "liderar",
+      "emprender",
+      "organizar",
+      "crear",
+      "movilizar"
+    ]
+  },
+  "Inner Peace": {
+    "name": "Paz interior",
+    "description": "Un sentido de calma y equilibrio emocional que surge desde adentro.",
+    "example": "Cultivó paz interior mediante meditaciones breves durante el día y pausas conscientes para respirar.",
+    "tags": [
+      "respirar",
+      "calmar",
+      "meditar",
+      "equilibrar",
+      "centrar",
+      "soltar",
+      "escuchar",
+      "descansar",
+      "contemplar"
+    ]
+  },
+  "Innovation": {
+    "name": "Innovación",
+    "description": "Aplicar ideas nuevas para mejorar procesos, productos o servicios.",
+    "example": "La empresa impulsó la innovación al experimentar con materiales reciclados para sus empaques.",
+    "tags": [
+      "innovar",
+      "crear",
+      "experimentar",
+      "desarrollar",
+      "iterar",
+      "implementar",
+      "mejorar",
+      "prototipar",
+      "adaptar"
+    ]
+  },
+  "Integrity": {
+    "name": "Integridad",
+    "description": "Mantener coherencia entre valores, palabras y acciones.",
+    "example": "Su integridad se reflejó en que rechazó una oferta lucrativa que contradecía los principios de la organización.",
+    "tags": [
+      "alinear",
+      "respetar",
+      "cumplir",
+      "actuar",
+      "honrar",
+      "sostener",
+      "mostrar",
+      "defender",
+      "ser"
+    ]
+  },
+  "Intuition": {
+    "name": "Intuición",
+    "description": "Confiar en la percepción interna para guiar decisiones.",
+    "example": "Siguió su intuición al modificar el diseño de la campaña, y la respuesta positiva confirmó su elección.",
+    "tags": [
+      "intuir",
+      "sentir",
+      "escuchar",
+      "percibir",
+      "confiar",
+      "discernir",
+      "notar",
+      "responder",
+      "fluir"
+    ]
+  },
+  "Justice": {
+    "name": "Justicia",
+    "description": "Garantizar que todas las personas reciban trato equitativo y reparación cuando se vulneran sus derechos.",
+    "example": "El colectivo luchó por justicia al acompañar casos de discriminación y exigir cambios estructurales.",
+    "tags": [
+      "reparar",
+      "defender",
+      "proteger",
+      "denunciar",
+      "garantizar",
+      "igualar",
+      "restaurar",
+      "equilibrar",
+      "legislar"
+    ]
+  },
+  "Kindness": {
+    "name": "Amabilidad",
+    "description": "Actuar con gentileza y consideración hacia otras personas.",
+    "example": "Mostró amabilidad al dejar notas de aliento anónimas en los escritorios de sus compañeros.",
+    "tags": [
+      "cuidar",
+      "apoyar",
+      "sonreír",
+      "escuchar",
+      "ayudar",
+      "acompañar",
+      "animar",
+      "ofrecer",
+      "consolar"
+    ]
+  },
+  "Knowledge": {
+    "name": "Conocimiento",
+    "description": "Comprender información, habilidades y experiencias que amplían la mente.",
+    "example": "Buscó conocimiento al inscribirse en cursos nocturnos sobre historia local y compartir lo aprendido en su comunidad.",
+    "tags": [
+      "aprender",
+      "estudiar",
+      "investigar",
+      "leer",
+      "analizar",
+      "enseñar",
+      "profundizar",
+      "compartir",
+      "memorizar"
+    ]
+  },
+  "Laughter": {
+    "name": "Risa",
+    "description": "Expresar alegría mediante carcajadas y sonrisas compartidas.",
+    "example": "La risa llenó la casa cuando la familia recordó anécdotas graciosas durante la cena.",
+    "tags": [
+      "reír",
+      "sonreír",
+      "bromear",
+      "celebrar",
+      "disfrutar",
+      "contagiar",
+      "iluminar",
+      "animar",
+      "relajar"
+    ]
+  },
+  "Leadership": {
+    "name": "Liderazgo",
+    "description": "Inspirar y guiar a las personas para alcanzar objetivos comunes.",
+    "example": "Ejerció liderazgo al escuchar a su equipo, sintetizar ideas y marcar un rumbo claro durante la crisis.",
+    "tags": [
+      "guiar",
+      "inspirar",
+      "motivar",
+      "organizar",
+      "dirigir",
+      "apoyar",
+      "empoderar",
+      "coordinar",
+      "decidir"
+    ]
+  },
+  "Learning": {
+    "name": "Aprendizaje",
+    "description": "Adquirir nueva comprensión a través de estudio y experiencia.",
+    "example": "El aprendizaje continuo del grupo se dio al reflexionar después de cada proyecto y ajustar su enfoque.",
+    "tags": [
+      "aprender",
+      "estudiar",
+      "practicar",
+      "reflexionar",
+      "experimentar",
+      "descubrir",
+      "analizar",
+      "aplicar",
+      "crecer"
+    ]
+  },
+  "Legacy": {
+    "name": "Legado",
+    "description": "El impacto duradero que dejas en personas, instituciones o lugares.",
+    "example": "Su legado como mentora vive en las generaciones de líderes que apoyó y formó.",
+    "tags": [
+      "trascender",
+      "inspirar",
+      "construir",
+      "guiar",
+      "enseñar",
+      "donar",
+      "compartir",
+      "impactar",
+      "preservar"
+    ]
+  },
+  "Love": {
+    "name": "Amor",
+    "description": "Un sentimiento profundo de afecto, cuidado y compromiso.",
+    "example": "Expresó amor al cuidar a su padre durante la recuperación, escuchando sus historias y manteniéndolo animado.",
+    "tags": [
+      "amar",
+      "cuidar",
+      "abrazar",
+      "acompañar",
+      "apoyar",
+      "proteger",
+      "nutrir",
+      "compartir",
+      "agradecer"
+    ]
+  },
+  "Loyalty": {
+    "name": "Lealtad",
+    "description": "Mantener compromiso y apoyo constante hacia personas, causas o comunidades.",
+    "example": "Su lealtad se evidenció al permanecer con el equipo en tiempos difíciles y defender sus necesidades.",
+    "tags": [
+      "respaldar",
+      "apoyar",
+      "cumplir",
+      "permanecer",
+      "defender",
+      "honrar",
+      "acompañar",
+      "sostener",
+      "proteger"
+    ]
+  },
+  "Luxury": {
+    "name": "Lujo",
+    "description": "Disfrutar comodidades y experiencias exclusivas que superan lo necesario.",
+    "example": "Para su aniversario eligieron el lujo de un viaje enológico con cenas privadas y alojamiento histórico.",
+    "tags": [
+      "disfrutar",
+      "consentir",
+      "adornar",
+      "degustar",
+      "adquirir",
+      "valorar",
+      "elegir",
+      "distinguir",
+      "conceder"
+    ]
+  },
+  "Meditation": {
+    "name": "Meditación",
+    "description": "Practicar la atención consciente para calmar la mente y el cuerpo.",
+    "example": "Incorporó la meditación a su rutina al dedicar diez minutos diarios a observar la respiración.",
+    "tags": [
+      "meditar",
+      "respirar",
+      "centrar",
+      "enfocar",
+      "calmar",
+      "observar",
+      "escuchar",
+      "relajar",
+      "reflexionar"
+    ]
+  },
+  "Mental Health": {
+    "name": "Salud mental",
+    "description": "El bienestar emocional, psicológico y social que permite manejar el estrés y relacionarse de forma equilibrada.",
+    "example": "Protegió su salud mental al asistir a terapia, establecer límites claros y mantenerse conectada con amistades de confianza.",
+    "tags": [
+      "cuidar",
+      "hablar",
+      "procesar",
+      "descansar",
+      "regular",
+      "buscar apoyo",
+      "reforzar",
+      "equilibrar",
+      "sanar"
+    ]
+  },
+  "Mentorship": {
+    "name": "Mentoría",
+    "description": "Acompañar y guiar a otras personas para apoyar su crecimiento.",
+    "example": "La mentoría se reflejó en las reuniones mensuales donde revisaba objetivos y conectaba a su aprendiz con oportunidades.",
+    "tags": [
+      "guiar",
+      "aconsejar",
+      "escuchar",
+      "apoyar",
+      "enseñar",
+      "conectar",
+      "orientar",
+      "motivar",
+      "desarrollar"
+    ]
+  },
+  "Mindfulness": {
+    "name": "Atención plena",
+    "description": "Estar presente con conciencia en el momento actual sin juzgar.",
+    "example": "Practicó atención plena al notar sus pensamientos durante una conversación difícil y responder con calma.",
+    "tags": [
+      "observar",
+      "respirar",
+      "notar",
+      "aceptar",
+      "centrar",
+      "percibir",
+      "escuchar",
+      "sentir",
+      "reflexionar"
+    ]
+  },
+  "Mission": {
+    "name": "Misión",
+    "description": "El propósito central que guía acciones y decisiones.",
+    "example": "El equipo actualizó su misión para enfocarse en reducir el desperdicio alimentario en la región.",
+    "tags": [
+      "definir",
+      "enfocar",
+      "dirigir",
+      "alinear",
+      "comprometerse",
+      "comunicar",
+      "priorizar",
+      "avanzar",
+      "servir"
+    ]
+  },
+  "Money": {
+    "name": "Dinero",
+    "description": "Un recurso que permite intercambiar bienes y servicios y apoyar objetivos.",
+    "example": "Administró su dinero creando un presupuesto que incluía ahorro, donaciones y gastos esenciales.",
+    "tags": [
+      "ahorrar",
+      "invertir",
+      "ganar",
+      "presupuestar",
+      "administrar",
+      "gastar",
+      "donar",
+      "planificar",
+      "equilibrar"
+    ]
+  },
+  "Movement": {
+    "name": "Movimiento",
+    "description": "Mantener el cuerpo activo para fortalecer la salud y la energía.",
+    "example": "Integró movimiento en su jornada al caminar al trabajo y practicar danza por la noche.",
+    "tags": [
+      "moverse",
+      "caminar",
+      "estirar",
+      "bailar",
+      "correr",
+      "saltar",
+      "activar",
+      "respirar",
+      "fortalecer"
+    ]
+  },
+  "Networking": {
+    "name": "Redes",
+    "description": "Crear y mantener relaciones profesionales de apoyo mutuo.",
+    "example": "Fortaleció sus redes al asistir a encuentros del sector y conectar colegas que podían colaborar.",
+    "tags": [
+      "conectar",
+      "presentar",
+      "colaborar",
+      "compartir",
+      "apoyar",
+      "relacionar",
+      "seguir",
+      "comunicar",
+      "vincular"
+    ]
+  },
+  "Open-mindedness": {
+    "name": "Mente abierta",
+    "description": "Estar dispuesto a considerar nuevas ideas y perspectivas sin juicio inmediato.",
+    "example": "Mostró mente abierta al escuchar a la comunidad local antes de diseñar el programa.",
+    "tags": [
+      "escuchar",
+      "considerar",
+      "aprender",
+      "aceptar",
+      "explorar",
+      "dialogar",
+      "respetar",
+      "adaptarse",
+      "evolucionar"
+    ]
+  },
+  "Optimism": {
+    "name": "Optimismo",
+    "description": "Mantener una visión positiva sobre el futuro y las posibilidades.",
+    "example": "Su optimismo motivó al equipo a seguir buscando soluciones creativas incluso después de varios intentos fallidos.",
+    "tags": [
+      "confiar",
+      "esperar",
+      "animar",
+      "sonreír",
+      "visualizar",
+      "impulsar",
+      "apoyar",
+      "motivar",
+      "persistir"
+    ]
+  },
+  "Partnership": {
+    "name": "Alianza",
+    "description": "Colaborar con otra persona u organización para compartir responsabilidades y beneficios.",
+    "example": "La alianza entre la cooperativa y la universidad permitió lanzar un programa de capacitación accesible.",
+    "tags": [
+      "aliarse",
+      "cooperar",
+      "coordinar",
+      "compartir",
+      "acordar",
+      "negociar",
+      "sincronizar",
+      "apoyar",
+      "coliderar"
+    ]
+  },
+  "Patience": {
+    "name": "Paciencia",
+    "description": "Esperar con calma y perseverancia sin frustrarse.",
+    "example": "Practicar paciencia le permitió acompañar a su hijo en el aprendizaje de la lectura sin presionarlo.",
+    "tags": [
+      "esperar",
+      "respirar",
+      "acompañar",
+      "escuchar",
+      "soportar",
+      "persistir",
+      "comprender",
+      "calmar",
+      "sostener"
+    ]
+  },
+  "Perseverance": {
+    "name": "Perseverancia",
+    "description": "Continuar trabajando hacia una meta pese a obstáculos repetidos.",
+    "example": "Su perseverancia quedó demostrada al presentar la iniciativa ante múltiples comités hasta obtener aprobación.",
+    "tags": [
+      "persistir",
+      "insistir",
+      "resistir",
+      "avanzar",
+      "superar",
+      "mantenerse",
+      "trabajar",
+      "seguir",
+      "lograr"
+    ]
+  },
+  "Philanthropy": {
+    "name": "Filantropía",
+    "description": "Donar recursos, tiempo o talento para apoyar el bien común.",
+    "example": "Su filantropía se manifestó al financiar becas y asesorar a jóvenes emprendedores de comunidades rurales.",
+    "tags": [
+      "donar",
+      "apoyar",
+      "invertir",
+      "compartir",
+      "impulsar",
+      "financiar",
+      "acompañar",
+      "servir",
+      "sostener"
+    ]
+  },
+  "Physical Health": {
+    "name": "Salud física",
+    "description": "El estado de cuidado del cuerpo mediante actividad, nutrición y descanso.",
+    "example": "Cultivó su salud física al preparar comidas nutritivas y mantener un plan de ejercicios moderados.",
+    "tags": [
+      "moverse",
+      "alimentar",
+      "descansar",
+      "ejercitar",
+      "hidratar",
+      "fortalecer",
+      "cuidar",
+      "prevenir",
+      "estirar"
+    ]
+  },
+  "Piety": {
+    "name": "Piedad",
+    "description": "Demostrar devoción espiritual o religiosa mediante prácticas respetuosas.",
+    "example": "Su piedad se reflejaba en rituales diarios de oración y servicio voluntario en su comunidad de fe.",
+    "tags": [
+      "orar",
+      "honrar",
+      "respetar",
+      "meditar",
+      "servir",
+      "ofrecer",
+      "agradecer",
+      "celebrar",
+      "compartir"
+    ]
+  },
+  "Positive Attitude": {
+    "name": "Actitud positiva",
+    "description": "Enfocar los pensamientos en posibilidades constructivas incluso ante retos.",
+    "example": "Mantuvo una actitud positiva al reconocer cada pequeño avance del equipo durante la reestructuración.",
+    "tags": [
+      "animar",
+      "motivar",
+      "agradecer",
+      "sonreír",
+      "reencuadrar",
+      "apoyar",
+      "confiar",
+      "inspirar",
+      "persistir"
+    ]
+  },
+  "Pragmatism": {
+    "name": "Pragmatismo",
+    "description": "Tomar decisiones basadas en lo que funciona en la práctica.",
+    "example": "Mostró pragmatismo al ajustar el plan con recursos disponibles en lugar de esperar condiciones perfectas.",
+    "tags": [
+      "evaluar",
+      "adaptar",
+      "ajustar",
+      "priorizar",
+      "resolver",
+      "optimizar",
+      "implementar",
+      "medir",
+      "simplificar"
+    ]
+  },
+  "Presence": {
+    "name": "Presencia",
+    "description": "Participar plenamente en el momento, mostrando atención genuina.",
+    "example": "Ofreció presencia al guardar el teléfono y escuchar con interés durante la conversación difícil.",
+    "tags": [
+      "estar",
+      "escuchar",
+      "atender",
+      "observar",
+      "conectar",
+      "acompañar",
+      "centrar",
+      "participar",
+      "sostener"
+    ]
+  },
+  "Professionalism": {
+    "name": "Profesionalismo",
+    "description": "Actuar con responsabilidad, ética y calidad en el trabajo.",
+    "example": "Su profesionalismo se notó en la puntualidad, la comunicación clara y la preparación detallada de cada reunión.",
+    "tags": [
+      "cumplir",
+      "organizar",
+      "respetar",
+      "comunicar",
+      "preparar",
+      "presentar",
+      "colaborar",
+      "responder",
+      "mejorar"
+    ]
+  },
+  "Purpose": {
+    "name": "Propósito",
+    "description": "La razón significativa que orienta tus decisiones y energía.",
+    "example": "Reafirmó su propósito al dedicar el proyecto a ampliar el acceso a la educación en su barrio.",
+    "tags": [
+      "definir",
+      "enfocar",
+      "alinear",
+      "guiar",
+      "comprometerse",
+      "servir",
+      "priorizar",
+      "reflexionar",
+      "avanzar"
+    ]
+  },
+  "Quality": {
+    "name": "Calidad",
+    "description": "Ofrecer resultados excelentes mediante atención al detalle y mejora continua.",
+    "example": "El equipo protegió la calidad al revisar cada entregable y aprender de la retroalimentación.",
+    "tags": [
+      "mejorar",
+      "perfeccionar",
+      "cuidar",
+      "verificar",
+      "ajustar",
+      "detallar",
+      "optimizar",
+      "garantizar",
+      "pulir"
+    ]
+  },
+  "Recognition": {
+    "name": "Reconocimiento",
+    "description": "Apreciar y celebrar las contribuciones de otras personas.",
+    "example": "Instituyeron un momento semanal de reconocimiento para destacar logros individuales y colectivos.",
+    "tags": [
+      "reconocer",
+      "agradecer",
+      "celebrar",
+      "nombrar",
+      "aplaudir",
+      "visibilizar",
+      "honrar",
+      "compartir",
+      "elogiar"
+    ]
+  },
+  "Recovery": {
+    "name": "Recuperación",
+    "description": "Regresar a un estado saludable después de una dificultad.",
+    "example": "Su recuperación avanzó al recibir fisioterapia constante y apoyo emocional de sus amigos.",
+    "tags": [
+      "recuperar",
+      "sanar",
+      "rehabilitar",
+      "descansar",
+      "fortalecer",
+      "apoyarse",
+      "progresar",
+      "cuidar",
+      "persistir"
+    ]
+  },
+  "Reliability": {
+    "name": "Fiabilidad",
+    "description": "Ser consistente y cumplir lo que se promete.",
+    "example": "La fiabilidad de la voluntaria se reflejó en que nunca faltó a sus turnos y siempre completó sus tareas.",
+    "tags": [
+      "cumplir",
+      "responder",
+      "garantizar",
+      "asegurar",
+      "mantener",
+      "apoyar",
+      "entregar",
+      "confiar",
+      "sostener"
+    ]
+  },
+  "Representation": {
+    "name": "Representación",
+    "description": "Dar voz y visibilidad a personas y perspectivas diversas.",
+    "example": "Trabajaron por la representación al incluir artistas indígenas en la curaduría del festival.",
+    "tags": [
+      "representar",
+      "visibilizar",
+      "incluir",
+      "defender",
+      "amplificar",
+      "escuchar",
+      "mostrar",
+      "promover",
+      "abogar"
+    ]
+  },
+  "Resilience": {
+    "name": "Resiliencia",
+    "description": "Adaptarse y recuperarse tras adversidades.",
+    "example": "La resiliencia de la comunidad se vio en cómo reconstruyó viviendas y fortaleció redes de apoyo tras la inundación.",
+    "tags": [
+      "resistir",
+      "recuperar",
+      "adaptarse",
+      "reconstruir",
+      "aprender",
+      "persistir",
+      "apoyar",
+      "avanzar",
+      "superar"
+    ]
+  },
+  "Respect": {
+    "name": "Respeto",
+    "description": "Reconocer el valor de otras personas y tratarlas con dignidad.",
+    "example": "Demostró respeto al escuchar opiniones opuestas sin interrumpir y agradeciendo la honestidad.",
+    "tags": [
+      "respetar",
+      "escuchar",
+      "valorar",
+      "considerar",
+      "reconocer",
+      "honrar",
+      "aceptar",
+      "cuidar",
+      "dialogar"
+    ]
+  },
+  "Responsibility": {
+    "name": "Responsabilidad",
+    "description": "Responder por tus acciones y cuidar las consecuencias para otras personas.",
+    "example": "Mostró responsabilidad al admitir su error y trabajar con el equipo para corregir el proceso.",
+    "tags": [
+      "asumir",
+      "cumplir",
+      "responder",
+      "cuidar",
+      "organizar",
+      "prevenir",
+      "apoyar",
+      "corregir",
+      "servir"
+    ]
+  },
+  "Romance": {
+    "name": "Romance",
+    "description": "Cultivar la intimidad y el afecto en una relación amorosa.",
+    "example": "Revivieron el romance al planear citas mensuales que celebraban su historia compartida.",
+    "tags": [
+      "enamorar",
+      "cuidar",
+      "sorprender",
+      "compartir",
+      "escuchar",
+      "amar",
+      "conectar",
+      "dedicar",
+      "acoger"
+    ]
+  },
+  "Safety": {
+    "name": "Seguridad",
+    "description": "Crear entornos donde las personas se sientan protegidas y libres de daño.",
+    "example": "El vecindario mejoró la seguridad al instalar iluminación comunitaria y organizar rondas de acompañamiento.",
+    "tags": [
+      "proteger",
+      "vigilar",
+      "prevenir",
+      "asegurar",
+      "cuidar",
+      "alertar",
+      "reforzar",
+      "monitorear",
+      "responder"
+    ]
+  },
+  "Self Care": {
+    "name": "Autocuidado",
+    "description": "Atender tus necesidades físicas, emocionales y espirituales.",
+    "example": "Practicó autocuidado al bloquear tiempo para descansar, comer bien y decir no a compromisos excesivos.",
+    "tags": [
+      "cuidarse",
+      "nutrirse",
+      "descansar",
+      "escuchar",
+      "poner límites",
+      "renovar",
+      "priorizarse",
+      "respirar",
+      "sanar"
+    ]
+  },
+  "Self Expression": {
+    "name": "Autoexpresión",
+    "description": "Comunicar tus ideas y sentimientos de forma auténtica.",
+    "example": "Encontró autoexpresión a través de un blog donde compartía crónicas de su barrio.",
+    "tags": [
+      "expresarse",
+      "compartir",
+      "crear",
+      "comunicar",
+      "escribir",
+      "pintar",
+      "cantar",
+      "mostrar",
+      "declarar"
+    ]
+  },
+  "Self-Actualization": {
+    "name": "Autorrealización",
+    "description": "Alcanzar tu máximo potencial viviendo de acuerdo con tus talentos y valores.",
+    "example": "Buscó la autorrealización al emprender un proyecto social que combinaba su experiencia y su pasión.",
+    "tags": [
+      "realizarse",
+      "crecer",
+      "explorar",
+      "desarrollarse",
+      "aprender",
+      "servir",
+      "expresar",
+      "transformarse",
+      "lograr"
+    ]
+  },
+  "Self-Awareness": {
+    "name": "Autoconciencia",
+    "description": "Reconocer tus emociones, motivaciones y patrones de comportamiento.",
+    "example": "Su autoconciencia aumentó al llevar un diario donde analizaba reacciones y desencadenantes.",
+    "tags": [
+      "observarse",
+      "reflexionar",
+      "anotar",
+      "escuchar",
+      "identificar",
+      "comprender",
+      "ajustar",
+      "aceptar",
+      "aprender"
+    ]
+  },
+  "Self-Compassion": {
+    "name": "Autocompasión",
+    "description": "Tratarte con amabilidad y comprensión cuando enfrentas dificultades.",
+    "example": "Practicó autocompasión al hablarse con cariño después de un error en lugar de criticarse.",
+    "tags": [
+      "abrazarse",
+      "cuidarse",
+      "perdonarse",
+      "escucharse",
+      "calmarse",
+      "aceptarse",
+      "animarse",
+      "reconfortarse",
+      "sostenerse"
+    ]
+  },
+  "Self-control": {
+    "name": "Autocontrol",
+    "description": "Regular impulsos y comportamientos para mantener el enfoque en tus objetivos.",
+    "example": "Demostró autocontrol al pausar antes de responder un correo conflictivo y elegir un tono constructivo.",
+    "tags": [
+      "regularse",
+      "respirar",
+      "pausar",
+      "evaluar",
+      "decidir",
+      "moderar",
+      "enfocarse",
+      "contenerse",
+      "controlarse"
+    ]
+  },
+  "Selflessness": {
+    "name": "Altruismo",
+    "description": "Priorizar el bienestar de otras personas sin esperar recompensas.",
+    "example": "Su altruismo se evidenció al donar su bono anual al fondo de emergencia del barrio.",
+    "tags": [
+      "servir",
+      "donar",
+      "cuidar",
+      "apoyar",
+      "ofrecer",
+      "acompañar",
+      "sacrificar",
+      "compartir",
+      "proteger"
+    ]
+  },
+  "Service": {
+    "name": "Servicio",
+    "description": "Contribuir al bienestar de otras personas a través de acciones concretas.",
+    "example": "Practicar servicio significó preparar paquetes de alimentos cada fin de semana para familias necesitadas.",
+    "tags": [
+      "servir",
+      "apoyar",
+      "ayudar",
+      "ofrecer",
+      "entregar",
+      "acompañar",
+      "voluntariarse",
+      "cuidar",
+      "sostener"
+    ]
+  },
+  "Sovereignty": {
+    "name": "Soberanía",
+    "description": "Ejercer la autoridad y la autodeterminación sin injerencias externas.",
+    "example": "El movimiento defendió la soberanía alimentaria al impulsar huertos comunitarios administrados por residentes.",
+    "tags": [
+      "autogobernar",
+      "decidir",
+      "proteger",
+      "afirmar",
+      "reclamar",
+      "organizar",
+      "liderar",
+      "resguardar",
+      "empoderar"
+    ]
+  },
+  "Spirituality": {
+    "name": "Espiritualidad",
+    "description": "Buscar conexión con lo trascendente y cultivar sentido interior.",
+    "example": "Su espiritualidad se expresaba mediante caminatas contemplativas y momentos de gratitud diaria.",
+    "tags": [
+      "conectar",
+      "meditar",
+      "orar",
+      "agradecer",
+      "reflexionar",
+      "escuchar",
+      "celebrar",
+      "contemplar",
+      "servir"
+    ]
+  },
+  "Sports": {
+    "name": "Deportes",
+    "description": "Participar en actividades físicas organizadas para disfrutar, competir y aprender trabajo en equipo.",
+    "example": "Los deportes escolares fomentaron disciplina y amistad entre jóvenes de distintos barrios.",
+    "tags": [
+      "jugar",
+      "competir",
+      "entrenar",
+      "cooperar",
+      "moverse",
+      "practicar",
+      "respetar",
+      "apoyar",
+      "celebrar"
+    ]
+  },
+  "Sportsmanship": {
+    "name": "Juego limpio",
+    "description": "Actuar con respeto, honestidad y cortesía durante la competencia.",
+    "example": "Su juego limpio se vio cuando felicitó a la rival y reconoció sus errores ante el árbitro.",
+    "tags": [
+      "respetar",
+      "felicitar",
+      "aceptar",
+      "cooperar",
+      "apoyar",
+      "aplaudir",
+      "honrar",
+      "cumplir",
+      "sonreír"
+    ]
+  },
+  "Stability": {
+    "name": "Estabilidad",
+    "description": "Mantener una base segura y predecible en la vida.",
+    "example": "Creó estabilidad al establecer un presupuesto, un horario regular y redes de apoyo confiables.",
+    "tags": [
+      "equilibrar",
+      "organizar",
+      "planificar",
+      "sostener",
+      "asegurar",
+      "ahorrar",
+      "fortalecer",
+      "mantener",
+      "proteger"
+    ]
+  },
+  "Stewardship": {
+    "name": "Cuidado responsable",
+    "description": "Administrar recursos con respeto para beneficio presente y futuro.",
+    "example": "Mostraron cuidado responsable al reducir desperdicios en la oficina y donar equipos reutilizables.",
+    "tags": [
+      "administrar",
+      "conservar",
+      "proteger",
+      "reducir",
+      "reciclar",
+      "planificar",
+      "educar",
+      "monitorear",
+      "restaurar"
+    ]
+  },
+  "Stillness": {
+    "name": "Quietud",
+    "description": "Crear espacios de silencio y calma para recuperar energía.",
+    "example": "Buscó quietud al reservar unos minutos cada mañana para observar el amanecer sin distracciones.",
+    "tags": [
+      "silenciar",
+      "respirar",
+      "pausar",
+      "escuchar",
+      "meditar",
+      "descansar",
+      "centrar",
+      "calmar",
+      "contemplar"
+    ]
+  },
+  "Strategy": {
+    "name": "Estrategia",
+    "description": "Planificar acciones coordinadas para alcanzar objetivos a largo plazo.",
+    "example": "El liderazgo diseñó una estrategia que alineaba inversiones, capacitación y mediciones de impacto.",
+    "tags": [
+      "planificar",
+      "analizar",
+      "priorizar",
+      "coordinar",
+      "diseñar",
+      "anticipar",
+      "organizar",
+      "evaluar",
+      "ejecutar"
+    ]
+  },
+  "Sustainability": {
+    "name": "Sostenibilidad",
+    "description": "Satisfacer necesidades presentes sin comprometer las de futuras generaciones.",
+    "example": "El edificio se diseñó con sostenibilidad al utilizar energía renovable, sistemas de recuperación de agua y materiales de bajo impacto.",
+    "tags": [
+      "mantener",
+      "conservar",
+      "preservar",
+      "proteger",
+      "equilibrar",
+      "reutilizar",
+      "reducir",
+      "reciclar",
+      "renovar"
+    ]
+  },
+  "Synergy": {
+    "name": "Sinergia",
+    "description": "Trabajar en conjunto de manera que los resultados superen lo que cada persona lograría por separado.",
+    "example": "Los equipos de marketing y producto lograron sinergia al colaborar estrechamente y crear innovaciones más alineadas con las necesidades de clientes.",
+    "tags": [
+      "combinar",
+      "unir",
+      "integrar",
+      "colaborar",
+      "coordinar",
+      "armonizar",
+      "fusionar",
+      "mezclar",
+      "conectar"
+    ]
+  },
+  "Teaching": {
+    "name": "Enseñanza",
+    "description": "Ayudar a otras personas a aprender mediante guía y compartir conocimiento.",
+    "example": "La mentora destacó en la enseñanza al adaptar su enfoque a cada estilo de aprendizaje y ofrecer práctica guiada.",
+    "tags": [
+      "enseñar",
+      "explicar",
+      "guiar",
+      "demostrar",
+      "mostrar",
+      "formar",
+      "educar",
+      "mentorar",
+      "desarrollar"
+    ]
+  },
+  "Teamwork": {
+    "name": "Trabajo en equipo",
+    "description": "Colaborar con otras personas para alcanzar una meta común y apoyarse mutuamente.",
+    "example": "El equipo de respuesta de emergencia demostró trabajo en equipo al coordinarse sin fallas entre personal médico, bomberos y policía.",
+    "tags": [
+      "colaborar",
+      "cooperar",
+      "contribuir",
+      "apoyar",
+      "participar",
+      "asistir",
+      "coordinar",
+      "aliarse",
+      "sumar"
+    ]
+  },
+  "Technology": {
+    "name": "Tecnología",
+    "description": "Uso de conocimientos científicos y herramientas para resolver problemas y mejorar la vida.",
+    "example": "La organización aprovechó la tecnología para conectar a personas mayores con servicios de salud y familiares durante la pandemia.",
+    "tags": [
+      "desarrollar",
+      "utilizar",
+      "aplicar",
+      "crear",
+      "innovar",
+      "implementar",
+      "mejorar",
+      "diseñar",
+      "construir"
+    ]
+  },
+  "Thoughtfulness": {
+    "name": "Consideración",
+    "description": "Actuar teniendo en cuenta los sentimientos y necesidades de otras personas.",
+    "example": "La gerente mostró consideración al recordar las metas profesionales de cada integrante y crear oportunidades alineadas.",
+    "tags": [
+      "considerar",
+      "reflexionar",
+      "pensar",
+      "contemplar",
+      "deliberar",
+      "cuidar",
+      "escuchar",
+      "planear",
+      "apoyar"
+    ]
+  },
+  "Tolerance": {
+    "name": "Tolerancia",
+    "description": "Respetar y aceptar las diferencias, incluso cuando no se está de acuerdo.",
+    "example": "La comunidad practicó tolerancia al crear espacios donde personas de distintas religiones compartían sus tradiciones y aprendían mutuamente.",
+    "tags": [
+      "aceptar",
+      "respetar",
+      "acoger",
+      "permitir",
+      "comprender",
+      "abrazar",
+      "reconocer",
+      "convivir",
+      "dialogar"
+    ]
+  },
+  "Trust": {
+    "name": "Confianza",
+    "description": "Ser honesto y confiable para fortalecer vínculos y fomentar apertura.",
+    "example": "La líder construyó confianza al cumplir sus compromisos, admitir errores y compartir información con transparencia.",
+    "tags": [
+      "confiar",
+      "creer",
+      "depender",
+      "compartir",
+      "contar",
+      "entregar",
+      "comprometerse",
+      "sostener",
+      "apoyar"
+    ]
+  },
+  "Truth": {
+    "name": "Verdad",
+    "description": "Ser honesto y preciso, reflejando la realidad sin engaños.",
+    "example": "La periodista buscó la verdad al verificar datos con múltiples fuentes y publicar hallazgos aunque fueran impopulares.",
+    "tags": [
+      "buscar",
+      "decir",
+      "descubrir",
+      "revelar",
+      "desenmascarar",
+      "verificar",
+      "confirmar",
+      "validar",
+      "establecer"
+    ]
+  },
+  "Unity": {
+    "name": "Unidad",
+    "description": "Reunir a las personas para trabajar hacia un objetivo compartido y apoyarse mutuamente.",
+    "example": "El centro comunitario fomentó la unidad al crear estructuras donde vecinas de distintos orígenes colaboraban en retos comunes.",
+    "tags": [
+      "conectar",
+      "unir",
+      "armonizar",
+      "integrar",
+      "combinar",
+      "unificar",
+      "reunir",
+      "cohesionar",
+      "colaborar"
+    ]
+  },
+  "Versatility": {
+    "name": "Versatilidad",
+    "description": "Adaptarse a situaciones nuevas y manejar diversas tareas con eficacia.",
+    "example": "La dueña del negocio demostró versatilidad al cambiar rápidamente a servicios en línea cuando lo presencial dejó de ser posible.",
+    "tags": [
+      "adaptarse",
+      "ajustarse",
+      "flexibilizarse",
+      "modificar",
+      "transformarse",
+      "cambiar",
+      "acomodarse",
+      "pivotar",
+      "alterar"
+    ]
+  },
+  "Vision": {
+    "name": "Visión",
+    "description": "Crear una imagen clara e inspiradora del futuro para guiar decisiones.",
+    "example": "La visión de la fundadora sobre salud accesible guió el crecimiento y las alianzas estratégicas de la organización.",
+    "tags": [
+      "imaginar",
+      "visualizar",
+      "prever",
+      "conceptualizar",
+      "crear",
+      "diseñar",
+      "desarrollar",
+      "formular",
+      "planear"
+    ]
+  },
+  "Willingness": {
+    "name": "Disposición",
+    "description": "Estar listo para hacer lo necesario o aceptar nuevas ideas y experiencias.",
+    "example": "La disposición del equipo permitió ajustar estrategias y aprender habilidades nuevas cuando surgieron desafíos imprevistos.",
+    "tags": [
+      "aceptar",
+      "acceder",
+      "ofrecerse",
+      "participar",
+      "consentir",
+      "colaborar",
+      "adoptar",
+      "aprender",
+      "asumir"
+    ]
+  },
+  "Wisdom": {
+    "name": "Sabiduría",
+    "description": "Tomar buenas decisiones basadas en conocimiento, experiencia y comprensión.",
+    "example": "La persona mayor mostró sabiduría al escuchar antes de aconsejar, equilibrando necesidades inmediatas y efectos a largo plazo.",
+    "tags": [
+      "comprender",
+      "discernir",
+      "percibir",
+      "considerar",
+      "contemplar",
+      "reflexionar",
+      "aconsejar",
+      "evaluar",
+      "orientar"
+    ]
+  },
+  "Work Ethic": {
+    "name": "Ética de trabajo",
+    "description": "Ser dedicado, responsable y esforzarse para completar tareas con calidad.",
+    "example": "Su ética de trabajo se notó en que llegaba temprano, cuidaba los detalles y ayudaba a colegas con los proyectos del equipo.",
+    "tags": [
+      "trabajar",
+      "esforzarse",
+      "persistir",
+      "aplicarse",
+      "dedicarse",
+      "comprometerse",
+      "perseverar",
+      "colaborar",
+      "cumplir"
+    ]
+  }
+}

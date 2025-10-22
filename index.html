@@ -26,36 +26,50 @@
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <header class="mb-8 relative">
             <!-- Language toggle -->
-            <button id="languageToggle" class="language-toggle">
+            <button
+                id="languageToggle"
+                class="language-toggle"
+                aria-label="Switch language"
+                data-i18n="buttons.languageToggle"
+            >
                 En español
             </button>
-            
-            <h1 class="text-3xl font-bold text-center mb-2">The Howdy Human Dictionary of Values</h1>
-            <p class="text-center opacity-75 mb-6">Discover values in action</p>
-            
+
+            <h1 class="text-3xl font-bold text-center mb-2" data-i18n="page.heading">The Howdy Human Dictionary of Values</h1>
+            <p class="text-center opacity-75 mb-6" data-i18n="page.tagline">Discover values in action</p>
+
             <!-- Introduction paragraph -->
             <div class="intro-box">
-                <p class="mb-3"> This dictionary is designed to help you understand values not just as abstract concepts, but as active forces that shape our daily choices and actions. Each value is presented with its associated verbs - the concrete ways we embody and express these values in our lives. <br><br>
+                <p
+                    class="mb-3"
+                    data-i18n="page.introDescription"
+                    data-i18n-mode="html"
+                >
+                    This dictionary is designed to help you understand values not just as abstract concepts, but as active forces that shape our daily choices and actions. Each value is presented with its associated verbs - the concrete ways we embody and express these values in our lives. <br><br>
+                </p>
 
-            <p>Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
+                <p data-i18n="page.introInstructions">Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
             </div>
-            
+
             <!-- Main Search Bar -->
             <div class="main-search-container">
                 <i class="fas fa-search main-search-icon"></i>
-                <input 
-                    type="text" 
-                    id="mainSearchInput" 
-                    class="main-search-input" 
+                <input
+                    type="text"
+                    id="mainSearchInput"
+                    class="main-search-input"
                     placeholder="Search values by name, description, or example..."
+                    data-i18n="search.placeholder"
+                    data-i18n-attr="placeholder"
                     autocomplete="off"
                 >
                 <i class="fas fa-times-circle main-search-clear" id="clearSearch"></i>
             </div>
-            
+
             <div class="flex items-center justify-between">
                 <div class="text-lg font-medium">
-                    <span id="valuesCount" class="text-purple-600"></span> Values
+                    <span id="valuesCount" class="text-purple-600"></span>
+                    <span class="ml-1" data-i18n="search.valuesLabel">Values</span>
                 </div>
                 <button id="toggleFilters" class="text-purple-600 hover:text-purple-800 focus:outline-none text-sm">
                     <span id="toggleFiltersText">Hide Filters</span>
@@ -71,6 +85,8 @@
                 id="alphaNav"
                 role="navigation"
                 aria-label="Alphabetical navigation"
+                data-i18n="aria.alphaNav"
+                data-i18n-attr="aria-label"
                 data-offset-targets=".main-search-container"
             >
                 <ul class="alpha-nav-list" role="list">
@@ -84,23 +100,23 @@
                     <!-- Match Type Toggle -->
                     <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
                         <div class="flex items-center">
-                            <span class="text-sm font-medium mr-2">Match Type:</span>
+                            <span class="text-sm font-medium mr-2" data-i18n="filters.matchType">Match Type:</span>
                             <div class="toggle-container">
                                 <div id="toggleSlide" class="toggle-slide right"></div>
-                                <button id="matchAll" class="toggle-button opacity-75">All Selected Verbs</button>
-                                <button id="matchAny" class="toggle-button text-purple-800">Any Selected Verb</button>
+                                <button id="matchAll" class="toggle-button opacity-75" data-i18n="filters.matchAll">All Selected Verbs</button>
+                                <button id="matchAny" class="toggle-button text-purple-800" data-i18n="filters.matchAny">Any Selected Verb</button>
                             </div>
                         </div>
 
                         <!-- Sort Options -->
                         <div class="flex items-center">
-                            <label for="sortSelect" class="text-sm font-medium mr-2">Sort By:</label>
+                            <label for="sortSelect" class="text-sm font-medium mr-2" data-i18n="filters.sortBy">Sort By:</label>
                             <select
                                 id="sortSelect"
                                 class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg"
                             >
-                                <option value="name">Name</option>
-                                <option value="category">Category</option>
+                                <option value="name" data-i18n="filters.sortName">Name</option>
+                                <option value="category" data-i18n="filters.sortCategory">Category</option>
                             </select>
                         </div>
                     </div>
@@ -109,7 +125,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Column 1: Categories -->
                         <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header">Categories</div>
+                            <div class="filter-header" data-i18n="filters.categories">Categories</div>
                             <div id="categoryFilters" class="space-y-2">
                                 <!-- Categories will be added here by JavaScript -->
                             </div>
@@ -118,7 +134,10 @@
 
                         <!-- Column 2: Tags/Verbs -->
                         <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header">Verbs <span class="filter-caption">tags</span></div>
+                            <div class="filter-header">
+                                <span data-i18n="filters.verbs">Verbs</span>
+                                <span class="filter-caption" data-i18n="filters.verbsCaption">tags</span>
+                            </div>
                             <div id="tagFilters" class="space-y-1">
                                 <!-- Tags will be added here by JavaScript -->
                             </div>
@@ -127,16 +146,16 @@
 
                         <!-- Column 3: Active Filters -->
                         <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header">Active Filters</div>
+                            <div class="filter-header" data-i18n="filters.activeFilters">Active Filters</div>
 
                             <!-- Active Filters -->
                             <div>
                                 <div id="activeFilters" class="flex flex-wrap">
-                                    <span id="noActiveFilters" class="text-xs opacity-75 italic">No active filters</span>
+                                    <span id="noActiveFilters" class="text-xs opacity-75 italic" data-i18n="filters.noActiveFilters">No active filters</span>
                                     <!-- Active filters will be added here by JavaScript -->
                                 </div>
                                 <button id="clearFilters" class="mt-4 reset-btn hidden">
-                                    Clear All Filters
+                                    <span data-i18n="filters.clearAll">Clear All Filters</span>
                                 </button>
                             </div>
                         </div>
@@ -153,7 +172,7 @@
         <!-- Footer -->
         <footer class="footer">
             <a href="https://github.com/HelloSimone91/howdyhuman.com" target="_blank">
-                Learn more about this project
+                <span data-i18n="footer.learnMore">Learn more about this project</span>
             </a>
         </footer>
     </div>
