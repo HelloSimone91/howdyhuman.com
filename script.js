@@ -54,8 +54,19 @@ const filterState = {
     sortMethod: 'name'
 };
 
+// Alphabet helper
+function getAlphabetForLanguage(lang) {
+    switch (lang) {
+        case 'es':
+            return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        default:
+            return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    }
+}
+
 // Language state
 let currentLanguage = 'en';
+let activeAlphabet = getAlphabetForLanguage(currentLanguage);
 
 // Internationalization map
 const i18n = {
@@ -484,8 +495,9 @@ function setActiveLetter(letter) {
 function setupAlphaNav() {
     if (!alphaNavList) return;
 
-    // Create array of alphabet letters
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    // Refresh active alphabet for the current language
+    activeAlphabet = getAlphabetForLanguage(currentLanguage);
+    const alphabet = activeAlphabet;
 
     // Add each letter link
     alphaNavList.innerHTML = '';
@@ -517,12 +529,21 @@ function setupAlphaNav() {
         item.appendChild(link);
         alphaNavList.appendChild(item);
     });
+
+    // Ensure scroll spy observers reflect the current alphabet sections
+    setupScrollSpy();
 }
 
 // Find closest available section for a letter
 function findClosestSection(letter) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const alphabet = activeAlphabet && activeAlphabet.length
+        ? activeAlphabet
+        : getAlphabetForLanguage(currentLanguage);
     const letterIndex = alphabet.indexOf(letter);
+
+    if (letterIndex === -1) {
+        return;
+    }
 
     // Try next letters
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
@@ -634,6 +655,8 @@ function setupLanguageToggle() {
 
     languageToggle.addEventListener('click', () => {
         currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+        activeAlphabet = getAlphabetForLanguage(currentLanguage);
+        setupAlphaNav();
         applyTranslations();
 
         const languageNameKey = currentLanguage === 'en' ? 'languages.english' : 'languages.spanish';
@@ -808,6 +831,9 @@ function initializeValuesDictionary() {
     try {
         console.log("Initializing dictionary with", values.length, "values");
 
+        // Update the active alphabet for the current language context
+        activeAlphabet = getAlphabetForLanguage(currentLanguage);
+
         // Clear previous filters if any (important for language switching)
         if (categoryFilters) categoryFilters.innerHTML = '';
         if (tagFilters) tagFilters.innerHTML = '';
@@ -929,6 +955,9 @@ function initializeValuesDictionary() {
         console.log("Displaying values...");
         filterValues();
         setupFilterExpanders();
+
+        // Ensure the alphabetical navigation reflects the rendered content
+        setupAlphaNav();
 
     } catch (error) {
         console.error("Error initializing dictionary:", error);
@@ -1234,8 +1263,29 @@ function displayValues(valuesToDisplay) {
             valuesByLetter[firstLetter].push(value);
         });
 
+        const alphabetReference = activeAlphabet && activeAlphabet.length
+            ? activeAlphabet
+            : getAlphabetForLanguage(currentLanguage);
+        const alphabetOrder = alphabetReference.reduce((order, letter, index) => {
+            order[letter] = index;
+            return order;
+        }, {});
+
+        const sortedLetters = Object.keys(valuesByLetter).sort((a, b) => {
+            const indexA = alphabetOrder[a];
+            const indexB = alphabetOrder[b];
+
+            if (indexA !== undefined || indexB !== undefined) {
+                if (indexA === undefined) return 1;
+                if (indexB === undefined) return -1;
+                if (indexA !== indexB) return indexA - indexB;
+            }
+
+            return a.localeCompare(b);
+        });
+
         // Create sections for each letter
-        Object.keys(valuesByLetter).sort().forEach(letter => {
+        sortedLetters.forEach(letter => {
             // Create section header
             const sectionHeader = document.createElement('div');
             sectionHeader.id = `section-${letter}`;
