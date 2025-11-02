@@ -54,6 +54,13 @@ const filterState = {
     sortMethod: 'name'
 };
 
+const filterAccordionSections = [];
+const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
+let currentAccordionSection = null;
+const mobileAlphaNavMediaQuery = window.matchMedia('(max-width: 1023px)');
+let alphaOverlayLastFocus = null;
+let alphaOverlayFocusable = [];
+
 // Alphabet helper
 function getAlphabetForLanguage(lang) {
     switch (lang) {
@@ -125,6 +132,10 @@ const i18n = {
         aria: {
             languageToggle: 'Switch language',
             alphaNav: 'Alphabetical navigation'
+        },
+        alphaNav: {
+            overlayHint: 'Jump to a letter to browse matching values.',
+            closeLabel: 'Close navigation'
         },
         search: {
             placeholder: 'Search values by name, description, or example...',
@@ -208,6 +219,10 @@ const i18n = {
         aria: {
             languageToggle: 'Cambiar idioma',
             alphaNav: 'Navegación alfabética'
+        },
+        alphaNav: {
+            overlayHint: 'Elige una letra para explorar los valores relacionados.',
+            closeLabel: 'Cerrar navegación'
         },
         search: {
             placeholder: 'Busca valores por nombre, descripción o ejemplo...',
@@ -370,6 +385,10 @@ function applyTranslations() {
         mainSearchInput.setAttribute('aria-label', translate('search.ariaLabel'));
     }
 
+    if (alphaNavToggle) {
+        alphaNavToggle.setAttribute('aria-label', translate('aria.alphaNav'));
+    }
+
     updateFilterToggleUI();
     updateFilterExpanderButtons();
 }
@@ -377,7 +396,8 @@ function applyTranslations() {
 // Initialize DOM elements
     let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
-        toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, backToTop, languageToggle;
+        toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
+        alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -436,6 +456,10 @@ document.addEventListener('DOMContentLoaded', function() {
         valuesCount = document.getElementById('valuesCount');
         alphaNav = document.getElementById('alphaNav');
         alphaNavList = alphaNav ? alphaNav.querySelector('.alpha-nav-list') : null;
+        alphaNavToggle = document.getElementById('alphaNavToggle');
+        alphaNavOverlay = document.getElementById('alphaNavOverlay');
+        alphaNavOverlayList = document.getElementById('alphaNavOverlayList');
+        alphaNavOverlayClose = document.getElementById('alphaNavOverlayClose');
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
 
@@ -448,6 +472,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set up filter toggle
         setupFilterToggle();
+
+        // Set up responsive filter accordion
+        setupFilterAccordion();
 
         // Set up match type toggle
         setupMatchTypeToggle();
@@ -486,6 +513,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set up alphabetical navigation
         setupAlphaNav();
+
+        if (alphaNavToggle && alphaNavOverlay) {
+            alphaNavToggle.addEventListener('click', () => {
+                if (alphaNavOverlay.classList.contains('is-active')) {
+                    closeAlphaOverlay();
+                } else {
+                    openAlphaOverlay();
+                }
+            });
+        }
+
+        if (alphaNavOverlayClose) {
+            alphaNavOverlayClose.addEventListener('click', () => closeAlphaOverlay());
+        }
+
+        if (alphaNavOverlay) {
+            alphaNavOverlay.addEventListener('click', (event) => {
+                if (event.target === alphaNavOverlay) {
+                    closeAlphaOverlay();
+                }
+            });
+        }
+
+        const handleAlphaNavViewportChange = (event) => {
+            if (!event.matches) {
+                closeAlphaOverlay({ restoreFocus: false });
+            }
+        };
+
+        if (typeof mobileAlphaNavMediaQuery.addEventListener === 'function') {
+            mobileAlphaNavMediaQuery.addEventListener('change', handleAlphaNavViewportChange);
+        } else if (typeof mobileAlphaNavMediaQuery.addListener === 'function') {
+            mobileAlphaNavMediaQuery.addListener(handleAlphaNavViewportChange);
+        }
 
         // Set up back to top button
         setupBackToTop();
@@ -526,21 +587,144 @@ function setActiveLetter(letter) {
             }
         }
     });
+
+    if (alphaNavOverlayList) {
+        alphaNavOverlayList.querySelectorAll('.alpha-nav-overlay-link').forEach(button => {
+            if (button.classList.contains('is-disabled')) return;
+            const isActive = button.dataset.letter === letter;
+            button.classList.toggle('active', isActive);
+            if (isActive) {
+                button.setAttribute('aria-current', 'true');
+            } else {
+                button.removeAttribute('aria-current');
+            }
+        });
+    }
 }
 
 // Setup alphabetical navigation
+function updateAlphaOverlayFocusable() {
+    if (!alphaNavOverlay) return;
+    alphaOverlayFocusable = Array.from(alphaNavOverlay.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'))
+        .filter(el => !el.classList.contains('is-disabled'));
+}
+
+function handleAlphaOverlayKeydown(event) {
+    if (!alphaNavOverlay || alphaNavOverlay.getAttribute('aria-hidden') === 'true') {
+        return;
+    }
+
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        closeAlphaOverlay();
+    } else if (event.key === 'Tab' && alphaOverlayFocusable.length) {
+        const first = alphaOverlayFocusable[0];
+        const last = alphaOverlayFocusable[alphaOverlayFocusable.length - 1];
+
+        if (event.shiftKey) {
+            if (document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            }
+        } else if (document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+}
+
+function openAlphaOverlay() {
+    if (!alphaNavOverlay) return;
+    if (!mobileAlphaNavMediaQuery.matches) {
+        if (alphaNavToggle) {
+            alphaNavToggle.setAttribute('aria-expanded', 'false');
+        }
+        return;
+    }
+
+    alphaOverlayLastFocus = document.activeElement;
+    alphaNavOverlay.classList.add('is-active');
+    alphaNavOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('alpha-nav-open');
+    if (alphaNavToggle) {
+        alphaNavToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    updateAlphaNavAvailability();
+    updateAlphaOverlayFocusable();
+
+    const focusTarget = (alphaNavOverlayClose && !alphaNavOverlayClose.classList.contains('is-disabled'))
+        ? alphaNavOverlayClose
+        : alphaOverlayFocusable[0];
+    if (focusTarget) {
+        focusTarget.focus();
+    }
+
+    document.addEventListener('keydown', handleAlphaOverlayKeydown);
+}
+
+function closeAlphaOverlay(options = {}) {
+    const { restoreFocus = true } = options;
+    if (!alphaNavOverlay) return;
+
+    alphaNavOverlay.classList.remove('is-active');
+    alphaNavOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('alpha-nav-open');
+    if (alphaNavToggle) {
+        alphaNavToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    document.removeEventListener('keydown', handleAlphaOverlayKeydown);
+
+    if (restoreFocus && alphaOverlayLastFocus && typeof alphaOverlayLastFocus.focus === 'function') {
+        alphaOverlayLastFocus.focus();
+    }
+    alphaOverlayLastFocus = null;
+    alphaOverlayFocusable = [];
+}
+
+function jumpToLetterSection(letter) {
+    const section = document.getElementById(`section-${letter}`);
+    if (section) {
+        window.scrollTo({
+            top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
+            behavior: 'smooth'
+        });
+        setActiveLetter(letter);
+        setTimeout(() => {
+            if (section && document.body.contains(section)) {
+                section.focus({ preventScroll: true });
+            }
+        }, 400);
+        return true;
+    }
+    return false;
+}
+
+function handleAlphaLetterSelection(letter, { fromOverlay = false } = {}) {
+    if (!letter) return;
+
+    if (fromOverlay) {
+        closeAlphaOverlay({ restoreFocus: false });
+    }
+
+    const navigated = jumpToLetterSection(letter);
+    if (!navigated) {
+        findClosestSection(letter);
+    }
+}
+
 function setupAlphaNav() {
     if (!alphaNavList) return;
 
-    // Refresh active alphabet for the current language
     activeAlphabet = getAlphabetForLanguage(currentLanguage);
     const alphabet = activeAlphabet;
 
-    // Add each letter link
     alphaNavList.innerHTML = '';
     alphabet.forEach(letter => {
         const item = document.createElement('li');
         item.className = 'alpha-nav-item';
+        item.dataset.letter = letter;
 
         const link = document.createElement('a');
         link.className = 'alpha-nav-link';
@@ -550,25 +734,75 @@ function setupAlphaNav() {
         link.setAttribute('aria-label', `Jump to values that start with the letter ${letter}`);
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const section = document.getElementById(`section-${letter}`);
-            if (section) {
-                window.scrollTo({
-                    top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                    behavior: 'smooth'
-                });
-                setActiveLetter(letter);
-            } else {
-                // If section doesn't exist, find closest available section
-                findClosestSection(letter);
-            }
+            handleAlphaLetterSelection(letter);
         });
-        item.dataset.letter = letter;
+
         item.appendChild(link);
         alphaNavList.appendChild(item);
     });
 
-    // Ensure scroll spy observers reflect the current alphabet sections
+    if (alphaNavOverlayList) {
+        alphaNavOverlayList.innerHTML = '';
+        alphabet.forEach(letter => {
+            const overlayItem = document.createElement('div');
+            overlayItem.className = 'alpha-nav-overlay-item';
+            overlayItem.dataset.letter = letter;
+            overlayItem.setAttribute('role', 'listitem');
+
+            const overlayButton = document.createElement('button');
+            overlayButton.type = 'button';
+            overlayButton.className = 'alpha-nav-overlay-link';
+            overlayButton.dataset.letter = letter;
+            overlayButton.textContent = letter;
+            overlayButton.addEventListener('click', () => {
+                handleAlphaLetterSelection(letter, { fromOverlay: true });
+            });
+
+            overlayItem.appendChild(overlayButton);
+            alphaNavOverlayList.appendChild(overlayItem);
+        });
+    }
+
+    updateAlphaNavAvailability();
     setupScrollSpy();
+}
+
+function updateAlphaNavAvailability() {
+    if (alphaNavList) {
+        alphaNavList.querySelectorAll('.alpha-nav-item').forEach(item => {
+            const letter = item.dataset.letter;
+            const link = item.querySelector('.alpha-nav-link');
+            if (!link) return;
+
+            const hasSection = !!document.getElementById(`section-${letter}`);
+            link.classList.toggle('is-disabled', !hasSection);
+            if (hasSection) {
+                link.removeAttribute('aria-disabled');
+            } else {
+                link.setAttribute('aria-disabled', 'true');
+            }
+            link.tabIndex = hasSection ? 0 : -1;
+        });
+    }
+
+    if (alphaNavOverlayList) {
+        alphaNavOverlayList.querySelectorAll('[data-letter]').forEach(item => {
+            const letter = item.dataset.letter;
+            const button = item.querySelector('.alpha-nav-overlay-link');
+            if (!button) return;
+
+            const hasSection = !!document.getElementById(`section-${letter}`);
+            button.classList.toggle('is-disabled', !hasSection);
+            button.disabled = !hasSection;
+            if (hasSection) {
+                button.removeAttribute('aria-disabled');
+            } else {
+                button.setAttribute('aria-disabled', 'true');
+            }
+        });
+    }
+
+    updateAlphaOverlayFocusable();
 }
 
 // Find closest available section for a letter
@@ -584,26 +818,14 @@ function findClosestSection(letter) {
 
     // Try next letters
     for (let i = letterIndex + 1; i < alphabet.length; i++) {
-        const section = document.getElementById(`section-${alphabet[i]}`);
-        if (section) {
-            window.scrollTo({
-                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                behavior: 'smooth'
-            });
-            setActiveLetter(alphabet[i]);
+        if (jumpToLetterSection(alphabet[i])) {
             return;
         }
     }
 
     // If no next letter, try previous letters
     for (let i = letterIndex - 1; i >= 0; i--) {
-        const section = document.getElementById(`section-${alphabet[i]}`);
-        if (section) {
-            window.scrollTo({
-                top: Math.max(section.offsetTop - getAlphaNavOffset(), 0),
-                behavior: 'smooth'
-            });
-            setActiveLetter(alphabet[i]);
+        if (jumpToLetterSection(alphabet[i])) {
             return;
         }
     }
@@ -691,6 +913,7 @@ function setupLanguageToggle() {
     if (!languageToggle) return;
 
     languageToggle.addEventListener('click', () => {
+        closeAlphaOverlay({ restoreFocus: false });
         currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
         activeAlphabet = getAlphabetForLanguage(currentLanguage);
         setupAlphaNav();
@@ -719,6 +942,92 @@ function setupFilterToggle() {
         filtersContainer.classList.toggle('collapsed');
         updateFilterToggleUI();
     });
+}
+
+function setupFilterAccordion() {
+    if (!filtersContainer) return;
+    if (filterAccordionSections.length) return;
+
+    document.querySelectorAll('.filter-column').forEach(section => {
+        const header = section.querySelector('.filter-header');
+        const content = section.querySelector('.filter-content');
+
+        if (!header || !content) {
+            return;
+        }
+
+        if (!content.id) {
+            content.id = `${section.id || `filter-section-${filterAccordionSections.length}`}-content`;
+        }
+
+        if (!header.hasAttribute('aria-controls')) {
+            header.setAttribute('aria-controls', content.id);
+        }
+
+        header.setAttribute('aria-expanded', 'true');
+        content.setAttribute('aria-hidden', 'false');
+
+        filterAccordionSections.push({ section, header, content });
+
+        header.addEventListener('click', () => {
+            if (!accordionMediaQuery.matches) return;
+
+            if (currentAccordionSection === section) {
+                return;
+            }
+
+            if (currentAccordionSection) {
+                setSectionExpanded(currentAccordionSection, false);
+            }
+
+            setSectionExpanded(section, true);
+            currentAccordionSection = section;
+        });
+    });
+
+    if (typeof accordionMediaQuery.addEventListener === 'function') {
+        accordionMediaQuery.addEventListener('change', handleAccordionModeChange);
+    } else if (typeof accordionMediaQuery.addListener === 'function') {
+        accordionMediaQuery.addListener(handleAccordionModeChange);
+    }
+
+    handleAccordionModeChange(accordionMediaQuery);
+}
+
+function setSectionExpanded(section, expanded) {
+    const entry = filterAccordionSections.find(item => item.section === section);
+    if (!entry) return;
+
+    const { header, content } = entry;
+    const isMobile = accordionMediaQuery.matches;
+
+    const shouldExpand = isMobile ? expanded : true;
+
+    section.classList.toggle('open', shouldExpand);
+    header.setAttribute('aria-expanded', shouldExpand ? 'true' : 'false');
+    content.setAttribute('aria-hidden', shouldExpand ? 'false' : 'true');
+}
+
+function handleAccordionModeChange(event) {
+    const isMobile = event.matches;
+
+    if (!filterAccordionSections.length) {
+        return;
+    }
+
+    if (isMobile) {
+        if (!currentAccordionSection || !filterAccordionSections.some(item => item.section === currentAccordionSection)) {
+            currentAccordionSection = filterAccordionSections[0].section;
+        }
+
+        filterAccordionSections.forEach(({ section }) => {
+            const isActiveSection = section === currentAccordionSection;
+            setSectionExpanded(section, isActiveSection);
+        });
+    } else {
+        filterAccordionSections.forEach(({ section }) => setSectionExpanded(section, true));
+        currentAccordionSection = null;
+    }
 }
 
 // Setup match type toggle
@@ -1334,6 +1643,7 @@ function displayValues(valuesToDisplay) {
             const sectionHeader = document.createElement('div');
             sectionHeader.id = `section-${letter}`;
             sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'py-2', 'border-b', 'border-gray-300', 'letter-section');
+            sectionHeader.setAttribute('tabindex', '-1');
             sectionHeader.textContent = letter;
             valuesList.appendChild(sectionHeader);
 
@@ -1548,6 +1858,7 @@ function displayValues(valuesToDisplay) {
         valuesList.appendChild(bottomAnchor);
 
         // Set up scroll spy for active letter display
+        updateAlphaNavAvailability();
         setupScrollSpy();
 
         console.log("Values displayed successfully");

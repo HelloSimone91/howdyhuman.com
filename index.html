@@ -89,17 +89,55 @@
                 data-i18n-attr="aria-label"
                 data-offset-targets=".main-search-container"
             >
+                <button
+                    id="alphaNavToggle"
+                    class="alpha-nav-toggle"
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="alphaNavOverlay"
+                >
+                    <span class="alpha-nav-toggle-icon" aria-hidden="true">A</span>
+                    <span class="alpha-nav-toggle-label" data-i18n="aria.alphaNav">Alphabetical navigation</span>
+                </button>
                 <ul class="alpha-nav-list" role="list">
                     <!-- Will be populated by JavaScript -->
                 </ul>
             </nav>
 
+            <div
+                id="alphaNavOverlay"
+                class="alpha-nav-overlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="alphaNavOverlayTitle"
+                aria-hidden="true"
+            >
+                <div class="alpha-nav-overlay-panel">
+                    <div class="alpha-nav-overlay-header">
+                        <h2 id="alphaNavOverlayTitle" class="alpha-nav-overlay-title" data-i18n="aria.alphaNav">
+                            Alphabetical navigation
+                        </h2>
+                        <button id="alphaNavOverlayClose" class="alpha-nav-overlay-close" type="button">
+                            <span class="sr-only" data-i18n="alphaNav.closeLabel">Close navigation</span>
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <p class="alpha-nav-overlay-subtitle" data-i18n="alphaNav.overlayHint">
+                        Jump to a letter to browse matching values.
+                    </p>
+                    <div id="alphaNavOverlayList" class="alpha-nav-overlay-grid" role="list">
+                        <!-- Overlay items populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
             <div>
                 <!-- Advanced Filters Section -->
                 <div id="filtersContainer" class="filters-container mb-6 p-4">
                     <!-- Match Type Toggle -->
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
-                        <div class="flex items-center">
+                    <div class="filters-toolbar flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-4 pb-2 border-b border-gray-200">
+                        <div class="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto">
                             <span class="text-sm font-medium mr-2" data-i18n="filters.matchType">Match Type:</span>
                             <div class="toggle-container">
                                 <div id="toggleSlide" class="toggle-slide right"></div>
@@ -109,11 +147,11 @@
                         </div>
 
                         <!-- Sort Options -->
-                        <div class="flex items-center">
+                        <div class="flex items-center gap-2 w-full md:w-auto">
                             <label for="sortSelect" class="text-sm font-medium mr-2" data-i18n="filters.sortBy">Sort By:</label>
                             <select
                                 id="sortSelect"
-                                class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg"
+                                class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg w-full md:w-auto"
                             >
                                 <option value="name" data-i18n="filters.sortName">Name</option>
                                 <option value="category" data-i18n="filters.sortCategory">Category</option>
@@ -122,34 +160,68 @@
                     </div>
 
                     <!-- Three-Column Layout for Filters -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="filter-groups grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Column 1: Categories -->
-                        <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header" data-i18n="filters.categories">Categories</div>
-                            <div id="categoryFilters" class="space-y-2">
-                                <!-- Categories will be added here by JavaScript -->
+                        <div class="filter-column p-2 rounded-md" id="categoryFilterColumn">
+                            <button
+                                class="filter-header"
+                                type="button"
+                                aria-expanded="true"
+                                aria-controls="categoryFilterContent"
+                            >
+                                <span class="filter-header-text" data-i18n="filters.categories">Categories</span>
+                                <span class="accordion-icon" aria-hidden="true">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </button>
+                            <div class="filter-content" id="categoryFilterContent">
+                                <div id="categoryFilters" class="space-y-2">
+                                    <!-- Categories will be added here by JavaScript -->
+                                </div>
+                                <button class="show-more-btn" data-i18n="filters.showMore">Show More</button>
                             </div>
-                            <button class="show-more-btn">Show More</button>
                         </div>
 
                         <!-- Column 2: Tags/Verbs -->
-                        <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header">
-                                <span data-i18n="filters.verbs">Verbs</span>
-                                <span class="filter-caption" data-i18n="filters.verbsCaption">tags</span>
+                        <div class="filter-column p-2 rounded-md" id="tagFilterColumn">
+                            <button
+                                class="filter-header"
+                                type="button"
+                                aria-expanded="true"
+                                aria-controls="tagFilterContent"
+                            >
+                                <span class="filter-header-text">
+                                    <span data-i18n="filters.verbs">Verbs</span>
+                                    <span class="filter-caption" data-i18n="filters.verbsCaption">tags</span>
+                                </span>
+                                <span class="accordion-icon" aria-hidden="true">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </button>
+                            <div class="filter-content" id="tagFilterContent">
+                                <div id="tagFilters" class="space-y-1">
+                                    <!-- Tags will be added here by JavaScript -->
+                                </div>
+                                <button class="show-more-btn" data-i18n="filters.showMore">Show More</button>
                             </div>
-                            <div id="tagFilters" class="space-y-1">
-                                <!-- Tags will be added here by JavaScript -->
-                            </div>
-                            <button class="show-more-btn">Show More</button>
                         </div>
 
                         <!-- Column 3: Active Filters -->
-                        <div class="filter-column p-2 rounded-md">
-                            <div class="filter-header" data-i18n="filters.activeFilters">Active Filters</div>
+                        <div class="filter-column p-2 rounded-md" id="activeFilterColumn">
+                            <button
+                                class="filter-header"
+                                type="button"
+                                aria-expanded="true"
+                                aria-controls="activeFilterContent"
+                            >
+                                <span class="filter-header-text" data-i18n="filters.activeFilters">Active Filters</span>
+                                <span class="accordion-icon" aria-hidden="true">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </button>
 
                             <!-- Active Filters -->
-                            <div>
+                            <div class="filter-content" id="activeFilterContent">
                                 <div id="activeFilters" class="flex flex-wrap">
                                     <span id="noActiveFilters" class="text-xs opacity-75 italic" data-i18n="filters.noActiveFilters">No active filters</span>
                                     <!-- Active filters will be added here by JavaScript -->
