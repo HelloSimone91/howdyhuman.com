@@ -148,7 +148,25 @@
 
             <div>
                 <!-- Advanced Filters Section -->
-                <div id="filtersContainer" class="filters-container mb-6 p-4">
+                <div
+                    id="filtersContainer"
+                    class="filters-container mb-6 p-4"
+                    role="region"
+                    aria-labelledby="filtersSheetTitle"
+                    tabindex="-1"
+                    aria-hidden="false"
+                    data-i18n="filters.collapsedHint"
+                    data-i18n-attr="data-collapsed-label"
+                >
+                    <div class="filters-sheet-header">
+                        <h2 id="filtersSheetTitle" class="filters-sheet-title" data-i18n="filters.sheetTitle">
+                            Filter &amp; Sort
+                        </h2>
+                        <button id="filtersSheetClose" class="filters-sheet-close" type="button">
+                            <span class="sr-only" data-i18n="filters.closeSheet">Close filters</span>
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <!-- Match Type Toggle -->
                     <div class="filters-toolbar flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-4 pb-2 border-b border-gray-200">
                         <div class="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto">
@@ -246,7 +264,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="filters-sheet-actions">
+                        <button id="filtersSheetReset" type="button" class="filters-sheet-reset" data-i18n="filters.reset">
+                            Reset
+                        </button>
+                        <button id="filtersSheetApply" type="button" class="filters-sheet-apply" data-i18n="filters.apply">
+                            Apply
+                        </button>
+                    </div>
                 </div>
+                <div
+                    id="filtersCollapsedHint"
+                    class="filters-collapsed-hint"
+                    aria-hidden="true"
+                    data-i18n="filters.collapsedHint"
+                >
+                    Filters are hidden right now. Choose “Show Filters” to make updates.
+                </div>
+                <div id="filtersSheetBackdrop" class="filters-sheet-backdrop" aria-hidden="true"></div>
 
                 <!-- Values List -->
                 <div id="valuesList" class="space-y-4">
