@@ -902,9 +902,8 @@ button, .value-card-toggle, .status-action-button {
         box-shadow: 0 12px 30px rgba(128, 90, 213, 0.35);
         position: fixed;
         top: 50%;
-        right: 1rem;
-        left: auto;
-        transform: translateY(-50%);
+        left: 50%;
+        transform: translate(-50%, -50%);
         z-index: 55;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         touch-action: none;
@@ -914,7 +913,7 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-toggle:focus-visible,
     .alpha-nav-toggle:hover {
         outline: none;
-        transform: translateY(-50%) scale(1.03);
+        transform: translate(-50%, -50%) scale(1.03);
         box-shadow: 0 16px 40px rgba(128, 90, 213, 0.45);
     }
 

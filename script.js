@@ -228,7 +228,7 @@ const i18n = {
             introInstructions: 'Usa la barra de búsqueda para encontrar valores específicos, o explora por categorías y etiquetas. Haz clic en un valor para saber más al respecto y descubrir valores relacionados que comparten características similares.'
         },
         buttons: {
-            languageToggle: 'En inglés'
+            languageToggle: 'In English'
         },
         aria: {
             languageToggle: 'Cambiar idioma',
@@ -562,8 +562,6 @@ function setupAlphaNavToggleDrag() {
 
     restoreAlphaNavTogglePositionFromStorage();
 
-    const supportsPointerEvents = typeof window !== 'undefined' && 'PointerEvent' in window;
-
     let pointerDown = false;
     let isDragging = false;
     let pointerId = null;
@@ -572,18 +570,6 @@ function setupAlphaNavToggleDrag() {
     let startX = 0;
     let startY = 0;
     let shouldCancelClick = false;
-
-    const canStartDrag = () => {
-        if (!mobileAlphaNavMediaQuery.matches) {
-            return false;
-        }
-
-        if (alphaNavOverlay && alphaNavOverlay.classList.contains('is-active')) {
-            return false;
-        }
-
-        return true;
-    };
 
     const persistPosition = () => {
         if (!alphaNavToggle) {
@@ -603,33 +589,32 @@ function setupAlphaNavToggleDrag() {
         }
     };
 
-    const beginDrag = (clientX, clientY, id = null) => {
-        if (!canStartDrag()) {
-            return false;
+    const handlePointerDown = (event) => {
+        if (!mobileAlphaNavMediaQuery.matches) {
+            return;
         }
 
         pointerDown = true;
         isDragging = false;
         shouldCancelClick = false;
-        pointerId = id;
-        startX = clientX;
-        startY = clientY;
+        pointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
 
         const rect = alphaNavToggle.getBoundingClientRect();
-        offsetX = clientX - rect.left;
-        offsetY = clientY - rect.top;
+        offsetX = startX - rect.left;
+        offsetY = startY - rect.top;
 
         alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
-        return true;
     };
 
-    const updateDrag = (clientX, clientY) => {
-        if (!pointerDown) {
-            return false;
+    const handlePointerMove = (event) => {
+        if (!pointerDown || (pointerId !== null && event.pointerId !== pointerId)) {
+            return;
         }
 
-        const deltaX = clientX - startX;
-        const deltaY = clientY - startY;
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
 
         if (!isDragging && Math.hypot(deltaX, deltaY) >= ALPHA_NAV_DRAG_THRESHOLD) {
             isDragging = true;
@@ -637,7 +622,7 @@ function setupAlphaNavToggleDrag() {
             alphaNavToggle.classList.add('alpha-nav-toggle--dragged');
             alphaNavToggle.classList.add('alpha-nav-toggle--dragging');
 
-            if (supportsPointerEvents && pointerId !== null && typeof alphaNavToggle.setPointerCapture === 'function') {
+            if (typeof alphaNavToggle.setPointerCapture === 'function') {
                 try {
                     alphaNavToggle.setPointerCapture(pointerId);
                 } catch (error) {
@@ -647,27 +632,31 @@ function setupAlphaNavToggleDrag() {
         }
 
         if (!isDragging) {
-            return false;
+            return;
         }
 
-        const { left, top } = clampAlphaNavTogglePosition(clientX - offsetX, clientY - offsetY);
+        const { left, top } = clampAlphaNavTogglePosition(event.clientX - offsetX, event.clientY - offsetY);
         alphaNavToggle.style.left = `${left}px`;
         alphaNavToggle.style.top = `${top}px`;
         alphaNavToggle.style.right = 'auto';
         alphaNavToggle.style.bottom = 'auto';
         alphaNavToggle.style.transform = 'none';
-
-        return true;
     };
 
-    const endDrag = (event, { cancelled = false } = {}) => {
-        if (!pointerDown) {
+    const endDrag = (event) => {
+        if (!pointerDown || (pointerId !== null && event.pointerId !== pointerId)) {
             return;
         }
 
         pointerDown = false;
 
-        if (supportsPointerEvents && typeof alphaNavToggle.releasePointerCapture === 'function' && pointerId !== null) {
+        if (isDragging) {
+            event.preventDefault();
+            event.stopPropagation();
+            persistPosition();
+        }
+
+        if (typeof alphaNavToggle.releasePointerCapture === 'function' && pointerId !== null) {
             try {
                 alphaNavToggle.releasePointerCapture(pointerId);
             } catch (error) {
@@ -675,21 +664,21 @@ function setupAlphaNavToggleDrag() {
             }
         }
 
-        if (isDragging && !cancelled) {
-            if (event) {
-                if (typeof event.preventDefault === 'function') {
-                    event.preventDefault();
-                }
-                if (typeof event.stopPropagation === 'function') {
-                    event.stopPropagation();
-                }
-            }
-            persistPosition();
-        }
-
         alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
         pointerId = null;
         isDragging = false;
+    };
+
+    const cancelDrag = (event) => {
+        if (!pointerDown || (pointerId !== null && event.pointerId !== pointerId)) {
+            return;
+        }
+
+        pointerDown = false;
+        isDragging = false;
+        pointerId = null;
+        alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
+        shouldCancelClick = false;
     };
 
     const handleClick = (event) => {
@@ -710,135 +699,13 @@ function setupAlphaNavToggleDrag() {
         persistPosition();
     };
 
-    const handlePointerDown = (event) => {
-        if (!beginDrag(event.clientX, event.clientY, event.pointerId)) {
-            return;
-        }
-    };
-
-    const handlePointerMove = (event) => {
-        if (pointerId !== null && event.pointerId !== pointerId) {
-            return;
-        }
-
-        if (updateDrag(event.clientX, event.clientY)) {
-            event.preventDefault();
-        }
-    };
-
-    const handlePointerUp = (event) => {
-        if (pointerId !== null && event.pointerId !== pointerId) {
-            return;
-        }
-
-        endDrag(event);
-    };
-
-    const handlePointerCancel = (event) => {
-        if (pointerId !== null && event.pointerId !== pointerId) {
-            return;
-        }
-
-        endDrag(null, { cancelled: true });
-        shouldCancelClick = false;
-    };
-
-    if (supportsPointerEvents) {
-        alphaNavToggle.addEventListener('pointerdown', handlePointerDown);
-        window.addEventListener('pointermove', handlePointerMove);
-        window.addEventListener('pointerup', handlePointerUp, true);
-        window.addEventListener('pointercancel', handlePointerCancel, true);
-    } else {
-        const handleTouchStart = (event) => {
-            if (event.touches.length !== 1) {
-                return;
-            }
-
-            const touch = event.touches[0];
-            if (!beginDrag(touch.clientX, touch.clientY, 'touch')) {
-                return;
-            }
-
-            event.preventDefault();
-        };
-
-        const handleTouchMove = (event) => {
-            if (!pointerDown) {
-                return;
-            }
-
-            const touch = event.touches[0];
-            if (!touch) {
-                return;
-            }
-
-            if (updateDrag(touch.clientX, touch.clientY)) {
-                event.preventDefault();
-            }
-        };
-
-        const handleTouchEnd = (event) => {
-            if (!pointerDown) {
-                return;
-            }
-
-            endDrag(event);
-        };
-
-        const handleTouchCancel = () => {
-            if (!pointerDown) {
-                return;
-            }
-
-            endDrag(null, { cancelled: true });
-            shouldCancelClick = false;
-        };
-
-        const handleMouseMove = (event) => {
-            if (!pointerDown) {
-                return;
-            }
-
-            if (updateDrag(event.clientX, event.clientY)) {
-                event.preventDefault();
-            }
-        };
-
-        const handleMouseUp = (event) => {
-            if (!pointerDown) {
-                return;
-            }
-
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp, true);
-
-            endDrag(event);
-        };
-
-        const handleMouseDown = (event) => {
-            if (event.button !== 0) {
-                return;
-            }
-
-            if (!beginDrag(event.clientX, event.clientY, 'mouse')) {
-                return;
-            }
-
-            event.preventDefault();
-
-            window.addEventListener('mousemove', handleMouseMove);
-            window.addEventListener('mouseup', handleMouseUp, true);
-        };
-
-        alphaNavToggle.addEventListener('touchstart', handleTouchStart, { passive: false });
-        window.addEventListener('touchmove', handleTouchMove, { passive: false });
-        window.addEventListener('touchend', handleTouchEnd);
-        window.addEventListener('touchcancel', handleTouchCancel);
-        alphaNavToggle.addEventListener('mousedown', handleMouseDown);
-    }
-
+    alphaNavToggle.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerup', endDrag, true);
+    window.addEventListener('pointercancel', cancelDrag, true);
     alphaNavToggle.addEventListener('click', handleClick, true);
     window.addEventListener('resize', handleResize);
+
 }
 
 // Wait for DOM to be fully loaded
