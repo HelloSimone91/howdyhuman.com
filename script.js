@@ -225,7 +225,7 @@ const i18n = {
             introInstructions: 'Usa la barra de búsqueda para encontrar valores específicos, o explora por categorías y etiquetas. Haz clic en un valor para saber más al respecto y descubrir valores relacionados que comparten características similares.'
         },
         buttons: {
-            languageToggle: 'En inglés'
+            languageToggle: 'In English'
         },
         aria: {
             languageToggle: 'Cambiar idioma',
