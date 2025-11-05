@@ -258,11 +258,22 @@
                                     <span id="noActiveFilters" class="text-xs opacity-75 italic" data-i18n="filters.noActiveFilters">No active filters</span>
                                     <!-- Active filters will be added here by JavaScript -->
                                 </div>
-                                <button id="clearFilters" class="mt-4 reset-btn hidden">
-                                    <span data-i18n="filters.clearAll">Clear All Filters</span>
-                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="filters-footer">
+                        <div class="filters-footer__summary">
+                            <span
+                                id="filterCount"
+                                class="filters-footer__count"
+                                data-i18n="filters.noFiltersSelected"
+                            >
+                                No filters selected
+                            </span>
+                        </div>
+                        <button id="clearFilters" class="filters-footer__clear reset-btn hidden">
+                            <span data-i18n="filters.clearAll">Clear All Filters</span>
+                        </button>
                     </div>
                     <div class="filters-sheet-actions">
                         <button id="filtersSheetReset" type="button" class="filters-sheet-reset" data-i18n="filters.reset">

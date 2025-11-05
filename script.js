@@ -166,6 +166,9 @@ const i18n = {
             showMore: 'Show More',
             showLess: 'Show Less',
             noActiveFilters: 'No active filters',
+            noFiltersSelected: 'No filters selected',
+            singleFilterSelected: '({{count}}) Filter Selected',
+            multipleFiltersSelected: '({{count}}) Filters Selected',
             clearAll: 'Clear All Filters',
             sheetTitle: 'Filter & Sort',
             openSheet: 'Filter & Sort',
@@ -259,6 +262,9 @@ const i18n = {
             showMore: 'Mostrar más',
             showLess: 'Mostrar menos',
             noActiveFilters: 'No hay filtros activos',
+            noFiltersSelected: 'No hay filtros seleccionados',
+            singleFilterSelected: '({{count}}) filtro seleccionado',
+            multipleFiltersSelected: '({{count}}) filtros seleccionados',
             clearAll: 'Borrar todos los filtros',
             sheetTitle: 'Filtrar y ordenar',
             openSheet: 'Filtrar y ordenar',
@@ -1206,6 +1212,7 @@ function setupLanguageToggle() {
         activeAlphabet = getAlphabetForLanguage(currentLanguage);
         setupAlphaNav();
         applyTranslations();
+        updateActiveFilters();
 
         const languageNameKey = currentLanguage === 'en' ? 'languages.english' : 'languages.spanish';
         showStatus(translate('statuses.loadingValues', { language: translate(languageNameKey) }));
@@ -1778,9 +1785,26 @@ function updateActiveFilters() {
                        filterState.tags.length > 0 ||
                        filterState.searchTerm;
 
+    const totalFilters = filterState.categories.length +
+        filterState.tags.length +
+        (filterState.searchTerm ? 1 : 0);
+
     // Show/hide elements based on filters
     clearFilters.classList.toggle('hidden', !hasFilters);
     document.getElementById('noActiveFilters').style.display = hasFilters ? 'none' : 'block';
+
+    if (filterCount) {
+        let countKey = 'filters.noFiltersSelected';
+
+        if (totalFilters === 1) {
+            countKey = 'filters.singleFilterSelected';
+        } else if (totalFilters > 1) {
+            countKey = 'filters.multipleFiltersSelected';
+        }
+
+        filterCount.textContent = translate(countKey, { count: totalFilters });
+        filterCount.classList.toggle('has-filters', totalFilters > 0);
+    }
 
     // Clear existing active filters
     const filters = activeFilters.querySelectorAll('.active-filter');
