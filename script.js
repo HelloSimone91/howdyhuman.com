@@ -58,6 +58,9 @@ const filterAccordionSections = [];
 const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
 let currentAccordionSection = null;
 const mobileAlphaNavMediaQuery = window.matchMedia('(max-width: 1023px)');
+const ALPHA_NAV_TOGGLE_STORAGE_KEY = 'alphaNavTogglePosition';
+const ALPHA_NAV_TOGGLE_MARGIN = 12;
+const ALPHA_NAV_DRAG_THRESHOLD = 5;
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
 let filtersSheetBackdrop;
@@ -65,6 +68,7 @@ let filtersSheetClose;
 let filtersSheetApply;
 let filtersSheetReset;
 let lastFiltersSheetTrigger = null;
+let alphaNavMediaListenerAttached = false;
 
 // Alphabet helper
 function getAlphabetForLanguage(lang) {
@@ -484,6 +488,392 @@ function getAlphaNavOffset() {
     return offset;
 }
 
+function clampAlphaNavTogglePosition(left, top) {
+    if (!alphaNavToggle) {
+        return { left, top };
+    }
+
+    const toggleWidth = alphaNavToggle.offsetWidth;
+    const toggleHeight = alphaNavToggle.offsetHeight;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const maxLeft = Math.max(viewportWidth - toggleWidth - ALPHA_NAV_TOGGLE_MARGIN, ALPHA_NAV_TOGGLE_MARGIN);
+    const maxTop = Math.max(viewportHeight - toggleHeight - ALPHA_NAV_TOGGLE_MARGIN, ALPHA_NAV_TOGGLE_MARGIN);
+
+    return {
+        left: Math.min(Math.max(left, ALPHA_NAV_TOGGLE_MARGIN), maxLeft),
+        top: Math.min(Math.max(top, ALPHA_NAV_TOGGLE_MARGIN), maxTop)
+    };
+}
+
+function applyAlphaNavTogglePosition(left, top) {
+    if (!alphaNavToggle) {
+        return null;
+    }
+
+    const clamped = clampAlphaNavTogglePosition(left, top);
+    alphaNavToggle.style.left = `${clamped.left}px`;
+    alphaNavToggle.style.top = `${clamped.top}px`;
+    alphaNavToggle.style.right = 'auto';
+    alphaNavToggle.style.bottom = 'auto';
+    alphaNavToggle.style.transform = 'none';
+    alphaNavToggle.classList.add('alpha-nav-toggle--dragged');
+    return clamped;
+}
+
+function resetAlphaNavTogglePosition() {
+    if (!alphaNavToggle) {
+        return;
+    }
+
+    alphaNavToggle.style.left = '';
+    alphaNavToggle.style.top = '';
+    alphaNavToggle.style.right = '';
+    alphaNavToggle.style.bottom = '';
+    alphaNavToggle.style.transform = '';
+    alphaNavToggle.classList.remove('alpha-nav-toggle--dragged');
+    alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
+}
+
+function handleMobileAlphaNavChange(event) {
+    if (!alphaNavToggle) {
+        return;
+    }
+
+    if (event.matches) {
+        restoreAlphaNavTogglePositionFromStorage();
+    } else {
+        resetAlphaNavTogglePosition();
+    }
+}
+
+function restoreAlphaNavTogglePositionFromStorage() {
+    if (!alphaNavToggle || !mobileAlphaNavMediaQuery.matches) {
+        return;
+    }
+
+    try {
+        const stored = localStorage.getItem(ALPHA_NAV_TOGGLE_STORAGE_KEY);
+        if (!stored) {
+            return;
+        }
+
+        const { left, top } = JSON.parse(stored);
+        if (typeof left === 'number' && typeof top === 'number') {
+            applyAlphaNavTogglePosition(left, top);
+        }
+    } catch (error) {
+        console.warn('Failed to restore alpha nav toggle position:', error);
+    }
+}
+
+function setupAlphaNavToggleDrag() {
+    if (!alphaNavToggle) {
+        return;
+    }
+
+    restoreAlphaNavTogglePositionFromStorage();
+
+    if (!alphaNavMediaListenerAttached) {
+        if (typeof mobileAlphaNavMediaQuery.addEventListener === 'function') {
+            mobileAlphaNavMediaQuery.addEventListener('change', handleMobileAlphaNavChange);
+        } else if (typeof mobileAlphaNavMediaQuery.addListener === 'function') {
+            mobileAlphaNavMediaQuery.addListener(handleMobileAlphaNavChange);
+        }
+        alphaNavMediaListenerAttached = true;
+    }
+
+    const supportsPointerEvents = typeof window !== 'undefined' && 'PointerEvent' in window;
+
+    let pointerDown = false;
+    let isDragging = false;
+    let pointerId = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    let startX = 0;
+    let startY = 0;
+    let shouldCancelClick = false;
+
+    const canStartDrag = () => {
+        if (!mobileAlphaNavMediaQuery.matches) {
+            return false;
+        }
+
+        if (alphaNavOverlay && alphaNavOverlay.classList.contains('is-active')) {
+            return false;
+        }
+
+        return true;
+    };
+
+    const persistPosition = () => {
+        if (!alphaNavToggle) {
+            return;
+        }
+
+        const rect = alphaNavToggle.getBoundingClientRect();
+        const clamped = applyAlphaNavTogglePosition(rect.left, rect.top);
+        if (!clamped) {
+            return;
+        }
+
+        try {
+            localStorage.setItem(ALPHA_NAV_TOGGLE_STORAGE_KEY, JSON.stringify(clamped));
+        } catch (error) {
+            console.warn('Failed to store alpha nav toggle position:', error);
+        }
+    };
+
+    const beginDrag = (clientX, clientY, id = null) => {
+        if (!canStartDrag()) {
+            return false;
+        }
+
+        pointerDown = true;
+        isDragging = false;
+        shouldCancelClick = false;
+        pointerId = id;
+        startX = clientX;
+        startY = clientY;
+
+        const rect = alphaNavToggle.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+
+        alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
+        return true;
+    };
+
+    const updateDrag = (clientX, clientY) => {
+        if (!pointerDown) {
+            return false;
+        }
+
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        if (!isDragging && Math.hypot(deltaX, deltaY) >= ALPHA_NAV_DRAG_THRESHOLD) {
+            isDragging = true;
+            shouldCancelClick = true;
+            alphaNavToggle.classList.add('alpha-nav-toggle--dragged');
+            alphaNavToggle.classList.add('alpha-nav-toggle--dragging');
+
+            if (supportsPointerEvents && pointerId !== null && typeof alphaNavToggle.setPointerCapture === 'function') {
+                try {
+                    alphaNavToggle.setPointerCapture(pointerId);
+                } catch (error) {
+                    // Ignore errors from pointer capture (e.g., unsupported pointers)
+                }
+            }
+        }
+
+        if (!isDragging) {
+            return false;
+        }
+
+        return Boolean(applyAlphaNavTogglePosition(clientX - offsetX, clientY - offsetY));
+    };
+
+    const endDrag = (event, { cancelled = false } = {}) => {
+        if (!pointerDown) {
+            return;
+        }
+
+        pointerDown = false;
+
+        if (supportsPointerEvents && typeof alphaNavToggle.releasePointerCapture === 'function' && pointerId !== null) {
+            try {
+                alphaNavToggle.releasePointerCapture(pointerId);
+            } catch (error) {
+                // Ignore errors from releasing pointer capture
+            }
+        }
+
+        if (isDragging && !cancelled) {
+            if (event) {
+                if (typeof event.preventDefault === 'function') {
+                    event.preventDefault();
+                }
+                if (typeof event.stopPropagation === 'function') {
+                    event.stopPropagation();
+                }
+            }
+            persistPosition();
+        }
+
+        alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
+        pointerId = null;
+        isDragging = false;
+    };
+
+    const handleClick = (event) => {
+        if (!shouldCancelClick) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        shouldCancelClick = false;
+    };
+
+    const handleResize = () => {
+        if (!mobileAlphaNavMediaQuery.matches || !alphaNavToggle.classList.contains('alpha-nav-toggle--dragged')) {
+            return;
+        }
+
+        persistPosition();
+    };
+
+    const handlePointerDown = (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) {
+            return;
+        }
+
+        if (!beginDrag(event.clientX, event.clientY, event.pointerId)) {
+            return;
+        }
+
+        if (typeof alphaNavToggle.setPointerCapture === 'function') {
+            try {
+                alphaNavToggle.setPointerCapture(event.pointerId);
+            } catch (error) {
+                // Ignore errors from pointer capture failures
+            }
+        }
+
+        if (event.pointerType === 'touch' && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
+    };
+
+    const handlePointerMove = (event) => {
+        if (!pointerDown || (pointerId !== null && event.pointerId !== pointerId)) {
+            return;
+        }
+
+        if (updateDrag(event.clientX, event.clientY)) {
+            if (typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
+        }
+    };
+
+    const handlePointerUp = (event) => {
+        if (pointerId !== null && event.pointerId !== pointerId) {
+            return;
+        }
+
+        endDrag(event);
+    };
+
+    const handlePointerCancel = (event) => {
+        if (pointerId !== null && event.pointerId !== pointerId) {
+            return;
+        }
+
+        endDrag(null, { cancelled: true });
+        shouldCancelClick = false;
+    };
+
+    if (supportsPointerEvents) {
+        alphaNavToggle.addEventListener('pointerdown', handlePointerDown, { passive: false });
+        window.addEventListener('pointermove', handlePointerMove, { passive: false });
+        window.addEventListener('pointerup', handlePointerUp, true);
+        window.addEventListener('pointercancel', handlePointerCancel, true);
+    } else {
+        const handleTouchStart = (event) => {
+            if (event.touches.length !== 1) {
+                return;
+            }
+
+            const touch = event.touches[0];
+            if (!beginDrag(touch.clientX, touch.clientY, 'touch')) {
+                return;
+            }
+
+            event.preventDefault();
+        };
+
+        const handleTouchMove = (event) => {
+            if (!pointerDown) {
+                return;
+            }
+
+            const touch = event.touches[0];
+            if (!touch) {
+                return;
+            }
+
+            if (updateDrag(touch.clientX, touch.clientY)) {
+                event.preventDefault();
+            }
+        };
+
+        const handleTouchEnd = (event) => {
+            if (!pointerDown) {
+                return;
+            }
+
+            endDrag(event);
+        };
+
+        const handleTouchCancel = () => {
+            if (!pointerDown) {
+                return;
+            }
+
+            endDrag(null, { cancelled: true });
+            shouldCancelClick = false;
+        };
+
+        const handleMouseMove = (event) => {
+            if (!pointerDown) {
+                return;
+            }
+
+            if (updateDrag(event.clientX, event.clientY)) {
+                event.preventDefault();
+            }
+        };
+
+        const handleMouseUp = (event) => {
+            if (!pointerDown) {
+                return;
+            }
+
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', handleMouseUp, true);
+
+            endDrag(event);
+        };
+
+        const handleMouseDown = (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+
+            if (!beginDrag(event.clientX, event.clientY, 'mouse')) {
+                return;
+            }
+
+            event.preventDefault();
+
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp, true);
+        };
+
+        alphaNavToggle.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd);
+        window.addEventListener('touchcancel', handleTouchCancel);
+        alphaNavToggle.addEventListener('mousedown', handleMouseDown);
+    }
+
+    alphaNavToggle.addEventListener('click', handleClick, true);
+    window.addEventListener('resize', handleResize);
+}
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     try {
@@ -573,6 +963,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set up alphabetical navigation
         setupAlphaNav();
+        setupAlphaNavToggleDrag();
 
         if (alphaNavToggle && alphaNavOverlay) {
             alphaNavToggle.addEventListener('click', () => {
@@ -599,6 +990,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const handleAlphaNavViewportChange = (event) => {
             if (!event.matches) {
                 closeAlphaOverlay({ restoreFocus: false });
+                resetAlphaNavTogglePosition();
+            } else {
+                restoreAlphaNavTogglePositionFromStorage();
             }
         };
 
