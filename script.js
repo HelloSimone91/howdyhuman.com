@@ -60,6 +60,11 @@ let currentAccordionSection = null;
 const mobileAlphaNavMediaQuery = window.matchMedia('(max-width: 1023px)');
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
+let filtersSheetBackdrop;
+let filtersSheetClose;
+let filtersSheetApply;
+let filtersSheetReset;
+let lastFiltersSheetTrigger = null;
 
 // Alphabet helper
 function getAlphabetForLanguage(lang) {
@@ -158,7 +163,13 @@ const i18n = {
             showMore: 'Show More',
             showLess: 'Show Less',
             noActiveFilters: 'No active filters',
-            clearAll: 'Clear All Filters'
+            clearAll: 'Clear All Filters',
+            sheetTitle: 'Filter & Sort',
+            openSheet: 'Filter & Sort',
+            closeSheet: 'Close Filters',
+            reset: 'Reset',
+            apply: 'Apply',
+            collapsedHint: 'Filters are hidden. Choose “Show Filters” to make updates.'
         },
         footer: {
             learnMore: 'Learn more about this project'
@@ -245,7 +256,13 @@ const i18n = {
             showMore: 'Mostrar más',
             showLess: 'Mostrar menos',
             noActiveFilters: 'No hay filtros activos',
-            clearAll: 'Borrar todos los filtros'
+            clearAll: 'Borrar todos los filtros',
+            sheetTitle: 'Filtrar y ordenar',
+            openSheet: 'Filtrar y ordenar',
+            closeSheet: 'Cerrar filtros',
+            reset: 'Restablecer',
+            apply: 'Aplicar',
+            collapsedHint: 'Los filtros están ocultos. Elige «Mostrar filtros» para actualizarlos.'
         },
         footer: {
             learnMore: 'Conoce más sobre este proyecto'
@@ -345,19 +362,53 @@ function updateFilterToggleUI() {
     const toggleText = document.getElementById('toggleFiltersText');
     const icon = document.getElementById('toggleFiltersIcon');
     const isCollapsed = filtersContainer.classList.contains('collapsed');
+    const isMobile = accordionMediaQuery.matches;
+    const sheetOpen = isFiltersSheetOpen();
 
     if (toggleText) {
-        toggleText.textContent = translate(isCollapsed ? 'filters.showFilters' : 'filters.hideFilters');
+        if (isMobile) {
+            toggleText.textContent = translate(sheetOpen ? 'filters.closeSheet' : 'filters.openSheet');
+        } else {
+            toggleText.textContent = translate(isCollapsed ? 'filters.showFilters' : 'filters.hideFilters');
+        }
     }
 
     if (icon) {
-        icon.classList.toggle('fa-chevron-down', isCollapsed);
-        icon.classList.toggle('fa-chevron-up', !isCollapsed);
+        if (isMobile) {
+            icon.style.display = 'none';
+        } else {
+            icon.style.display = '';
+            icon.classList.toggle('fa-chevron-down', isCollapsed);
+            icon.classList.toggle('fa-chevron-up', !isCollapsed);
+        }
     }
+
+    if (filtersCollapsedHint) {
+        const hintVisible = !isMobile && isCollapsed;
+        filtersCollapsedHint.classList.toggle('is-visible', hintVisible);
+        filtersCollapsedHint.setAttribute('aria-hidden', hintVisible ? 'false' : 'true');
+        if (hintVisible && filtersContainer) {
+            filtersCollapsedHint.setAttribute('data-related-control', filtersContainer.id);
+        } else {
+            filtersCollapsedHint.removeAttribute('data-related-control');
+        }
+    }
+
+    toggleFilters.setAttribute('aria-expanded', isMobile ? (sheetOpen ? 'true' : 'false') : (!isCollapsed ? 'true' : 'false'));
 }
 
 function setFiltersCollapsed(isCollapsed) {
     if (!filtersContainer) return;
+    if (accordionMediaQuery.matches) {
+        if (isCollapsed) {
+            closeFiltersSheet({ restoreFocus: false, skipToggleUpdate: true });
+        } else {
+            openFiltersSheet({ restoreFocus: false, skipToggleUpdate: true });
+        }
+        updateFilterToggleUI();
+        return;
+    }
+
     filtersContainer.classList.toggle('collapsed', isCollapsed);
     updateFilterToggleUI();
 }
@@ -397,7 +448,8 @@ function applyTranslations() {
     let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
         toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
-        alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle;
+        alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle,
+        filtersSheetTitle, filtersCollapsedHint;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -453,6 +505,12 @@ document.addEventListener('DOMContentLoaded', function() {
         filterCount = document.getElementById('filterCount');
         toggleFilters = document.getElementById('toggleFilters');
         filtersContainer = document.getElementById('filtersContainer');
+        filtersSheetBackdrop = document.getElementById('filtersSheetBackdrop');
+        filtersSheetClose = document.getElementById('filtersSheetClose');
+        filtersSheetApply = document.getElementById('filtersSheetApply');
+        filtersSheetReset = document.getElementById('filtersSheetReset');
+        filtersSheetTitle = document.getElementById('filtersSheetTitle');
+        filtersCollapsedHint = document.getElementById('filtersCollapsedHint');
         valuesCount = document.getElementById('valuesCount');
         alphaNav = document.getElementById('alphaNav');
         alphaNavList = alphaNav ? alphaNav.querySelector('.alpha-nav-list') : null;
@@ -467,6 +525,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!valuesList) {
             throw new Error('Critical DOM elements could not be found');
         }
+
+        syncFiltersSheetAria(isFiltersSheetOpen());
 
         applyTranslations();
 
@@ -939,9 +999,155 @@ function setupFilterToggle() {
     updateFilterToggleUI();
 
     toggleFilters.addEventListener('click', () => {
-        filtersContainer.classList.toggle('collapsed');
-        updateFilterToggleUI();
+        if (accordionMediaQuery.matches) {
+            if (isFiltersSheetOpen()) {
+                closeFiltersSheet();
+            } else {
+                openFiltersSheet();
+            }
+        } else {
+            filtersContainer.classList.toggle('collapsed');
+            updateFilterToggleUI();
+        }
     });
+
+    if (filtersSheetClose) {
+        filtersSheetClose.addEventListener('click', () => closeFiltersSheet());
+    }
+
+    if (filtersSheetApply) {
+        filtersSheetApply.addEventListener('click', () => closeFiltersSheet());
+    }
+
+    if (filtersSheetReset) {
+        filtersSheetReset.addEventListener('click', () => {
+            clearAllFilters();
+            if (accordionMediaQuery.matches) {
+                filtersContainer.focus({ preventScroll: true });
+            }
+        });
+    }
+
+    if (filtersSheetBackdrop) {
+        filtersSheetBackdrop.addEventListener('click', () => closeFiltersSheet());
+    }
+
+    document.addEventListener('keydown', handleFiltersSheetKeydown);
+}
+
+function isFiltersSheetOpen() {
+    return document.body.classList.contains('filters-sheet-open');
+}
+
+function syncFiltersSheetAria(isOpen) {
+    if (!filtersContainer) return;
+    const isMobile = accordionMediaQuery.matches;
+
+    if (!isMobile) {
+        filtersContainer.setAttribute('role', 'region');
+        filtersContainer.setAttribute('aria-hidden', 'false');
+        filtersContainer.removeAttribute('aria-modal');
+        return;
+    }
+
+    filtersContainer.setAttribute('role', 'dialog');
+    filtersContainer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    if (isOpen) {
+        filtersContainer.setAttribute('aria-modal', 'true');
+    } else {
+        filtersContainer.removeAttribute('aria-modal');
+    }
+}
+
+function openFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {}) {
+    if (!filtersContainer) return;
+
+    if (!accordionMediaQuery.matches) {
+        syncFiltersSheetAria(false);
+        filtersContainer.classList.remove('collapsed');
+        if (!skipToggleUpdate) {
+            updateFilterToggleUI();
+        }
+        return;
+    }
+
+    if (isFiltersSheetOpen()) {
+        syncFiltersSheetAria(true);
+        if (restoreFocus) {
+            filtersContainer.focus({ preventScroll: true });
+        }
+        return;
+    }
+
+    if (document.activeElement instanceof HTMLElement) {
+        lastFiltersSheetTrigger = document.activeElement;
+    }
+
+    document.body.classList.add('filters-sheet-open');
+    filtersContainer.classList.remove('collapsed');
+    if (filtersSheetBackdrop) {
+        filtersSheetBackdrop.classList.add('is-active');
+        filtersSheetBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    syncFiltersSheetAria(true);
+
+    if (!skipToggleUpdate) {
+        updateFilterToggleUI();
+    }
+
+    if (restoreFocus) {
+        requestAnimationFrame(() => {
+            const focusTarget = filtersSheetClose instanceof HTMLElement ? filtersSheetClose : filtersContainer;
+            focusTarget.focus({ preventScroll: true });
+        });
+    }
+}
+
+function closeFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {}) {
+    if (!filtersContainer) return;
+    const isMobile = accordionMediaQuery.matches;
+    const wasOpen = isFiltersSheetOpen();
+
+    document.body.classList.remove('filters-sheet-open');
+    if (filtersSheetBackdrop) {
+        filtersSheetBackdrop.classList.remove('is-active');
+        filtersSheetBackdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    if (!isMobile) {
+        syncFiltersSheetAria(false);
+        if (!skipToggleUpdate) {
+            updateFilterToggleUI();
+        }
+        return;
+    }
+
+    if (!wasOpen) {
+        syncFiltersSheetAria(false);
+        return;
+    }
+
+    filtersContainer.classList.add('collapsed');
+
+    syncFiltersSheetAria(false);
+
+    if (!skipToggleUpdate) {
+        updateFilterToggleUI();
+    }
+
+    if (restoreFocus && lastFiltersSheetTrigger instanceof HTMLElement) {
+        lastFiltersSheetTrigger.focus({ preventScroll: true });
+    }
+
+    lastFiltersSheetTrigger = null;
+}
+
+function handleFiltersSheetKeydown(event) {
+    if (event.key === 'Escape' && accordionMediaQuery.matches && isFiltersSheetOpen()) {
+        event.preventDefault();
+        closeFiltersSheet();
+    }
 }
 
 function setupFilterAccordion() {
@@ -972,16 +1178,15 @@ function setupFilterAccordion() {
         header.addEventListener('click', () => {
             if (!accordionMediaQuery.matches) return;
 
-            if (currentAccordionSection === section) {
-                return;
-            }
+            const isCurrent = currentAccordionSection === section;
+            const shouldExpand = isCurrent ? !section.classList.contains('open') : true;
 
-            if (currentAccordionSection) {
+            if (!isCurrent && currentAccordionSection) {
                 setSectionExpanded(currentAccordionSection, false);
             }
 
-            setSectionExpanded(section, true);
-            currentAccordionSection = section;
+            setSectionExpanded(section, shouldExpand);
+            currentAccordionSection = shouldExpand ? section : null;
         });
     });
 
@@ -1012,6 +1217,8 @@ function handleAccordionModeChange(event) {
     const isMobile = event.matches;
 
     if (!filterAccordionSections.length) {
+        syncFiltersSheetAria(isMobile && isFiltersSheetOpen());
+        updateFilterToggleUI();
         return;
     }
 
@@ -1020,14 +1227,25 @@ function handleAccordionModeChange(event) {
             currentAccordionSection = filterAccordionSections[0].section;
         }
 
+        const sheetOpen = isFiltersSheetOpen();
+
         filterAccordionSections.forEach(({ section }) => {
-            const isActiveSection = section === currentAccordionSection;
+            const isActiveSection = sheetOpen && section === currentAccordionSection;
             setSectionExpanded(section, isActiveSection);
         });
+
+        if (!sheetOpen) {
+            filtersContainer.classList.add('collapsed');
+        }
     } else {
+        closeFiltersSheet({ restoreFocus: false, skipToggleUpdate: true });
+        filtersContainer.classList.remove('collapsed');
         filterAccordionSections.forEach(({ section }) => setSectionExpanded(section, true));
         currentAccordionSection = null;
     }
+
+    syncFiltersSheetAria(isMobile && isFiltersSheetOpen());
+    updateFilterToggleUI();
 }
 
 // Setup match type toggle
