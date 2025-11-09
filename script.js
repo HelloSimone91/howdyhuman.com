@@ -160,6 +160,8 @@ const i18n = {
             categories: 'Categories',
             verbs: 'Verbs',
             verbsCaption: 'tags',
+            categorySearchPlaceholder: 'Search categories',
+            tagSearchPlaceholder: 'Search verbs',
             activeFilters: 'Active Filters',
             showFilters: 'Show Filters',
             hideFilters: 'Hide Filters',
@@ -256,6 +258,8 @@ const i18n = {
             categories: 'Categorías',
             verbs: 'Verbos',
             verbsCaption: 'etiquetas',
+            categorySearchPlaceholder: 'Buscar categorías',
+            tagSearchPlaceholder: 'Buscar verbos',
             activeFilters: 'Filtros activos',
             showFilters: 'Mostrar filtros',
             hideFilters: 'Ocultar filtros',
@@ -458,7 +462,7 @@ function applyTranslations() {
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
         toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
         alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle,
-        filtersSheetTitle, filtersCollapsedHint;
+        filtersSheetTitle, filtersCollapsedHint, categoryFilterSearch, tagFilterSearch;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -726,6 +730,8 @@ document.addEventListener('DOMContentLoaded', function() {
         sortSelect = document.getElementById('sortSelect');
         tagFilters = document.getElementById('tagFilters');
         categoryFilters = document.getElementById('categoryFilters');
+        categoryFilterSearch = document.getElementById('categoryFilterSearch');
+        tagFilterSearch = document.getElementById('tagFilterSearch');
         valuesList = document.getElementById('valuesList');
         matchAll = document.getElementById('matchAll');
         matchAny = document.getElementById('matchAny');
@@ -1757,6 +1763,7 @@ function initializeValuesDictionary() {
 
         // Ensure the alphabetical navigation reflects the rendered content
         setupAlphaNav();
+        setupFilterSearchInputs();
 
     } catch (error) {
         console.error("Error initializing dictionary:", error);
@@ -1775,6 +1782,36 @@ function initializeValuesDictionary() {
             `;
         }
     }
+}
+
+function setupFilterSearchInputs() {
+    attachFilterSearchListener(categoryFilterSearch, categoryFilters);
+    attachFilterSearchListener(tagFilterSearch, tagFilters);
+}
+
+function attachFilterSearchListener(input, container) {
+    if (!input || !container) return;
+
+    if (input._filterSearchHandler) {
+        input.removeEventListener('input', input._filterSearchHandler);
+        input.removeEventListener('search', input._filterSearchHandler);
+    }
+
+    const handler = () => {
+        const query = (input.value || '').trim().toLowerCase();
+
+        Array.from(container.children).forEach(child => {
+            if (!(child instanceof HTMLElement)) return;
+            const text = child.textContent || '';
+            const matches = text.toLowerCase().includes(query);
+            child.style.display = matches ? '' : 'none';
+        });
+    };
+
+    input._filterSearchHandler = handler;
+    input.addEventListener('input', handler);
+    input.addEventListener('search', handler);
+    handler();
 }
 
 // Update active filters display

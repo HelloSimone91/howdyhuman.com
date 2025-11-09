@@ -204,6 +204,29 @@ button, .value-card-toggle, .status-action-button {
     padding-bottom: 0.5rem;
 }
 
+.filter-search-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--card-border);
+    border-radius: 9999px;
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-search-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(186, 104, 200, 0.2);
+}
+
+.filter-search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
 .show-more-btn {
     display: none;
     width: 100%;
