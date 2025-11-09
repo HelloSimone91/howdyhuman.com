@@ -85,13 +85,18 @@ button, .value-card-toggle, .status-action-button {
     margin-bottom: 0.5rem;
     display: inline-flex;
     align-items: center;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.25;
+    -webkit-appearance: none;
+    appearance: none;
     transition: all 0.2s ease;
 }
 
 .tag:hover {
     background-color: var(--accent-primary);
     color: var(--card-bg);
-    cursor: pointer;
 }
 
 .tag.selected {
@@ -101,6 +106,11 @@ button, .value-card-toggle, .status-action-button {
 
 .tag.selected:hover {
     background-color: var(--support-sky);
+}
+
+.tag:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
 }
 
 .tag-icon {

@@ -1714,11 +1714,9 @@ function initializeValuesDictionary() {
 
             // Create tag filters
             Array.from(allTags).sort(compareByName).forEach(tag => {
-                const tagContainer = document.createElement('div');
-                tagContainer.classList.add('flex', 'items-center');
-
                 // Create tag element for filter section
-                const tagElement = document.createElement('span');
+                const tagElement = document.createElement('button');
+                tagElement.type = 'button';
                 tagElement.textContent = tag;
                 tagElement.classList.add('tag');
                 tagElement.dataset.tag = tag;
@@ -1729,27 +1727,48 @@ function initializeValuesDictionary() {
                 countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
                 tagElement.appendChild(countSpan);
 
-                // Add click event to toggle selection
-                tagElement.addEventListener('click', () => {
-                    tagElement.classList.toggle('selected');
+                const isInitiallySelected = filterState.tags.includes(tag);
+                tagElement.classList.toggle('selected', isInitiallySelected);
+                tagElement.setAttribute('aria-pressed', isInitiallySelected ? 'true' : 'false');
+                if (isInitiallySelected && !tagElement.querySelector('.tag-icon')) {
+                    const icon = document.createElement('i');
+                    icon.classList.add('fas', 'fa-check', 'tag-icon');
+                    tagElement.prepend(icon);
+                }
 
-                    if (tagElement.classList.contains('selected')) {
-                        const icon = document.createElement('i');
-                        icon.classList.add('fas', 'fa-check', 'tag-icon');
-                        tagElement.prepend(icon);
+                const toggleTag = () => {
+                    const tagName = tagElement.dataset.tag;
+                    const willSelect = !tagElement.classList.contains('selected');
+                    tagElement.classList.toggle('selected', willSelect);
+                    tagElement.setAttribute('aria-pressed', willSelect ? 'true' : 'false');
 
-                        if (!filterState.tags.includes(tag)) {
-                            filterState.tags.push(tag);
+                    if (willSelect) {
+                        if (!tagElement.querySelector('.tag-icon')) {
+                            const icon = document.createElement('i');
+                            icon.classList.add('fas', 'fa-check', 'tag-icon');
+                            tagElement.prepend(icon);
+                        }
+
+                        if (!filterState.tags.includes(tagName)) {
+                            filterState.tags.push(tagName);
                         }
                     } else {
                         const icon = tagElement.querySelector('.tag-icon');
                         if (icon) icon.remove();
 
-                        filterState.tags = filterState.tags.filter(t => t !== tag);
+                        filterState.tags = filterState.tags.filter(t => t !== tagName);
                     }
 
                     filterValues();
                     updateActiveFilters();
+                };
+
+                tagElement.addEventListener('click', toggleTag);
+                tagElement.addEventListener('keydown', (event) => {
+                    if (event.key === ' ' || event.key === 'Enter' || event.key === 'Spacebar' || event.key === 'Space') {
+                        event.preventDefault();
+                        toggleTag();
+                    }
                 });
 
                 tagFilters.appendChild(tagElement);
@@ -1922,6 +1941,7 @@ function updateTagSelection(tag, isSelected) {
     tagElements.forEach(tagElement => {
         if (tagElement.dataset.tag === tag) {
             tagElement.classList.toggle('selected', isSelected);
+            tagElement.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
 
             if (isSelected && !tagElement.querySelector('.tag-icon')) {
                 const icon = document.createElement('i');
