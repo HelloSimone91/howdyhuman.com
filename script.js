@@ -1640,7 +1640,9 @@ function initializeValuesDictionary() {
 
         // Filter out verbs that only appear once
         const verbCounts = {};
+        const categoryCounts = {};
         values.forEach(value => {
+            categoryCounts[value.category] = (categoryCounts[value.category] || 0) + 1;
             value.tags.forEach(tag => {
                 verbCounts[tag] = (verbCounts[tag] || 0) + 1;
             });
@@ -1654,7 +1656,7 @@ function initializeValuesDictionary() {
         // Populate category filters
         if (categoryFilters) {
             // Get unique categories
-            const categories = [...new Set(values.map(value => value.category))].sort(compareByName);
+            const categories = Object.keys(categoryCounts).sort(compareByName);
 
             // Create category filters
             categories.forEach(category => {
@@ -1683,9 +1685,8 @@ function initializeValuesDictionary() {
                 label.classList.add('text-sm', 'select-none');
 
                 // Count values in this category
-                const count = values.filter(value => value.category === category).length;
                 const countSpan = document.createElement('span');
-                countSpan.textContent = `(${count})`;
+                countSpan.textContent = `(${categoryCounts[category] || 0})`;
                 countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
                 label.appendChild(countSpan);
 
@@ -1717,9 +1718,8 @@ function initializeValuesDictionary() {
                 tagElement.dataset.tag = tag;
 
                 // Count values with this tag
-                const count = values.filter(value => value.tags.includes(tag)).length;
                 const countSpan = document.createElement('span');
-                countSpan.textContent = `(${count})`;
+                countSpan.textContent = `(${verbCounts[tag] || 0})`;
                 countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
                 tagElement.appendChild(countSpan);
 
