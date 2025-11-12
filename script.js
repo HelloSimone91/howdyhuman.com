@@ -2094,6 +2094,8 @@ function displayValues(valuesToDisplay) {
 
         valuesList.innerHTML = '';
 
+        const shouldAutoExpandFirstCard = valuesList.dataset.initialCardExpanded !== 'true';
+
         // Update the count of filtered values
         updateValuesCount(valuesToDisplay.length);
 
@@ -2165,6 +2167,8 @@ function displayValues(valuesToDisplay) {
         });
 
         // Create sections for each letter
+        let renderedCardCount = 0;
+
         sortedLetters.forEach(letter => {
             // Create section header
             const sectionHeader = document.createElement('div');
@@ -2358,6 +2362,13 @@ function displayValues(valuesToDisplay) {
                     toggleButton.setAttribute('aria-expanded', String(isExpanded));
                 };
 
+                const shouldExpandThisCard = shouldAutoExpandFirstCard && renderedCardCount === 0;
+                if (shouldExpandThisCard) {
+                    card.classList.add('expanded');
+                }
+
+                updateToggleState(shouldExpandThisCard);
+
                 toggleButton.addEventListener('click', () => {
                     card.classList.toggle('expanded');
                     updateToggleState(card.classList.contains('expanded'));
@@ -2376,8 +2387,13 @@ function displayValues(valuesToDisplay) {
                 card.appendChild(toggleButton);
 
                 valuesList.appendChild(card);
+                renderedCardCount += 1;
             });
         });
+
+        if (shouldAutoExpandFirstCard && valuesToDisplay.length > 0) {
+            valuesList.dataset.initialCardExpanded = 'true';
+        }
 
         // Add anchor for bottom of page
         const bottomAnchor = document.createElement('div');
