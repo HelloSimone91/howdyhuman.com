@@ -1,16 +1,17 @@
 :root {
-    /* Howdy Human – Neutral Medium Mode palette */
-    --background: #c3c3e5;
-    --text-callout: #FFFFFF;
-    --text-primary: #2E2E2E;
-    --text-secondary: #666666;
-    --primary-coral: #BA68C8; /* Updated primary accent to purple */
-    --primary-aqua: #3DDCC7;
-    --tertiary-gold: #FBC02D;
-    --support-purple: #A8B8C8;
-    --support-sky: #4FC3F7;
-    --support-orange: #FBC686;
-    --support-lavender: #CBD4F4;
+    /* Howdy Human – Vivid Flow palette */
+    --background: #e3e2f6;
+    --bg-main-rgb: 227, 226, 246;
+    --text-callout: #f8e9f7;
+    --text-primary: #1f2346;
+    --text-secondary: #4b4c6d;
+    --primary-coral: #c13ba3;
+    --primary-aqua: #0f7ae5;
+    --tertiary-gold: #f28c1b;
+    --support-purple: #7a3fbf;
+    --support-sky: #2a64b7;
+    --support-orange: #f7a75c;
+    --support-lavender: #d3b4ff;
 
     /* Interface colors */
     --bg-main: var(--background);
@@ -18,19 +19,45 @@
     --card-bg: var(--text-callout);
     --accent-primary: var(--primary-coral);
     --accent-secondary: var(--primary-aqua);
-    --card-border: var(--support-purple);
-    --section-label: #0A3E93; /* Section headings */
-    --header-text: #0A3E93; /* General headings */
+    --accent-primary-rgb: 193, 59, 163;
+    --accent-secondary-rgb: 15, 122, 229;
+    --support-sky-rgb: 42, 100, 183;
+    --dictionary-fade-start: clamp(360px, 42vh, 560px);
+    --section-label: #2a64b7; /* Section headings */
+    --section-label-rgb: 42, 100, 183;
+    --header-text: #2a64b7; /* General headings */
     --dark-text: var(--text-secondary);
-    --btn-hover: #9C27B0; /* Darker purple */
-    --filter-bg: #EEF0FF; /* Slightly darker than background */
-    --tag-bg: #E8ECFF; /* Pale lavender for tags */
+    --btn-hover: #8c2d8f; /* Darker magenta */
+    --filter-bg: #e5e4ff; /* Soft violet wash */
+    --tag-bg: #ffbd45; /* Goldenrod tags */
+    --card-border: var(--support-purple);
 }
 
 body {
     background-color: var(--bg-main);
+    background-image:
+        linear-gradient(
+            180deg,
+            rgba(var(--bg-main-rgb), 0) 0%,
+            rgba(var(--bg-main-rgb), 0) calc(var(--dictionary-fade-start) - 80px),
+            rgba(var(--bg-main-rgb), 0.65) var(--dictionary-fade-start),
+            rgba(var(--bg-main-rgb), 1) 100%
+        ),
+        radial-gradient(circle at 15% 20%, rgba(var(--accent-secondary-rgb), 0.35), transparent 70%),
+        radial-gradient(circle at 85% 10%, rgba(var(--support-sky-rgb), 0.28), transparent 70%),
+        radial-gradient(circle at 40% 85%, rgba(var(--accent-primary-rgb), 0.25), transparent 70%);
+    background-attachment: scroll, fixed, fixed, fixed;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
     color: var(--text-main);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-purple-600 {
+    color: var(--accent-primary) !important;
+}
+
+.hover\:text-purple-800:hover {
+    color: var(--support-purple) !important;
 }
 
 body.alpha-nav-open {
@@ -172,7 +199,7 @@ button, .value-card-toggle, .status-action-button {
 .filters-sheet-reset:hover,
 .filters-sheet-reset:focus-visible {
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(186, 104, 200, 0.2);
+    box-shadow: 0 4px 10px rgba(var(--accent-primary-rgb), 0.2);
 }
 
 .filters-sheet-apply {
@@ -184,7 +211,7 @@ button, .value-card-toggle, .status-action-button {
 .filters-sheet-apply:hover,
 .filters-sheet-apply:focus-visible {
     transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(186, 104, 200, 0.35);
+    box-shadow: 0 6px 15px rgba(var(--accent-primary-rgb), 0.35);
 }
 
 .filters-sheet-backdrop {
@@ -229,7 +256,7 @@ button, .value-card-toggle, .status-action-button {
 .filter-search-input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(186, 104, 200, 0.2);
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.2);
 }
 
 .filter-search-input::placeholder {
@@ -471,7 +498,7 @@ button, .value-card-toggle, .status-action-button {
 .main-search-input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 5px rgba(186, 104, 200, 0.2);
+    box-shadow: 0 0 0 5px rgba(var(--accent-primary-rgb), 0.2);
 }
 
 .main-search-icon {
@@ -534,11 +561,11 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .shared-tag {
-    background-color: rgba(186, 104, 200, 0.1);
+    background-color: rgba(var(--accent-primary-rgb), 0.1);
     color: var(--accent-primary);
     padding: 0.125rem 0.375rem;
     border-radius: 4px;
-    border: 1px solid rgba(186, 104, 200, 0.3);
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.3);
 }
 
 .related-tooltip {
@@ -553,7 +580,7 @@ button, .value-card-toggle, .status-action-button {
     transition: transform 0.2s ease;
     font-size: 0.75rem;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(var(--accent-secondary-rgb), 0.2);
 }
 
 .related-value-card:hover .related-tooltip {
@@ -622,8 +649,8 @@ button, .value-card-toggle, .status-action-button {
     display: none;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(128, 90, 213, 0.12);
-    border: 1px dashed rgba(128, 90, 213, 0.45);
+    background: rgba(var(--support-sky-rgb), 0.12);
+    border: 1px dashed rgba(var(--support-sky-rgb), 0.45);
     border-radius: 10px;
     color: var(--text-secondary);
     font-size: 0.95rem;
@@ -652,7 +679,7 @@ button, .value-card-toggle, .status-action-button {
     gap: 1rem;
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(128, 90, 213, 0.2);
+    border-top: 1px solid rgba(var(--support-sky-rgb), 0.2);
 }
 
 .filters-footer__summary {
@@ -770,7 +797,7 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .alpha-nav-list::-webkit-scrollbar-thumb {
-    background-color: rgba(128, 90, 213, 0.35);
+    background-color: rgba(var(--support-sky-rgb), 0.35);
     border-radius: 999px;
 }
 
@@ -797,7 +824,7 @@ button, .value-card-toggle, .status-action-button {
 .alpha-nav-link:focus-visible {
     color: var(--accent-primary);
     outline: none;
-    text-shadow: 0 4px 12px rgba(128, 90, 213, 0.35);
+    text-shadow: 0 4px 12px rgba(var(--support-sky-rgb), 0.35);
     transform: scale(1.3);
 }
 
@@ -814,7 +841,7 @@ button, .value-card-toggle, .status-action-button {
 
 .alpha-nav-item.active .alpha-nav-link {
     color: var(--accent-primary);
-    text-shadow: 0 6px 18px rgba(128, 90, 213, 0.45);
+    text-shadow: 0 6px 18px rgba(var(--support-sky-rgb), 0.45);
     transform: scale(1.35);
 }
 
@@ -823,12 +850,12 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .alpha-nav-vertical::-webkit-scrollbar-thumb {
-    background-color: rgba(128, 90, 213, 0.35);
+    background-color: rgba(var(--support-sky-rgb), 0.35);
     border-radius: 999px;
 }
 
 .alpha-nav-vertical::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(128, 90, 213, 0.6);
+    background-color: rgba(var(--support-sky-rgb), 0.6);
 }
 
 @media (min-width: 1024px) {
@@ -891,7 +918,7 @@ button, .value-card-toggle, .status-action-button {
     height: 44px;
     border-radius: 50%;
     border: none;
-    background: rgba(128, 90, 213, 0.1);
+    background: rgba(var(--support-sky-rgb), 0.1);
     color: var(--accent-primary);
     font-size: 1.1rem;
     cursor: pointer;
@@ -900,7 +927,7 @@ button, .value-card-toggle, .status-action-button {
 
 .alpha-nav-overlay-close:hover,
 .alpha-nav-overlay-close:focus-visible {
-    background: rgba(128, 90, 213, 0.18);
+    background: rgba(var(--support-sky-rgb), 0.18);
     transform: rotate(90deg);
     outline: none;
 }
@@ -929,7 +956,7 @@ button, .value-card-toggle, .status-action-button {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--accent-primary);
-    background: rgba(128, 90, 213, 0.08);
+    background: rgba(var(--support-sky-rgb), 0.08);
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -939,15 +966,15 @@ button, .value-card-toggle, .status-action-button {
 .alpha-nav-overlay-link:hover,
 .alpha-nav-overlay-link:focus-visible {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(128, 90, 213, 0.28);
-    background: rgba(128, 90, 213, 0.15);
+    box-shadow: 0 12px 30px rgba(var(--support-sky-rgb), 0.28);
+    background: rgba(var(--support-sky-rgb), 0.15);
     outline: none;
 }
 
 .alpha-nav-overlay-link.active {
     transform: translateY(-6px) scale(1.08);
-    background: linear-gradient(135deg, rgba(128, 90, 213, 0.2), rgba(61, 220, 199, 0.25));
-    box-shadow: 0 18px 40px rgba(128, 90, 213, 0.35);
+    background: linear-gradient(135deg, rgba(var(--support-sky-rgb), 0.2), rgba(var(--accent-secondary-rgb), 0.25));
+    box-shadow: 0 18px 40px rgba(var(--support-sky-rgb), 0.35);
 }
 
 .alpha-nav-overlay-link.is-disabled {
@@ -981,7 +1008,7 @@ button, .value-card-toggle, .status-action-button {
         font-weight: 600;
         font-size: 1rem;
         cursor: pointer;
-        box-shadow: 0 12px 30px rgba(128, 90, 213, 0.35);
+        box-shadow: 0 12px 30px rgba(var(--support-sky-rgb), 0.35);
         position: fixed;
         top: 50%;
         left: 50%;
@@ -996,11 +1023,11 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-toggle:hover {
         outline: none;
         transform: translate(-50%, -50%) scale(1.03);
-        box-shadow: 0 16px 40px rgba(128, 90, 213, 0.45);
+        box-shadow: 0 16px 40px rgba(var(--support-sky-rgb), 0.45);
     }
 
     .alpha-nav-toggle:focus-visible {
-        outline: 3px solid rgba(255, 255, 255, 0.55);
+        outline: 3px solid rgba(var(--accent-secondary-rgb), 0.55);
         outline-offset: 4px;
     }
 
@@ -1011,11 +1038,11 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-toggle.alpha-nav-toggle--dragged:focus-visible,
     .alpha-nav-toggle.alpha-nav-toggle--dragged:hover {
         transform: none;
-        box-shadow: 0 16px 40px rgba(128, 90, 213, 0.45);
+        box-shadow: 0 16px 40px rgba(var(--support-sky-rgb), 0.45);
     }
 
     .alpha-nav-toggle.alpha-nav-toggle--dragging {
-        box-shadow: 0 18px 36px rgba(128, 90, 213, 0.5);
+        box-shadow: 0 18px 36px rgba(var(--support-sky-rgb), 0.5);
     }
 
     .alpha-nav-toggle-label {
@@ -1029,7 +1056,7 @@ button, .value-card-toggle, .status-action-button {
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(var(--accent-secondary-rgb), 0.35);
         font-weight: 700;
         font-size: 1.1rem;
     }
@@ -1138,7 +1165,7 @@ button, .value-card-toggle, .status-action-button {
     justify-content: center;
     padding: 4px 0;
     margin-top: 8px;
-    border-top: 1px solid rgba(186, 104, 200, 0.1);
+    border-top: 1px solid rgba(var(--accent-primary-rgb), 0.1);
 }
 
 .value-card-toggle i {
@@ -1156,7 +1183,7 @@ button, .value-card-toggle, .status-action-button {
     font-weight: 600;
     margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(10, 62, 147, 0.2);
+    border-bottom: 1px solid rgba(var(--section-label-rgb), 0.2);
 }
 
 .section-label i {
@@ -1168,7 +1195,7 @@ button, .value-card-toggle, .status-action-button {
     margin-top: 40px;
     padding: 20px 0;
     text-align: center;
-    border-top: 1px solid rgba(186, 104, 200, 0.2);
+    border-top: 1px solid rgba(var(--accent-primary-rgb), 0.2);
 }
 
 .footer a {
@@ -1217,13 +1244,13 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .status-success {
-    background-color: rgba(61, 220, 199, 0.1);
+    background-color: rgba(var(--accent-secondary-rgb), 0.1);
     color: var(--accent-secondary);
     border: 1px solid var(--accent-secondary);
 }
 
 .status-error {
-    background-color: rgba(186, 104, 200, 0.1);
+    background-color: rgba(var(--accent-primary-rgb), 0.1);
     color: var(--accent-primary);
     border: 1px solid var(--accent-primary);
 }
@@ -1274,7 +1301,7 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .reset-btn:hover {
-    background-color: #32C8B2;
+    background-color: #35b1c3;
 }
 
 /* Responsive styles */
