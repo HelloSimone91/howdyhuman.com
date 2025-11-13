@@ -120,6 +120,19 @@ function normalizeInitialLetter(name) {
 let currentLanguage = 'en';
 let activeAlphabet = getAlphabetForLanguage(currentLanguage);
 
+const DIACRITIC_PATTERN = /\p{Diacritic}/gu;
+
+function normalizeSearchText(value, lang = currentLanguage) {
+    if (!value) {
+        return '';
+    }
+
+    return value
+        .toLocaleLowerCase(lang)
+        .normalize('NFD')
+        .replace(DIACRITIC_PATTERN, '');
+}
+
 // Internationalization map
 const i18n = {
     en: {
@@ -1547,10 +1560,7 @@ function clearAllFilters() {
 
     // Reset UI elements
     document.querySelectorAll('.tag.selected').forEach(tag => {
-        tag.classList.remove('selected');
-        if (tag.querySelector('.tag-icon')) {
-            tag.querySelector('.tag-icon').remove();
-        }
+        setTagButtonState(tag, false);
     });
 
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
@@ -1645,14 +1655,18 @@ function initializeValuesDictionary() {
 
 
         // Filter out verbs that only appear once
-        const verbCounts = {};
-        const categoryCounts = {};
-        values.forEach(value => {
-            categoryCounts[value.category] = (categoryCounts[value.category] || 0) + 1;
-            value.tags.forEach(tag => {
-                verbCounts[tag] = (verbCounts[tag] || 0) + 1;
-            });
-        });
+        const { categoryCounts, verbCounts } = values.reduce((acc, value) => {
+            const category = value.category;
+            acc.categoryCounts[category] = (acc.categoryCounts[category] || 0) + 1;
+
+            if (Array.isArray(value.tags)) {
+                value.tags.forEach(tag => {
+                    acc.verbCounts[tag] = (acc.verbCounts[tag] || 0) + 1;
+                });
+            }
+
+            return acc;
+        }, { categoryCounts: {}, verbCounts: {} });
 
         // Update values to remove single-occurrence verbs
         values.forEach(value => {
@@ -1728,34 +1742,18 @@ function initializeValuesDictionary() {
                 tagElement.appendChild(countSpan);
 
                 const isInitiallySelected = filterState.tags.includes(tag);
-                tagElement.classList.toggle('selected', isInitiallySelected);
-                tagElement.setAttribute('aria-pressed', isInitiallySelected ? 'true' : 'false');
-                if (isInitiallySelected && !tagElement.querySelector('.tag-icon')) {
-                    const icon = document.createElement('i');
-                    icon.classList.add('fas', 'fa-check', 'tag-icon');
-                    tagElement.prepend(icon);
-                }
+                setTagButtonState(tagElement, isInitiallySelected);
 
                 const toggleTag = () => {
                     const tagName = tagElement.dataset.tag;
                     const willSelect = !tagElement.classList.contains('selected');
-                    tagElement.classList.toggle('selected', willSelect);
-                    tagElement.setAttribute('aria-pressed', willSelect ? 'true' : 'false');
+                    setTagButtonState(tagElement, willSelect);
 
                     if (willSelect) {
-                        if (!tagElement.querySelector('.tag-icon')) {
-                            const icon = document.createElement('i');
-                            icon.classList.add('fas', 'fa-check', 'tag-icon');
-                            tagElement.prepend(icon);
-                        }
-
                         if (!filterState.tags.includes(tagName)) {
                             filterState.tags.push(tagName);
                         }
                     } else {
-                        const icon = tagElement.querySelector('.tag-icon');
-                        if (icon) icon.remove();
-
                         filterState.tags = filterState.tags.filter(t => t !== tagName);
                     }
 
@@ -1765,7 +1763,8 @@ function initializeValuesDictionary() {
 
                 tagElement.addEventListener('click', toggleTag);
                 tagElement.addEventListener('keydown', (event) => {
-                    if (event.key === ' ' || event.key === 'Enter' || event.key === 'Spacebar' || event.key === 'Space') {
+                    const toggleKeys = [' ', 'Enter', 'Spacebar'];
+                    if (toggleKeys.includes(event.key) || event.code === 'Space') {
                         event.preventDefault();
                         toggleTag();
                     }
@@ -1817,12 +1816,12 @@ function attachFilterSearchListener(input, container) {
     }
 
     const handler = () => {
-        const query = (input.value || '').trim().toLowerCase();
+        const query = normalizeSearchText((input.value || '').trim());
 
         Array.from(container.children).forEach(child => {
             if (!(child instanceof HTMLElement)) return;
-            const text = child.textContent || '';
-            const matches = text.toLowerCase().includes(query);
+            const text = normalizeSearchText(child.textContent || '');
+            const matches = text.includes(query);
             child.style.display = matches ? '' : 'none';
         });
     };
@@ -1934,23 +1933,30 @@ function addActiveFilterBadge(text, type) {
     activeFilters.appendChild(badge);
 }
 
+function setTagButtonState(tagElement, isSelected) {
+    tagElement.classList.toggle('selected', isSelected);
+    const ariaState = isSelected ? 'true' : 'false';
+    tagElement.setAttribute('aria-pressed', ariaState);
+
+    if (isSelected) {
+        if (!tagElement.querySelector('.tag-icon')) {
+            const icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-check', 'tag-icon');
+            tagElement.prepend(icon);
+        }
+    } else {
+        const icon = tagElement.querySelector('.tag-icon');
+        if (icon) icon.remove();
+    }
+}
+
 // Update tag selection state
 function updateTagSelection(tag, isSelected) {
     // Update tag in filter section
     const tagElements = tagFilters.querySelectorAll('.tag');
     tagElements.forEach(tagElement => {
         if (tagElement.dataset.tag === tag) {
-            tagElement.classList.toggle('selected', isSelected);
-            tagElement.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-
-            if (isSelected && !tagElement.querySelector('.tag-icon')) {
-                const icon = document.createElement('i');
-                icon.classList.add('fas', 'fa-check', 'tag-icon');
-                tagElement.prepend(icon);
-            } else if (!isSelected) {
-                const icon = tagElement.querySelector('.tag-icon');
-                if (icon) icon.remove();
-            }
+            setTagButtonState(tagElement, isSelected);
         }
     });
 }
@@ -2094,6 +2100,8 @@ function displayValues(valuesToDisplay) {
 
         valuesList.innerHTML = '';
 
+        const shouldAutoExpandFirstCard = valuesList.dataset.initialCardExpanded !== 'true';
+
         // Update the count of filtered values
         updateValuesCount(valuesToDisplay.length);
 
@@ -2165,6 +2173,8 @@ function displayValues(valuesToDisplay) {
         });
 
         // Create sections for each letter
+        let renderedCardCount = 0;
+
         sortedLetters.forEach(letter => {
             // Create section header
             const sectionHeader = document.createElement('div');
@@ -2358,6 +2368,13 @@ function displayValues(valuesToDisplay) {
                     toggleButton.setAttribute('aria-expanded', String(isExpanded));
                 };
 
+                const shouldExpandThisCard = shouldAutoExpandFirstCard && renderedCardCount === 0;
+                if (shouldExpandThisCard) {
+                    card.classList.add('expanded');
+                }
+
+                updateToggleState(shouldExpandThisCard);
+
                 toggleButton.addEventListener('click', () => {
                     card.classList.toggle('expanded');
                     updateToggleState(card.classList.contains('expanded'));
@@ -2376,8 +2393,13 @@ function displayValues(valuesToDisplay) {
                 card.appendChild(toggleButton);
 
                 valuesList.appendChild(card);
+                renderedCardCount += 1;
             });
         });
+
+        if (shouldAutoExpandFirstCard && valuesToDisplay.length > 0) {
+            valuesList.dataset.initialCardExpanded = 'true';
+        }
 
         // Add anchor for bottom of page
         const bottomAnchor = document.createElement('div');
