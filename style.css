@@ -136,8 +136,9 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .tag:focus-visible {
-    outline: 2px solid var(--accent-primary);
+    outline: 3px solid var(--accent-primary);
     outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--card-bg);
 }
 
 .tag-icon {

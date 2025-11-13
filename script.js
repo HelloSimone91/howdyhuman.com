@@ -1560,10 +1560,7 @@ function clearAllFilters() {
 
     // Reset UI elements
     document.querySelectorAll('.tag.selected').forEach(tag => {
-        tag.classList.remove('selected');
-        if (tag.querySelector('.tag-icon')) {
-            tag.querySelector('.tag-icon').remove();
-        }
+        setTagButtonState(tag, false);
     });
 
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
@@ -1745,34 +1742,18 @@ function initializeValuesDictionary() {
                 tagElement.appendChild(countSpan);
 
                 const isInitiallySelected = filterState.tags.includes(tag);
-                tagElement.classList.toggle('selected', isInitiallySelected);
-                tagElement.setAttribute('aria-pressed', isInitiallySelected ? 'true' : 'false');
-                if (isInitiallySelected && !tagElement.querySelector('.tag-icon')) {
-                    const icon = document.createElement('i');
-                    icon.classList.add('fas', 'fa-check', 'tag-icon');
-                    tagElement.prepend(icon);
-                }
+                setTagButtonState(tagElement, isInitiallySelected);
 
                 const toggleTag = () => {
                     const tagName = tagElement.dataset.tag;
                     const willSelect = !tagElement.classList.contains('selected');
-                    tagElement.classList.toggle('selected', willSelect);
-                    tagElement.setAttribute('aria-pressed', willSelect ? 'true' : 'false');
+                    setTagButtonState(tagElement, willSelect);
 
                     if (willSelect) {
-                        if (!tagElement.querySelector('.tag-icon')) {
-                            const icon = document.createElement('i');
-                            icon.classList.add('fas', 'fa-check', 'tag-icon');
-                            tagElement.prepend(icon);
-                        }
-
                         if (!filterState.tags.includes(tagName)) {
                             filterState.tags.push(tagName);
                         }
                     } else {
-                        const icon = tagElement.querySelector('.tag-icon');
-                        if (icon) icon.remove();
-
                         filterState.tags = filterState.tags.filter(t => t !== tagName);
                     }
 
@@ -1782,7 +1763,8 @@ function initializeValuesDictionary() {
 
                 tagElement.addEventListener('click', toggleTag);
                 tagElement.addEventListener('keydown', (event) => {
-                    if (event.key === ' ' || event.key === 'Enter' || event.key === 'Spacebar' || event.key === 'Space') {
+                    const toggleKeys = [' ', 'Enter', 'Spacebar'];
+                    if (toggleKeys.includes(event.key) || event.code === 'Space') {
                         event.preventDefault();
                         toggleTag();
                     }
@@ -1951,23 +1933,30 @@ function addActiveFilterBadge(text, type) {
     activeFilters.appendChild(badge);
 }
 
+function setTagButtonState(tagElement, isSelected) {
+    tagElement.classList.toggle('selected', isSelected);
+    const ariaState = isSelected ? 'true' : 'false';
+    tagElement.setAttribute('aria-pressed', ariaState);
+
+    if (isSelected) {
+        if (!tagElement.querySelector('.tag-icon')) {
+            const icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-check', 'tag-icon');
+            tagElement.prepend(icon);
+        }
+    } else {
+        const icon = tagElement.querySelector('.tag-icon');
+        if (icon) icon.remove();
+    }
+}
+
 // Update tag selection state
 function updateTagSelection(tag, isSelected) {
     // Update tag in filter section
     const tagElements = tagFilters.querySelectorAll('.tag');
     tagElements.forEach(tagElement => {
         if (tagElement.dataset.tag === tag) {
-            tagElement.classList.toggle('selected', isSelected);
-            tagElement.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-
-            if (isSelected && !tagElement.querySelector('.tag-icon')) {
-                const icon = document.createElement('i');
-                icon.classList.add('fas', 'fa-check', 'tag-icon');
-                tagElement.prepend(icon);
-            } else if (!isSelected) {
-                const icon = tagElement.querySelector('.tag-icon');
-                if (icon) icon.remove();
-            }
+            setTagButtonState(tagElement, isSelected);
         }
     });
 }
