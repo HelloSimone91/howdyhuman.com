@@ -120,6 +120,19 @@ function normalizeInitialLetter(name) {
 let currentLanguage = 'en';
 let activeAlphabet = getAlphabetForLanguage(currentLanguage);
 
+const DIACRITIC_PATTERN = /\p{Diacritic}/gu;
+
+function normalizeSearchText(value, lang = currentLanguage) {
+    if (!value) {
+        return '';
+    }
+
+    return value
+        .toLocaleLowerCase(lang)
+        .normalize('NFD')
+        .replace(DIACRITIC_PATTERN, '');
+}
+
 // Internationalization map
 const i18n = {
     en: {
@@ -1817,12 +1830,12 @@ function attachFilterSearchListener(input, container) {
     }
 
     const handler = () => {
-        const query = (input.value || '').trim().toLowerCase();
+        const query = normalizeSearchText((input.value || '').trim());
 
         Array.from(container.children).forEach(child => {
             if (!(child instanceof HTMLElement)) return;
-            const text = child.textContent || '';
-            const matches = text.toLowerCase().includes(query);
+            const text = normalizeSearchText(child.textContent || '');
+            const matches = text.includes(query);
             child.style.display = matches ? '' : 'none';
         });
     };
