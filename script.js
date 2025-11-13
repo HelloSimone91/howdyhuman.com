@@ -1645,14 +1645,18 @@ function initializeValuesDictionary() {
 
 
         // Filter out verbs that only appear once
-        const verbCounts = {};
-        const categoryCounts = {};
-        values.forEach(value => {
-            categoryCounts[value.category] = (categoryCounts[value.category] || 0) + 1;
-            value.tags.forEach(tag => {
-                verbCounts[tag] = (verbCounts[tag] || 0) + 1;
-            });
-        });
+        const { categoryCounts, verbCounts } = values.reduce((acc, value) => {
+            const category = value.category;
+            acc.categoryCounts[category] = (acc.categoryCounts[category] || 0) + 1;
+
+            if (Array.isArray(value.tags)) {
+                value.tags.forEach(tag => {
+                    acc.verbCounts[tag] = (acc.verbCounts[tag] || 0) + 1;
+                });
+            }
+
+            return acc;
+        }, { categoryCounts: {}, verbCounts: {} });
 
         // Update values to remove single-occurrence verbs
         values.forEach(value => {
