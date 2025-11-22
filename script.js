@@ -68,6 +68,7 @@ let filtersSheetBackdrop;
 let filtersSheetClose;
 let filtersSheetApply;
 let filtersSheetReset;
+let filtersSheetSummary;
 let lastFiltersSheetTrigger = null;
 
 // Alphabet helper
@@ -762,6 +763,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filtersSheetReset = document.getElementById('filtersSheetReset');
         filtersSheetTitle = document.getElementById('filtersSheetTitle');
         filtersCollapsedHint = document.getElementById('filtersCollapsedHint');
+        filtersSheetSummary = document.getElementById('filtersSheetSummary');
         valuesCount = document.getElementById('valuesCount');
         alphaNav = document.getElementById('alphaNav');
         alphaNavList = alphaNav ? alphaNav.querySelector('.alpha-nav-list') : null;
@@ -792,6 +794,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set up match type toggle
         setupMatchTypeToggle();
 
+        setupFiltersSheetKeyboardHandlers();
+
+        updateFiltersSheetSummary();
+
         // Set up search
         mainSearchInput.addEventListener('input', () => {
             filterState.searchTerm = mainSearchInput.value.toLowerCase();
@@ -819,6 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sortSelect.addEventListener('change', () => {
             filterState.sortMethod = sortSelect.value;
             filterValues();
+            updateFiltersSheetSummary();
         });
 
         // Set up clear filters button
@@ -1350,6 +1357,8 @@ function openFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {}
 
     syncFiltersSheetAria(true);
 
+    document.body.classList.remove('filters-sheet-keyboard');
+
     if (!skipToggleUpdate) {
         updateFilterToggleUI();
     }
@@ -1368,6 +1377,7 @@ function closeFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {
     const wasOpen = isFiltersSheetOpen();
 
     document.body.classList.remove('filters-sheet-open');
+    document.body.classList.remove('filters-sheet-keyboard');
     if (filtersSheetBackdrop) {
         filtersSheetBackdrop.classList.remove('is-active');
         filtersSheetBackdrop.setAttribute('aria-hidden', 'true');
@@ -1416,6 +1426,26 @@ function updateFiltersSheetLayout() {
 
     document.documentElement.style.setProperty('--filters-sheet-top', `${Math.round(topOffset)}px`);
     document.documentElement.style.setProperty('--filters-sheet-max-height', `${Math.round(maxHeight)}px`);
+}
+
+function setupFiltersSheetKeyboardHandlers() {
+    if (!filtersContainer) return;
+
+    const inputs = filtersContainer.querySelectorAll('input[type="search"], input[type="text"], select');
+
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            if (!accordionMediaQuery.matches || !isFiltersSheetOpen()) return;
+            document.body.classList.add('filters-sheet-keyboard');
+            setTimeout(() => {
+                input.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }, 60);
+        });
+
+        input.addEventListener('blur', () => {
+            document.body.classList.remove('filters-sheet-keyboard');
+        });
+    });
 }
 
 function setupFiltersSheetLayoutObservers() {
@@ -1529,29 +1559,65 @@ function handleAccordionModeChange(event) {
 
 // Setup match type toggle
 function setupMatchTypeToggle() {
+    updateMatchTypeUI();
+
     matchAll.addEventListener('click', () => {
         if (!filterState.matchAll) {
             filterState.matchAll = true;
-            toggleSlide.classList.remove('right');
-            matchAll.classList.remove('opacity-75');
-            matchAll.classList.add('text-purple-800');
-            matchAny.classList.remove('text-purple-800');
-            matchAny.classList.add('opacity-75');
+            updateMatchTypeUI();
             filterValues();
+            updateFiltersSheetSummary();
         }
     });
 
     matchAny.addEventListener('click', () => {
         if (filterState.matchAll) {
             filterState.matchAll = false;
-            toggleSlide.classList.add('right');
-            matchAny.classList.remove('opacity-75');
-            matchAny.classList.add('text-purple-800');
-            matchAll.classList.remove('text-purple-800');
-            matchAll.classList.add('opacity-75');
+            updateMatchTypeUI();
             filterValues();
+            updateFiltersSheetSummary();
         }
     });
+}
+
+function updateMatchTypeUI() {
+    if (!matchAll || !matchAny || !toggleSlide) return;
+
+    if (filterState.matchAll) {
+        toggleSlide.classList.remove('right');
+        matchAll.classList.remove('opacity-75');
+        matchAll.classList.add('text-purple-800');
+        matchAny.classList.remove('text-purple-800');
+        matchAny.classList.add('opacity-75');
+    } else {
+        toggleSlide.classList.add('right');
+        matchAny.classList.remove('opacity-75');
+        matchAny.classList.add('text-purple-800');
+        matchAll.classList.remove('text-purple-800');
+        matchAll.classList.add('opacity-75');
+    }
+}
+
+function updateFiltersSheetSummary() {
+    if (!filtersSheetSummary) return;
+
+    const matchLabel = translate(filterState.matchAll ? 'filters.matchAll' : 'filters.matchAny');
+    const sortLabel = sortSelect && sortSelect.options.length
+        ? (sortSelect.options[sortSelect.selectedIndex]?.textContent?.trim() || '')
+        : '';
+    const appliedLabel = filterCount ? filterCount.textContent.trim() : translate('filters.noFiltersSelected');
+
+    const summaryParts = [matchLabel];
+
+    if (sortLabel) {
+        summaryParts.push(`${translate('filters.sortBy')}: ${sortLabel}`);
+    }
+
+    if (appliedLabel) {
+        summaryParts.push(appliedLabel);
+    }
+
+    filtersSheetSummary.textContent = summaryParts.join(' • ');
 }
 
 // Setup show more/less buttons for filter columns
@@ -1885,6 +1951,8 @@ function updateActiveFilters() {
         filterCount.textContent = translate(countKey, { count: totalFilters });
         filterCount.classList.toggle('has-filters', totalFilters > 0);
     }
+
+    updateFiltersSheetSummary();
 
     // Clear existing active filters
     const filters = activeFilters.querySelectorAll('.active-filter');
