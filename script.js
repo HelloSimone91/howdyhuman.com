@@ -61,6 +61,7 @@ const mobileAlphaNavMediaQuery = window.matchMedia('(max-width: 1023px)');
 const ALPHA_NAV_TOGGLE_STORAGE_KEY = 'alphaNavTogglePosition';
 const ALPHA_NAV_TOGGLE_MARGIN = 12;
 const ALPHA_NAV_DRAG_THRESHOLD = 5;
+const FILTERS_SHEET_MIN_HEIGHT = 320;
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
 let filtersSheetBackdrop;
@@ -471,7 +472,7 @@ function applyTranslations() {
 }
 
 // Initialize DOM elements
-    let searchInput, mainSearchInput, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
+    let searchInput, mainSearchInput, mainSearchContainer, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
         toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
         alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle,
@@ -739,6 +740,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get DOM elements
         searchInput = document.getElementById('searchInput');
         mainSearchInput = document.getElementById('mainSearchInput');
+        mainSearchContainer = document.querySelector('.main-search-container');
         clearSearchBtn = document.getElementById('clearSearch');
         sortSelect = document.getElementById('sortSelect');
         tagFilters = document.getElementById('tagFilters');
@@ -774,6 +776,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!valuesList) {
             throw new Error('Critical DOM elements could not be found');
         }
+
+        setupFiltersSheetLayoutObservers();
 
         syncFiltersSheetAria(isFiltersSheetOpen());
 
@@ -1401,6 +1405,27 @@ function handleFiltersSheetKeydown(event) {
     if (event.key === 'Escape' && accordionMediaQuery.matches && isFiltersSheetOpen()) {
         event.preventDefault();
         closeFiltersSheet();
+    }
+}
+
+function updateFiltersSheetLayout() {
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const searchRect = mainSearchContainer ? mainSearchContainer.getBoundingClientRect() : null;
+    const topOffset = searchRect ? searchRect.bottom + 12 : 120;
+    const maxHeight = Math.max(viewportHeight - topOffset, FILTERS_SHEET_MIN_HEIGHT);
+
+    document.documentElement.style.setProperty('--filters-sheet-top', `${Math.round(topOffset)}px`);
+    document.documentElement.style.setProperty('--filters-sheet-max-height', `${Math.round(maxHeight)}px`);
+}
+
+function setupFiltersSheetLayoutObservers() {
+    updateFiltersSheetLayout();
+
+    window.addEventListener('resize', updateFiltersSheetLayout);
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', updateFiltersSheetLayout);
+        window.visualViewport.addEventListener('scroll', updateFiltersSheetLayout);
     }
 }
 
