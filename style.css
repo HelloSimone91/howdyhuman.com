@@ -170,6 +170,16 @@ button, .value-card-toggle, .status-action-button {
     color: var(--header-text);
 }
 
+.filters-sheet-summary {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 1rem;
+    padding: 0.5rem 0.75rem;
+    background-color: rgba(var(--accent-secondary-rgb), 0.08);
+    border-radius: 10px;
+}
+
 .filters-sheet-close {
     appearance: none;
     background: none;
@@ -363,14 +373,19 @@ button, .value-card-toggle, .status-action-button {
         left: 0;
         margin: 0;
         max-height: var(--filters-sheet-max-height);
+        min-height: calc(100dvh - var(--filters-sheet-top));
         overflow-y: auto;
-        padding: 1.5rem 1.25rem 1.75rem;
+        padding: 1.5rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom));
         position: fixed;
         right: 0;
         top: var(--filters-sheet-top);
         transform: translateY(100%);
         transition: transform 0.3s ease;
         z-index: 100;
+    }
+
+    body.filters-sheet-keyboard .filters-container {
+        padding-bottom: calc(3rem + env(safe-area-inset-bottom));
     }
 
     body.filters-sheet-open .filters-container {
@@ -470,6 +485,7 @@ button, .value-card-toggle, .status-action-button {
     .show-more-btn {
         display: none !important;
     }
+
 }
 
 /* Value example styles */
