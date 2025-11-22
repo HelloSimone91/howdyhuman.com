@@ -31,6 +31,10 @@
     --filter-bg: #e5e4ff; /* Soft violet wash */
     --tag-bg: #ffbd45; /* Goldenrod tags */
     --card-border: var(--support-purple);
+
+    /* Mobile filter sheet layout helpers */
+    --filters-sheet-top: 120px;
+    --filters-sheet-max-height: 600px;
 }
 
 body {
@@ -358,11 +362,12 @@ button, .value-card-toggle, .status-action-button {
         display: none;
         left: 0;
         margin: 0;
-        max-height: 85vh;
+        max-height: var(--filters-sheet-max-height);
         overflow-y: auto;
         padding: 1.5rem 1.25rem 1.75rem;
         position: fixed;
         right: 0;
+        top: var(--filters-sheet-top);
         transform: translateY(100%);
         transition: transform 0.3s ease;
         z-index: 100;
