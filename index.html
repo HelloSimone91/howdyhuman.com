@@ -180,15 +180,22 @@
                         </div>
 
                         <!-- Sort Options -->
-                        <div class="flex items-center gap-2 w-full md:w-auto">
-                            <label for="sortSelect" class="text-sm font-medium mr-2" data-i18n="filters.sortBy">Sort By:</label>
-                            <select
-                                id="sortSelect"
-                                class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg w-full md:w-auto"
-                            >
-                                <option value="name" data-i18n="filters.sortName">Name</option>
-                                <option value="category" data-i18n="filters.sortCategory">Category</option>
-                            </select>
+                        <div class="filters-toolbar__actions">
+                            <div class="flex items-center gap-2 w-full md:w-auto">
+                                <label for="sortSelect" class="text-sm font-medium mr-2" data-i18n="filters.sortBy">Sort By:</label>
+                                <select
+                                    id="sortSelect"
+                                    class="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm bg-filter-bg w-full md:w-auto"
+                                >
+                                    <option value="name" data-i18n="filters.sortName">Name</option>
+                                    <option value="category" data-i18n="filters.sortCategory">Category</option>
+                                </select>
+                            </div>
+
+                            <button id="clearFilters" class="clear-filters-button reset-btn" type="button">
+                                <span class="clear-filters-button__icon" aria-hidden="true">✕</span>
+                                <span data-i18n="filters.clearAll">Clear All Filters</span>
+                            </button>
                         </div>
                     </div>
 
@@ -292,9 +299,6 @@
                                 No filters selected
                             </span>
                         </div>
-                        <button id="clearFilters" class="filters-footer__clear reset-btn hidden">
-                            <span data-i18n="filters.clearAll">Clear All Filters</span>
-                        </button>
                     </div>
                     <div class="filters-sheet-actions">
                         <button id="filtersSheetReset" type="button" class="filters-sheet-reset" data-i18n="filters.reset">

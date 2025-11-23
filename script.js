@@ -1935,8 +1935,9 @@ function updateActiveFilters() {
         filterState.tags.length +
         (filterState.searchTerm ? 1 : 0);
 
-    // Show/hide elements based on filters
-    clearFilters.classList.toggle('hidden', !hasFilters);
+    // Enable/disable clear button based on filters
+    clearFilters.disabled = !hasFilters;
+    clearFilters.classList.toggle('is-disabled', !hasFilters);
     document.getElementById('noActiveFilters').style.display = hasFilters ? 'none' : 'block';
 
     if (filterCount) {
