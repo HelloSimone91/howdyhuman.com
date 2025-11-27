@@ -65,6 +65,41 @@
                 <p data-i18n="page.introInstructions">Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
             </div>
 
+            <!-- Floating hero controls -->
+            <div class="hero-controls" id="heroControls">
+                <button
+                    id="alphaNavToggle"
+                    class="alpha-nav-toggle"
+                    type="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    <span class="alpha-nav-toggle-label">Menu</span>
+                </button>
+
+                <div class="hero-pill-tray" id="heroPillTray" aria-hidden="true">
+                    <button class="hero-pill" data-hero-target="menu" aria-pressed="false">Menu</button>
+                    <button class="hero-pill" data-hero-target="alphabet" aria-pressed="false">A–Z</button>
+                    <button class="hero-pill" data-hero-target="filters" aria-pressed="false">Filters</button>
+                    <button class="hero-pill" data-hero-target="notes" aria-pressed="false">Project Notes</button>
+                </div>
+
+                <div class="hero-pane" id="heroNotesPane" role="region" aria-live="polite">
+                    <h3>Project Notes</h3>
+                    <p>Vibe-coding adventure log, lovingly refined for both mobile and desktop.</p>
+                    <a
+                        class="hero-notes-link"
+                        href="https://github.com/HelloSimone91/howdyhuman.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Visit the GitHub repo
+                    </a>
+                </div>
+
+                <div id="heroPaneBackdrop" class="hero-pane-backdrop" aria-hidden="true"></div>
+            </div>
+
             <!-- Main Search Bar -->
             <div class="main-search-container">
                 <i class="fas fa-search main-search-icon"></i>
@@ -103,17 +138,6 @@
                 data-i18n-attr="aria-label"
                 data-offset-targets=".main-search-container"
             >
-                <button
-                    id="alphaNavToggle"
-                    class="alpha-nav-toggle"
-                    type="button"
-                    aria-haspopup="dialog"
-                    aria-expanded="false"
-                    aria-controls="alphaNavOverlay"
-                >
-                    <span class="alpha-nav-toggle-icon" aria-hidden="true">A</span>
-                    <span class="alpha-nav-toggle-label" data-i18n="aria.alphaNav">Alphabetical navigation</span>
-                </button>
                 <ul class="alpha-nav-list" role="list">
                     <!-- Will be populated by JavaScript -->
                 </ul>

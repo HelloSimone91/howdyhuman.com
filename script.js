@@ -62,6 +62,8 @@ const ALPHA_NAV_TOGGLE_STORAGE_KEY = 'alphaNavTogglePosition';
 const ALPHA_NAV_TOGGLE_MARGIN = 12;
 const ALPHA_NAV_DRAG_THRESHOLD = 5;
 const FILTERS_SHEET_MIN_HEIGHT = 320;
+let heroMenuOpen = false;
+let activeHeroTarget = 'menu';
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
 let filtersSheetBackdrop;
@@ -154,7 +156,9 @@ const i18n = {
         },
         aria: {
             languageToggle: 'Switch language',
-            alphaNav: 'Alphabetical navigation'
+            alphaNav: 'Alphabetical navigation',
+            heroMenuOpen: 'Open quick menu',
+            heroMenuClose: 'Close quick menu'
         },
         alphaNav: {
             overlayHint: 'Jump to a letter to browse matching values.',
@@ -252,7 +256,9 @@ const i18n = {
         },
         aria: {
             languageToggle: 'Cambiar idioma',
-            alphaNav: 'Navegación alfabética'
+            alphaNav: 'Navegación alfabética',
+            heroMenuOpen: 'Abrir menú flotante',
+            heroMenuClose: 'Cerrar menú flotante'
         },
         alphaNav: {
             overlayHint: 'Elige una letra para explorar los valores relacionados.',
@@ -450,6 +456,86 @@ function updateFilterExpanderButtons() {
     });
 }
 
+function updateHeroPillLayout() {
+    if (!heroPillTray) return;
+    const reference = introBox || mainSearchContainer;
+    const rect = reference ? reference.getBoundingClientRect() : null;
+    const topOffset = rect ? rect.bottom + 8 : 120;
+    const clamped = Math.min(Math.max(topOffset, 24), window.innerHeight - 120);
+    document.documentElement.style.setProperty('--hero-pills-top', `${Math.round(clamped)}px`);
+}
+
+function setHeroActiveTarget(target) {
+    activeHeroTarget = target;
+
+    if (heroPillButtons && heroPillButtons.length) {
+        heroPillButtons.forEach(button => {
+            const isActive = button.dataset.heroTarget === target;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+    }
+
+    if (heroNotesPane) {
+        heroNotesPane.classList.toggle('is-visible', target === 'notes');
+    }
+}
+
+function pulseHeroPill(button) {
+    if (!button) return;
+    button.classList.remove('hero-pill--pulse');
+    // Force reflow for restart
+    void button.offsetWidth;
+    button.classList.add('hero-pill--pulse');
+}
+
+function openHeroMenu({ initialTarget = 'menu' } = {}) {
+    heroMenuOpen = true;
+    if (heroControls) {
+        heroControls.classList.add('hero-controls--open');
+    }
+    if (heroPillTray) {
+        heroPillTray.setAttribute('aria-hidden', 'false');
+    }
+    if (heroPaneBackdrop) {
+        heroPaneBackdrop.classList.add('is-active');
+    }
+
+    resetAlphaNavTogglePosition();
+    updateHeroPillLayout();
+    setHeroActiveTarget(initialTarget);
+
+    if (alphaNavToggle) {
+        alphaNavToggle.setAttribute('aria-expanded', 'true');
+        alphaNavToggle.setAttribute('aria-label', translate('aria.heroMenuClose'));
+    }
+}
+
+function closeHeroMenu() {
+    heroMenuOpen = false;
+    if (heroControls) {
+        heroControls.classList.remove('hero-controls--open');
+    }
+    if (heroPillTray) {
+        heroPillTray.setAttribute('aria-hidden', 'true');
+    }
+    if (heroPaneBackdrop) {
+        heroPaneBackdrop.classList.remove('is-active');
+    }
+
+    setHeroActiveTarget('menu');
+    closeAlphaOverlay({ restoreFocus: false });
+    if (accordionMediaQuery.matches) {
+        closeFiltersSheet({ restoreFocus: false, skipToggleUpdate: false });
+    }
+    restoreAlphaNavTogglePositionFromStorage();
+
+    if (alphaNavToggle) {
+        alphaNavToggle.setAttribute('aria-expanded', 'false');
+        alphaNavToggle.setAttribute('aria-label', translate('aria.heroMenuOpen'));
+    }
+}
+
 function applyTranslations() {
     document.documentElement.setAttribute('lang', currentLanguage);
     document.title = translate('page.title');
@@ -465,7 +551,8 @@ function applyTranslations() {
     }
 
     if (alphaNavToggle) {
-        alphaNavToggle.setAttribute('aria-label', translate('aria.alphaNav'));
+        const labelKey = heroMenuOpen ? 'aria.heroMenuClose' : 'aria.heroMenuOpen';
+        alphaNavToggle.setAttribute('aria-label', translate(labelKey));
     }
 
     updateFilterToggleUI();
@@ -477,7 +564,9 @@ function applyTranslations() {
         matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
         toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
         alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle,
-        filtersSheetTitle, filtersCollapsedHint, categoryFilterSearch, tagFilterSearch;
+        filtersSheetTitle, filtersCollapsedHint, categoryFilterSearch, tagFilterSearch,
+        heroControls, heroPillTray, heroNotesPane, heroPaneBackdrop, heroPillButtons,
+        introBox;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -773,6 +862,12 @@ document.addEventListener('DOMContentLoaded', function() {
         alphaNavOverlayClose = document.getElementById('alphaNavOverlayClose');
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
+        heroControls = document.getElementById('heroControls');
+        heroPillTray = document.getElementById('heroPillTray');
+        heroNotesPane = document.getElementById('heroNotesPane');
+        heroPaneBackdrop = document.getElementById('heroPaneBackdrop');
+        heroPillButtons = heroPillTray ? heroPillTray.querySelectorAll('.hero-pill') : [];
+        introBox = document.querySelector('.intro-box');
 
         // Verify critical elements were found
         if (!valuesList) {
@@ -835,15 +930,60 @@ document.addEventListener('DOMContentLoaded', function() {
         setupAlphaNav();
         setupAlphaNavToggleDrag();
 
-        if (alphaNavToggle && alphaNavOverlay) {
+        updateHeroPillLayout();
+        setHeroActiveTarget('menu');
+
+        if (alphaNavToggle) {
             alphaNavToggle.addEventListener('click', () => {
-                if (alphaNavOverlay.classList.contains('is-active')) {
-                    closeAlphaOverlay();
+                if (heroMenuOpen) {
+                    closeHeroMenu();
                 } else {
-                    openAlphaOverlay();
+                    openHeroMenu({ initialTarget: activeHeroTarget });
                 }
             });
         }
+
+        if (heroPaneBackdrop) {
+            heroPaneBackdrop.addEventListener('click', () => closeHeroMenu());
+        }
+
+        if (heroPillButtons && heroPillButtons.length) {
+            heroPillButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = button.dataset.heroTarget;
+                    pulseHeroPill(button);
+
+                    if (!heroMenuOpen) {
+                        openHeroMenu({ initialTarget: target });
+                    } else {
+                        setHeroActiveTarget(target);
+                    }
+
+                    if (target === 'alphabet') {
+                        openAlphaOverlay();
+                    } else if (target === 'filters') {
+                        if (accordionMediaQuery.matches) {
+                            openFiltersSheet({ restoreFocus: false });
+                        } else {
+                            filtersContainer.classList.remove('collapsed');
+                            updateFilterToggleUI();
+                        }
+                    } else {
+                        closeAlphaOverlay({ restoreFocus: false });
+                        if (accordionMediaQuery.matches) {
+                            closeFiltersSheet({ restoreFocus: false });
+                        }
+                    }
+                });
+            });
+        }
+
+        window.addEventListener('resize', updateHeroPillLayout);
+        window.addEventListener('scroll', () => {
+            if (heroMenuOpen) {
+                updateHeroPillLayout();
+            }
+        }, { passive: true });
 
         if (alphaNavOverlayClose) {
             alphaNavOverlayClose.addEventListener('click', () => closeAlphaOverlay());
@@ -959,12 +1099,6 @@ function handleAlphaOverlayKeydown(event) {
 
 function openAlphaOverlay() {
     if (!alphaNavOverlay) return;
-    if (!mobileAlphaNavMediaQuery.matches) {
-        if (alphaNavToggle) {
-            alphaNavToggle.setAttribute('aria-expanded', 'false');
-        }
-        return;
-    }
 
     alphaOverlayLastFocus = document.activeElement;
     alphaNavOverlay.classList.add('is-active');
@@ -996,6 +1130,10 @@ function closeAlphaOverlay(options = {}) {
     document.body.classList.remove('alpha-nav-open');
     if (alphaNavToggle) {
         alphaNavToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    if (heroMenuOpen && activeHeroTarget === 'alphabet') {
+        setHeroActiveTarget('menu');
     }
 
     document.removeEventListener('keydown', handleAlphaOverlayKeydown);
@@ -1349,6 +1487,11 @@ function openFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {}
     }
 
     document.body.classList.add('filters-sheet-open');
+
+    if (heroMenuOpen) {
+        setHeroActiveTarget('filters');
+    }
+
     filtersContainer.classList.remove('collapsed');
     if (filtersSheetBackdrop) {
         filtersSheetBackdrop.classList.add('is-active');
@@ -1409,6 +1552,10 @@ function closeFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {
     }
 
     lastFiltersSheetTrigger = null;
+
+    if (heroMenuOpen && activeHeroTarget === 'filters') {
+        setHeroActiveTarget('menu');
+    }
 }
 
 function handleFiltersSheetKeydown(event) {
