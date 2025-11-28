@@ -63,7 +63,7 @@ const ALPHA_NAV_TOGGLE_MARGIN = 12;
 const ALPHA_NAV_DRAG_THRESHOLD = 5;
 const FILTERS_SHEET_MIN_HEIGHT = 320;
 let heroMenuOpen = false;
-let activeHeroTarget = 'menu';
+let activeHeroTarget = 'alphabet';
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
 let filtersSheetBackdrop;
@@ -470,7 +470,7 @@ function setHeroActiveTarget(target) {
 
     if (heroPillButtons && heroPillButtons.length) {
         heroPillButtons.forEach(button => {
-            const isActive = button.dataset.heroTarget === target;
+            const isActive = target && button.dataset.heroTarget === target;
             button.classList.toggle('is-active', isActive);
             button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
@@ -489,7 +489,7 @@ function pulseHeroPill(button) {
     button.classList.add('hero-pill--pulse');
 }
 
-function openHeroMenu({ initialTarget = 'menu' } = {}) {
+function openHeroMenu({ initialTarget = 'alphabet' } = {}) {
     heroMenuOpen = true;
     if (heroControls) {
         heroControls.classList.add('hero-controls--open');
@@ -523,7 +523,7 @@ function closeHeroMenu() {
         heroPaneBackdrop.classList.remove('is-active');
     }
 
-    setHeroActiveTarget('menu');
+    setHeroActiveTarget(null);
     closeAlphaOverlay({ restoreFocus: false });
     if (accordionMediaQuery.matches) {
         closeFiltersSheet({ restoreFocus: false, skipToggleUpdate: false });
@@ -931,7 +931,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setupAlphaNavToggleDrag();
 
         updateHeroPillLayout();
-        setHeroActiveTarget('menu');
+        setHeroActiveTarget('alphabet');
 
         if (alphaNavToggle) {
             alphaNavToggle.addEventListener('click', () => {
@@ -1133,7 +1133,7 @@ function closeAlphaOverlay(options = {}) {
     }
 
     if (heroMenuOpen && activeHeroTarget === 'alphabet') {
-        setHeroActiveTarget('menu');
+        setHeroActiveTarget(null);
     }
 
     document.removeEventListener('keydown', handleAlphaOverlayKeydown);
@@ -1554,7 +1554,7 @@ function closeFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {
     lastFiltersSheetTrigger = null;
 
     if (heroMenuOpen && activeHeroTarget === 'filters') {
-        setHeroActiveTarget('menu');
+        setHeroActiveTarget(null);
     }
 }
 
