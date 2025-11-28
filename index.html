@@ -78,10 +78,24 @@
                 </button>
 
                 <div class="hero-pill-tray" id="heroPillTray" aria-hidden="true">
-                    <button class="hero-pill" data-hero-target="menu" aria-pressed="false">Menu</button>
-                    <button class="hero-pill" data-hero-target="alphabet" aria-pressed="false">A–Z</button>
-                    <button class="hero-pill" data-hero-target="filters" aria-pressed="false">Filters</button>
-                    <button class="hero-pill" data-hero-target="notes" aria-pressed="false">Project Notes</button>
+                    <div class="hero-menu-header" aria-hidden="true">
+                        <div class="hero-menu-header-badge">
+                            <i class="fas fa-th-large" aria-hidden="true"></i>
+                        </div>
+                        <div class="hero-menu-header-title">Menu</div>
+                    </div>
+                    <button class="hero-pill" data-hero-target="alphabet" aria-pressed="false">
+                        <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+                        <span class="hero-pill-label">Browse A–Z</span>
+                    </button>
+                    <button class="hero-pill" data-hero-target="filters" aria-pressed="false">
+                        <i class="fas fa-filter" aria-hidden="true"></i>
+                        <span class="hero-pill-label">Filters</span>
+                    </button>
+                    <button class="hero-pill" data-hero-target="notes" aria-pressed="false">
+                        <i class="fas fa-sticky-note" aria-hidden="true"></i>
+                        <span class="hero-pill-label">Project Notes</span>
+                    </button>
                 </div>
 
                 <div class="hero-pane" id="heroNotesPane" role="region" aria-live="polite">
