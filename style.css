@@ -1,36 +1,38 @@
 :root {
-    /* Howdy Human – Vivid Flow palette */
-    --background: #e3e2f6;
-    --bg-main-rgb: 227, 226, 246;
-    --text-callout: #f8e9f7;
-    --text-primary: #1f2346;
-    --text-secondary: #4b4c6d;
-    --primary-coral: #c13ba3;
-    --primary-aqua: #0f7ae5;
-    --tertiary-gold: #f28c1b;
-    --support-purple: #7a3fbf;
-    --support-sky: #2a64b7;
-    --support-orange: #f7a75c;
-    --support-lavender: #d3b4ff;
+    /* Howdy Human – Meadow Bloom palette */
+    --background: #edf4ef;
+    --bg-main-rgb: 237, 244, 239;
+    --text-callout: #f6f3ff;
+    --text-primary: #1f2a2a;
+    --text-secondary: #495452;
+    --primary-green: #3a7240;
+    --primary-teal: #51a38b;
+    --tertiary-saffron: #f2c14e;
+    --support-amethyst: #8b6ccf;
+    --support-purple: var(--support-amethyst);
+    --support-sky: #7cc6e6;
+    --support-rose: #f3a6c8;
+    --support-lavender: #d9d4f5;
 
     /* Interface colors */
     --bg-main: var(--background);
     --text-main: var(--text-primary);
     --card-bg: var(--text-callout);
-    --accent-primary: var(--primary-coral);
-    --accent-secondary: var(--primary-aqua);
-    --accent-primary-rgb: 193, 59, 163;
-    --accent-secondary-rgb: 15, 122, 229;
-    --support-sky-rgb: 42, 100, 183;
+    --accent-primary: var(--primary-green);
+    --accent-secondary: var(--primary-teal);
+    --accent-primary-rgb: 58, 114, 64;
+    --accent-secondary-rgb: 81, 163, 139;
+    --support-sky-rgb: 124, 198, 230;
+    --support-amethyst-rgb: 139, 108, 207;
     --dictionary-fade-start: clamp(360px, 42vh, 560px);
-    --section-label: #2a64b7; /* Section headings */
-    --section-label-rgb: 42, 100, 183;
-    --header-text: #2a64b7; /* General headings */
+    --section-label: var(--support-amethyst); /* Section headings */
+    --section-label-rgb: 139, 108, 207;
+    --header-text: #264136; /* General headings */
     --dark-text: var(--text-secondary);
-    --btn-hover: #8c2d8f; /* Darker magenta */
-    --filter-bg: #e5e4ff; /* Soft violet wash */
-    --tag-bg: #ffbd45; /* Goldenrod tags */
-    --card-border: var(--support-purple);
+    --btn-hover: #2f5c35;
+    --filter-bg: #e5f0ea; /* Soft mint wash */
+    --tag-bg: #f8e4a6; /* Saffron tags */
+    --card-border: var(--support-amethyst);
 
     /* Mobile filter sheet layout helpers */
     --filters-sheet-top: 120px;
@@ -44,14 +46,15 @@ body {
             180deg,
             rgba(var(--bg-main-rgb), 0) 0%,
             rgba(var(--bg-main-rgb), 0) calc(var(--dictionary-fade-start) - 80px),
-            rgba(var(--bg-main-rgb), 0.65) var(--dictionary-fade-start),
+            rgba(var(--bg-main-rgb), 0.72) var(--dictionary-fade-start),
             rgba(var(--bg-main-rgb), 1) 100%
         ),
-        radial-gradient(circle at 15% 20%, rgba(var(--accent-secondary-rgb), 0.35), transparent 70%),
-        radial-gradient(circle at 85% 10%, rgba(var(--support-sky-rgb), 0.28), transparent 70%),
-        radial-gradient(circle at 40% 85%, rgba(var(--accent-primary-rgb), 0.25), transparent 70%);
-    background-attachment: scroll, fixed, fixed, fixed;
-    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+        radial-gradient(circle at 18% 18%, rgba(var(--support-amethyst-rgb), 0.22), transparent 52%),
+        radial-gradient(circle at 82% 10%, rgba(var(--support-sky-rgb), 0.22), transparent 48%),
+        radial-gradient(circle at 40% 86%, rgba(var(--accent-primary-rgb), 0.16), transparent 55%),
+        radial-gradient(circle at 62% 66%, rgba(var(--accent-secondary-rgb), 0.15), transparent 45%);
+    background-attachment: scroll, fixed, fixed, fixed, fixed;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     color: var(--text-main);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -75,6 +78,31 @@ body.alpha-nav-open {
 
 h1, h2, h3, h4, h5, h6 {
     color: var(--header-text);
+}
+
+.hero-shell {
+    padding: 1rem 1.5rem 2rem;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.hero-aurora {
+    position: absolute;
+    inset: -40px -32px -48px;
+    background:
+        radial-gradient(circle at 22% 18%, rgba(var(--support-amethyst-rgb), 0.18), transparent 40%),
+        radial-gradient(circle at 78% 20%, rgba(var(--support-sky-rgb), 0.18), transparent 42%),
+        radial-gradient(circle at 50% 72%, rgba(var(--accent-primary-rgb), 0.16), transparent 55%),
+        linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.12), rgba(var(--support-rose), 0.12));
+    filter: blur(0px);
+    z-index: 0;
+    opacity: 0.95;
+    border-radius: 30px;
+}
+
+.hero-shell > *:not(.hero-aurora) {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-controls {
@@ -103,9 +131,9 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 999px;
     padding: 0.65rem 1.1rem;
     font-weight: 700;
-    background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.14), rgba(var(--accent-secondary-rgb), 0.22));
+    background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.18), rgba(var(--accent-secondary-rgb), 0.24));
     color: var(--header-text);
-    box-shadow: 0 8px 18px rgba(var(--support-sky-rgb), 0.2);
+    box-shadow: 0 10px 20px rgba(var(--support-amethyst-rgb), 0.18);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     cursor: pointer;
 }
@@ -113,8 +141,8 @@ h1, h2, h3, h4, h5, h6 {
 .hero-pill:hover,
 .hero-pill:focus-visible {
     outline: none;
-    background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.24), rgba(var(--accent-secondary-rgb), 0.32));
-    box-shadow: 0 12px 26px rgba(var(--support-sky-rgb), 0.28);
+    background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.26), rgba(var(--accent-secondary-rgb), 0.34));
+    box-shadow: 0 14px 28px rgba(var(--support-amethyst-rgb), 0.24);
 }
 
 .hero-pill.is-active {
@@ -139,9 +167,9 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(-50%);
     max-width: 520px;
     width: min(90vw, 520px);
-    background: linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.08), rgba(var(--accent-primary-rgb), 0.08));
-    border: 1px solid rgba(var(--support-sky-rgb), 0.14);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.12), rgba(var(--support-amethyst-rgb), 0.12));
+    border: 1px solid rgba(var(--support-amethyst-rgb), 0.18);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12), 0 20px 50px rgba(var(--accent-primary-rgb), 0.12);
     border-radius: 20px;
     padding: 1.25rem 1.5rem;
     color: var(--text-main);
@@ -173,8 +201,8 @@ h1, h2, h3, h4, h5, h6 {
 .hero-pane-backdrop {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 20% 20%, rgba(var(--accent-primary-rgb), 0.12), transparent 50%),
-        radial-gradient(circle at 80% 0%, rgba(var(--accent-secondary-rgb), 0.14), transparent 45%);
+    background: radial-gradient(circle at 24% 18%, rgba(var(--support-amethyst-rgb), 0.16), transparent 48%),
+        radial-gradient(circle at 78% 6%, rgba(var(--support-sky-rgb), 0.18), transparent 42%);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
@@ -204,7 +232,7 @@ button, .value-card-toggle, .status-action-button {
 
 .value-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 14px rgba(var(--accent-primary-rgb), 0.14);
 }
 
 .value-card h3 {
@@ -240,16 +268,17 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .tag.selected {
-    background-color: var(--accent-secondary);
-    color: var(--card-bg);
+    background: linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.18), rgba(var(--support-amethyst-rgb), 0.3));
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(var(--support-amethyst-rgb), 0.12);
 }
 
 .tag.selected:hover {
-    background-color: var(--support-sky);
+    background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.18), rgba(var(--support-amethyst-rgb), 0.32));
 }
 
 .tag:focus-visible {
-    outline: 3px solid var(--accent-primary);
+    outline: 3px solid var(--accent-secondary);
     outline-offset: 2px;
     box-shadow: 0 0 0 2px var(--card-bg);
 }
