@@ -44,6 +44,11 @@ function showStatus(message, isError = false, action = null) {
 
 // Values data will be fetched from JSON file
 let values = [];
+let valuesDataCache = {};
+const valuesDataPromises = {};
+let valuesLoadedLanguage = null;
+let lazyValuesLoadTriggered = false;
+let valuesDataReady = false;
 
 // Filter state
 const filterState = {
@@ -148,8 +153,8 @@ const i18n = {
             title: 'The Howdy Human Dictionary of Values',
             heading: 'The Howdy Human Dictionary of Values',
             tagline: 'Discover values in action',
-            introDescription: 'This dictionary is designed to help you understand values not just as abstract concepts, but as active forces that shape our daily choices and actions. Each value is presented with its associated verbs - the concrete ways we embody and express these values in our lives.<br><br>',
-            introInstructions: 'Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.'
+            introDescription: 'This dictionary helps you see values as everyday actions. Each value includes verbs that show how we practice and express it in real life.<br><br>',
+            introInstructions: 'Search for a value or browse by category and verb. Open a card to read a quick description, an example, and related values with similar energy.'
         },
         buttons: {
             languageToggle: 'En español'
@@ -170,10 +175,10 @@ const i18n = {
             valuesLabel: 'Values'
         },
         filters: {
-            matchType: 'Match Type:',
-            matchAll: 'All Selected Verbs',
-            matchAny: 'Any Selected Verb',
-            sortBy: 'Sort By:',
+            matchType: 'Verb match',
+            matchAll: 'Match all selected verbs',
+            matchAny: 'Match any selected verb',
+            sortBy: 'Sort',
             sortName: 'Name',
             sortCategory: 'Category',
             categories: 'Categories',
@@ -196,7 +201,7 @@ const i18n = {
             closeSheet: 'Close Filters',
             reset: 'Reset',
             apply: 'Apply',
-            collapsedHint: 'Filters are hidden. Choose “Show Filters” to make updates.'
+            collapsedHint: 'Filters are hidden. Select “Show filters” to update your list.'
         },
         footer: {
             learnMore: 'Learn more about this project'
@@ -248,8 +253,8 @@ const i18n = {
             title: 'El Diccionario de Valores de Howdy Human',
             heading: 'El Diccionario de Valores de Howdy Human',
             tagline: 'Descubre valores en acción',
-            introDescription: 'Este diccionario está diseñado para ayudarte a comprender los valores no solo como conceptos abstractos, sino como fuerzas activas que moldean nuestras decisiones y acciones diarias. Cada valor se presenta con sus verbos asociados: las formas concretas en que encarnamos y expresamos estos valores en nuestra vida.<br><br>',
-            introInstructions: 'Usa la barra de búsqueda para encontrar valores específicos, o explora por categorías y etiquetas. Haz clic en un valor para saber más al respecto y descubrir valores relacionados que comparten características similares.'
+            introDescription: 'Este diccionario te muestra cómo los valores se viven en el día a día. Cada valor incluye verbos que explican cómo lo ponemos en práctica y lo expresamos en la vida real.<br><br>',
+            introInstructions: 'Busca un valor o explora por categoría y verbo. Abre una tarjeta para leer una breve descripción, un ejemplo y valores relacionados con energía similar.'
         },
         buttons: {
             languageToggle: 'In English'
@@ -270,10 +275,10 @@ const i18n = {
             valuesLabel: 'Valores'
         },
         filters: {
-            matchType: 'Tipo de coincidencia:',
-            matchAll: 'Todos los verbos seleccionados',
-            matchAny: 'Cualquier verbo seleccionado',
-            sortBy: 'Ordenar por:',
+            matchType: 'Coincidencia de verbos',
+            matchAll: 'Coincidir con todos los verbos',
+            matchAny: 'Coincidir con cualquier verbo',
+            sortBy: 'Ordenar',
             sortName: 'Nombre',
             sortCategory: 'Categoría',
             categories: 'Categorías',
@@ -296,7 +301,7 @@ const i18n = {
             closeSheet: 'Cerrar filtros',
             reset: 'Restablecer',
             apply: 'Aplicar',
-            collapsedHint: 'Los filtros están ocultos. Elige «Mostrar filtros» para actualizarlos.'
+            collapsedHint: 'Los filtros están ocultos. Selecciona «Mostrar filtros» para actualizar la lista.'
         },
         footer: {
             learnMore: 'Conoce más sobre este proyecto'
@@ -341,6 +346,8 @@ const i18n = {
     }
 };
 
+const translationCache = new Map();
+
 function formatTranslation(template, params = {}) {
     if (typeof template !== 'string') return '';
     return template.replace(/{{\s*(\w+)\s*}}/g, (_, key) => {
@@ -349,6 +356,11 @@ function formatTranslation(template, params = {}) {
 }
 
 function translate(key, params = {}, lang = currentLanguage) {
+    const cacheKey = `${lang}::${key}::${JSON.stringify(params)}`;
+    if (translationCache.has(cacheKey)) {
+        return translationCache.get(cacheKey);
+    }
+
     const keys = key.split('.');
     const fallbackLang = 'en';
     let translation = i18n[lang];
@@ -366,11 +378,16 @@ function translate(key, params = {}, lang = currentLanguage) {
         return translate(key, params, fallbackLang);
     }
 
+    let result;
+
     if (typeof translation === 'string') {
-        return formatTranslation(translation, params);
+        result = formatTranslation(translation, params);
+    } else {
+        result = key;
     }
 
-    return key;
+    translationCache.set(cacheKey, result);
+    return result;
 }
 
 function translateElement(element) {
@@ -931,7 +948,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Set up alphabetical navigation
-        setupAlphaNav();
         setupAlphaNavToggleDrag();
 
         updateHeroPillLayout();
@@ -1022,8 +1038,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set up language toggle
         setupLanguageToggle();
 
-        // Initialize the app
-        fetchValuesData(currentLanguage);
+        setupLazyValuesLoaders();
 
         showStatus(translate('statuses.appInitialized'));
     } catch (error) {
@@ -1381,14 +1396,11 @@ function setupLanguageToggle() {
     languageToggle.addEventListener('click', () => {
         closeAlphaOverlay({ restoreFocus: false });
         currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
-        activeAlphabet = getAlphabetForLanguage(currentLanguage);
-        setupAlphaNav();
         applyTranslations();
         updateActiveFilters();
-
-        const languageNameKey = currentLanguage === 'en' ? 'languages.english' : 'languages.spanish';
-        showStatus(translate('statuses.loadingValues', { language: translate(languageNameKey) }));
-        fetchValuesData(currentLanguage);
+        activeAlphabet = getAlphabetForLanguage(currentLanguage);
+        lazyValuesLoadTriggered = true;
+        ensureValuesDataLoaded(currentLanguage);
     });
 }
 
@@ -1865,7 +1877,61 @@ function fallbackInitialization() {
     }
 }
 
-// Fetch values data from JSON file
+function ensureValuesDataLoaded(lang = currentLanguage) {
+    if (valuesDataCache[lang]) {
+        applyValuesData(lang, valuesDataCache[lang]);
+        return Promise.resolve(valuesDataCache[lang]);
+    }
+
+    if (!valuesDataPromises[lang]) {
+        const languageNameKey = lang === 'en' ? 'languages.english' : 'languages.spanish';
+        showStatus(translate('statuses.loadingValues', { language: translate(languageNameKey) }));
+        valuesDataPromises[lang] = fetchValuesData(lang);
+    }
+
+    return valuesDataPromises[lang];
+}
+
+function triggerLazyValuesLoad(lang = currentLanguage) {
+    if (lazyValuesLoadTriggered) return;
+    lazyValuesLoadTriggered = true;
+    ensureValuesDataLoaded(lang);
+}
+
+function setupLazyValuesLoaders() {
+    const triggerLoad = () => triggerLazyValuesLoad();
+
+    if ('IntersectionObserver' in window && valuesList) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                triggerLoad();
+                obs.disconnect();
+            }
+        }, { rootMargin: '200px' });
+        observer.observe(valuesList);
+    }
+
+    [mainSearchInput, filtersContainer, alphaNavToggle].forEach(element => {
+        if (element) {
+            ['focus', 'click', 'input'].forEach(eventName => {
+                element.addEventListener(eventName, triggerLoad, { once: true });
+            });
+        }
+    });
+
+    setTimeout(triggerLoad, 1500);
+}
+
+function applyValuesData(lang, data) {
+    values = Array.isArray(data) ? data : [];
+    valuesDataReady = true;
+    valuesLoadedLanguage = lang;
+    activeAlphabet = getAlphabetForLanguage(lang);
+    setupAlphaNav();
+    initializeValuesDictionary();
+    updateValuesCount();
+}
+
 async function fetchValuesData(lang = 'en') {
     try {
         const response = await fetch(`Values-${lang}.json`);
@@ -1873,19 +1939,21 @@ async function fetchValuesData(lang = 'en') {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        values = data.values; // Assign fetched values to the global 'values' array
-
-        // Once data is fetched, initialize the dictionary
-        initializeValuesDictionary();
-        updateValuesCount();
+        valuesDataCache[lang] = data.values;
+        applyValuesData(lang, data.values);
+        return data.values;
 
     } catch (error) {
         console.error("Error fetching values data:", error);
         showStatus(translate('statuses.errorFetchingValues', { message: error.message }), true);
         // Attempt to load fallback or default data if primary fetch fails
         values = []; // Ensure values is empty if fetch fails
+        valuesDataReady = false;
         initializeValuesDictionary(); // Initialize with empty or fallback data
         updateValuesCount();
+        return null;
+    } finally {
+        delete valuesDataPromises[lang];
     }
 }
 
