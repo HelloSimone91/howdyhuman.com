@@ -67,21 +67,6 @@
                 <p data-i18n="page.introInstructions">Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
             </div>
 
-            <!-- Main Search Bar -->
-            <div class="main-search-container">
-                <i class="fas fa-search main-search-icon accent-icon"></i>
-                <input
-                    type="text"
-                    id="mainSearchInput"
-                    class="main-search-input"
-                    placeholder="Search values by name, description, or example..."
-                    data-i18n="search.placeholder"
-                    data-i18n-attr="placeholder"
-                    autocomplete="off"
-                >
-                <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
-            </div>
-
             <div class="flex items-center justify-between values-header">
                 <div class="text-lg font-medium">
                     <span id="valuesCount" class="accent-text-strong"></span>
@@ -89,6 +74,115 @@
                 </div>
             </div>
         </header>
+
+        <section class="filters-shell" aria-label="Search and filters">
+            <div class="filters-shell__header">
+                <div class="filters-shell__titles">
+                    <p class="filters-shell__eyebrow">Search &amp; filter together</p>
+                    <p class="filters-shell__description" data-i18n="filters.collapsedHint">
+                        Filters are hidden. Choose “Show Filters” to make updates.
+                    </p>
+                </div>
+                <div class="filters-toolbar__actions">
+                    <button id="toggleFilters" class="pill-button" data-i18n="filters.showFilters">Show Filters</button>
+                    <div id="filterCount" class="filters-footer__count" data-i18n="filters.noFiltersSelected">No filters selected</div>
+                    <button id="clearFilters" class="clear-filters-button pill-button" type="button">
+                        <span class="clear-filters-button__icon"><i class="fas fa-undo"></i></span>
+                        <span data-i18n="filters.clearAll">Clear All Filters</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-toolbar">
+                <div class="main-search-container">
+                    <i class="fas fa-search main-search-icon accent-icon"></i>
+                    <input
+                        type="text"
+                        id="mainSearchInput"
+                        class="main-search-input"
+                        placeholder="Search values by name, description, or example..."
+                        data-i18n="search.placeholder"
+                        data-i18n-attr="placeholder"
+                        autocomplete="off"
+                    >
+                    <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
+                </div>
+
+                <div class="filters-toolbar__inline">
+                    <div class="toggle-container" role="group" aria-label="Match type">
+                        <div class="toggle-slide" id="toggleSlide"></div>
+                        <button id="matchAll" class="toggle-button" type="button" data-i18n="filters.matchAll">All Selected Verbs</button>
+                        <button id="matchAny" class="toggle-button" type="button" data-i18n="filters.matchAny">Any Selected Verb</button>
+                    </div>
+
+                    <label class="filters-sort" for="sortSelect">
+                        <span data-i18n="filters.sortBy">Sort By:</span>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="name" data-i18n="filters.sortName">Name</option>
+                            <option value="category" data-i18n="filters.sortCategory">Category</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div id="filtersContainer" class="filters-container" aria-label="Filters and sorting">
+                <div class="filters-grid">
+                    <section class="filter-column" id="categoriesSection">
+                        <header class="filter-header">
+                            <div>
+                                <div class="section-label" data-i18n="filters.categories">Categories</div>
+                                <p class="filter-caption">Browse by category to narrow values.</p>
+                            </div>
+                        </header>
+                        <div class="filter-content">
+                            <div class="filter-search">
+                                <i class="fas fa-search"></i>
+                                <input
+                                    type="search"
+                                    id="categoryFilterSearch"
+                                    placeholder="Search categories"
+                                    data-i18n="filters.categorySearchPlaceholder"
+                                    data-i18n-attr="placeholder"
+                                >
+                            </div>
+                            <div id="categoryFilters" class="filter-options" role="list"></div>
+                        </div>
+                    </section>
+
+                    <section class="filter-column" id="verbsSection">
+                        <header class="filter-header">
+                            <div>
+                                <div class="section-label" data-i18n="filters.verbs">Verbs</div>
+                                <p class="filter-caption" data-i18n="filters.verbsCaption">tags</p>
+                            </div>
+                        </header>
+                        <div class="filter-content">
+                            <div class="filter-search">
+                                <i class="fas fa-search"></i>
+                                <input
+                                    type="search"
+                                    id="tagFilterSearch"
+                                    placeholder="Search verbs"
+                                    data-i18n="filters.tagSearchPlaceholder"
+                                    data-i18n-attr="placeholder"
+                                >
+                            </div>
+                            <div class="filter-note" data-i18n="filters.verbsFunctionalityHint">
+                                Keep verb pills active— they power the value cards and related suggestions.
+                            </div>
+                            <div id="tagFilters" class="filter-options" role="list"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="filters-footer">
+                    <div class="filters-footer__summary" id="filtersSheetSummary" data-i18n="filters.noFiltersSelected">No filters selected</div>
+                    <div class="active-filters" id="activeFilters" aria-live="polite">
+                        <span class="opacity-70" data-i18n="filters.noActiveFilters">No active filters</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <div class="values-layout">
             <div>

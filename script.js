@@ -196,7 +196,8 @@ const i18n = {
             closeSheet: 'Close Filters',
             reset: 'Reset',
             apply: 'Apply',
-            collapsedHint: 'Filters are hidden. Choose “Show Filters” to make updates.'
+            collapsedHint: 'Filters are hidden. Choose “Show Filters” to make updates.',
+            verbsFunctionalityHint: 'Keep verb pills active—they power value cards and related suggestions.'
         },
         footer: {
             learnMore: 'Learn more about this project'
@@ -296,7 +297,8 @@ const i18n = {
             closeSheet: 'Cerrar filtros',
             reset: 'Restablecer',
             apply: 'Aplicar',
-            collapsedHint: 'Los filtros están ocultos. Elige «Mostrar filtros» para actualizarlos.'
+            collapsedHint: 'Los filtros están ocultos. Elige «Mostrar filtros» para actualizarlos.',
+            verbsFunctionalityHint: 'Mantén activas las píldoras de verbos: alimentan las tarjetas y las sugerencias relacionadas.'
         },
         footer: {
             learnMore: 'Conoce más sobre este proyecto'
