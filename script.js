@@ -917,14 +917,18 @@ document.addEventListener('DOMContentLoaded', function() {
             updateActiveFilters();
         });
 
-        sortSelect.addEventListener('change', () => {
-            filterState.sortMethod = sortSelect.value;
-            filterValues();
-            updateFiltersSheetSummary();
-        });
+        if (sortSelect) {
+            sortSelect.addEventListener('change', () => {
+                filterState.sortMethod = sortSelect.value;
+                filterValues();
+                updateFiltersSheetSummary();
+            });
+        }
 
-        // Set up clear filters button
-        clearFilters.addEventListener('click', clearAllFilters);
+        if (clearFilters) {
+            // Set up clear filters button
+            clearFilters.addEventListener('click', clearAllFilters);
+        }
 
         // Set up alphabetical navigation
         setupAlphaNav();
@@ -1566,6 +1570,8 @@ function handleFiltersSheetKeydown(event) {
 }
 
 function updateFiltersSheetLayout() {
+    if (!filtersContainer) return;
+
     const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     const searchRect = mainSearchContainer ? mainSearchContainer.getBoundingClientRect() : null;
     const topOffset = searchRect ? searchRect.bottom + 12 : 120;
@@ -1596,6 +1602,8 @@ function setupFiltersSheetKeyboardHandlers() {
 }
 
 function setupFiltersSheetLayoutObservers() {
+    if (!filtersContainer) return;
+
     updateFiltersSheetLayout();
 
     window.addEventListener('resize', updateFiltersSheetLayout);
@@ -1706,6 +1714,8 @@ function handleAccordionModeChange(event) {
 
 // Setup match type toggle
 function setupMatchTypeToggle() {
+    if (!matchAll || !matchAny || !toggleSlide) return;
+
     updateMatchTypeUI();
 
     matchAll.addEventListener('click', () => {
