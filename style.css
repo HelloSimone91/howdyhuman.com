@@ -1013,9 +1013,110 @@ button, .value-card-toggle, .status-action-button {
 
 /* Values layout */
 .values-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.filters-shell {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.values-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.filters-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.filters-toolbar--stacked {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.toggle-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--text-soft-rgb), 0.12);
+    background: rgba(var(--card-bg-rgb), 0.85);
+    color: var(--text-main);
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toggle-filters:focus-visible,
+.toggle-filters:hover {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(var(--support-sky-rgb), 0.2);
+}
+
+.match-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.toggle-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.sort-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-weight: 600;
+}
+
+.sort-control select {
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    padding: 0.55rem 0.75rem;
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.filters-footer__clear {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .sr-only {
@@ -1032,7 +1133,12 @@ button, .value-card-toggle, .status-action-button {
 
 @media (min-width: 1024px) {
     .values-layout {
+        grid-template-columns: minmax(0, 360px) 1fr;
         gap: 1.75rem;
+    }
+
+    .filters-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
