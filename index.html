@@ -39,6 +39,7 @@
     
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <header class="mb-8 relative hero-shell">
+            <div class="hero-gradient-block" aria-hidden="true"></div>
             <div class="hero-aurora" aria-hidden="true"></div>
             <!-- Language toggle -->
             <button
@@ -103,7 +104,7 @@
 
             <!-- Main Search Bar -->
             <div class="main-search-container">
-                <i class="fas fa-search main-search-icon"></i>
+                <i class="fas fa-search main-search-icon accent-icon"></i>
                 <input
                     type="text"
                     id="mainSearchInput"
@@ -113,17 +114,17 @@
                     data-i18n-attr="placeholder"
                     autocomplete="off"
                 >
-                <i class="fas fa-times-circle main-search-clear" id="clearSearch"></i>
+                <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
             </div>
 
             <div class="flex items-center justify-between">
                 <div class="text-lg font-medium">
-                    <span id="valuesCount" class="text-purple-600"></span>
+                    <span id="valuesCount" class="accent-text-strong"></span>
                     <span class="ml-1" data-i18n="search.valuesLabel">Values</span>
                 </div>
-                <button id="toggleFilters" class="text-purple-600 hover:text-purple-800 focus:outline-none text-sm">
+                <button id="toggleFilters" class="accent-text-soft focus:outline-none text-sm">
                     <span id="toggleFiltersText">Hide Filters</span>
-                    <i id="toggleFiltersIcon" class="fas fa-chevron-up ml-1"></i>
+                    <i id="toggleFiltersIcon" class="fas fa-chevron-up ml-1 accent-icon"></i>
                 </button>
             </div>
         </header>
