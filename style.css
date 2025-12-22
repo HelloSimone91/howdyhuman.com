@@ -1,16 +1,16 @@
 :root {
     /* Howdy Human – Meadow Bloom palette */
-    --background: #edf4ef;
-    --bg-main-rgb: 237, 244, 239;
-    --text-callout: #f6f3ff;
+    --background: #f6f4ff;
+    --bg-main-rgb: 246, 244, 255;
+    --text-callout: #fbfafc;
     --text-primary: #1f2a2a;
     --text-secondary: #495452;
-    --primary-green: #3a7240;
-    --primary-teal: #51a38b;
-    --tertiary-saffron: #f2c14e;
-    --support-amethyst: #8b6ccf;
+    --primary-green: #3a7240; /* Chalet Green */
+    --primary-teal: #51a38b; /* Tradewind */
+    --tertiary-saffron: #f2c14e; /* Saffron */
+    --support-amethyst: #8b6ccf; /* Amethyst */
     --support-purple: var(--support-amethyst);
-    --support-sky: #7cc6e6;
+    --support-sky: #d9d4f5; /* Lavender highlight */
     --support-rose: #f3a6c8;
     --support-lavender: #d9d4f5;
 
@@ -22,16 +22,18 @@
     --accent-secondary: var(--primary-teal);
     --accent-primary-rgb: 58, 114, 64;
     --accent-secondary-rgb: 81, 163, 139;
-    --support-sky-rgb: 124, 198, 230;
+    --support-sky-rgb: 217, 212, 245;
     --support-amethyst-rgb: 139, 108, 207;
+    --support-lavender-rgb: 217, 212, 245;
+    --support-saffron-rgb: 242, 193, 78;
     --dictionary-fade-start: clamp(360px, 42vh, 560px);
     --section-label: var(--support-amethyst); /* Section headings */
     --section-label-rgb: 139, 108, 207;
     --header-text: #264136; /* General headings */
     --dark-text: var(--text-secondary);
     --btn-hover: #2f5c35;
-    --filter-bg: #e5f0ea; /* Soft mint wash */
-    --tag-bg: #f8e4a6; /* Saffron tags */
+    --filter-bg: #f4f0ff; /* Soft Prelude wash */
+    --tag-bg: #f7d78a; /* Saffron tags */
     --card-border: var(--support-amethyst);
 
     /* Mobile filter sheet layout helpers */
@@ -50,9 +52,9 @@ body {
             rgba(var(--bg-main-rgb), 1) 100%
         ),
         radial-gradient(circle at 18% 18%, rgba(var(--support-amethyst-rgb), 0.22), transparent 52%),
-        radial-gradient(circle at 82% 10%, rgba(var(--support-sky-rgb), 0.22), transparent 48%),
-        radial-gradient(circle at 40% 86%, rgba(var(--accent-primary-rgb), 0.16), transparent 55%),
-        radial-gradient(circle at 62% 66%, rgba(var(--accent-secondary-rgb), 0.15), transparent 45%);
+        radial-gradient(circle at 82% 10%, rgba(var(--support-lavender-rgb), 0.24), transparent 48%),
+        radial-gradient(circle at 40% 86%, rgba(var(--support-saffron-rgb), 0.16), transparent 55%),
+        radial-gradient(circle at 62% 66%, rgba(var(--accent-secondary-rgb), 0.18), transparent 45%);
     background-attachment: scroll, fixed, fixed, fixed, fixed;
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     color: var(--text-main);
@@ -91,9 +93,9 @@ h1, h2, h3, h4, h5, h6 {
     inset: -40px -32px -48px;
     background:
         radial-gradient(circle at 22% 18%, rgba(var(--support-amethyst-rgb), 0.18), transparent 40%),
-        radial-gradient(circle at 78% 20%, rgba(var(--support-sky-rgb), 0.18), transparent 42%),
-        radial-gradient(circle at 50% 72%, rgba(var(--accent-primary-rgb), 0.16), transparent 55%),
-        linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.12), rgba(var(--support-rose), 0.12));
+        radial-gradient(circle at 78% 20%, rgba(var(--support-lavender-rgb), 0.2), transparent 42%),
+        radial-gradient(circle at 50% 72%, rgba(var(--support-saffron-rgb), 0.14), transparent 55%),
+        linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.12), rgba(var(--support-amethyst-rgb), 0.12));
     filter: blur(0px);
     z-index: 0;
     opacity: 0.95;
@@ -202,7 +204,7 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     inset: 0;
     background: radial-gradient(circle at 24% 18%, rgba(var(--support-amethyst-rgb), 0.16), transparent 48%),
-        radial-gradient(circle at 78% 6%, rgba(var(--support-sky-rgb), 0.18), transparent 42%);
+        radial-gradient(circle at 78% 6%, rgba(var(--support-lavender-rgb), 0.2), transparent 42%);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
