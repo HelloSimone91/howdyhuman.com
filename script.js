@@ -2203,6 +2203,8 @@ function setTagButtonState(tagElement, isSelected) {
 
 // Update tag selection state
 function updateTagSelection(tag, isSelected) {
+    if (!tagFilters) return;
+
     // Update tag in filter section
     const tagElements = tagFilters.querySelectorAll('.tag');
     tagElements.forEach(tagElement => {
@@ -2216,6 +2218,11 @@ function updateTagSelection(tag, isSelected) {
 function highlightTag(tagName) {
     try {
         console.log("Highlighting tag:", tagName);
+
+        if (!tagFilters) {
+            console.warn('Tag filters container not available; skipping tag highlight for', tagName);
+            return;
+        }
 
         // Check if tag is already in filters
         if (filterState.tags.includes(tagName)) {
@@ -2506,18 +2513,20 @@ function displayValues(valuesToDisplay) {
                 tagsContainer.classList.add('flex', 'flex-wrap');
 
                 value.tags.forEach(tag => {
-                    const tagElement = document.createElement('span');
-                    tagElement.textContent = tag;
-                    tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
-                    tagElement.title = translate('valueCard.showAllWithTag', { tag });
-                    // Add click event to filter by this tag
+                const tagElement = document.createElement('span');
+                tagElement.textContent = tag;
+                tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
+                tagElement.title = translate('valueCard.showAllWithTag', { tag });
+                // Add click event to filter by this tag
+                if (tagFilters) {
                     tagElement.addEventListener('click', (e) => {
                         e.stopPropagation();
                         // Find this tag in the filter section and activate it
                         highlightTag(tag);
                     });
-                    tagsContainer.appendChild(tagElement);
-                });
+                }
+                tagsContainer.appendChild(tagElement);
+            });
 
                 tagsSection.appendChild(tagsContainer);
                 contentContainer.appendChild(tagsSection);
