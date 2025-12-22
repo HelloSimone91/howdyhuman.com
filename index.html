@@ -67,21 +67,6 @@
                 <p data-i18n="page.introInstructions">Use the search bar to find specific values, or explore by categories and tags. Click on a value to learn more about it and discover related values that share similar characteristics.</p>
             </div>
 
-            <!-- Main Search Bar -->
-            <div class="main-search-container">
-                <i class="fas fa-search main-search-icon accent-icon"></i>
-                <input
-                    type="text"
-                    id="mainSearchInput"
-                    class="main-search-input"
-                    placeholder="Search values by name, description, or example..."
-                    data-i18n="search.placeholder"
-                    data-i18n-attr="placeholder"
-                    autocomplete="off"
-                >
-                <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
-            </div>
-
             <div class="flex items-center justify-between values-header">
                 <div class="text-lg font-medium">
                     <span id="valuesCount" class="accent-text-strong"></span>
@@ -91,7 +76,128 @@
         </header>
 
         <div class="values-layout">
-            <div>
+            <aside class="filters-shell" aria-label="Filters and search">
+                <div class="filters-toolbar">
+                    <button id="toggleFilters" class="toggle-filters" type="button" aria-expanded="true">
+                        <i class="fas fa-chevron-up" id="toggleFiltersIcon"></i>
+                        <span id="toggleFiltersText" data-i18n="filters.hideFilters">Hide Filters</span>
+                    </button>
+                    <div class="filters-toolbar__actions">
+                        <div class="filters-footer__count" id="filterCount" data-i18n="filters.noFiltersSelected">No filters selected</div>
+                        <button id="clearFilters" class="clear-filters-button is-disabled" type="button" disabled>
+                            <span class="clear-filters-button__icon"><i class="fas fa-broom"></i></span>
+                            <span data-i18n="filters.clearAll">Clear All Filters</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p id="filtersCollapsedHint" class="filters-collapsed-hint" aria-hidden="true" data-i18n="filters.collapsedHint">
+                    Filters are hidden. Choose “Show Filters” to make updates.
+                </p>
+
+                <div id="filtersContainer" class="filters-container" tabindex="-1">
+                    <div class="filters-sheet-header">
+                        <div>
+                            <div class="filters-sheet-title" id="filtersSheetTitle" data-i18n="filters.sheetTitle">Filter & Sort</div>
+                            <div class="filters-sheet-summary" id="filtersSheetSummary"></div>
+                        </div>
+                        <button id="filtersSheetClose" class="filters-sheet-close" type="button" aria-label="Close filters" data-i18n="filters.closeSheet" data-i18n-attr="aria-label">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Main Search Bar relocated near filters -->
+                    <div class="main-search-container">
+                        <i class="fas fa-search main-search-icon accent-icon"></i>
+                        <input
+                            type="text"
+                            id="mainSearchInput"
+                            class="main-search-input"
+                            placeholder="Search values by name, description, or example..."
+                            data-i18n="search.placeholder"
+                            data-i18n-attr="placeholder"
+                            autocomplete="off"
+                        >
+                        <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
+                    </div>
+
+                    <div class="filters-toolbar filters-toolbar--stacked">
+                        <div class="match-toggle" role="group" aria-label="Match type">
+                            <div class="toggle-container">
+                                <div class="toggle-slide" id="toggleSlide"></div>
+                                <button id="matchAny" class="toggle-button" type="button" data-i18n="filters.matchAny">Any Selected Verb</button>
+                                <button id="matchAll" class="toggle-button" type="button" data-i18n="filters.matchAll">All Selected Verbs</button>
+                            </div>
+                            <span class="toggle-label" data-i18n="filters.matchType">Match Type:</span>
+                        </div>
+                        <label class="sort-control">
+                            <span class="sort-label" data-i18n="filters.sortBy">Sort By:</span>
+                            <select id="sortSelect">
+                                <option value="name" data-i18n="filters.sortName">Name</option>
+                                <option value="category" data-i18n="filters.sortCategory">Category</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="filters-grid">
+                        <section class="filter-column open" id="categoriesSection">
+                            <button class="filter-header" type="button">
+                                <span data-i18n="filters.categories">Categories</span>
+                                <i class="fas fa-chevron-up accordion-icon"></i>
+                            </button>
+                            <div class="filter-content" id="categoryFiltersContent">
+                                <label class="sr-only" for="categoryFilterSearch" data-i18n="filters.categorySearchPlaceholder">Search categories</label>
+                                <input
+                                    type="search"
+                                    id="categoryFilterSearch"
+                                    class="filter-search-input"
+                                    placeholder="Search categories"
+                                    data-i18n="filters.categorySearchPlaceholder"
+                                    data-i18n-attr="placeholder"
+                                    autocomplete="off"
+                                >
+                                <div id="categoryFilters" class="filter-options"></div>
+                                <button class="show-more-btn" type="button" data-i18n="filters.showMore">Show More</button>
+                            </div>
+                        </section>
+
+                        <section class="filter-column open" id="verbsSection">
+                            <button class="filter-header" type="button">
+                                <span data-i18n="filters.verbs">Verbs</span>
+                                <i class="fas fa-chevron-up accordion-icon"></i>
+                            </button>
+                            <div class="filter-content" id="tagFiltersContent">
+                                <label class="sr-only" for="tagFilterSearch" data-i18n="filters.tagSearchPlaceholder">Search verbs</label>
+                                <input
+                                    type="search"
+                                    id="tagFilterSearch"
+                                    class="filter-search-input"
+                                    placeholder="Search verbs"
+                                    data-i18n="filters.tagSearchPlaceholder"
+                                    data-i18n-attr="placeholder"
+                                    autocomplete="off"
+                                >
+                                <div id="tagFilters" class="filter-options"></div>
+                                <button class="show-more-btn" type="button" data-i18n="filters.showMore">Show More</button>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="active-filters" id="activeFilters" aria-live="polite">
+                        <div id="noActiveFilters" class="text-sm opacity-75" data-i18n="filters.noActiveFilters">No active filters</div>
+                    </div>
+
+                    <div class="filters-footer">
+                        <div class="filters-footer__summary" data-i18n="messages.valuesListHeading">Values List:</div>
+                        <div class="filters-footer__clear">
+                            <button id="filtersSheetReset" class="filters-sheet-reset" type="button" data-i18n="filters.reset">Reset</button>
+                            <button id="filtersSheetApply" class="filters-sheet-apply" type="button" data-i18n="filters.apply">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="values-content">
                 <!-- Alphabetical Navigation -->
                 <nav
                     class="alpha-nav-inline"
@@ -113,7 +219,9 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="filters-sheet-backdrop" id="filtersSheetBackdrop" aria-hidden="true"></div>
+
         <!-- Footer -->
         <footer class="footer">
             <a href="https://github.com/HelloSimone91/howdyhuman.com" target="_blank">
