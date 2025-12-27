@@ -1572,6 +1572,12 @@ button, .value-card-toggle, .status-action-button {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    pointer-events: auto;
 }
 
 .language-toggle:hover {
