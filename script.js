@@ -691,16 +691,37 @@ function setupAlphaNavToggleDrag() {
         return;
     }
 
+    const dragLongPressDelay = 450;
+
     restoreAlphaNavTogglePositionFromStorage();
 
     let pointerDown = false;
     let isDragging = false;
+    let dragReady = false;
     let pointerId = null;
     let offsetX = 0;
     let offsetY = 0;
     let startX = 0;
     let startY = 0;
     let shouldCancelClick = false;
+    let longPressTimer = null;
+
+    const clearLongPress = () => {
+        if (longPressTimer) {
+            window.clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+    };
+
+    const startLongPressTimer = () => {
+        clearLongPress();
+        longPressTimer = window.setTimeout(() => {
+            if (!pointerDown) {
+                return;
+            }
+            dragReady = true;
+        }, dragLongPressDelay);
+    };
 
     const persistPosition = () => {
         if (!alphaNavToggle) {
@@ -727,6 +748,7 @@ function setupAlphaNavToggleDrag() {
 
         pointerDown = true;
         isDragging = false;
+        dragReady = false;
         shouldCancelClick = false;
         pointerId = event.pointerId;
         startX = event.clientX;
@@ -737,6 +759,13 @@ function setupAlphaNavToggleDrag() {
         offsetY = startY - rect.top;
 
         alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
+
+        const dragHandle = event.target.closest('[data-alpha-nav-drag-handle]');
+        if (dragHandle) {
+            dragReady = true;
+        } else {
+            startLongPressTimer();
+        }
     };
 
     const handlePointerMove = (event) => {
@@ -747,9 +776,17 @@ function setupAlphaNavToggleDrag() {
         const deltaX = event.clientX - startX;
         const deltaY = event.clientY - startY;
 
+        if (!dragReady) {
+            if (Math.hypot(deltaX, deltaY) >= ALPHA_NAV_DRAG_THRESHOLD) {
+                clearLongPress();
+            }
+            return;
+        }
+
         if (!isDragging && Math.hypot(deltaX, deltaY) >= ALPHA_NAV_DRAG_THRESHOLD) {
             isDragging = true;
             shouldCancelClick = true;
+            clearLongPress();
             alphaNavToggle.classList.add('alpha-nav-toggle--dragged');
             alphaNavToggle.classList.add('alpha-nav-toggle--dragging');
 
@@ -780,6 +817,8 @@ function setupAlphaNavToggleDrag() {
         }
 
         pointerDown = false;
+        dragReady = false;
+        clearLongPress();
 
         if (isDragging) {
             event.preventDefault();
@@ -807,9 +846,11 @@ function setupAlphaNavToggleDrag() {
 
         pointerDown = false;
         isDragging = false;
+        dragReady = false;
         pointerId = null;
         alphaNavToggle.classList.remove('alpha-nav-toggle--dragging');
         shouldCancelClick = false;
+        clearLongPress();
     };
 
     const handleClick = (event) => {

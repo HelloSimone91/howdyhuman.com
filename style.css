@@ -1195,7 +1195,7 @@ button, .value-card-toggle, .status-action-button {
     transform: none;
     z-index: 82;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    touch-action: none;
+    touch-action: manipulation;
     user-select: none;
 }
 
@@ -1450,20 +1450,20 @@ button, .value-card-toggle, .status-action-button {
         color: var(--card-bg);
         border: none;
         border-radius: 999px;
-        padding: 0.75rem 1.15rem;
+        padding: 0.65rem 1rem;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
         cursor: pointer;
         box-shadow: 0 12px 30px rgba(var(--support-sky-rgb), 0.35);
         position: fixed;
-        right: calc(18px + env(safe-area-inset-right));
-        bottom: calc(18px + env(safe-area-inset-bottom));
+        right: calc(16px + env(safe-area-inset-right));
+        bottom: calc(16px + env(safe-area-inset-bottom));
         left: auto;
         top: auto;
         transform: none;
         z-index: 55;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        touch-action: none;
+        touch-action: manipulation;
         user-select: none;
     }
 
@@ -1473,10 +1473,10 @@ button, .value-card-toggle, .status-action-button {
         right: calc(12px + env(safe-area-inset-right));
         left: auto;
         transform: none;
-        width: 60px;
-        height: 60px;
-        padding: 0.45rem;
-        font-size: 0.9rem;
+        width: 52px;
+        height: 52px;
+        padding: 0.4rem;
+        font-size: 0.85rem;
         box-shadow: 0 10px 22px rgba(var(--support-sky-rgb), 0.32);
     }
 
@@ -1487,7 +1487,7 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-toggle:focus-visible,
     .alpha-nav-toggle:hover {
         outline: none;
-        transform: translate(-50%, -50%) scale(1.05);
+        transform: scale(1.05);
         box-shadow: 0 16px 40px rgba(var(--support-sky-rgb), 0.45);
     }
 
