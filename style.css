@@ -878,7 +878,7 @@ button, .value-card-toggle, .status-action-button {
     background-color: var(--card-bg);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem 2rem;
 }
 
 .filters-container .text-sm {
