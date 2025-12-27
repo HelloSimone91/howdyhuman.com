@@ -66,12 +66,12 @@ const mobileAlphaNavMediaQuery = window.matchMedia('(max-width: 1023px)');
 const ALPHA_NAV_TOGGLE_STORAGE_KEY = 'alphaNavTogglePosition';
 const ALPHA_NAV_TOGGLE_MARGIN = 12;
 const ALPHA_NAV_DRAG_THRESHOLD = 5;
-const FILTERS_SHEET_MIN_HEIGHT = 320;
 let heroMenuOpen = false;
 let activeHeroTarget = 'menu';
 let alphaOverlayLastFocus = null;
 let alphaOverlayFocusable = [];
 let filtersSheetBackdrop;
+let filtersSheetHeader;
 let filtersSheetClose;
 let filtersSheetApply;
 let filtersSheetReset;
@@ -863,6 +863,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filterCount = document.getElementById('filterCount');
         toggleFilters = document.getElementById('toggleFilters');
         filtersContainer = document.getElementById('filtersContainer');
+        filtersSheetHeader = document.querySelector('.filters-sheet-header');
         filtersSheetBackdrop = document.getElementById('filtersSheetBackdrop');
         filtersSheetClose = document.getElementById('filtersSheetClose');
         filtersSheetApply = document.getElementById('filtersSheetApply');
@@ -1584,13 +1585,15 @@ function handleFiltersSheetKeydown(event) {
 function updateFiltersSheetLayout() {
     if (!filtersContainer) return;
 
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const headerRect = filtersSheetHeader ? filtersSheetHeader.getBoundingClientRect() : null;
+    const headerStyles = filtersSheetHeader ? window.getComputedStyle(filtersSheetHeader) : null;
+    const headerMargin = headerStyles ? parseFloat(headerStyles.marginBottom) : 0;
+    const headerHeight = headerRect ? headerRect.height + (Number.isNaN(headerMargin) ? 0 : headerMargin) : 0;
     const searchRect = mainSearchContainer ? mainSearchContainer.getBoundingClientRect() : null;
     const topOffset = searchRect ? searchRect.bottom + 12 : 120;
-    const maxHeight = Math.max(viewportHeight - topOffset, FILTERS_SHEET_MIN_HEIGHT);
 
     document.documentElement.style.setProperty('--filters-sheet-top', `${Math.round(topOffset)}px`);
-    document.documentElement.style.setProperty('--filters-sheet-max-height', `${Math.round(maxHeight)}px`);
+    document.documentElement.style.setProperty('--filters-sheet-header-height', `${Math.round(headerHeight)}px`);
 }
 
 function setupFiltersSheetKeyboardHandlers() {
