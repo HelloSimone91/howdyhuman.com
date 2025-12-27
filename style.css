@@ -612,6 +612,12 @@ button, .value-card-toggle, .status-action-button {
     .filters-sheet-actions {
         gap: 1rem;
         margin-top: 1.75rem;
+        position: sticky;
+        bottom: 0;
+        background: var(--card-bg);
+        padding: 1rem 0 calc(1rem + env(safe-area-inset-bottom));
+        z-index: 5;
+        box-shadow: 0 -8px 20px rgba(15, 23, 42, 0.08);
     }
 
     .filters-sheet-actions button {
