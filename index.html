@@ -41,6 +41,44 @@
         <header class="mb-8 relative hero-shell">
             <div class="hero-gradient-block" aria-hidden="true"></div>
             <div class="hero-aurora" aria-hidden="true"></div>
+            <div id="heroControls" class="hero-controls">
+                <button
+                    id="alphaNavToggle"
+                    class="alpha-nav-toggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-label="Open quick menu"
+                    data-i18n="aria.heroMenuOpen"
+                    data-i18n-attr="aria-label"
+                >
+                    <span class="alpha-nav-toggle-label">Quick Menu</span>
+                </button>
+                <div id="heroPillTray" class="hero-pill-tray" aria-hidden="true">
+                    <button class="hero-pill" type="button" data-hero-target="menu" aria-pressed="false">Menu</button>
+                    <button class="hero-pill" type="button" data-hero-target="filters" aria-pressed="false">Filters</button>
+                    <button class="hero-pill" type="button" data-hero-target="alphabet" aria-pressed="false">Alphabet</button>
+                    <button class="hero-pill" type="button" data-hero-target="notes" aria-pressed="false">Notes</button>
+                </div>
+                <div id="heroNotesPane" class="hero-pane">
+                    <h3>About the dictionary</h3>
+                    <p>
+                        The Howdy Human Dictionary of Values turns big ideas into everyday actions. Each value comes with verbs,
+                        descriptions, and examples to help you notice how it shows up in real life.
+                    </p>
+                    <p>
+                        Use the quick menu to jump between filters, the A–Z list, and this notes pane whenever you want a refresher.
+                    </p>
+                    <a
+                        class="hero-notes-link"
+                        href="https://github.com/HelloSimone91/howdyhuman.com"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Learn more about this project
+                    </a>
+                </div>
+                <div id="heroPaneBackdrop" class="hero-pane-backdrop" aria-hidden="true"></div>
+            </div>
             <!-- Language toggle -->
             <button
                 id="languageToggle"
