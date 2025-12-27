@@ -1445,15 +1445,17 @@ button, .value-card-toggle, .status-action-button {
         color: var(--card-bg);
         border: none;
         border-radius: 999px;
-        padding: 0.85rem 1.35rem;
+        padding: 0.75rem 1.15rem;
         font-weight: 700;
-        font-size: 1.05rem;
+        font-size: 1rem;
         cursor: pointer;
         box-shadow: 0 12px 30px rgba(var(--support-sky-rgb), 0.35);
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        right: calc(18px + env(safe-area-inset-right));
+        bottom: calc(18px + env(safe-area-inset-bottom));
+        left: auto;
+        top: auto;
+        transform: none;
         z-index: 55;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         touch-action: none;
@@ -1463,7 +1465,8 @@ button, .value-card-toggle, .status-action-button {
     .hero-controls--open .alpha-nav-toggle {
         position: fixed;
         top: calc(var(--hero-pills-top, 120px) - 6px);
-        left: 10px;
+        right: calc(12px + env(safe-area-inset-right));
+        left: auto;
         transform: none;
         width: 60px;
         height: 60px;
@@ -1528,14 +1531,15 @@ button, .value-card-toggle, .status-action-button {
     .alpha-nav-toggle {
         width: auto;
         height: auto;
-        padding: 0.7rem 1.1rem;
+        padding: 0.65rem 1rem;
         border-radius: 999px;
         justify-content: center;
+        font-size: 0.95rem;
     }
 
     .alpha-nav-toggle-label {
         display: inline;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 }
 
