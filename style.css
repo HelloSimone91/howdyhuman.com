@@ -41,7 +41,8 @@
 
     /* Mobile filter sheet layout helpers */
     --filters-sheet-top: 120px;
-    --filters-sheet-max-height: 600px;
+    --filters-sheet-header-height: 0px;
+    --filters-sheet-max-height: calc(100dvh - var(--filters-sheet-top));
 }
 
 body {
@@ -583,6 +584,10 @@ button, .value-card-toggle, .status-action-button {
         transform: translateY(100%);
         transition: transform 0.3s ease;
         z-index: 100;
+    }
+
+    .filters-container .main-search-container {
+        top: var(--filters-sheet-header-height);
     }
 
     body.filters-sheet-keyboard .filters-container {
