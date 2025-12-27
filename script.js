@@ -528,7 +528,7 @@ function openHeroMenu({ initialTarget = 'menu' } = {}) {
     }
 }
 
-function closeHeroMenu() {
+function closeHeroMenu({ skipFiltersSheetClose = false } = {}) {
     heroMenuOpen = false;
     if (heroControls) {
         heroControls.classList.remove('hero-controls--open');
@@ -542,7 +542,7 @@ function closeHeroMenu() {
 
     setHeroActiveTarget('menu');
     closeAlphaOverlay({ restoreFocus: false });
-    if (accordionMediaQuery.matches) {
+    if (accordionMediaQuery.matches && !skipFiltersSheetClose) {
         closeFiltersSheet({ restoreFocus: false, skipToggleUpdate: false });
     }
     restoreAlphaNavTogglePositionFromStorage();
@@ -1547,7 +1547,7 @@ function openFiltersSheet({ restoreFocus = true, skipToggleUpdate = false } = {}
     document.body.classList.add('filters-sheet-open');
 
     if (heroMenuOpen) {
-        setHeroActiveTarget('filters');
+        closeHeroMenu({ skipFiltersSheetClose: true });
     }
 
     filtersContainer.classList.remove('collapsed');
