@@ -644,6 +644,13 @@ button, .value-card-toggle, .status-action-button {
         text-align: center;
     }
 
+    .toggle-button {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        padding: 0.45rem 0.6rem;
+        white-space: normal;
+    }
+
     .filter-groups {
         gap: 0.75rem;
     }
@@ -1526,9 +1533,16 @@ button, .value-card-toggle, .status-action-button {
     }
 
     .hero-pill-tray {
-        flex-wrap: wrap;
-        justify-content: center;
-        row-gap: 0.4rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        max-width: calc(100vw - 2rem);
+        overflow-x: auto;
+        row-gap: 0;
+        scrollbar-width: none;
+    }
+
+    .hero-pill-tray::-webkit-scrollbar {
+        display: none;
     }
 }
 
