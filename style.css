@@ -836,18 +836,22 @@ button, .value-card-toggle, .status-action-button {
     padding: 0.25rem;
     background-color: var(--card-border);
     border-radius: 9999px;
-    display: inline-flex;
+    display: flex;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .toggle-button {
-    padding: 0.25rem 0.75rem;
+    padding: 0.3rem 0.75rem;
     border-radius: 9999px;
     font-size: 1rem;
     position: relative;
     z-index: 1;
     transition: color 0.3s;
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .toggle-slide {
@@ -874,6 +878,7 @@ button, .value-card-toggle, .status-action-button {
     background-color: var(--card-bg);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    padding: 1.25rem 1.5rem;
 }
 
 .filters-container .text-sm {
