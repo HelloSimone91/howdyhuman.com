@@ -170,7 +170,7 @@ const i18n = {
             closeLabel: 'Close navigation'
         },
         search: {
-            placeholder: 'Search values by name, description, or example...',
+            placeholder: 'Search values...',
             ariaLabel: 'Search values',
             valuesLabel: 'Values'
         },
