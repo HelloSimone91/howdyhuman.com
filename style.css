@@ -562,6 +562,32 @@ button, .value-card-toggle, .status-action-button {
 }
 
 @media (max-width: 767px) {
+    .hero-controls {
+        display: none;
+    }
+
+    .filters-shell {
+        display: none;
+    }
+
+    .filters-sheet-backdrop {
+        display: none;
+    }
+
+    .mobile-search-container {
+        display: block;
+        position: static;
+        margin-bottom: 1rem;
+    }
+
+    .alpha-nav-list {
+        display: flex;
+    }
+
+    .alpha-nav-toggle {
+        display: none;
+    }
+
     body.filters-sheet-open {
         overflow: hidden;
     }
@@ -769,6 +795,10 @@ button, .value-card-toggle, .status-action-button {
     transform: translateY(-50%);
     color: rgba(var(--support-amethyst-rgb), 0.9);
     cursor: pointer;
+    display: none;
+}
+
+.mobile-search-container {
     display: none;
 }
 

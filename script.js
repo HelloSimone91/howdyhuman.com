@@ -567,6 +567,10 @@ function applyTranslations() {
         mainSearchInput.setAttribute('aria-label', translate('search.ariaLabel'));
     }
 
+    if (mobileSearchInput) {
+        mobileSearchInput.setAttribute('aria-label', translate('search.ariaLabel'));
+    }
+
     if (alphaNavToggle) {
         const labelKey = heroMenuOpen ? 'aria.heroMenuClose' : 'aria.heroMenuOpen';
         alphaNavToggle.setAttribute('aria-label', translate(labelKey));
@@ -576,14 +580,50 @@ function applyTranslations() {
     updateFilterExpanderButtons();
 }
 
+function updateSearchClearButtons(hasValue) {
+    const shouldShow = typeof hasValue === 'boolean' ? hasValue : Boolean(filterState.searchTerm);
+
+    if (clearSearchBtn) {
+        clearSearchBtn.style.display = shouldShow ? 'block' : 'none';
+    }
+
+    if (mobileSearchClear) {
+        mobileSearchClear.style.display = shouldShow ? 'block' : 'none';
+    }
+}
+
+function setSearchTerm(value, { sourceInput = null, updateUI = true } = {}) {
+    const term = value ?? '';
+    filterState.searchTerm = term.toLowerCase();
+
+    if (mainSearchInput && mainSearchInput !== sourceInput) {
+        mainSearchInput.value = term;
+    }
+
+    if (mobileSearchInput && mobileSearchInput !== sourceInput) {
+        mobileSearchInput.value = term;
+    }
+
+    updateSearchClearButtons(Boolean(term));
+
+    if (updateUI) {
+        filterValues();
+        updateActiveFilters();
+    }
+}
+
+function clearSearchTerm({ updateUI = true } = {}) {
+    setSearchTerm('', { updateUI });
+}
+
 // Initialize DOM elements
-    let searchInput, mainSearchInput, mainSearchContainer, clearSearchBtn, sortSelect, tagFilters, categoryFilters, valuesList,
-        matchAll, matchAny, toggleSlide, activeFilters, clearFilters, filterCount,
-        toggleFilters, filtersContainer, valuesCount, alphaNav, alphaNavList, alphaNavToggle,
-        alphaNavOverlay, alphaNavOverlayList, alphaNavOverlayClose, backToTop, languageToggle,
-        filtersSheetTitle, filtersCollapsedHint, categoryFilterSearch, tagFilterSearch,
-        heroControls, heroPillTray, heroNotesPane, heroPaneBackdrop, heroPillButtons,
-        introBox;
+    let searchInput, mainSearchInput, mainSearchContainer, clearSearchBtn, mobileSearchInput, mobileSearchClear,
+        sortSelect, tagFilters, categoryFilters, valuesList, matchAll, matchAny, toggleSlide,
+        activeFilters, clearFilters, filterCount, toggleFilters, filtersContainer, valuesCount,
+        alphaNav, alphaNavList, alphaNavToggle, alphaNavOverlay, alphaNavOverlayList,
+        alphaNavOverlayClose, backToTop, languageToggle, filtersSheetTitle, filtersCollapsedHint,
+        categoryFilterSearch, tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
+        heroPaneBackdrop, heroPillButtons, introBox;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -890,6 +930,8 @@ document.addEventListener('DOMContentLoaded', function() {
         mainSearchInput = document.getElementById('mainSearchInput');
         mainSearchContainer = document.querySelector('.main-search-container');
         clearSearchBtn = document.getElementById('clearSearch');
+        mobileSearchInput = document.getElementById('mobileSearchInput');
+        mobileSearchClear = document.getElementById('mobileSearchClear');
         sortSelect = document.getElementById('sortSelect');
         tagFilters = document.getElementById('tagFilters');
         categoryFilters = document.getElementById('categoryFilters');
@@ -953,28 +995,33 @@ document.addEventListener('DOMContentLoaded', function() {
         updateFiltersSheetSummary();
 
         // Set up search
-        mainSearchInput.addEventListener('input', () => {
-            filterState.searchTerm = mainSearchInput.value.toLowerCase();
+        const handleSearchInput = (event) => {
+            setSearchTerm(event.target.value, { sourceInput: event.target });
+        };
 
-            // Show/hide clear button
-            if (filterState.searchTerm) {
-                clearSearchBtn.style.display = 'block';
-            } else {
-                clearSearchBtn.style.display = 'none';
-            }
+        if (mainSearchInput) {
+            mainSearchInput.addEventListener('input', handleSearchInput);
+        }
 
-            filterValues();
-            updateActiveFilters();
-        });
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', handleSearchInput);
+        }
 
-        // Clear search button
-        clearSearchBtn.addEventListener('click', () => {
-            mainSearchInput.value = '';
-            filterState.searchTerm = '';
-            clearSearchBtn.style.display = 'none';
-            filterValues();
-            updateActiveFilters();
-        });
+        // Clear search buttons
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                clearSearchTerm();
+            });
+        }
+
+        if (mobileSearchClear) {
+            mobileSearchClear.addEventListener('click', () => {
+                clearSearchTerm();
+                if (mobileSearchInput) {
+                    mobileSearchInput.focus();
+                }
+            });
+        }
 
         if (sortSelect) {
             sortSelect.addEventListener('change', () => {
@@ -1871,8 +1918,7 @@ function clearAllFilters() {
         checkbox.checked = false;
     });
 
-    if (mainSearchInput) mainSearchInput.value = '';
-    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+    clearSearchTerm({ updateUI: false });
 
     // Update UI
     updateActiveFilters();
@@ -2283,9 +2329,8 @@ function addActiveFilterBadge(text, type) {
             // Update tag
             updateTagSelection(text, false);
         } else if (type === 'search') {
-            filterState.searchTerm = '';
-            if (mainSearchInput) mainSearchInput.value = '';
-            if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+            clearSearchTerm();
+            return;
         }
 
         filterValues();
