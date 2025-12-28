@@ -1476,7 +1476,19 @@ button, .value-card-toggle, .status-action-button {
     }
 
     .alpha-nav-list {
-        display: none;
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .alpha-nav-inline {
+        align-items: flex-start;
+    }
+
+    .alpha-nav-link {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.5rem;
     }
 
     .alpha-nav-toggle {
