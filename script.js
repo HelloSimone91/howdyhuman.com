@@ -58,6 +58,7 @@ const filterState = {
     matchAll: false, // true for ALL (AND), false for ANY (OR)
     sortMethod: 'name'
 };
+let selectedVerb = null;
 
 const filterAccordionSections = [];
 const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
@@ -213,7 +214,10 @@ const i18n = {
             clickToView: 'Click to view this value',
             readMore: 'Read more',
             readLess: 'Read less',
-            showAllWithTag: 'Show all values tagged with "{{tag}}"'
+            showAllWithTag: 'Show all values tagged with "{{tag}}"',
+            verbFilterAllVerbs: 'All verbs',
+            verbFilterClear: 'See all verbs',
+            verbFilterShowing: 'Showing values associated with "{{verb}}".'
         },
         messages: {
             noResults: 'No values match your search criteria.',
@@ -313,7 +317,10 @@ const i18n = {
             clickToView: 'Haz clic para ver este valor',
             readMore: 'Ver más',
             readLess: 'Ver menos',
-            showAllWithTag: 'Mostrar todos los valores etiquetados con "{{tag}}"'
+            showAllWithTag: 'Mostrar todos los valores etiquetados con "{{tag}}"',
+            verbFilterAllVerbs: 'Todos los verbos',
+            verbFilterClear: 'Ver todos los verbos',
+            verbFilterShowing: 'Mostrando valores asociados con "{{verb}}".'
         },
         messages: {
             noResults: 'Ningún valor coincide con tus criterios de búsqueda.',
@@ -2358,6 +2365,32 @@ function setTagButtonState(tagElement, isSelected) {
     }
 }
 
+function scrollValuesListToTop() {
+    if (!valuesList) return;
+    valuesList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (typeof valuesList.scrollTop === 'number') {
+        valuesList.scrollTop = 0;
+    }
+}
+
+function clearSelectedVerb({ scrollToTop = false } = {}) {
+    if (!selectedVerb) return;
+    selectedVerb = null;
+    filterValues();
+    if (scrollToTop) {
+        scrollValuesListToTop();
+    }
+}
+
+function setSelectedVerb(tag, { scrollToTop = true } = {}) {
+    if (!tag || selectedVerb === tag) return;
+    selectedVerb = tag;
+    filterValues();
+    if (scrollToTop) {
+        scrollValuesListToTop();
+    }
+}
+
 // Update tag selection state
 function updateTagSelection(tag, isSelected) {
     if (!tagFilters) return;
@@ -2516,6 +2549,51 @@ function displayValues(valuesToDisplay) {
         valuesList.innerHTML = '';
 
         const shouldAutoExpandFirstCard = valuesList.dataset.initialCardExpanded !== 'true';
+        const hasSelectedVerb = Boolean(selectedVerb);
+
+        if (hasSelectedVerb) {
+            const verbHeader = document.createElement('div');
+            verbHeader.classList.add('verb-filter-header');
+
+            const breadcrumb = document.createElement('div');
+            breadcrumb.classList.add('verb-filter-breadcrumb');
+
+            const breadcrumbRoot = document.createElement('span');
+            breadcrumbRoot.textContent = translate('valueCard.verbFilterAllVerbs');
+
+            const breadcrumbSeparator = document.createElement('span');
+            breadcrumbSeparator.classList.add('verb-filter-separator');
+            breadcrumbSeparator.textContent = '→';
+
+            const breadcrumbSelected = document.createElement('button');
+            breadcrumbSelected.type = 'button';
+            breadcrumbSelected.classList.add('tag', 'verb-filter-chip', 'is-selected-verb');
+            breadcrumbSelected.textContent = selectedVerb;
+            breadcrumbSelected.setAttribute('aria-pressed', 'true');
+
+            breadcrumb.appendChild(breadcrumbRoot);
+            breadcrumb.appendChild(breadcrumbSeparator);
+            breadcrumb.appendChild(breadcrumbSelected);
+
+            const clearButton = document.createElement('button');
+            clearButton.type = 'button';
+            clearButton.classList.add('verb-filter-clear');
+            clearButton.textContent = translate('valueCard.verbFilterClear');
+            clearButton.addEventListener('click', () => clearSelectedVerb({ scrollToTop: true }));
+
+            const headerTop = document.createElement('div');
+            headerTop.classList.add('verb-filter-header__top');
+            headerTop.appendChild(breadcrumb);
+            headerTop.appendChild(clearButton);
+
+            const description = document.createElement('p');
+            description.classList.add('verb-filter-description');
+            description.textContent = translate('valueCard.verbFilterShowing', { verb: selectedVerb });
+
+            verbHeader.appendChild(headerTop);
+            verbHeader.appendChild(description);
+            valuesList.appendChild(verbHeader);
+        }
 
         // Update the count of filtered values
         updateValuesCount(valuesToDisplay.length);
@@ -2670,20 +2748,35 @@ function displayValues(valuesToDisplay) {
                 tagsContainer.classList.add('flex', 'flex-wrap');
 
                 value.tags.forEach(tag => {
-                const tagElement = document.createElement('span');
-                tagElement.textContent = tag;
-                tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
-                tagElement.title = translate('valueCard.showAllWithTag', { tag });
-                // Add click event to filter by this tag
-                if (tagFilters) {
-                    tagElement.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        // Find this tag in the filter section and activate it
-                        highlightTag(tag);
+                    const tagElement = document.createElement('span');
+                    tagElement.textContent = tag;
+                    tagElement.classList.add('tag', 'hover:bg-indigo-100', 'cursor-pointer');
+                    tagElement.title = translate('valueCard.showAllWithTag', { tag });
+                    tagElement.setAttribute('role', 'button');
+                    tagElement.setAttribute('tabindex', '0');
+
+                    if (selectedVerb === tag) {
+                        tagElement.classList.add('is-selected-verb');
+                        tagElement.setAttribute('aria-pressed', 'true');
+                    } else {
+                        tagElement.setAttribute('aria-pressed', 'false');
+                    }
+
+                    const onVerbSelect = (event) => {
+                        event.stopPropagation();
+                        setSelectedVerb(tag);
+                    };
+
+                    tagElement.addEventListener('click', onVerbSelect);
+                    tagElement.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            onVerbSelect(event);
+                        }
                     });
-                }
-                tagsContainer.appendChild(tagElement);
-            });
+
+                    tagsContainer.appendChild(tagElement);
+                });
 
                 tagsSection.appendChild(tagsContainer);
                 contentContainer.appendChild(tagsSection);
@@ -2890,6 +2983,10 @@ function filterValues() {
                     filterState.tags.some(tag => value.tags.includes(tag))
                 );
             }
+        }
+
+        if (selectedVerb) {
+            filtered = filtered.filter(value => value.tags.includes(selectedVerb));
         }
 
         // Sort results
