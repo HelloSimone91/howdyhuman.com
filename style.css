@@ -330,14 +330,16 @@ button, .value-card-toggle, .status-action-button {
     box-shadow: 0 6px 14px rgba(var(--support-amethyst-rgb), 0.12);
 }
 
-.tag.selected {
+.tag.selected,
+.tag.is-selected-verb {
     background: linear-gradient(135deg, rgba(var(--support-amethyst-rgb), 0.92), rgba(var(--support-sky-rgb), 0.9));
     color: var(--text-callout);
     border-color: rgba(var(--support-amethyst-rgb), 0.32);
     box-shadow: 0 6px 16px rgba(var(--support-amethyst-rgb), 0.18);
 }
 
-.tag.selected:hover {
+.tag.selected:hover,
+.tag.is-selected-verb:hover {
     background: linear-gradient(135deg, rgba(var(--support-amethyst-rgb), 1), rgba(var(--support-sky-rgb), 0.96));
 }
 
@@ -350,6 +352,64 @@ button, .value-card-toggle, .status-action-button {
 .tag-icon {
     margin-right: 0.25rem;
     font-size: 0.6rem;
+}
+
+.verb-filter-header {
+    background-color: var(--filter-bg);
+    border: 1px solid rgba(var(--support-amethyst-rgb), 0.12);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 24px rgba(var(--support-amethyst-rgb), 0.08);
+}
+
+.verb-filter-header__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.verb-filter-breadcrumb {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--header-text);
+}
+
+.verb-filter-separator {
+    font-weight: 700;
+    opacity: 0.65;
+}
+
+.verb-filter-chip {
+    pointer-events: none;
+}
+
+.verb-filter-clear {
+    border: none;
+    background: transparent;
+    color: var(--support-amethyst);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.verb-filter-clear:hover,
+.verb-filter-clear:focus-visible {
+    background-color: rgba(var(--support-amethyst-rgb), 0.12);
+    color: var(--support-purple);
+}
+
+.verb-filter-description {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
 }
 
 .filter-column {
