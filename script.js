@@ -1915,7 +1915,7 @@ function clearAllFilters() {
     filterState.categories = [];
     filterState.tags = [];
     filterState.searchTerm = '';
-    selectedVerb = null;
+    clearSelectedVerb({ skipFilterValues: true });
 
     // Reset UI elements
     document.querySelectorAll('.tag.selected').forEach(tag => {
@@ -2374,10 +2374,12 @@ function scrollValuesListToTop() {
     }
 }
 
-function clearSelectedVerb({ scrollToTop = false } = {}) {
+function clearSelectedVerb({ scrollToTop = false, skipFilterValues = false } = {}) {
     if (!selectedVerb) return;
     selectedVerb = null;
-    filterValues();
+    if (!skipFilterValues) {
+        filterValues();
+    }
     if (scrollToTop) {
         scrollValuesListToTop();
     }
