@@ -1915,6 +1915,7 @@ function clearAllFilters() {
     filterState.categories = [];
     filterState.tags = [];
     filterState.searchTerm = '';
+    selectedVerb = null;
 
     // Reset UI elements
     document.querySelectorAll('.tag.selected').forEach(tag => {
