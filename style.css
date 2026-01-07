@@ -1796,6 +1796,47 @@ button, .value-card-toggle, .status-action-button {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
 
+.intro-spark {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.25rem 0.1rem 0.25rem 0.1rem;
+    margin-bottom: 1.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.intro-spark::-webkit-scrollbar {
+    display: none;
+}
+
+.intro-spark__chip {
+    border: 1px solid rgba(var(--support-amethyst-rgb), 0.18);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    background: rgba(var(--support-lavender-rgb), 0.55);
+    color: var(--header-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 12px rgba(var(--support-amethyst-rgb), 0.08);
+}
+
+.intro-spark__chip:hover,
+.intro-spark__chip:focus-visible {
+    background: rgba(var(--support-sky-rgb), 0.8);
+    border-color: rgba(var(--support-amethyst-rgb), 0.28);
+    outline: none;
+}
+
+.intro-spark__chip.is-active {
+    background: linear-gradient(135deg, rgba(var(--support-amethyst-rgb), 0.9), rgba(var(--support-sky-rgb), 0.95));
+    color: var(--text-callout);
+    border-color: rgba(var(--support-amethyst-rgb), 0.42);
+}
+
 /* Category badge */
 .category-badge {
     background-color: var(--tag-bg);

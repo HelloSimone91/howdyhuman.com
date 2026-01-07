@@ -49,6 +49,7 @@ const valuesDataPromises = {};
 let valuesLoadedLanguage = null;
 let lazyValuesLoadTriggered = false;
 let valuesDataReady = false;
+let introSparkChips = [];
 
 // Filter state
 const filterState = {
@@ -629,8 +630,8 @@ function clearSearchTerm({ updateUI = true } = {}) {
         activeFilters, clearFilters, filterCount, toggleFilters, filtersContainer, valuesCount,
         alphaNav, alphaNavList, alphaNavToggle, alphaNavOverlay, alphaNavOverlayList,
         alphaNavOverlayClose, backToTop, languageToggle, filtersSheetTitle, filtersCollapsedHint,
-        categoryFilterSearch, tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
-        heroPaneBackdrop, heroPillButtons, introBox;
+    categoryFilterSearch, tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
+    heroPaneBackdrop, heroPillButtons, introBox, introSpark;
 
 // Scroll spy observer reference
 let scrollSpyObserver;
@@ -976,6 +977,8 @@ document.addEventListener('DOMContentLoaded', function() {
         heroPaneBackdrop = document.getElementById('heroPaneBackdrop');
         heroPillButtons = heroPillTray ? heroPillTray.querySelectorAll('.hero-pill') : [];
         introBox = document.querySelector('.intro-box');
+        introSpark = document.querySelector('.intro-spark');
+        introSparkChips = introSpark ? Array.from(introSpark.querySelectorAll('.intro-spark__chip')) : [];
 
         // Verify critical elements were found
         if (!valuesList) {
@@ -1012,6 +1015,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (mobileSearchInput) {
             mobileSearchInput.addEventListener('input', handleSearchInput);
+        }
+
+        if (introSpark && introSparkChips.length) {
+            introSpark.addEventListener('click', (event) => {
+                const chip = event.target.closest('.intro-spark__chip');
+                if (!chip) return;
+                const verb = chip.dataset.verb || chip.textContent.trim();
+                if (!verb) return;
+
+                setSearchTerm(verb);
+                setSelectedVerb(verb);
+
+                if (mainSearchInput) {
+                    mainSearchInput.focus();
+                }
+            });
+            updateIntroSparkChips();
         }
 
         // Clear search buttons
@@ -2374,6 +2394,19 @@ function scrollValuesListToTop() {
     }
 }
 
+function updateIntroSparkChips() {
+    if (!introSparkChips.length) return;
+
+    const normalizedSelected = selectedVerb ? normalizeSearchText(selectedVerb) : null;
+
+    introSparkChips.forEach(chip => {
+        const verb = chip.dataset.verb || chip.textContent.trim();
+        const isActive = normalizedSelected && normalizeSearchText(verb) === normalizedSelected;
+        chip.classList.toggle('is-active', isActive);
+        chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
+
 function clearSelectedVerb({ scrollToTop = false, skipFilterValues = false } = {}) {
     if (!selectedVerb) return;
     selectedVerb = null;
@@ -2383,6 +2416,7 @@ function clearSelectedVerb({ scrollToTop = false, skipFilterValues = false } = {
     if (scrollToTop) {
         scrollValuesListToTop();
     }
+    updateIntroSparkChips();
 }
 
 function setSelectedVerb(tag, { scrollToTop = true } = {}) {
@@ -2392,6 +2426,7 @@ function setSelectedVerb(tag, { scrollToTop = true } = {}) {
     if (scrollToTop) {
         scrollValuesListToTop();
     }
+    updateIntroSparkChips();
 }
 
 // Update tag selection state
