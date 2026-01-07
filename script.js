@@ -156,7 +156,7 @@ const i18n = {
             heading: 'The Howdy Human Dictionary of Values',
             tagline: 'Discover values in action',
             introDescription: 'Values show up in everyday choices and responses. This dictionary turns them into actions you can spot and name.',
-            introInstructions: 'Curious how a value sounds in real life? Search or browse by category and verb, then open a card for a quick example and related values.'
+            introInstructions: '<li>Choose a verb</li><li>Open a value</li><li>Save what resonates</li>'
         },
         buttons: {
             languageToggle: 'En español'
@@ -259,7 +259,7 @@ const i18n = {
             heading: 'El Diccionario de Valores de Howdy Human',
             tagline: 'Descubre valores en acción',
             introDescription: 'Los valores aparecen en las decisiones y respuestas cotidianas. Este diccionario los convierte en acciones que puedes ver y nombrar.',
-            introInstructions: '¿Tienes curiosidad por cómo suena un valor en la vida real? Busca o explora por categoría y verbo, y abre una tarjeta para ver un ejemplo breve y valores relacionados.'
+            introInstructions: '<li>Elige un verbo</li><li>Abre un valor</li><li>Guarda lo que resuene</li>'
         },
         buttons: {
             languageToggle: 'In English'
