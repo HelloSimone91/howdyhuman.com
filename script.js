@@ -165,7 +165,29 @@ const i18n = {
             languageToggle: 'Switch language',
             alphaNav: 'Alphabetical navigation',
             heroMenuOpen: 'Open quick menu',
-            heroMenuClose: 'Close quick menu'
+            heroMenuClose: 'Close quick menu',
+            tabs: 'Values content tabs'
+        },
+        tabs: {
+            dictionary: 'Dictionary',
+            observationLog: 'Observation Log'
+        },
+        observationLog: {
+            heading: 'Observation Log',
+            description: 'Track the values you notice in everyday moments.',
+            form: {
+                valueLabel: 'Value observed',
+                valuePlaceholder: 'e.g. Curiosity',
+                contextLabel: 'What happened?',
+                contextPlaceholder: 'Capture the moment or action you noticed.',
+                submit: 'Add observation'
+            },
+            stats: {
+                totalLabel: 'Total observations',
+                latestLabel: 'Latest entry',
+                latestEmpty: 'None yet'
+            },
+            empty: 'No observations yet. Add your first note above.'
         },
         alphaNav: {
             overlayHint: 'Jump to a letter to browse matching values.',
@@ -268,7 +290,29 @@ const i18n = {
             languageToggle: 'Cambiar idioma',
             alphaNav: 'Navegación alfabética',
             heroMenuOpen: 'Abrir menú flotante',
-            heroMenuClose: 'Cerrar menú flotante'
+            heroMenuClose: 'Cerrar menú flotante',
+            tabs: 'Pestañas del contenido de valores'
+        },
+        tabs: {
+            dictionary: 'Diccionario',
+            observationLog: 'Registro de observaciones'
+        },
+        observationLog: {
+            heading: 'Registro de observaciones',
+            description: 'Registra los valores que notes en momentos cotidianos.',
+            form: {
+                valueLabel: 'Valor observado',
+                valuePlaceholder: 'Ej. Curiosidad',
+                contextLabel: '¿Qué pasó?',
+                contextPlaceholder: 'Describe el momento o la acción que observaste.',
+                submit: 'Añadir observación'
+            },
+            stats: {
+                totalLabel: 'Observaciones totales',
+                latestLabel: 'Última entrada',
+                latestEmpty: 'Aún no hay'
+            },
+            empty: 'Aún no hay observaciones. Añade tu primera nota arriba.'
         },
         alphaNav: {
             overlayHint: 'Elige una letra para explorar los valores relacionados.',
