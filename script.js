@@ -155,7 +155,7 @@ const i18n = {
             title: 'The Howdy Human Dictionary of Values',
             heading: 'The Howdy Human Dictionary of Values',
             tagline: 'Discover values in action',
-            introDescription: 'Values show up in everyday choices and responses. This dictionary turns them into actions you can spot and name.',
+            introDescription: 'Most people can list their values. Very few can describe what living them actually looks like. This dictionary closes that gap — turning abstract ideals into concrete, observable actions you can spot in real time.',
             introInstructions: '<li>Choose a verb</li><li>Open a value</li><li>Save what resonates</li>'
         },
         buttons: {
