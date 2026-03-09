@@ -415,6 +415,24 @@
       "language": "es"
     },
     {
+      "name": "Claridad",
+      "description": "Comunicarse y pensar de forma directa y comprensible, sin enredos innecesarios ni mensajes ambiguos.",
+      "example": "En una reunión con tensión, Ana aportó claridad al resumir el acuerdo en palabras sencillas, definir los siguientes pasos y confirmar que todo el mundo estaba en la misma página.",
+      "category": "Interpersonal",
+      "tags": [
+        "aclarar",
+        "simplificar",
+        "explicar",
+        "precisar",
+        "concretar",
+        "ordenar",
+        "enfocar",
+        "articular",
+        "alinear"
+      ],
+      "language": "es"
+    },
+    {
       "name": "Colaboración",
       "description": "Trabajar junto con otras personas para alcanzar metas comunes y compartir ideas con eficacia.",
       "example": "El proyecto de restauración de hábitats prosperó gracias a la colaboración entre científicas, voluntariado comunitario y funcionariado público, cada cual aportando su experiencia.",
