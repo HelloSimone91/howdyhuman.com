@@ -162,6 +162,13 @@
         "tags": ["decide", "select", "pick", "opt", "determine", "elect", "prefer", "choose", "judge"]
     },
     {
+        "name": "Clarity",
+        "description": "Communicating and thinking in a way that is direct, understandable, and free from unnecessary confusion.",
+        "example": "During a tense meeting, Maya brought clarity by summarizing the decision in plain language, naming next steps, and checking that everyone understood before moving on.",
+        "category": "Interpersonal",
+        "tags": ["clarify", "simplify", "explain", "specify", "define", "focus", "illuminate", "articulate", "align"]
+    },
+    {
         "name": "Collaboration",
         "description": "Working together with others to achieve common goals and share ideas effectively.",
         "example": "The habitat restoration project succeeded through collaboration between scientists, community volunteers, and government officials, each contributing different expertise.",
