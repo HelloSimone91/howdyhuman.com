@@ -38,6 +38,30 @@
     </div>
     
     <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="top-nav-shell">
+            <div class="top-nav-brand" aria-label="Howdy Human">
+                <span class="top-nav-brand__mark">H</span>
+                <span class="top-nav-brand__name">HOWDY HUMAN</span>
+            </div>
+            <div class="main-search-container top-nav-search">
+                <i class="fas fa-search main-search-icon accent-icon"></i>
+                <input
+                    type="text"
+                    id="mainSearchInput"
+                    class="main-search-input"
+                    placeholder="Search values..."
+                    data-i18n="search.placeholder"
+                    data-i18n-attr="placeholder"
+                    autocomplete="off"
+                >
+                <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
+            </div>
+            <button class="top-nav-log" id="topLogButton" type="button">
+                <i class="far fa-bookmark"></i>
+                <span>LOG (3)</span>
+            </button>
+        </div>
+
         <header class="mb-8 relative hero-shell">
             <div class="hero-gradient-block" aria-hidden="true"></div>
             <div class="hero-aurora" aria-hidden="true"></div>
@@ -51,16 +75,11 @@
                 En español
             </button>
 
-            <h1 class="text-3xl font-bold text-center mb-2" data-i18n="page.heading">The Howdy Human Dictionary of Values</h1>
-            <p class="text-center opacity-75 mb-6" data-i18n="page.tagline">Discover values in action</p>
-
-            <!-- Introduction paragraph -->
-            <div class="intro-box">
-                <p class="mb-3" data-i18n="page.introDescription">
-                    Most people can list their values. Very few can describe what living them actually looks like. This dictionary closes that gap — turning abstract ideals into concrete, observable actions you can spot in real time.
+            <h1 class="hero-title" data-i18n="page.heading">TURN VALUES INTO VERBS</h1>
+            <div class="intro-box intro-box--editorial">
+                <p data-i18n="page.introDescription">
+                    A living encyclopedia for defining what matters most through applicable everyday behaviors. Because values are only as good as the actions that back them up.
                 </p>
-
-                <ol class="intro-steps" data-i18n="page.introInstructions" data-i18n-mode="html"></ol>
             </div>
             <div class="flex items-center justify-between values-header">
                 <div class="text-lg font-medium">
@@ -109,19 +128,6 @@
         >
             <div class="values-layout">
                 <div class="values-content">
-                    <div class="main-search-container">
-                        <i class="fas fa-search main-search-icon accent-icon"></i>
-                        <input
-                            type="text"
-                            id="mainSearchInput"
-                            class="main-search-input"
-                            placeholder="Search values..."
-                            data-i18n="search.placeholder"
-                            data-i18n-attr="placeholder"
-                            autocomplete="off"
-                        >
-                        <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
-                    </div>
                     <!-- Alphabetical Navigation -->
                     <nav
                         class="alpha-nav-inline"

@@ -153,9 +153,9 @@ const i18n = {
         },
         page: {
             title: 'The Howdy Human Dictionary of Values',
-            heading: 'The Howdy Human Dictionary of Values',
-            tagline: 'Discover values in action',
-            introDescription: 'Most people can list their values. Very few can describe what living them actually looks like. This dictionary closes that gap — turning abstract ideals into concrete, observable actions you can spot in real time.',
+            heading: 'TURN VALUES INTO VERBS',
+            tagline: 'A living encyclopedia for defining what matters most through applicable everyday behaviors. Because values are only as good as the actions that back them up.',
+            introDescription: 'A living encyclopedia for defining what matters most through applicable everyday behaviors. Because values are only as good as the actions that back them up.',
             introInstructions: '<li>Choose a verb</li><li>Open a value</li><li>Save what resonates</li>'
         },
         buttons: {
@@ -194,7 +194,7 @@ const i18n = {
             closeLabel: 'Close navigation'
         },
         search: {
-            placeholder: 'Search values...',
+            placeholder: 'Search values, verbs, or concepts...',
             ariaLabel: 'Search values',
             valuesLabel: 'Values'
         },
@@ -278,9 +278,9 @@ const i18n = {
         },
         page: {
             title: 'El Diccionario de Valores de Howdy Human',
-            heading: 'El Diccionario de Valores de Howdy Human',
-            tagline: 'Descubre valores en acción',
-            introDescription: 'Los valores aparecen en las decisiones y respuestas cotidianas. Este diccionario los convierte en acciones que puedes ver y nombrar.',
+            heading: 'CONVIERTE VALORES EN VERBOS',
+            tagline: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
+            introDescription: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
             introInstructions: '<li>Elige un verbo</li><li>Abre un valor</li><li>Guarda lo que resuene</li>'
         },
         buttons: {
@@ -319,7 +319,7 @@ const i18n = {
             closeLabel: 'Cerrar navegación'
         },
         search: {
-            placeholder: 'Busca valores por nombre, descripción o ejemplo...',
+            placeholder: 'Buscar valores, verbos o conceptos...',
             ariaLabel: 'Buscar valores',
             valuesLabel: 'Valores'
         },
@@ -1013,6 +1013,13 @@ document.addEventListener('DOMContentLoaded', function() {
         alphaNavOverlay = document.getElementById('alphaNavOverlay');
         alphaNavOverlayList = document.getElementById('alphaNavOverlayList');
         alphaNavOverlayClose = document.getElementById('alphaNavOverlayClose');
+        const topLogButton = document.getElementById('topLogButton');
+        if (topLogButton) {
+            topLogButton.addEventListener('click', () => {
+                const observationTab = document.getElementById('tab-observation-log');
+                if (observationTab) observationTab.click();
+            });
+        }
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
         heroControls = document.getElementById('heroControls');
