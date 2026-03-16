@@ -960,6 +960,13 @@
         "tags": ["accept", "respect", "accommodate", "allow", "understand", "embrace", "permit", "acknowledge", "recognize"]
     },
     {
+        "name": "Tranquility",
+        "description": "A peaceful state of mind and environment that supports calm, clarity, and emotional balance.",
+        "example": "She protected her tranquility by taking evening walks without her phone and ending each day with a few quiet breaths.",
+        "category": "Personal",
+        "tags": ["calm", "breathe", "reflect", "balance", "practice", "rest", "center", "relax", "contemplate"]
+    },
+    {
         "name": "Trust",
         "description": "Being honest and reliable with others creates a strong bond and encourages openness.",
         "example": "The leader built trust by consistently following through on commitments, admitting mistakes, and sharing information transparently with the team.",
