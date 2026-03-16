@@ -561,6 +561,13 @@
         "tags": ["build", "create", "leave", "establish", "develop", "pass on", "invest", "shape", "influence"]
     },
     {
+        "name": "Longevity",
+        "description": "Prioritizing a long, healthy, and meaningful life through sustainable habits and choices.",
+        "example": "He values longevity by balancing regular movement, restorative sleep, and close relationships so he can stay active and present for decades.",
+        "category": "Personal",
+        "tags": ["sustain", "maintain", "preserve", "endure", "thrive", "balance", "nurture", "protect", "care"]
+    },
+    {
         "name": "Love",
         "description": "A deep feeling of affection and care for someone or something.",
         "example": "The parents demonstrated love by providing consistent support, setting healthy boundaries, and encouraging their children to pursue their own interests.",

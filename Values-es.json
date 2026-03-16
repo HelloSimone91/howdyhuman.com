@@ -1441,6 +1441,24 @@
       "language": "es"
     },
     {
+      "name": "Longevidad",
+      "description": "El deseo de vivir muchos años con salud, dignidad y bienestar, cuidando el cuerpo, la mente y los vínculos que dan sentido a la vida.",
+      "example": "Ella prioriza la longevidad con hábitos sostenibles —comida casera, movimiento diario y tiempo de calidad con su comunidad— para envejecer con autonomía y alegría.",
+      "category": "Personal",
+      "tags": [
+        "cuidar",
+        "sostener",
+        "preservar",
+        "fortalecer",
+        "descansar",
+        "nutrir",
+        "equilibrar",
+        "prevenir",
+        "acompañar"
+      ],
+      "language": "es"
+    },
+    {
       "name": "Amor",
       "description": "Un sentimiento profundo de afecto, cuidado y compromiso.",
       "example": "Expresó amor al cuidar a su padre durante la recuperación, escuchando sus historias y manteniéndolo animado.",
