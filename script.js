@@ -2050,7 +2050,7 @@ function fallbackInitialization() {
                     <div class="p-4 bg-filter-bg rounded-md shadow-sm">
                         <div class="flex justify-between items-center mb-2">
                             <h3 class="text-lg font-semibold">${value.name}</h3>
-                            <span class="text-sm opacity-75 category-badge">${value.category}</span>
+                            <span class="text-sm opacity-75 category-badge">${getCategoryLabel(value.category)}</span>
                         </div>
                         <p class="mb-3">${value.description}</p>
                         <div class="value-example">
@@ -3052,7 +3052,7 @@ function displayValues(valuesToDisplay) {
                 <div class="mt-6">
                     <h3 class="text-lg font-semibold mb-4">${listHeading}</h3>
                     <ul class="list-disc pl-5 space-y-2">
-                        ${values.map(v => `<li>${v.name} - ${v.category}</li>`).join('')}
+                        ${values.map(v => `<li>${v.name} - ${getCategoryLabel(v.category)}</li>`).join('')}
                     </ul>
                 </div>
             `;
