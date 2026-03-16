@@ -398,6 +398,32 @@ const i18n = {
     }
 };
 
+const localizedCategoryLabels = {
+    en: {
+        'Core Values': 'Core Values',
+        Social: 'Social',
+        Growth: 'Growth',
+        Mindset: 'Mindset',
+        Personal: 'Personal',
+        Interpersonal: 'Interpersonal',
+        Aspirations: 'Aspirations'
+    },
+    es: {
+        'Core Values': 'Valores fundamentales',
+        Social: 'Social',
+        Growth: 'Crecimiento',
+        Mindset: 'Mentalidad',
+        Personal: 'Personal',
+        Interpersonal: 'Interpersonal',
+        Aspirations: 'Aspiraciones'
+    }
+};
+
+function getCategoryLabel(category) {
+    const labels = localizedCategoryLabels[currentLanguage] || localizedCategoryLabels.en;
+    return labels[category] || category;
+}
+
 const translationCache = new Map();
 
 function formatTranslation(template, params = {}) {
@@ -2186,7 +2212,7 @@ function initializeValuesDictionary() {
 
                 const label = document.createElement('label');
                 label.htmlFor = `category-${category}`;
-                label.textContent = category;
+                label.textContent = getCategoryLabel(category);
                 label.classList.add('text-sm', 'select-none');
 
                 // Count values in this category
@@ -2355,7 +2381,7 @@ function updateActiveFilters() {
 
     // Add category filters
     filterState.categories.forEach(category => {
-        addActiveFilterBadge(category, 'category');
+        addActiveFilterBadge(getCategoryLabel(category), 'category', category);
     });
 
     // Add tag filters
@@ -2370,7 +2396,7 @@ function updateActiveFilters() {
 }
 
 // Add active filter badge
-function addActiveFilterBadge(text, type) {
+function addActiveFilterBadge(text, type, rawText = text) {
     if (!activeFilters) return;
 
     const badge = document.createElement('div');
@@ -2399,9 +2425,9 @@ function addActiveFilterBadge(text, type) {
     removeButton.innerHTML = '<i class="fas fa-times-circle"></i>';
     removeButton.addEventListener('click', () => {
         if (type === 'category') {
-            filterState.categories = filterState.categories.filter(c => c !== text);
+            filterState.categories = filterState.categories.filter(c => c !== rawText);
             // Update checkbox
-            const checkbox = document.getElementById(`category-${text}`);
+            const checkbox = document.getElementById(`category-${rawText}`);
             if (checkbox) checkbox.checked = false;
         } else if (type === 'tag') {
             filterState.tags = filterState.tags.filter(t => t !== text);
@@ -2780,7 +2806,7 @@ function displayValues(valuesToDisplay) {
                 title.classList.add('text-lg', 'font-semibold');
 
                 const category = document.createElement('span');
-                category.textContent = value.category;
+                category.textContent = getCategoryLabel(value.category);
                 category.classList.add('category-badge');
                 category.addEventListener('click', () => {
                     // Add category to filters
@@ -2793,7 +2819,7 @@ function displayValues(valuesToDisplay) {
                         updateActiveFilters();
 
                         // Show status
-                        showStatus(translate('statuses.showingCategory', { category: value.category }));
+                        showStatus(translate('statuses.showingCategory', { category: getCategoryLabel(value.category) }));
                     }
                 });
 
