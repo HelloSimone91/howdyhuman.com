@@ -2485,6 +2485,24 @@
       "language": "es"
     },
     {
+      "name": "Tranquilidad",
+      "description": "Un estado de paz mental y del entorno que favorece la calma, la claridad y el equilibrio emocional.",
+      "example": "Protegió su tranquilidad al dar paseos por la tarde sin el teléfono y cerrar el día con unas respiraciones en silencio.",
+      "category": "Personal",
+      "tags": [
+        "calmar",
+        "respirar",
+        "reflexionar",
+        "equilibrar",
+        "meditar",
+        "descansar",
+        "centrar",
+        "relajar",
+        "contemplar"
+      ],
+      "language": "es"
+    },
+    {
       "name": "Confianza",
       "description": "Ser honesto y confiable para fortalecer vínculos y fomentar apertura.",
       "example": "La líder construyó confianza al cumplir sus compromisos, admitir errores y compartir información con transparencia.",
