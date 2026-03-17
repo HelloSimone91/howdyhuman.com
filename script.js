@@ -2187,7 +2187,13 @@ function initializeValuesDictionary() {
         // Populate category filters
         if (categoryFilters) {
             // Get unique categories
-            const categories = Object.keys(categoryCounts).sort(compareByName);
+            const categories = Object.keys(categoryCounts).sort((a, b) => {
+                const localizedComparison = compareByName(getCategoryLabel(a), getCategoryLabel(b));
+                if (localizedComparison !== 0) {
+                    return localizedComparison;
+                }
+                return compareByName(a, b);
+            });
 
             // Create category filters
             categories.forEach(category => {
