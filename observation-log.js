@@ -1,5 +1,47 @@
 const OBSERVATION_STORAGE_KEY = 'valuesObservationLog.observations';
 
+function getObservationValueOptions() {
+    return document.getElementById('observationValueOptions');
+}
+
+function populateObservationValueOptions(valuesList) {
+    const options = getObservationValueOptions();
+    if (!options) {
+        return;
+    }
+
+    const names = Array.from(new Set(
+        (Array.isArray(valuesList) ? valuesList : [])
+            .map((value) => value && typeof value.name === 'string' ? value.name.trim() : '')
+            .filter(Boolean)
+    )).sort((a, b) => a.localeCompare(b, document.documentElement.lang || 'en', { sensitivity: 'base' }));
+
+    options.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    names.forEach((name) => {
+        const option = document.createElement('option');
+        option.value = name;
+        fragment.appendChild(option);
+    });
+
+    options.appendChild(fragment);
+}
+
+function initObservationValuePicker() {
+    const syncOptions = (valuesList) => {
+        populateObservationValueOptions(valuesList);
+    };
+
+    if (typeof values !== 'undefined' && Array.isArray(values) && values.length) {
+        syncOptions(values);
+    }
+
+    document.addEventListener('values-data-ready', (event) => {
+        syncOptions(event.detail?.values);
+    });
+}
+
 function initTabs() {
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     if (!tabs.length) {
@@ -227,5 +269,6 @@ function initObservationLog() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
+    initObservationValuePicker();
     initObservationLog();
 });
