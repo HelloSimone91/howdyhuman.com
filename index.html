@@ -173,11 +173,14 @@
                             id="observationValue"
                             name="value"
                             type="text"
+                            list="observationValueOptions"
+                            autocomplete="off"
                             required
                             placeholder="e.g. Curiosity"
                             data-i18n="observationLog.form.valuePlaceholder"
                             data-i18n-attr="placeholder"
                         >
+                        <datalist id="observationValueOptions"></datalist>
                     </div>
                     <div class="observation-log__field">
                         <label for="observationContext" data-i18n="observationLog.form.contextLabel">What happened?</label>

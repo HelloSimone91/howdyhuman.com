@@ -2125,6 +2125,12 @@ function applyValuesData(lang, data) {
     setupAlphaNav();
     initializeValuesDictionary();
     updateValuesCount();
+    document.dispatchEvent(new CustomEvent('values-data-ready', {
+        detail: {
+            language: lang,
+            values
+        }
+    }));
 }
 
 async function fetchValuesData(lang = 'en') {
