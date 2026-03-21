@@ -4,6 +4,12 @@ function getObservationValueOptions() {
     return document.getElementById('observationValueOptions');
 }
 
+function requestObservationValueOptions() {
+    if (typeof triggerLazyValuesLoad === 'function') {
+        triggerLazyValuesLoad();
+    }
+}
+
 function populateObservationValueOptions(valuesList) {
     const options = getObservationValueOptions();
     if (!options) {
@@ -29,6 +35,8 @@ function populateObservationValueOptions(valuesList) {
 }
 
 function initObservationValuePicker() {
+    const valueInput = document.getElementById('observationValue');
+    const observationTab = document.getElementById('tab-observation-log');
     const syncOptions = (valuesList) => {
         populateObservationValueOptions(valuesList);
     };
@@ -36,6 +44,16 @@ function initObservationValuePicker() {
     if (typeof values !== 'undefined' && Array.isArray(values) && values.length) {
         syncOptions(values);
     }
+
+    [observationTab, valueInput].forEach((element) => {
+        if (!element) {
+            return;
+        }
+
+        ['focus', 'click', 'input'].forEach((eventName) => {
+            element.addEventListener(eventName, requestObservationValueOptions, { once: true });
+        });
+    });
 
     document.addEventListener('values-data-ready', (event) => {
         syncOptions(event.detail?.values);
