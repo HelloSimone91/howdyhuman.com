@@ -2117,6 +2117,15 @@ function setupLazyValuesLoaders() {
     setTimeout(triggerLoad, 1500);
 }
 
+function dispatchValuesDataReady(lang, valuesList = values) {
+    document.dispatchEvent(new CustomEvent('values-data-ready', {
+        detail: {
+            language: lang,
+            values: Array.isArray(valuesList) ? valuesList : []
+        }
+    }));
+}
+
 function applyValuesData(lang, data) {
     values = Array.isArray(data) ? data : [];
     valuesDataReady = true;
@@ -2125,12 +2134,7 @@ function applyValuesData(lang, data) {
     setupAlphaNav();
     initializeValuesDictionary();
     updateValuesCount();
-    document.dispatchEvent(new CustomEvent('values-data-ready', {
-        detail: {
-            language: lang,
-            values
-        }
-    }));
+    dispatchValuesDataReady(lang, values);
 }
 
 async function fetchValuesData(lang = 'en') {
@@ -2150,8 +2154,10 @@ async function fetchValuesData(lang = 'en') {
         // Attempt to load fallback or default data if primary fetch fails
         values = []; // Ensure values is empty if fetch fails
         valuesDataReady = false;
+        valuesLoadedLanguage = lang;
         initializeValuesDictionary(); // Initialize with empty or fallback data
         updateValuesCount();
+        dispatchValuesDataReady(lang, values);
         return null;
     } finally {
         delete valuesDataPromises[lang];
