@@ -1,7 +1,14 @@
 const OBSERVATION_STORAGE_KEY = 'valuesObservationLog.observations';
+const MAX_OBSERVATION_SUGGESTIONS = 8;
 
-function getObservationValueOptions() {
-    return document.getElementById('observationValueOptions');
+let observationValueNames = [];
+
+function normalizeObservationValue(value) {
+    return typeof value === 'string' ? value.trim() : '';
+}
+
+function getObservationValueSuggestions() {
+    return document.getElementById('observationValueSuggestions');
 }
 
 function requestObservationValueOptions() {
@@ -11,35 +18,114 @@ function requestObservationValueOptions() {
 }
 
 function populateObservationValueOptions(valuesList) {
-    const options = getObservationValueOptions();
-    if (!options) {
-        return;
-    }
-
-    const names = Array.from(new Set(
+    observationValueNames = Array.from(new Set(
         (Array.isArray(valuesList) ? valuesList : [])
             .map((value) => value && typeof value.name === 'string' ? value.name.trim() : '')
             .filter(Boolean)
     )).sort((a, b) => a.localeCompare(b, document.documentElement.lang || 'en', { sensitivity: 'base' }));
+}
 
-    options.innerHTML = '';
+function getMatchingObservationValues(query) {
+    const normalizedQuery = normalizeSearchText(normalizeObservationValue(query));
+
+    if (!normalizedQuery) {
+        return observationValueNames.slice(0, MAX_OBSERVATION_SUGGESTIONS);
+    }
+
+    return observationValueNames
+        .filter((name) => normalizeSearchText(name).includes(normalizedQuery))
+        .slice(0, MAX_OBSERVATION_SUGGESTIONS);
+}
+
+function closeObservationSuggestions(valueInput, suggestionsList) {
+    if (!valueInput || !suggestionsList) {
+        return;
+    }
+
+    suggestionsList.hidden = true;
+    suggestionsList.innerHTML = '';
+    valueInput.setAttribute('aria-expanded', 'false');
+    valueInput.removeAttribute('aria-activedescendant');
+    valueInput.dataset.activeSuggestion = '-1';
+}
+
+function applyObservationSuggestion(valueInput, suggestionsList, value) {
+    valueInput.value = value;
+    closeObservationSuggestions(valueInput, suggestionsList);
+}
+
+function updateObservationSuggestions(valueInput, suggestionsList) {
+    if (!valueInput || !suggestionsList) {
+        return;
+    }
+
+    const matches = getMatchingObservationValues(valueInput.value);
+
+    if (!matches.length) {
+        closeObservationSuggestions(valueInput, suggestionsList);
+        return;
+    }
+
+    suggestionsList.innerHTML = '';
     const fragment = document.createDocumentFragment();
 
-    names.forEach((name) => {
-        const option = document.createElement('option');
-        option.value = name;
-        fragment.appendChild(option);
+    matches.forEach((name, index) => {
+        const item = document.createElement('li');
+        item.id = `observationValueSuggestion-${index}`;
+        item.className = 'observation-log__suggestion';
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', 'false');
+        item.textContent = name;
+        item.addEventListener('mousedown', (event) => {
+            event.preventDefault();
+            applyObservationSuggestion(valueInput, suggestionsList, name);
+        });
+        fragment.appendChild(item);
     });
 
-    options.appendChild(fragment);
+    suggestionsList.appendChild(fragment);
+    suggestionsList.hidden = false;
+    valueInput.setAttribute('aria-expanded', 'true');
+    valueInput.dataset.activeSuggestion = '-1';
+}
+
+function setActiveObservationSuggestion(valueInput, suggestionsList, nextIndex) {
+    const options = Array.from(suggestionsList.querySelectorAll('.observation-log__suggestion'));
+    if (!options.length) {
+        closeObservationSuggestions(valueInput, suggestionsList);
+        return;
+    }
+
+    const boundedIndex = ((nextIndex % options.length) + options.length) % options.length;
+    valueInput.dataset.activeSuggestion = String(boundedIndex);
+
+    options.forEach((option, index) => {
+        const isActive = index === boundedIndex;
+        option.classList.toggle('is-active', isActive);
+        option.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        if (isActive) {
+            valueInput.setAttribute('aria-activedescendant', option.id);
+            option.scrollIntoView({ block: 'nearest' });
+        }
+    });
 }
 
 function initObservationValuePicker() {
     const valueInput = document.getElementById('observationValue');
+    const suggestionsList = getObservationValueSuggestions();
     const observationTab = document.getElementById('tab-observation-log');
     const syncOptions = (valuesList) => {
         populateObservationValueOptions(valuesList);
+        if (document.activeElement === valueInput) {
+            updateObservationSuggestions(valueInput, suggestionsList);
+        }
     };
+
+    if (!valueInput || !suggestionsList) {
+        return;
+    }
+
+    valueInput.dataset.activeSuggestion = '-1';
 
     if (typeof values !== 'undefined' && Array.isArray(values) && values.length) {
         syncOptions(values);
@@ -53,6 +139,45 @@ function initObservationValuePicker() {
         ['focus', 'click', 'input'].forEach((eventName) => {
             element.addEventListener(eventName, requestObservationValueOptions, { once: true });
         });
+    });
+
+    valueInput.addEventListener('focus', () => {
+        updateObservationSuggestions(valueInput, suggestionsList);
+    });
+
+    valueInput.addEventListener('input', () => {
+        updateObservationSuggestions(valueInput, suggestionsList);
+    });
+
+    valueInput.addEventListener('keydown', (event) => {
+        const options = Array.from(suggestionsList.querySelectorAll('.observation-log__suggestion'));
+        const currentIndex = Number.parseInt(valueInput.dataset.activeSuggestion || '-1', 10);
+
+        if (event.key === 'ArrowDown' && options.length) {
+            event.preventDefault();
+            setActiveObservationSuggestion(valueInput, suggestionsList, currentIndex + 1);
+            return;
+        }
+
+        if (event.key === 'ArrowUp' && options.length) {
+            event.preventDefault();
+            setActiveObservationSuggestion(valueInput, suggestionsList, currentIndex <= 0 ? options.length - 1 : currentIndex - 1);
+            return;
+        }
+
+        if (event.key === 'Enter' && !suggestionsList.hidden && currentIndex >= 0 && options[currentIndex]) {
+            event.preventDefault();
+            applyObservationSuggestion(valueInput, suggestionsList, options[currentIndex].textContent || '');
+            return;
+        }
+
+        if (event.key === 'Escape') {
+            closeObservationSuggestions(valueInput, suggestionsList);
+        }
+    });
+
+    valueInput.addEventListener('blur', () => {
+        window.setTimeout(() => closeObservationSuggestions(valueInput, suggestionsList), 120);
     });
 
     document.addEventListener('values-data-ready', (event) => {
@@ -98,7 +223,7 @@ function initTabs() {
     };
 
     const handleKeydown = (event) => {
-        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
             return;
         }
         event.preventDefault();
@@ -237,6 +362,7 @@ function initObservationLog() {
     const emptyState = document.getElementById('observationEmpty');
     const totalCount = document.getElementById('observationTotal');
     const latestEntry = document.getElementById('observationLatest');
+    const suggestionsList = getObservationValueSuggestions();
 
     if (!valueInput || !contextInput || !list || !emptyState || !totalCount || !latestEntry) {
         return;
@@ -279,6 +405,9 @@ function initObservationLog() {
         updateUI();
 
         form.reset();
+        if (suggestionsList) {
+            closeObservationSuggestions(valueInput, suggestionsList);
+        }
         valueInput.focus();
     });
 

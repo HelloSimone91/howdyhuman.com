@@ -2013,6 +2013,10 @@ button, .value-card-toggle, .status-action-button {
     color: var(--header-text);
 }
 
+#observation-log-panel .observation-log__autocomplete {
+    position: relative;
+}
+
 #observation-log-panel .observation-log__field input,
 #observation-log-panel .observation-log__field textarea {
     border-radius: 14px;
@@ -2027,6 +2031,35 @@ button, .value-card-toggle, .status-action-button {
 #observation-log-panel .observation-log__field textarea:focus {
     outline: 2px solid rgba(var(--accent-secondary-rgb), 0.35);
     border-color: rgba(var(--accent-secondary-rgb), 0.5);
+}
+
+#observation-log-panel .observation-log__suggestions {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    border-radius: 14px;
+    border: 1px solid rgba(var(--accent-secondary-rgb), 0.18);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 18px 30px rgba(31, 42, 42, 0.12);
+    max-height: 16rem;
+    overflow-y: auto;
+}
+
+#observation-log-panel .observation-log__suggestion {
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+#observation-log-panel .observation-log__suggestion:hover,
+#observation-log-panel .observation-log__suggestion.is-active {
+    background: rgba(var(--accent-secondary-rgb), 0.12);
 }
 
 #observation-log-panel .observation-log__submit {
