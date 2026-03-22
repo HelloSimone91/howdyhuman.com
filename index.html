@@ -167,20 +167,30 @@
                 </header>
 
                 <form id="observationForm" class="observation-log__form">
-                    <div class="observation-log__field">
+                    <div class="observation-log__field observation-log__field--autocomplete">
                         <label for="observationValue" data-i18n="observationLog.form.valueLabel">Value observed</label>
-                        <input
-                            id="observationValue"
-                            name="value"
-                            type="text"
-                            list="observationValueOptions"
-                            autocomplete="off"
-                            required
-                            placeholder="e.g. Curiosity"
-                            data-i18n="observationLog.form.valuePlaceholder"
-                            data-i18n-attr="placeholder"
-                        >
-                        <datalist id="observationValueOptions"></datalist>
+                        <div class="observation-log__autocomplete">
+                            <input
+                                id="observationValue"
+                                name="value"
+                                type="text"
+                                autocomplete="off"
+                                required
+                                placeholder="e.g. Curiosity"
+                                data-i18n="observationLog.form.valuePlaceholder"
+                                data-i18n-attr="placeholder"
+                                role="combobox"
+                                aria-autocomplete="list"
+                                aria-expanded="false"
+                                aria-controls="observationValueSuggestions"
+                            >
+                            <ul
+                                id="observationValueSuggestions"
+                                class="observation-log__suggestions"
+                                role="listbox"
+                                hidden
+                            ></ul>
+                        </div>
                     </div>
                     <div class="observation-log__field">
                         <label for="observationContext" data-i18n="observationLog.form.contextLabel">What happened?</label>
