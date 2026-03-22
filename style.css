@@ -1922,6 +1922,42 @@ button, .value-card-toggle, .status-action-button {
     padding: 0.35rem 0.65rem;
 }
 
+.values-list--gallery .value-card-preview--gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+}
+
+.values-list--gallery .value-card-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.values-list--gallery .value-card-emoji {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem;
+    border-radius: 1rem;
+    background: rgba(var(--support-amethyst-rgb), 0.08);
+    box-shadow: inset 0 0 0 1px rgba(var(--support-amethyst-rgb), 0.14);
+}
+
+.values-list--gallery .value-card-title--gallery {
+    margin: 0;
+}
+
+.values-list--gallery .value-description--gallery {
+    margin-top: 0.1rem;
+    margin-bottom: 1rem;
+}
+
 .value-card.expanded .value-card-content {
     max-height: 1500px; /* Arbitrary large height */
     opacity: 1;

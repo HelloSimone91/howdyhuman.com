@@ -453,6 +453,32 @@ function getCategoryLabel(category) {
     return labels[category] || category;
 }
 
+function getValueEmoji(value) {
+    const categoryEmojiMap = {
+        Personal: '🪞',
+        Interpersonal: '🤝',
+        Social: '🌍',
+        'Core Values': '💎',
+        Growth: '🌱',
+        Mindset: '🧠',
+        Aspirations: '✨'
+    };
+
+    const keywordEmojiMap = [
+        { pattern: /love|compassion|kindness|care|empathy|forgiveness/i, emoji: '💗' },
+        { pattern: /joy|fun|humor|laughter|celebration|happiness/i, emoji: '🎉' },
+        { pattern: /courage|bravery|boldness|adventure|challenge/i, emoji: '🦁' },
+        { pattern: /wisdom|clarity|knowledge|learning|insight/i, emoji: '📚' },
+        { pattern: /balance|peace|stillness|mindfulness|tranquility/i, emoji: '🧘' },
+        { pattern: /creativity|innovation|imagination|self-expression|art/i, emoji: '🎨' },
+        { pattern: /leadership|ambition|achievement|purpose|impact/i, emoji: '🚀' },
+        { pattern: /community|connection|family|friendship|teamwork|collaboration/i, emoji: '🫶' }
+    ];
+
+    const matchingKeyword = keywordEmojiMap.find(({ pattern }) => pattern.test(value.name));
+    return matchingKeyword?.emoji || categoryEmojiMap[value.category] || '✨';
+}
+
 const translationCache = new Map();
 
 function formatTranslation(template, params = {}) {
@@ -2963,9 +2989,32 @@ function displayValues(valuesToDisplay) {
                     }
                 });
 
-                header.appendChild(title);
-                header.appendChild(category);
-                previewContainer.appendChild(header);
+                if (currentViewMode === 'gallery') {
+                    const emoji = document.createElement('span');
+                    emoji.textContent = getValueEmoji(value);
+                    emoji.classList.add('value-card-emoji');
+                    emoji.setAttribute('aria-hidden', 'true');
+                    previewContainer.appendChild(emoji);
+
+                    const meta = document.createElement('div');
+                    meta.classList.add('value-card-meta');
+                    meta.appendChild(title);
+                    meta.appendChild(category);
+                    previewContainer.appendChild(meta);
+                } else {
+                    header.appendChild(title);
+                    header.appendChild(category);
+                    previewContainer.appendChild(header);
+
+                    const description = document.createElement('p');
+                    description.textContent = value.description;
+                    description.classList.add('mb-4', 'value-description');
+                    previewContainer.appendChild(description);
+                }
+
+                // Create content container (for collapsible functionality)
+                const contentContainer = document.createElement('div');
+                contentContainer.classList.add('value-card-content');
 
                 const description = document.createElement('p');
                 description.textContent = value.description;
@@ -2973,11 +3022,7 @@ function displayValues(valuesToDisplay) {
                 if (currentViewMode === 'gallery') {
                     description.classList.add('value-description--gallery');
                 }
-                previewContainer.appendChild(description);
-
-                // Create content container (for collapsible functionality)
-                const contentContainer = document.createElement('div');
-                contentContainer.classList.add('value-card-content');
+                contentContainer.appendChild(description);
 
                 // Add the example of value in action with label
                 const exampleContainer = document.createElement('div');
