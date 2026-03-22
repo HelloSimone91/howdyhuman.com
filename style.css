@@ -1931,11 +1931,17 @@ button, .value-card-toggle, .status-action-button {
     padding: 0.35rem 0.65rem;
 }
 
+.values-list--gallery .category-badge--gallery {
+    position: static;
+    justify-self: end;
+    max-width: 100%;
+}
+
 .values-list--gallery .value-card-preview--gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.9rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 0.9rem 1rem;
 }
 
 .values-list--gallery .value-card-meta {
@@ -1948,8 +1954,8 @@ button, .value-card-toggle, .status-action-button {
 
 .values-list--gallery .value-card--gallery .value-card-meta {
     box-sizing: border-box;
-    width: calc(100% - 7.5rem);
-    max-width: calc(100% - 7.5rem);
+    grid-column: 1 / -1;
+    max-width: 100%;
 }
 
 .values-list--gallery .value-card-emoji {

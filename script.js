@@ -2949,10 +2949,12 @@ function displayValues(valuesToDisplay) {
                     emoji.setAttribute('aria-hidden', 'true');
                     previewContainer.appendChild(emoji);
 
+                    category.classList.add('category-badge--gallery');
+                    previewContainer.appendChild(category);
+
                     meta = document.createElement('div');
                     meta.classList.add('value-card-meta');
                     meta.appendChild(title);
-                    meta.appendChild(category);
                     previewContainer.appendChild(meta);
                 } else {
                     header.appendChild(title);
