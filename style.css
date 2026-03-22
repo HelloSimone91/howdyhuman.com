@@ -1294,7 +1294,6 @@ button, .value-card-toggle, .status-action-button {
         grid-column: 1 / -1;
         justify-self: start;
         width: min(100%, 1000px);
-        overflow: visible;
     }
 
     .letter-values-grid--gallery .value-card--gallery.expanded .value-card-layout--gallery {
