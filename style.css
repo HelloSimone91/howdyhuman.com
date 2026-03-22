@@ -1304,6 +1304,10 @@ button, .value-card-toggle, .status-action-button {
         align-items: start;
     }
 
+    .letter-values-grid--gallery .value-card--gallery.expanded .value-card-content {
+        padding-top: 0.1rem;
+    }
+
     .letter-values-grid--gallery .value-card--gallery.expanded .value-card-preview--gallery {
         position: sticky;
         top: 1rem;
@@ -1965,8 +1969,18 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .values-list--gallery .value-description--gallery {
-    margin-top: 0.1rem;
-    margin-bottom: 1rem;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(0.35rem);
+    transition: max-height 0.35s ease, opacity 0.24s ease, transform 0.3s ease;
+}
+
+.values-list--gallery .value-card.expanded .value-description--gallery {
+    max-height: 12rem;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .value-card.expanded .value-card-content {

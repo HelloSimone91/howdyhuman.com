@@ -2972,7 +2972,7 @@ function displayValues(valuesToDisplay) {
                     const description = document.createElement('p');
                     description.textContent = value.description;
                     description.classList.add('mb-4', 'value-description', 'value-description--gallery');
-                    contentContainer.appendChild(description);
+                    meta.appendChild(description);
                 }
 
                 // Add the example of value in action with label
