@@ -3016,13 +3016,12 @@ function displayValues(valuesToDisplay) {
                 const contentContainer = document.createElement('div');
                 contentContainer.classList.add('value-card-content');
 
-                const description = document.createElement('p');
-                description.textContent = value.description;
-                description.classList.add('mb-4', 'value-description');
                 if (currentViewMode === 'gallery') {
-                    description.classList.add('value-description--gallery');
+                    const description = document.createElement('p');
+                    description.textContent = value.description;
+                    description.classList.add('mb-4', 'value-description', 'value-description--gallery');
+                    contentContainer.appendChild(description);
                 }
-                contentContainer.appendChild(description);
 
                 // Add the example of value in action with label
                 const exampleContainer = document.createElement('div');
