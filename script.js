@@ -2919,6 +2919,18 @@ function displayValues(valuesToDisplay) {
                     card.classList.add('value-card--gallery');
                 }
 
+                const layout = document.createElement('div');
+                layout.classList.add('value-card-layout');
+                if (currentViewMode === 'gallery') {
+                    layout.classList.add('value-card-layout--gallery');
+                }
+
+                const previewContainer = document.createElement('div');
+                previewContainer.classList.add('value-card-preview');
+                if (currentViewMode === 'gallery') {
+                    previewContainer.classList.add('value-card-preview--gallery');
+                }
+
                 const header = document.createElement('div');
                 header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
                 if (currentViewMode === 'gallery') {
@@ -2953,6 +2965,7 @@ function displayValues(valuesToDisplay) {
 
                 header.appendChild(title);
                 header.appendChild(category);
+                previewContainer.appendChild(header);
 
                 const description = document.createElement('p');
                 description.textContent = value.description;
@@ -2960,6 +2973,7 @@ function displayValues(valuesToDisplay) {
                 if (currentViewMode === 'gallery') {
                     description.classList.add('value-description--gallery');
                 }
+                previewContainer.appendChild(description);
 
                 // Create content container (for collapsible functionality)
                 const contentContainer = document.createElement('div');
@@ -3179,10 +3193,10 @@ function displayValues(valuesToDisplay) {
                     });
                 }
 
-                card.appendChild(header);
-                card.appendChild(description);
-                card.appendChild(contentContainer);
-                card.appendChild(toggleButton);
+                previewContainer.appendChild(toggleButton);
+                layout.appendChild(previewContainer);
+                layout.appendChild(contentContainer);
+                card.appendChild(layout);
 
                 sectionValuesGrid.appendChild(card);
                 renderedCardCount += 1;
