@@ -60,7 +60,27 @@ const filterState = {
     sortMethod: 'name'
 };
 let selectedVerb = null;
-let currentViewMode = localStorage.getItem('dictionaryViewMode') || 'list';
+const DICTIONARY_VIEW_MODE_STORAGE_KEY = 'dictionaryViewMode';
+
+function getStoredViewMode() {
+    try {
+        const storedViewMode = localStorage.getItem(DICTIONARY_VIEW_MODE_STORAGE_KEY);
+        return storedViewMode === 'gallery' ? 'gallery' : 'list';
+    } catch (error) {
+        console.warn('Failed to read dictionary view mode from storage:', error);
+        return 'list';
+    }
+}
+
+function storeViewMode(mode) {
+    try {
+        localStorage.setItem(DICTIONARY_VIEW_MODE_STORAGE_KEY, mode);
+    } catch (error) {
+        console.warn('Failed to store dictionary view mode:', error);
+    }
+}
+
+let currentViewMode = getStoredViewMode();
 
 const filterAccordionSections = [];
 const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
@@ -2702,7 +2722,7 @@ function findRelatedValues(value) {
 function setViewMode(mode) {
     const nextMode = mode === 'gallery' ? 'gallery' : 'list';
     currentViewMode = nextMode;
-    localStorage.setItem('dictionaryViewMode', nextMode);
+    storeViewMode(nextMode);
 
     const listButton = document.getElementById('viewModeList');
     const galleryButton = document.getElementById('viewModeGallery');
