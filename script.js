@@ -3252,7 +3252,11 @@ function filterValues() {
                 const descriptionMatch = value.description.toLowerCase().includes(filterState.searchTerm);
                 const exampleMatch = value.example.toLowerCase().includes(filterState.searchTerm);
                 const tagMatch = value.tags.some(tag => tag.toLowerCase().includes(filterState.searchTerm));
-                return nameMatch || descriptionMatch || exampleMatch || tagMatch;
+                const categoryMatch =
+                    value.category.toLowerCase().includes(filterState.searchTerm) ||
+                    getCategoryLabel(value.category).toLowerCase().includes(filterState.searchTerm);
+
+                return nameMatch || descriptionMatch || exampleMatch || tagMatch || categoryMatch;
             });
         }
 
