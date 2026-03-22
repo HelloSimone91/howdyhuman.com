@@ -1910,6 +1910,8 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .values-list--gallery .value-card-toggle {
+    grid-column: 1 / -1;
+    width: 100%;
     border-top: 1px solid rgba(var(--support-amethyst-rgb), 0.14);
     margin-top: 0.25rem;
     padding: 0.8rem 0 0.1rem;
