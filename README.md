@@ -46,7 +46,6 @@ for hosting my domain <br>
 ## Future Plans
 - User accounts for saving favorite values
 - Spanish Translation
-- Personal observations log to track values in action
 - Community sharing options
 - Embodied Values Lifestyle Audit
 - Mobile app version

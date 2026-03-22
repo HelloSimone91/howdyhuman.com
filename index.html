@@ -56,10 +56,6 @@
                 >
                 <i class="fas fa-times-circle main-search-clear accent-icon" id="clearSearch"></i>
             </div>
-            <button class="top-nav-log" id="topLogButton" type="button">
-                <i class="far fa-bookmark"></i>
-                <span>LOG</span>
-            </button>
         </div>
 
         <header class="mb-8 relative hero-shell">
@@ -109,42 +105,9 @@
             </div>
         </header>
 
-        <div
-            class="values-tabs"
-            role="tablist"
-            aria-label="Values content tabs"
-            data-i18n="aria.tabs"
-            data-i18n-attr="aria-label"
-        >
-            <button
-                id="tab-dictionary"
-                class="values-tab"
-                role="tab"
-                aria-selected="true"
-                aria-controls="dictionary-panel"
-                tabindex="0"
-                data-i18n="tabs.dictionary"
-            >
-                Dictionary
-            </button>
-            <button
-                id="tab-observation-log"
-                class="values-tab"
-                role="tab"
-                aria-selected="false"
-                aria-controls="observation-log-panel"
-                tabindex="-1"
-                data-i18n="tabs.observationLog"
-            >
-                Observation Log
-            </button>
-        </div>
-
         <section
             id="dictionary-panel"
             class="values-panel"
-            role="tabpanel"
-            aria-labelledby="tab-dictionary"
         >
             <div class="values-layout">
                 <div class="values-content">
@@ -171,91 +134,6 @@
             </div>
         </section>
 
-        <section
-            id="observation-log-panel"
-            class="values-panel"
-            role="tabpanel"
-            aria-labelledby="tab-observation-log"
-            hidden
-        >
-            <div class="observation-log">
-                <header class="observation-log__header">
-                    <h2 class="text-2xl font-semibold" data-i18n="observationLog.heading">Observation Log</h2>
-                    <p class="observation-log__intro" data-i18n="observationLog.description">
-                        Track the values you notice in everyday moments.
-                    </p>
-                </header>
-
-                <form id="observationForm" class="observation-log__form">
-                    <div class="observation-log__field observation-log__field--autocomplete">
-                        <label for="observationValue" data-i18n="observationLog.form.valueLabel">Value observed</label>
-                        <div class="observation-log__autocomplete">
-                            <input
-                                id="observationValue"
-                                name="value"
-                                type="text"
-                                autocomplete="off"
-                                required
-                                placeholder="e.g. Curiosity"
-                                data-i18n="observationLog.form.valuePlaceholder"
-                                data-i18n-attr="placeholder"
-                                role="combobox"
-                                aria-autocomplete="list"
-                                aria-expanded="false"
-                                aria-controls="observationValueSuggestions"
-                            >
-                            <ul
-                                id="observationValueSuggestions"
-                                class="observation-log__suggestions"
-                                role="listbox"
-                                hidden
-                            ></ul>
-                        </div>
-                    </div>
-                    <div class="observation-log__field">
-                        <label for="observationContext" data-i18n="observationLog.form.contextLabel">What happened?</label>
-                        <textarea
-                            id="observationContext"
-                            name="context"
-                            rows="3"
-                            placeholder="Capture the moment or action you noticed."
-                            data-i18n="observationLog.form.contextPlaceholder"
-                            data-i18n-attr="placeholder"
-                        ></textarea>
-                    </div>
-                    <button type="submit" class="observation-log__submit" data-i18n="observationLog.form.submit">
-                        Add observation
-                    </button>
-                </form>
-
-                <div class="observation-log__stats" aria-live="polite">
-                    <div class="observation-log__stat">
-                        <span class="observation-log__stat-label" data-i18n="observationLog.stats.totalLabel">
-                            Total observations
-                        </span>
-                        <span id="observationTotal" class="observation-log__stat-value">0</span>
-                    </div>
-                    <div class="observation-log__stat">
-                        <span class="observation-log__stat-label" data-i18n="observationLog.stats.latestLabel">
-                            Latest entry
-                        </span>
-                        <span
-                            id="observationLatest"
-                            class="observation-log__stat-value"
-                            data-i18n="observationLog.stats.latestEmpty"
-                        >
-                            None yet
-                        </span>
-                    </div>
-                </div>
-
-                <p id="observationEmpty" class="observation-log__empty" data-i18n="observationLog.empty">
-                    No observations yet. Add your first note above.
-                </p>
-                <ul id="observationList" class="observation-log__list" role="list"></ul>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer class="footer">
             <a href="https://github.com/HelloSimone91/howdyhuman.com" target="_blank">
@@ -265,6 +143,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="observation-log.js"></script>
 </body>
 </html>
