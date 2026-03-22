@@ -2926,6 +2926,7 @@ function displayValues(valuesToDisplay) {
                 const category = document.createElement('span');
                 category.textContent = getCategoryLabel(value.category);
                 category.classList.add('category-badge');
+                let meta = null;
                 category.addEventListener('click', () => {
                     // Add category to filters
                     if (!filterState.categories.includes(value.category)) {
@@ -2948,7 +2949,7 @@ function displayValues(valuesToDisplay) {
                     emoji.setAttribute('aria-hidden', 'true');
                     previewContainer.appendChild(emoji);
 
-                    const meta = document.createElement('div');
+                    meta = document.createElement('div');
                     meta.classList.add('value-card-meta');
                     meta.appendChild(title);
                     meta.appendChild(category);
