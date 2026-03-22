@@ -1943,7 +1943,9 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .values-list--gallery .value-card--gallery .value-card-meta {
-    padding-right: 7.5rem;
+    box-sizing: border-box;
+    width: calc(100% - 7.5rem);
+    max-width: calc(100% - 7.5rem);
 }
 
 .values-list--gallery .value-card-emoji {
