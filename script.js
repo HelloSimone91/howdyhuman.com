@@ -60,6 +60,7 @@ const filterState = {
     sortMethod: 'name'
 };
 let selectedVerb = null;
+let currentViewMode = localStorage.getItem('dictionaryViewMode') || 'list';
 
 const filterAccordionSections = [];
 const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
@@ -171,6 +172,10 @@ const i18n = {
         tabs: {
             dictionary: 'Dictionary',
             observationLog: 'Observation Log'
+        },
+        viewModes: {
+            list: 'List',
+            gallery: 'Gallery'
         },
         observationLog: {
             heading: 'Observation Log',
@@ -296,6 +301,10 @@ const i18n = {
         tabs: {
             dictionary: 'Diccionario',
             observationLog: 'Registro de observaciones'
+        },
+        viewModes: {
+            list: 'Lista',
+            gallery: 'Galería'
         },
         observationLog: {
             heading: 'Registro de observaciones',
@@ -1016,6 +1025,8 @@ document.addEventListener('DOMContentLoaded', function() {
         categoryFilterSearch = document.getElementById('categoryFilterSearch');
         tagFilterSearch = document.getElementById('tagFilterSearch');
         valuesList = document.getElementById('valuesList');
+        const viewModeListButton = document.getElementById('viewModeList');
+        const viewModeGalleryButton = document.getElementById('viewModeGallery');
         matchAll = document.getElementById('matchAll');
         matchAny = document.getElementById('matchAny');
         toggleSlide = document.getElementById('toggleSlide');
@@ -1060,6 +1071,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verify critical elements were found
         if (!valuesList) {
             throw new Error('Critical DOM elements could not be found');
+        }
+
+        setViewMode(currentViewMode);
+        if (viewModeListButton) {
+            viewModeListButton.addEventListener('click', () => {
+                setViewMode('list');
+                filterValues();
+            });
+        }
+        if (viewModeGalleryButton) {
+            viewModeGalleryButton.addEventListener('click', () => {
+                setViewMode('gallery');
+                filterValues();
+            });
         }
 
         setupFiltersSheetLayoutObservers();
@@ -2673,13 +2698,62 @@ function findRelatedValues(value) {
     return related.slice(0, 3);
 }
 
+
+function setViewMode(mode) {
+    const nextMode = mode === 'gallery' ? 'gallery' : 'list';
+    currentViewMode = nextMode;
+    localStorage.setItem('dictionaryViewMode', nextMode);
+
+    const listButton = document.getElementById('viewModeList');
+    const galleryButton = document.getElementById('viewModeGallery');
+
+    if (listButton) {
+        const isActive = nextMode === 'list';
+        listButton.classList.toggle('is-active', isActive);
+        listButton.setAttribute('aria-pressed', String(isActive));
+    }
+
+    if (galleryButton) {
+        const isActive = nextMode === 'gallery';
+        galleryButton.classList.toggle('is-active', isActive);
+        galleryButton.setAttribute('aria-pressed', String(isActive));
+    }
+
+    document.body.classList.toggle('gallery-mode-active', nextMode === 'gallery');
+}
+
+function collapseSiblingGalleryCards(activeCard) {
+    if (currentViewMode !== 'gallery' || !valuesList) {
+        return;
+    }
+
+    valuesList.querySelectorAll('.value-card.expanded').forEach((card) => {
+        if (card !== activeCard) {
+            card.classList.remove('expanded');
+            const toggle = card.querySelector('.value-card-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+                const label = toggle.querySelector('.value-card-toggle__label');
+                const icon = toggle.querySelector('i');
+                if (label) label.textContent = translate('valueCard.readMore');
+                if (icon) {
+                    icon.classList.add('fa-chevron-down');
+                    icon.classList.remove('fa-chevron-up');
+                }
+            }
+        }
+    });
+}
+
 // Display values in the dictionary
 function displayValues(valuesToDisplay) {
+
     try {
         console.log("Displaying", valuesToDisplay.length, "values");
         if (!valuesList) return;
 
         valuesList.innerHTML = '';
+        valuesList.classList.toggle('values-list--gallery', currentViewMode === 'gallery');
 
         const shouldAutoExpandFirstCard = valuesList.dataset.initialCardExpanded !== 'true';
         const hasSelectedVerb = Boolean(selectedVerb);
@@ -2810,18 +2884,34 @@ function displayValues(valuesToDisplay) {
             sectionHeader.textContent = letter;
             valuesList.appendChild(sectionHeader);
 
+            const sectionValuesGrid = document.createElement('div');
+            sectionValuesGrid.classList.add('letter-values-grid');
+            if (currentViewMode === 'gallery') {
+                sectionValuesGrid.classList.add('letter-values-grid--gallery');
+            }
+            valuesList.appendChild(sectionValuesGrid);
+
             // Add values for this letter
             valuesByLetter[letter].forEach(value => {
                 const card = document.createElement('div');
                 card.classList.add('value-card', 'p-4', 'rounded-md', 'shadow-sm', 'mb-4');
+                if (currentViewMode === 'gallery') {
+                    card.classList.add('value-card--gallery');
+                }
 
                 const header = document.createElement('div');
                 header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+                if (currentViewMode === 'gallery') {
+                    header.classList.add('value-card-header--gallery');
+                }
 
                 const title = document.createElement('h3');
                 title.textContent = value.name;
                 title.dataset.value = value.name; // Add for related value navigation
                 title.classList.add('text-lg', 'font-semibold');
+                if (currentViewMode === 'gallery') {
+                    title.classList.add('value-card-title--gallery');
+                }
 
                 const category = document.createElement('span');
                 category.textContent = getCategoryLabel(value.category);
@@ -2847,6 +2937,9 @@ function displayValues(valuesToDisplay) {
                 const description = document.createElement('p');
                 description.textContent = value.description;
                 description.classList.add('mb-4', 'value-description');
+                if (currentViewMode === 'gallery') {
+                    description.classList.add('value-description--gallery');
+                }
 
                 // Create content container (for collapsible functionality)
                 const contentContainer = document.createElement('div');
@@ -3011,16 +3104,32 @@ function displayValues(valuesToDisplay) {
                     toggleButton.setAttribute('aria-expanded', String(isExpanded));
                 };
 
+                const toggleCardExpansion = () => {
+                    const isExpanded = card.classList.contains('expanded');
+                    if (!isExpanded) {
+                        collapseSiblingGalleryCards(card);
+                    }
+                    card.classList.toggle('expanded');
+                    const nextExpandedState = card.classList.contains('expanded');
+                    updateToggleState(nextExpandedState);
+                    if (currentViewMode === 'gallery') {
+                        card.setAttribute('aria-expanded', String(nextExpandedState));
+                    }
+                };
+
                 const shouldExpandThisCard = shouldAutoExpandFirstCard && renderedCardCount === 0;
                 if (shouldExpandThisCard) {
+                    if (currentViewMode === 'gallery') {
+                        collapseSiblingGalleryCards(card);
+                    }
                     card.classList.add('expanded');
                 }
 
                 updateToggleState(shouldExpandThisCard);
 
-                toggleButton.addEventListener('click', () => {
-                    card.classList.toggle('expanded');
-                    updateToggleState(card.classList.contains('expanded'));
+                toggleButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    toggleCardExpansion();
                 });
 
                 toggleButton.addEventListener('keydown', (event) => {
@@ -3030,12 +3139,32 @@ function displayValues(valuesToDisplay) {
                     }
                 });
 
+                if (currentViewMode === 'gallery') {
+                    card.setAttribute('tabindex', '0');
+                    card.setAttribute('role', 'button');
+                    card.setAttribute('aria-expanded', String(shouldExpandThisCard));
+                    card.addEventListener('click', (event) => {
+                        if (event.target.closest('.tag, .related-value-card, .category-badge, .value-card-toggle')) {
+                            return;
+                        }
+                        toggleCardExpansion();
+                        card.setAttribute('aria-expanded', String(card.classList.contains('expanded')));
+                    });
+                    card.addEventListener('keydown', (event) => {
+                        if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.tag, .related-value-card, .category-badge, .value-card-toggle')) {
+                            event.preventDefault();
+                            toggleCardExpansion();
+                            card.setAttribute('aria-expanded', String(card.classList.contains('expanded')));
+                        }
+                    });
+                }
+
                 card.appendChild(header);
                 card.appendChild(description);
                 card.appendChild(contentContainer);
                 card.appendChild(toggleButton);
 
-                valuesList.appendChild(card);
+                sectionValuesGrid.appendChild(card);
                 renderedCardCount += 1;
             });
         });
