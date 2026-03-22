@@ -464,18 +464,19 @@ function getValueEmoji(value) {
         Aspirations: '✨'
     };
 
+    const normalizedName = normalizeSearchText(value.name, value.language || currentLanguage);
     const keywordEmojiMap = [
-        { pattern: /love|compassion|kindness|care|empathy|forgiveness/i, emoji: '💗' },
-        { pattern: /joy|fun|humor|laughter|celebration|happiness/i, emoji: '🎉' },
-        { pattern: /courage|bravery|boldness|adventure|challenge/i, emoji: '🦁' },
-        { pattern: /wisdom|clarity|knowledge|learning|insight/i, emoji: '📚' },
-        { pattern: /balance|peace|stillness|mindfulness|tranquility/i, emoji: '🧘' },
-        { pattern: /creativity|innovation|imagination|self-expression|art/i, emoji: '🎨' },
-        { pattern: /leadership|ambition|achievement|purpose|impact/i, emoji: '🚀' },
-        { pattern: /community|connection|family|friendship|teamwork|collaboration/i, emoji: '🫶' }
+        { keywords: ['love', 'amor', 'compassion', 'compasion', 'kindness', 'bondad', 'care', 'cuidado', 'empathy', 'empatia', 'forgiveness', 'perdon'], emoji: '💗' },
+        { keywords: ['joy', 'alegria', 'fun', 'diversion', 'humor', 'laughter', 'risa', 'celebration', 'celebracion', 'happiness', 'felicidad'], emoji: '🎉' },
+        { keywords: ['courage', 'coraje', 'bravery', 'valentia', 'boldness', 'audacia', 'adventure', 'aventura', 'challenge', 'desafio'], emoji: '🦁' },
+        { keywords: ['wisdom', 'sabiduria', 'clarity', 'claridad', 'knowledge', 'conocimiento', 'learning', 'aprendizaje', 'insight', 'perspicacia'], emoji: '📚' },
+        { keywords: ['balance', 'equilibrio', 'peace', 'paz', 'stillness', 'quietud', 'mindfulness', 'atencion plena', 'tranquility', 'tranquilidad'], emoji: '🧘' },
+        { keywords: ['creativity', 'creatividad', 'innovation', 'innovacion', 'imagination', 'imaginacion', 'self-expression', 'autoexpresion', 'art', 'arte'], emoji: '🎨' },
+        { keywords: ['leadership', 'liderazgo', 'ambition', 'ambicion', 'achievement', 'logro', 'purpose', 'proposito', 'impact', 'impacto'], emoji: '🚀' },
+        { keywords: ['community', 'comunidad', 'connection', 'conexion', 'family', 'familia', 'friendship', 'amistad', 'teamwork', 'trabajo en equipo', 'collaboration', 'colaboracion'], emoji: '🫶' }
     ];
 
-    const matchingKeyword = keywordEmojiMap.find(({ pattern }) => pattern.test(value.name));
+    const matchingKeyword = keywordEmojiMap.find(({ keywords }) => keywords.some((keyword) => normalizedName.includes(keyword)));
     return matchingKeyword?.emoji || categoryEmojiMap[value.category] || '✨';
 }
 
