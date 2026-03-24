@@ -59,6 +59,31 @@ def html_page(title: str, description: str, canonical_path: str, body: str) -> s
 """
 
 
+def ensure_clean_directory(parent: Path, valid_slugs: set[str]) -> None:
+    for child in parent.iterdir():
+        if child.is_dir() and child.name not in valid_slugs:
+            for nested in child.rglob('*'):
+                if nested.is_file():
+                    nested.unlink()
+            for nested in sorted(child.rglob('*'), reverse=True):
+                if nested.is_dir():
+                    nested.rmdir()
+            child.rmdir()
+
+
+def write_sitemap(value_slugs: list[str], verb_slugs: list[str]) -> None:
+    urls = [f'{SITE_URL}/']
+    urls.extend(f'{SITE_URL}/values/{slug}/' for slug in value_slugs)
+    urls.extend(f'{SITE_URL}/verbs/{slug}/' for slug in verb_slugs)
+
+    sitemap = '\n'.join(
+        ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+        + [f'  <url><loc>{url}</loc></url>' for url in urls]
+        + ['</urlset>', '']
+    )
+    (ROOT / 'sitemap.xml').write_text(sitemap, encoding='utf-8')
+
+
 def build_value_page(value: dict, values_by_tag: dict[str, list[dict]]) -> tuple[str, str]:
     name = value['name']
     slug = slugify(name)
@@ -149,6 +174,12 @@ def main() -> None:
                 continue
             values_by_tag.setdefault(tag, []).append(value)
 
+    value_slugs = {slugify(value['name']) for value in values}
+    verb_slugs = {slugify(tag) for tag in values_by_tag}
+
+    ensure_clean_directory(values_dir, value_slugs)
+    ensure_clean_directory(verbs_dir, verb_slugs)
+
     for value in values:
         slug, page = build_value_page(value, values_by_tag)
         out_dir = values_dir / slug
@@ -161,7 +192,12 @@ def main() -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / 'index.html').write_text(page, encoding='utf-8')
 
-    print(f'Generated {len(values)} value pages and {len(values_by_tag)} verb pages.')
+    write_sitemap(sorted(value_slugs), sorted(verb_slugs))
+
+    print(
+        f'Generated {len(values)} value pages, {len(values_by_tag)} verb pages, '
+        f'and refreshed sitemap.xml.'
+    )
 
 
 if __name__ == '__main__':
