@@ -113,8 +113,8 @@
   },
   "Ambition": {
     "name": "Ambición",
-    "description": "Un fuerte deseo de alcanzar metas y convertir sueños en realidad impulsa a trabajar con esfuerzo y superar desafíos.",
-    "example": "Su ambición de convertirse en la primera persona de su familia en graduarse de la universidad la motivó a estudiar hasta tarde pese a trabajar tiempo completo.",
+    "description": "Perseguir metas exigentes con intención y constancia, convirtiendo aspiraciones en acciones concretas.",
+    "example": "Su ambición por ampliar el acceso a la educación la llevó a liderar una iniciativa comunitaria, conseguir alianzas y sostener el proyecto durante años.",
     "tags": [
       "aspirar",
       "esforzarse",
@@ -737,8 +737,8 @@
   },
   "Fine Art": {
     "name": "Bellas Artes",
-    "description": "Manifestaciones artísticas creadas para inspirar, conmover o expresar ideas profundas.",
-    "example": "El museo exhibió bellas artes contemporáneas que invitaban a reflexionar sobre la justicia social.",
+    "description": "Valorar y cultivar expresiones artísticas que amplían la sensibilidad, inspiran reflexión y enriquecen la experiencia humana.",
+    "example": "Integró las bellas artes en la escuela para que el estudiantado explorara emociones complejas a través de música, pintura y teatro.",
     "tags": [
       "crear",
       "pintar",
@@ -1360,19 +1360,19 @@
     ]
   },
   "Mindfulness": {
-    "name": "Atención plena",
-    "description": "Estar presente con conciencia en el momento actual sin juzgar.",
-    "example": "Practicó atención plena al notar sus pensamientos durante una conversación difícil y responder con calma.",
+    "name": "Conciencia plena",
+    "description": "Prestar atención al momento presente con apertura y sin juicio, para responder con mayor claridad y calma.",
+    "example": "Practicó conciencia plena al notar su respiración durante una conversación tensa, lo que le permitió escuchar mejor y responder sin reaccionar impulsivamente.",
     "tags": [
+      "atender",
       "observar",
       "respirar",
+      "centrarse",
+      "escuchar",
+      "pausar",
       "notar",
       "aceptar",
-      "centrar",
-      "percibir",
-      "escuchar",
-      "sentir",
-      "reflexionar"
+      "calmar"
     ]
   },
   "Mission": {
@@ -2016,19 +2016,19 @@
     ]
   },
   "Stewardship": {
-    "name": "Cuidado responsable",
-    "description": "Administrar recursos con respeto para beneficio presente y futuro.",
-    "example": "Mostraron cuidado responsable al reducir desperdicios en la oficina y donar equipos reutilizables.",
+    "name": "Custodia responsable",
+    "description": "Cuidar y administrar recursos, relaciones y espacios con visión de largo plazo, pensando en el bienestar colectivo y de las futuras generaciones.",
+    "example": "El equipo practicó custodia responsable al reducir desperdicios, reparar equipos antes de reemplazarlos y medir el impacto ambiental de sus decisiones.",
     "tags": [
+      "cuidar",
       "administrar",
-      "conservar",
       "proteger",
-      "reducir",
-      "reciclar",
+      "conservar",
+      "preservar",
+      "restaurar",
       "planificar",
-      "educar",
-      "monitorear",
-      "restaurar"
+      "reducir",
+      "sostener"
     ]
   },
   "Stillness": {
@@ -2301,6 +2301,22 @@
       "perseverar",
       "colaborar",
       "cumplir"
+    ]
+  },
+  "Clarity": {
+    "name": "Claridad",
+    "description": "Comunicarse y pensar de forma directa y comprensible, sin enredos innecesarios ni mensajes ambiguos.",
+    "example": "En una reunión con tensión, Ana aportó claridad al resumir el acuerdo en palabras sencillas, definir los siguientes pasos y confirmar que todo el mundo estaba en la misma página.",
+    "tags": [
+      "aclarar",
+      "simplificar",
+      "explicar",
+      "precisar",
+      "concretar",
+      "ordenar",
+      "enfocar",
+      "articular",
+      "alinear"
     ]
   }
 }
