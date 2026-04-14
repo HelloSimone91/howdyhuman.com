@@ -1979,15 +1979,21 @@ button, .value-card-toggle, .status-action-button {
 
 .values-list--gallery .value-description--gallery {
     margin: 0;
-    max-height: 0;
-    opacity: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     overflow: hidden;
-    transform: translateY(0.35rem);
-    transition: max-height 0.35s ease, opacity 0.24s ease, transform 0.3s ease;
+    opacity: 0.92;
+    transform: translateY(0.15rem);
+    transition: opacity 0.24s ease, transform 0.3s ease;
 }
 
 .values-list--gallery .value-card.expanded .value-description--gallery {
-    max-height: 12rem;
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
     opacity: 1;
     transform: translateY(0);
 }
