@@ -335,13 +335,12 @@ button, .value-card-toggle, .status-action-button {
 
 .value-card--gallery {
     position: relative;
-    min-height: 136px;
     border: 1px solid rgba(var(--support-amethyst-rgb), 0.18);
     border-left-width: 1px;
     border-image: none;
     border-radius: 22px;
     padding: 1rem 1rem 0.9rem;
-    padding-top: 4rem;
+    padding-top: 1.1rem;
     background:
         radial-gradient(circle at top right, rgba(var(--support-sky-rgb), 0.26), transparent 32%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(var(--card-bg-rgb), 0.94));
@@ -377,6 +376,8 @@ button, .value-card-toggle, .status-action-button {
 .value-card--gallery.expanded {
     transform: translateY(-6px) scale(1.015);
     box-shadow: 0 28px 60px rgba(var(--support-amethyst-rgb), 0.24), 0 14px 28px rgba(var(--accent-primary-rgb), 0.16);
+    padding-top: 1.4rem;
+    padding-bottom: 1.05rem;
 }
 
 .value-card-layout {
@@ -1924,39 +1925,39 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .values-list--gallery .category-badge {
-    position: absolute;
-    top: 1.3rem;
-    right: 1.3rem;
-    z-index: 1;
+    position: static;
     white-space: nowrap;
     font-size: 0.8rem;
     padding: 0.35rem 0.65rem;
 }
 
 .values-list--gallery .category-badge--gallery {
-    position: static;
+    grid-column: 3;
+    grid-row: 1;
     justify-self: end;
+    align-self: center;
     max-width: 100%;
 }
 
 .values-list--gallery .value-card-preview--gallery {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: start;
-    gap: 0.9rem 1rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.55rem 0.85rem;
 }
 
 .values-list--gallery .value-card-meta {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: 0.35rem;
     width: 100%;
 }
 
 .values-list--gallery .value-card--gallery .value-card-meta {
     box-sizing: border-box;
-    grid-column: 1 / -1;
+    grid-column: 2;
+    grid-row: 1;
     max-width: 100%;
 }
 
