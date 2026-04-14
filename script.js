@@ -2926,6 +2926,9 @@ function displayValues(valuesToDisplay) {
                 const category = document.createElement('span');
                 category.textContent = getCategoryLabel(value.category);
                 category.classList.add('category-badge');
+                const description = document.createElement('p');
+                description.textContent = value.description;
+                description.classList.add('mb-4', 'value-description');
                 let meta = null;
                 category.addEventListener('click', () => {
                     // Add category to filters
@@ -2955,28 +2958,19 @@ function displayValues(valuesToDisplay) {
                     meta = document.createElement('div');
                     meta.classList.add('value-card-meta');
                     meta.appendChild(title);
+                    description.classList.add('value-description--gallery');
+                    meta.appendChild(description);
                     previewContainer.appendChild(meta);
                 } else {
                     header.appendChild(title);
                     header.appendChild(category);
                     previewContainer.appendChild(header);
-
-                    const description = document.createElement('p');
-                    description.textContent = value.description;
-                    description.classList.add('mb-4', 'value-description');
                     previewContainer.appendChild(description);
                 }
 
                 // Create content container (for collapsible functionality)
                 const contentContainer = document.createElement('div');
                 contentContainer.classList.add('value-card-content');
-
-                if (currentViewMode === 'gallery') {
-                    const description = document.createElement('p');
-                    description.textContent = value.description;
-                    description.classList.add('mb-4', 'value-description', 'value-description--gallery');
-                    meta.appendChild(description);
-                }
 
                 // Add the example of value in action with label
                 const exampleContainer = document.createElement('div');
