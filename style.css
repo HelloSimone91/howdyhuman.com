@@ -1285,7 +1285,7 @@ button, .value-card-toggle, .status-action-button {
 .letter-values-grid--gallery {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     align-items: start;
-    grid-auto-flow: row dense;
+    grid-auto-flow: row;
 }
 
 @media (min-width: 900px) {
