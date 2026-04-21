@@ -1283,7 +1283,7 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .letter-values-grid--gallery {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: start;
     grid-auto-flow: row dense;
 }
@@ -1297,8 +1297,8 @@ button, .value-card-toggle, .status-action-button {
     .letter-values-grid--gallery .value-card--gallery.expanded {
         grid-column: 1 / -1;
         justify-self: center;
-        width: 100%;
-        max-width: 1120px;
+        margin-inline: auto;
+        width: min(100%, 1120px);
     }
 
     .letter-values-grid--gallery .value-card--gallery.expanded .value-card-layout--gallery {
