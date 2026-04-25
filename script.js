@@ -175,8 +175,8 @@ const i18n = {
         page: {
             title: 'The Howdy Human Dictionary of Values',
             heading: 'TURN VALUES INTO VERBS',
-            tagline: 'A living encyclopedia for defining what matters most through applicable everyday behaviors. Because values are only as good as the actions that back them up.',
-            introDescription: 'A living encyclopedia for defining what matters most through applicable everyday behaviors. Because values are only as good as the actions that back them up.',
+            tagline: 'Turn values into verbs. A system for putting principles into practice.',
+            introDescription: 'Turn values into verbs. A system for putting principles into practice.',
             introInstructions: '<li>Choose a verb</li><li>Open a value</li><li>Save what resonates</li>'
         },
         buttons: {
