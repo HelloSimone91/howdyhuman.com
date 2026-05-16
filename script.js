@@ -194,6 +194,7 @@ const i18n = {
             gallery: 'Gallery'
         },
         alphaNav: {
+            label: 'Browse A–Z',
             overlayHint: 'Jump to a letter to browse matching values.',
             closeLabel: 'Close navigation'
         },
@@ -302,6 +303,7 @@ const i18n = {
             gallery: 'Galería'
         },
         alphaNav: {
+            label: 'Explorar de A a Z',
             overlayHint: 'Elige una letra para explorar los valores relacionados.',
             closeLabel: 'Cerrar navegación'
         },
