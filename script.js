@@ -284,8 +284,8 @@ const i18n = {
         page: {
             title: 'El Diccionario de Valores de Howdy Human',
             heading: 'CONVIERTE VALORES EN VERBOS',
-            tagline: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
-            introDescription: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
+            tagline: 'Convierte los valores en verbos. Un sistema para poner principios en práctica.',
+            introDescription: 'Convierte los valores en verbos. Un sistema para poner principios en práctica.',
             introInstructions: '<li>Elige un verbo</li><li>Abre un valor</li><li>Guarda lo que resuene</li>'
         },
         buttons: {
