@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Values as Verbs: Turn Values Into Action | Howdy Human</title>
+  <meta name="description" content="Learn how to turn values into verbs with Howdy Human's values-as-verbs framework for recognizing values through everyday actions.">
+  <link rel="canonical" href="https://howdyhuman.com/values-as-verbs/">
+
+  <meta property="og:site_name" content="Howdy Human">
+  <meta property="og:title" content="Values as Verbs: Turn Values Into Action">
+  <meta property="og:description" content="Learn the Howdy Human framework for recognizing values through everyday actions, choices, and patterns.">
+  <meta property="og:url" content="https://howdyhuman.com/values-as-verbs/">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://www.howdyhuman.com/social/og-home.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Values as Verbs: Turn Values Into Action">
+  <meta name="twitter:description" content="A practical framework for recognizing values through everyday actions.">
+  <meta name="twitter:image" content="https://www.howdyhuman.com/social/og-home.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#225f45">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #225f45;
+      --green-dark: #163d2d;
+      --cream: #fff7df;
+      --paper: #fbf8ef;
+      --mist: #edf4ef;
+      --ink: #1f2a2a;
+      --muted: #596763;
+      --line: #d8e3db;
+      --gold: #d9a93a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--mist);
+    }
+
+    main {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    article {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(22, 61, 45, 0.08);
+    }
+
+    .hero {
+      background: var(--green);
+      color: var(--cream);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: #d8ead9;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1.08;
+    }
+
+    .dek {
+      max-width: 660px;
+      margin: 1rem auto 0;
+      color: #e7f1e6;
+      font-size: 1.1rem;
+    }
+
+    .content {
+      padding: 2rem 1.5rem 2.5rem;
+    }
+
+    h2 {
+      margin: 2rem 0 0.65rem;
+      color: var(--green-dark);
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0.85rem 0;
+    }
+
+    ul,
+    ol {
+      margin: 0.75rem 0 1rem;
+      padding-left: 1.3rem;
+    }
+
+    li {
+      margin: 0.35rem 0;
+    }
+
+    a {
+      color: var(--green);
+      font-weight: 700;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    .callout {
+      margin: 1.5rem 0;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--gold);
+      background: var(--paper);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.85rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .example-card {
+      padding: 1rem;
+      background: var(--paper);
+      border: 1px solid #eadfbd;
+      border-radius: 14px;
+    }
+
+    .example-card strong {
+      display: block;
+      color: var(--green-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .cta {
+      margin-top: 2.25rem;
+      padding: 1.25rem;
+      background: var(--green);
+      color: var(--cream);
+      border-radius: 16px;
+    }
+
+    .cta a {
+      color: var(--cream);
+    }
+
+    .meta-link {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 0;
+      }
+
+      article {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .hero,
+      .content {
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <header class="hero">
+        <p class="eyebrow">Howdy Human Framework</p>
+        <h1>Values as Verbs: How to Turn What Matters Into What You Do</h1>
+        <p class="dek">A practical way to recognize values through actions, choices, patterns, and everyday proof.</p>
+      </header>
+
+      <div class="content">
+        <p class="meta-link"><a href="/">Back to the Howdy Human Dictionary of Values</a></p>
+
+        <p>Most people talk about values as nouns. Courage. Integrity. Compassion. Creativity. Freedom. The words are useful, but they can also become strangely weightless. A value can sound beautiful on a page and still remain hard to recognize in a life. You can say you value courage and still wonder what courage actually asks of you on a Tuesday afternoon. You can say you value connection and still miss the small ways connection is already happening through a text, a meal, a boundary, or a question asked with real attention.</p>
+
+        <p>Howdy Human starts from a simple premise: a value is easier to understand when you can see what it does. Values become visible through verbs. They show up when someone speaks, listens, protects, repairs, studies, rests, tries, gives, refuses, creates, waits, or begins again. The point is not to reduce a value to one behavior. The point is to make the value observable enough that a person can notice it, name it, and choose how to practice it more deliberately.</p>
+
+        <p>This matters because values are often treated like personality traits, moral labels, or aspirational slogans. That can make them feel distant from daily life. A values-as-verbs approach brings them back down to the ground. Instead of asking, "What do I believe I value?" it asks, "What am I doing repeatedly, and what value might that action be serving?" That shift turns values from abstract ideals into patterns you can actually work with.</p>
+
+        <h2>What Does "Values as Verbs" Mean?</h2>
+
+        <p>Values as verbs means looking for the action inside the value. It means asking how a value moves, not only what it means. Courage may move through speaking, confronting, trying, staying, or telling the truth when silence would be easier. Care may move through tending, checking in, preparing, feeding, protecting, or remembering what matters to someone else. Curiosity may move through asking, researching, exploring, testing, noticing, or following a question longer than expected.</p>
+
+        <p>The same value can take different verbs in different situations. Integrity might look like admitting a mistake in one moment and refusing a shortcut in another. Freedom might look like leaving, choosing, simplifying, earning, resting, or making room. A single action can also carry more than one value. When someone calls a friend back, that action may hold loyalty, care, presence, and responsibility at once.</p>
+
+        <p>The framework is not about finding one perfect translation. It is about building a clearer relationship between what matters and what happens. If a value never becomes a verb, it stays in the realm of preference. Once it becomes a verb, it becomes something you can observe, practice, revise, and celebrate.</p>
+
+        <div class="callout">
+          <p><strong>Core idea:</strong> values are not only things you have. They are things you do, things you protect, things you repeat, and things you choose under pressure.</p>
+        </div>
+
+        <h2>Why Values Are Easier to Recognize Through Action</h2>
+
+        <p>Human beings are not always accurate reporters of their own priorities. We may describe ourselves according to who we want to be, who we used to be, or who we think we should be. Action gives us another source of evidence. It does not tell the whole truth, but it tells a useful truth. Where time goes, where attention returns, what gets defended, what gets avoided, what gets practiced, and what gets repaired all reveal something about what is active in a person's life.</p>
+
+        <p>This is why everyday actions are so valuable. They are usually less polished than self-description. The calendar, the browser history, the receipts, the conversations, the home environment, the habits, the apologies, the unfinished drafts, and the recurring worries all contain clues. Some clues are flattering. Some are inconvenient. Either way, they are workable.</p>
+
+        <p>A values-based living practice becomes more honest when it starts with observation instead of performance. Rather than forcing yourself to choose a noble list of values, you can ask what your life is already demonstrating. Maybe your repeated research points to curiosity. Maybe the way you keep showing up for family points to loyalty. Maybe the exhaustion you keep overriding points to responsibility, but also to a need for rest. Maybe the conflict you finally named points to self-respect.</p>
+
+        <p>Action also helps separate a real value from a borrowed one. Many people inherit value words from workplaces, families, schools, brands, or spiritual communities. Those words may be meaningful, but they only become personally useful when they connect to lived behavior. If you say you value creativity, where does creativity appear? In problem solving? In cooking? In visual expression? In making something out of a hard season? The verb makes the value specific.</p>
+
+        <h2>The Howdy Human Framework</h2>
+
+        <p>The Howdy Human framework is built around observation, translation, and reflection. First, observe the action. Then, translate the action into possible values. Finally, reflect on whether the value feels aligned, alive, or incomplete.</p>
+
+        <ol>
+          <li><strong>Notice the verb.</strong> Start with what actually happened. "I called." "I organized." "I avoided." "I asked." "I stayed." Clean verbs reduce the temptation to over-explain.</li>
+          <li><strong>Name the context.</strong> A behavior means different things in different settings. Resting after burnout is not the same as hiding from a necessary conversation. Speaking up in a meeting is not the same as dominating it.</li>
+          <li><strong>Infer the value.</strong> Ask what the action may have been trying to serve. Was it protecting peace, seeking truth, building trust, creating beauty, preserving energy, or reaching for connection?</li>
+          <li><strong>Check the strategy.</strong> An action can point to a real value even when the strategy is messy. Avoiding a hard email might be trying to protect safety. Spending too much might be seeking comfort or identity. The value can be real while the tactic still needs adjustment.</li>
+          <li><strong>Choose the next verb.</strong> Once the value is visible, ask what action would express it with more clarity next time.</li>
+        </ol>
+
+        <h2>Examples of Values as Verbs</h2>
+
+        <p>Here are a few simple translations. They are not definitions carved in stone. They are starting points for noticing.</p>
+
+        <div class="example-grid">
+          <div class="example-card">
+            <strong>Courage</strong>
+            speaking, confronting, trying, staying, asking, defending, beginning
+          </div>
+          <div class="example-card">
+            <strong>Care</strong>
+            tending, checking in, feeding, preparing, protecting, remembering, soothing
+          </div>
+          <div class="example-card">
+            <strong>Curiosity</strong>
+            asking, researching, exploring, testing, noticing, following, wondering
+          </div>
+          <div class="example-card">
+            <strong>Integrity</strong>
+            admitting, aligning, refusing, repairing, clarifying, honoring, following through
+          </div>
+          <div class="example-card">
+            <strong>Creativity</strong>
+            making, imagining, arranging, composing, experimenting, shaping, recombining
+          </div>
+          <div class="example-card">
+            <strong>Connection</strong>
+            listening, inviting, sharing, responding, reaching, including, returning
+          </div>
+        </div>
+
+        <p>These verbs make values easier to spot in daily life. If you are trying to understand what you value, you can look at the verbs that keep recurring. If you are trying to live a value more fully, you can choose a verb that gives it a body. If you want more courage, you might practice asking one honest question. If you want more care, you might prepare the thing that makes tomorrow gentler. If you want more creativity, you might make a rough draft before you know whether it is good.</p>
+
+        <h2>How to Use This Framework in Daily Life</h2>
+
+        <p>You can use the values-as-verbs framework in a quick daily reflection, a weekly review, a coaching session, a journal practice, or a team conversation. The process does not need to be complicated. Start with one area of life and list a few actions you took recently. Use plain verbs. Then ask what value each action might reveal.</p>
+
+        <p>For example, if you wrote, "researched apartments, called my sister, postponed the invoice, cleaned the kitchen, walked alone," you might see several active values. Researching could point to stability, independence, or foresight. Calling your sister could point to connection or loyalty. Postponing the invoice might reveal avoidance, but underneath it there may be fear, scarcity, or a desire for control. Cleaning the kitchen could point to care, order, or peace. Walking alone could point to mental health, freedom, or stillness.</p>
+
+        <p>The goal is not to judge every action as good or bad. The goal is to listen to behavior as information. A values-based living practice becomes stronger when it can hold both celebration and course correction.</p>
+
+        <p>A useful prompt is: "What value was this action trying to serve?" Another is: "If I wanted to serve that value with more honesty next time, what would I do?" These questions make the framework immediately practical. They move you from interpretation to choice.</p>
+
+        <h2>From Naming Values to Living Them</h2>
+
+        <p>Naming a value can feel powerful, but naming is only the beginning. A named value becomes more meaningful when it changes attention, behavior, and decision-making. If you name self-respect, what will you stop agreeing to? If you name learning, what will you study when no one is grading you? If you name generosity, where will you give without abandoning yourself? If you name beauty, what will you arrange, protect, notice, or make?</p>
+
+        <p>This is the promise of turning values into verbs. It gives people a way to see themselves more clearly without pretending to be finished. It helps values become less about self-branding and more about self-observation. It creates a bridge between the life you are already living and the life you want to practice on purpose.</p>
+
+        <p>Howdy Human is a dictionary of values, but the deeper invitation is not just to read definitions. It is to notice the verbs that are already shaping your days. Some will affirm you. Some will challenge you. Some will show you where a value is alive but under-supported. Some will show you where an old strategy is asking to be retired.</p>
+
+        <p>Values become useful when they can help you choose. They become trustworthy when they can survive contact with ordinary life. They become yours when you can recognize them in action and decide, with more honesty, what you want to do next.</p>
+
+        <div class="cta">
+          <p><strong>Explore the dictionary.</strong> Use the <a href="/">Howdy Human Dictionary of Values</a> to look up value words, notice their associated verbs, and start translating what matters into what you do.</p>
+          <p>Start with <a href="/values/courage/">Courage</a>, <a href="/values/integrity/">Integrity</a>, <a href="/values/compassion/">Compassion</a>, or <a href="/values/creativity/">Creativity</a>.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
