@@ -173,7 +173,7 @@ const i18n = {
             spanish: 'Spanish'
         },
         page: {
-            title: 'The Howdy Human Dictionary of Values',
+            title: 'Dictionary of Values — Turn Values Into Verbs | Howdy Human',
             heading: 'TURN VALUES INTO VERBS',
             tagline: 'Turn values into verbs. A system for putting principles into practice.',
             introDescription: 'Turn values into verbs. A system for putting principles into practice.',
@@ -282,7 +282,7 @@ const i18n = {
             spanish: 'español'
         },
         page: {
-            title: 'El Diccionario de Valores de Howdy Human',
+            title: 'Diccionario de Valores — Convierte Valores en Verbos | Howdy Human',
             heading: 'CONVIERTE VALORES EN VERBOS',
             tagline: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
             introDescription: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
