@@ -2414,3 +2414,15 @@ body {
     line-height: 1.42;
     color: #4e4039;
 }
+
+.intro-box--editorial .intro-framework-link {
+    color: #1d4ed8;
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+.intro-box--editorial .intro-framework-link:hover,
+.intro-box--editorial .intro-framework-link:focus-visible {
+    color: #153ea8;
+}

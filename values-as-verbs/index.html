@@ -168,8 +168,28 @@
 
     .meta-link {
       margin: 0 0 1.25rem;
-      color: var(--muted);
+    }
+
+    .meta-link a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      background: var(--green);
+      color: var(--cream);
       font-size: 0.95rem;
+      line-height: 1.2;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(22, 61, 45, 0.14);
+    }
+
+    .meta-link a:hover,
+    .meta-link a:focus-visible {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
     }
 
     @media (max-width: 640px) {
