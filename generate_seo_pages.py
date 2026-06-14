@@ -636,6 +636,626 @@ EXPANDED_VALUE_CONTENT = {
 }
 
 
+EDITORIAL_REPLACEMENT_VALUE_CONTENT = {
+    'capitalism': {
+        'replace_source_example': True,
+        'why': (
+            'Capitalism matters as a values question because markets are never just math; they are made of choices '
+            'about ownership, risk, labor, prices, access, and responsibility. Left abstract, capitalism can sound like '
+            'a system someone either praises or rejects from a distance. In practice, it asks what a person will build, '
+            'invest in, compete for, grow, and own without forgetting who is affected by the exchange. The Howdy Human '
+            'question is not "Do you believe in capitalism?" but "What kind of human behavior does your market choice '
+            'reward?"'
+        ),
+        'examples': [
+            'A bakery owner practices capitalism with care when she raises prices to keep the shop solvent, explains the change plainly, pays staff for prep time, and refuses a cheaper supplier whose labor practices violate her standards.',
+            'A freelancer practices capitalism by setting a rate that supports rent, taxes, and rest instead of underpricing the work to avoid an uncomfortable money conversation.',
+            'A customer practices capitalism by choosing where to spend, what to buy secondhand, and which businesses deserve repeat support.',
+        ],
+        'practice': [
+            'Before you buy, build, invest, or sell, name who benefits and who carries the cost.',
+            'Check whether competition is making the work better or just making people easier to ignore.',
+            'Own the tradeoff in one sentence instead of hiding behind "that is just business."',
+            'Choose one market action this week that better matches your stated values: pricing, sourcing, tipping, hiring, saving, or spending.',
+            'Ask whether growth is increasing dignity, usefulness, and sustainability, or only increasing extraction.',
+        ],
+        'faqs': [
+            (
+                'What does capitalism mean as a value?',
+                'Capitalism as a value lens means paying attention to how ownership, investment, competition, and exchange shape human behavior. It becomes useful when market choices are judged by what they reward and protect.',
+            ),
+            (
+                'How do I practice capitalism responsibly?',
+                'Practice capitalism responsibly by making the tradeoffs visible: price honestly, pay fairly, buy intentionally, invest carefully, compete without dehumanizing people, and notice who carries the hidden cost.',
+            ),
+            (
+                'Why include capitalism in a values dictionary?',
+                'Capitalism belongs here because many everyday choices happen inside markets. The page is strongest when it treats capitalism as a behavior-shaping system, not as a slogan.',
+            ),
+        ],
+    },
+    'money': {
+        'replace_source_example': True,
+        'why': (
+            'Money matters because it turns invisible priorities into visible patterns. It can buy goods and services, '
+            'but it also reveals what someone protects, postpones, avoids, funds, earns, invests, manages, and shares. '
+            'Money is not the whole story of a life, and it is not neutral either. A budget, a rate, a debt payment, a '
+            'gift, or a refusal can show what a person is practicing. Howdy Human treats money as a verb map for care, '
+            'security, power, freedom, repair, and responsibility.'
+        ),
+        'examples': [
+            'A teacher with a tight paycheck practices money by setting aside twenty dollars for a medical bill, saying no to a weekend plan, and telling a friend the truth instead of pretending the choice is casual.',
+            'A founder practices money by building a budget that pays contractors on time before buying prettier brand assets.',
+            'A parent practices money by explaining a family spending limit without shame, then choosing one low-cost ritual that still feels generous.',
+        ],
+        'practice': [
+            'Look at one week of spending and name the values already being funded.',
+            'Choose one money verb for today: earn, save, invest, budget, give, pay, reduce, or repair.',
+            'Say the money truth plainly before resentment or secrecy does the talking.',
+            'Make one small allocation that protects a future need instead of only soothing a current feeling.',
+            'Ask whether the next purchase, rate, or payment increases freedom, care, or avoidance.',
+        ],
+        'faqs': [
+            (
+                'What does money mean as a value?',
+                'Money as a value lens means noticing how earning, spending, saving, investing, and sharing reveal priorities. It is a tool, but the way people use it becomes behavior.',
+            ),
+            (
+                'How do I practice money as a value?',
+                'Practice money by making one financial choice more honest and intentional: budget the real number, pay someone fairly, name a limit, save for a need, or spend in line with what matters.',
+            ),
+            (
+                'Is money itself a value?',
+                'Money is more accurately a tool that exposes values. It deserves a page because money choices often show what people protect, fear, desire, and make possible.',
+            ),
+        ],
+    },
+    'luxury': {
+        'replace_source_example': True,
+        'why': (
+            'Luxury matters when it is understood as chosen comfort, beauty, and attention rather than status for its '
+            'own sake. At its worst, luxury can become proof that someone has enough money to be insulated from other '
+            'people. At its best, it asks what it means to savor, enjoy, appreciate, and design an experience with '
+            'care. The Howdy Human version of luxury is not "more expensive"; it is "more considered." It should make '
+            'life feel more human, not make anyone smaller.'
+        ),
+        'examples': [
+            'A caregiver practices luxury by taking twenty quiet minutes with clean sheets, a favorite lotion, and a locked bathroom door after a week of being needed by everyone.',
+            'A host practices luxury by serving a simple meal on real plates, dimming the lights, and letting guests feel unrushed instead of trying to impress them.',
+            'A shopper practices luxury by buying one well-made used coat they will care for, rather than three cheap versions that will fall apart.',
+        ],
+        'practice': [
+            'Define luxury today as one detail that increases comfort, beauty, or ease without creating waste or debt.',
+            'Savor something you already have before acquiring something new.',
+            'Ask whether the elegant choice also respects time, labor, materials, and future cleanup.',
+            'Design one ordinary moment so your body can feel cared for: a meal, bath, walk, outfit, or bedtime.',
+            'Notice when luxury is becoming performance, then return to what would actually feel nourishing.',
+        ],
+        'faqs': [
+            (
+                'What does luxury mean as a value?',
+                'Luxury as a value means honoring comfort, beauty, craft, and sensory care in intentional ways. It becomes human when it creates ease without turning status into the point.',
+            ),
+            (
+                'How do I practice luxury without overconsuming?',
+                'Practice luxury by savoring what is already present, choosing quality over quantity, caring for materials, and designing small moments of comfort rather than chasing constant acquisition.',
+            ),
+            (
+                'Can luxury be ethical?',
+                'Luxury can be more ethical when it respects labor, sustainability, access, and enoughness. The question is whether the pleasure depends on hidden harm or thoughtful care.',
+            ),
+        ],
+    },
+    'sports': {
+        'replace_source_example': True,
+        'why': (
+            'Sports matter here because physical skill, competition, and team play make values visible under pressure. '
+            'A scoreboard can reveal discipline, teamwork, courage, humility, fairness, and self-control faster than a '
+            'speech about character. Sports are not automatically virtuous; they can also reward ego, aggression, '
+            'exclusion, or winning at any cost. The Howdy Human question is whether the game is helping people become '
+            'more honest, skillful, connected, and brave. The '
+            'value appears in how people play, compete, train, practice, participate, lose, and repair after the whistle.'
+        ),
+        'examples': [
+            'A teenage captain practices sports as a value when she tells the referee the ball touched her last, even though the honest call gives possession to the other team in the final minute.',
+            'A coach practices sports by benching a talented player who keeps humiliating teammates during drills.',
+            'A parent practices sports by praising effort, recovery, and teamwork instead of turning every car ride home into a performance review.',
+        ],
+        'practice': [
+            'Choose the value inside the game before the game starts: fairness, teamwork, discipline, courage, joy, or respect.',
+            'Compete hard without making the other person less human.',
+            'Train one skill that helps the team, not only the skill that gets applause.',
+            'After a loss, name one thing to learn before assigning blame.',
+            'Watch whether participation is building confidence and connection or just feeding pressure.',
+        ],
+        'faqs': [
+            (
+                'What do sports mean as a value?',
+                'Sports become a value lens when play, competition, training, and teamwork reveal character. The value is not the activity alone, but the behavior people practice through it.',
+            ),
+            (
+                'How do I practice sports as a value?',
+                'Practice sports by competing with respect, training consistently, including teammates, learning from loss, and caring about how the game shapes people as much as the result.',
+            ),
+            (
+                'Are sports really a value?',
+                'Sports are more of a domain than a single value, but they belong here when they help people practice values like discipline, teamwork, fairness, courage, and joy.',
+            ),
+        ],
+    },
+    'technology': {
+        'replace_source_example': True,
+        'why': (
+            'Technology matters because tools quietly train behavior. The same tool can help someone develop, utilize, '
+            'apply, create, learn, connect, monitor, distract, exclude, or control. Technology as a value is not about loving devices; it is '
+            'about choosing how knowledge and tools are used to solve real problems without making people less free, '
+            'less capable, or less seen. Howdy Human asks: what does this tool help humans do, and what does it teach '
+            'them to stop doing?'
+        ),
+        'examples': [
+            'A clinic practices technology well when it adds text reminders that help patients make appointments, while keeping a phone option for people who cannot use the portal.',
+            'A teacher practices technology by using a shared document to help quiet students contribute without turning every class moment into screen time.',
+            'A designer practices technology by removing a manipulative notification that increases clicks but worsens attention.',
+        ],
+        'practice': [
+            'Name the human problem before choosing the tool.',
+            'Ask what the technology helps people do, and what it may make harder to notice.',
+            'Use, build, or recommend tools that increase access instead of quietly excluding people.',
+            'Check whether automation is removing drudgery or removing accountability.',
+            'Set one boundary where a tool is no longer serving the human purpose.',
+        ],
+        'faqs': [
+            (
+                'What does technology mean as a value?',
+                'Technology as a value means using tools and knowledge to solve problems, increase access, and support human capability. It becomes visible in how tools shape behavior.',
+            ),
+            (
+                'How do I practice technology intentionally?',
+                'Practice technology intentionally by starting with the human need, choosing the simplest useful tool, protecting access, and checking whether the tool is serving attention, dignity, and agency.',
+            ),
+            (
+                'Why is technology not automatically progress?',
+                'Technology is only progress when it improves real human conditions. A tool can be new and still make people more distracted, excluded, surveilled, or dependent.',
+            ),
+        ],
+    },
+    'fine-art': {
+        'replace_source_example': True,
+        'why': (
+            'Fine art matters because human beings need more than efficient communication. Art can create, compose, '
+            'express, craft, and design a way of seeing that ordinary language cannot reach by itself. It can hold grief, '
+            'beauty, protest, memory, awe, and contradiction without rushing to solve them. The Howdy Human point is '
+            'not that art is fancy; it is that making and witnessing art can return attention to what a culture might '
+            'otherwise flatten.'
+        ),
+        'examples': [
+            'A painter practices fine art by making a portrait series of longtime neighborhood residents before redevelopment erases the visual memory of who lived there.',
+            'A museum educator practices fine art by helping children describe what they notice in a sculpture before telling them what it is supposed to mean.',
+            'A grieving person practices fine art by composing a small collage with old receipts, photos, and handwriting when ordinary sentences feel too thin.',
+        ],
+        'practice': [
+            'Spend five minutes observing one artwork before deciding whether you like it.',
+            'Create something that expresses a feeling you keep overexplaining.',
+            'Ask what the form makes possible: color, scale, silence, texture, image, repetition, or contrast.',
+            'Support art that preserves memory, questions power, or makes beauty available.',
+            'Let the artwork complicate your first interpretation instead of forcing it to become a quick lesson.',
+        ],
+        'faqs': [
+            (
+                'What does fine art mean as a value?',
+                'Fine art as a value means honoring creative work that expresses beauty, emotion, memory, critique, and perception. It becomes a practice through creating, witnessing, preserving, and interpreting art.',
+            ),
+            (
+                'How do I practice fine art as a value?',
+                'Practice fine art by making work, studying work, supporting artists, observing carefully, and letting images or forms help you understand something language alone cannot hold.',
+            ),
+            (
+                'Is fine art only for artists?',
+                'No. Artists practice fine art by making it, but anyone can practice the value by witnessing, preserving, funding, discussing, and learning from creative work with serious attention.',
+            ),
+        ],
+    },
+    'synergy': {
+        'replace_source_example': True,
+        'why': (
+            'Synergy matters only when it stops sounding like a meeting word and starts describing a real shared result. '
+            'It is the moment people combine, unite, integrate, collaborate, and coordinate so the work becomes wiser '
+            'than any one person could have made alone. The Howdy Human version of synergy has names, roles, handoffs, '
+            'and a result someone can point to. Synergy is not forced agreement or everyone being cheerful. It '
+            'requires honest difference, clear roles, trust, and enough humility to let the best idea belong to the group.'
+        ),
+        'examples': [
+            'A nurse, social worker, and housing advocate create synergy when they coordinate discharge care so a patient leaves the hospital with medicine, transportation, and a safe place to sleep.',
+            'Two artists create synergy when one brings structure, the other brings texture, and both revise the piece until neither person can claim the strongest part alone.',
+            'A team fails at synergy when everyone attends the meeting, but nobody integrates the work after leaving it.',
+        ],
+        'practice': [
+            'Name the shared outcome before defending your preferred method.',
+            'Ask what each person sees that the others might miss.',
+            'Combine roles on purpose: who clarifies, who builds, who tests, who notices people, who carries details?',
+            'Coordinate the handoff so collaboration does not become duplicated labor.',
+            'Check whether the final result is actually stronger, or only more crowded.',
+        ],
+        'faqs': [
+            (
+                'What does synergy mean as a value?',
+                'Synergy means people combining their strengths so the result is better than what they could create separately. It becomes real through coordination, integration, trust, and shared ownership.',
+            ),
+            (
+                'How do I practice synergy?',
+                'Practice synergy by clarifying the shared outcome, inviting different strengths, coordinating responsibilities, integrating feedback, and checking whether the combined work truly improved the result.',
+            ),
+            (
+                'Why can synergy sound awkward?',
+                'Synergy sounds awkward when it is used as corporate decoration. It becomes useful when the page shows a concrete collaboration with roles, stakes, and a better shared outcome.',
+            ),
+        ],
+    },
+    'ambiguity': {
+        'replace_source_example': True,
+        'why': (
+            'Ambiguity matters because not every important situation becomes clear on command. Some moments ask a '
+            'person to interpret, question, consider, and explore before rushing to certainty. Ambiguity is not the '
+            'same as confusion for its own sake; it is the willingness to stay honest when more than one meaning may be '
+            'true. The Howdy Human practice is learning how to remain thoughtful before the story hardens.'
+        ),
+        'examples': [
+            'A manager practices ambiguity when two employees describe the same conflict differently, and she slows down enough to hear both accounts before deciding what repair is needed.',
+            'A friend practices ambiguity by saying, "I may be reading this wrong. Can you tell me what you meant?" instead of reacting to the first interpretation.',
+            'A researcher practices ambiguity by keeping an unexpected result in the data set long enough to learn from it.',
+        ],
+        'practice': [
+            'When you feel certain too quickly, ask what else could be true.',
+            'Separate the facts, the interpretation, and the fear.',
+            'Use one clarifying question before you make the meaning final.',
+            'Stay with the unclear part long enough to gather better evidence.',
+            'Notice when ambiguity is useful curiosity and when it has become avoidance of a needed decision.',
+        ],
+        'faqs': [
+            (
+                'What does ambiguity mean as a value?',
+                'Ambiguity as a value means staying open when a situation has more than one possible meaning. It supports thoughtful interpretation, inquiry, and patience before certainty.',
+            ),
+            (
+                'How do I practice ambiguity?',
+                'Practice ambiguity by pausing before deciding, asking clarifying questions, naming multiple possible interpretations, and gathering enough information to act wisely.',
+            ),
+            (
+                'Is ambiguity the same as indecision?',
+                'No. Ambiguity can help people think carefully before acting. Indecision becomes a problem when openness turns into avoiding a choice that needs to be made.',
+            ),
+        ],
+    },
+    'action': {
+        'replace_source_example': True,
+        'why': (
+            'Action matters because a value that never moves is only decoration. Taking steps, performing the next task, '
+            'executing the plan, and implementing the repair are how intentions become visible. Action does not mean '
+            'constant motion or productivity for its own sake. It means choosing the next honest behavior when the idea '
+            'has been clear long enough. In Howdy Human language, action is where a value gets legs.'
+        ),
+        'examples': [
+            'After months of saying the community pantry matters, a neighbor practices action by calling the school, reserving a table, recruiting two volunteers, and buying the first bins.',
+            'A student practices action by opening the document and writing the bad first paragraph instead of researching for another hour.',
+            'A partner practices action by scheduling the counseling appointment they both agreed was needed.',
+        ],
+        'practice': [
+            'Write the next visible step as a verb: call, send, ask, repair, schedule, clean, draft, or decide.',
+            'Make the action small enough to complete before your motivation changes its mind.',
+            'Stop using preparation as a hiding place once the next step is known.',
+            'After acting, ask what changed in the room, the relationship, the plan, or your body.',
+            'Choose action that serves a value, not motion that only proves you are busy.',
+        ],
+        'faqs': [
+            (
+                'What does action mean as a value?',
+                'Action means taking concrete steps that make intention visible. As a value, it connects beliefs, plans, and care to behavior people can observe.',
+            ),
+            (
+                'How do I practice action?',
+                'Practice action by choosing one clear next step, making it small enough to finish, and doing it before overplanning becomes avoidance.',
+            ),
+            (
+                'Is action always better than reflection?',
+                'No. Reflection helps choose the right move. Action matters when reflection has already shown the next honest step and delay is keeping the value theoretical.',
+            ),
+        ],
+    },
+    'impact': {
+        'replace_source_example': True,
+        'why': (
+            'Impact matters because good intentions are not the same as a positive difference in people\'s lives or the '
+            'world around us. Impact asks what actually happened because someone chose to influence, change, transform, '
+            'shape, or alter something. It needs '
+            'humility because a person can mean well and still make the wrong thing louder. The Howdy Human question is: '
+            'who is better supported, safer, freer, clearer, or more resourced because this action occurred?'
+        ),
+        'examples': [
+            'A nonprofit director practices impact by canceling a popular workshop after participant feedback shows the emergency cash fund is doing more to stabilize families.',
+            'A teacher practices impact by changing a grading policy after realizing the old system rewarded quiet privilege more than learning.',
+            'A designer practices impact by measuring whether a form is actually easier for older adults to complete, not just whether it looks cleaner.',
+        ],
+        'practice': [
+            'Name the change you hope to make before choosing the activity.',
+            'Ask the people affected whether the help is helping.',
+            'Measure one real outcome, not only effort, reach, or applause.',
+            'Look for unintended effects, especially on people with less power in the situation.',
+            'Let evidence change the plan when the original idea is not creating the needed result.',
+        ],
+        'faqs': [
+            (
+                'What does impact mean as a value?',
+                'Impact means making a real difference in people, systems, or conditions. As a value, it asks whether an action actually changed something that mattered.',
+            ),
+            (
+                'How do I practice impact?',
+                'Practice impact by naming the change you want, listening to affected people, measuring real outcomes, and adjusting when the effort is not producing useful change.',
+            ),
+            (
+                'How is impact different from intention?',
+                'Intention is what someone means to do. Impact is what actually happens because of the action. Values become more trustworthy when both are examined.',
+            ),
+        ],
+    },
+    'mission': {
+        'replace_source_example': True,
+        'why': (
+            'Mission matters because purpose needs a direction that can survive distraction. A mission helps a person or '
+            'group pursue, fulfill, accomplish, achieve, and drive work that would otherwise scatter. It is not a slogan '
+            'for a website footer. A real mission helps you decide what to do, what to stop doing, and what cost you are '
+            'willing to carry. Howdy Human treats mission as purpose with assignments.'
+        ),
+        'examples': [
+            'A mutual aid group practices mission when it turns down a flashy fundraiser because the planning time would pull volunteers away from weekly grocery deliveries.',
+            'A creative director practices mission by choosing the children\'s literacy project over a better-paid campaign that does not fit the studio promise.',
+            'A family practices mission by deciding that Sunday dinner is protected time because connection needs a recurring structure.',
+        ],
+        'practice': [
+            'Write the mission as one sentence with a person, action, and reason.',
+            'Use the mission to say no to one good-looking distraction.',
+            'Ask what needs to be pursued this week for the mission to stay alive.',
+            'Check whether the mission is guiding real choices or only decorating them.',
+            'Name the cost honestly: time, money, attention, comfort, status, or speed.',
+        ],
+        'faqs': [
+            (
+                'What does mission mean as a value?',
+                'Mission means a guiding purpose that directs action. As a value, it helps people pursue meaningful work, make decisions, and stay aligned under pressure.',
+            ),
+            (
+                'How do I practice mission?',
+                'Practice mission by naming the work, choosing actions that serve it, saying no to distractions, and checking whether daily choices still match the stated purpose.',
+            ),
+            (
+                'How is mission different from purpose?',
+                'Purpose names the deeper why. Mission turns that why into direction, commitments, and repeated choices that can be acted on with other people.',
+            ),
+        ],
+    },
+    'representation': {
+        'replace_source_example': True,
+        'why': (
+            'Representation matters because people notice who is pictured, who is invited, who speaks, who is missing, '
+            'and who only appears as a stereotype. It is not just visibility; it is whether people, stories, and '
+            'communities are included, reflected, advocated for, and depicted with enough truth to preserve dignity. '
+            'Howdy Human treats representation as a responsibility: do not use someone\'s image, pain, culture, or story '
+            'as decoration for a room they still cannot enter.'
+        ),
+        'examples': [
+            'A curriculum team practices representation by replacing a token heritage-month slide with books by living authors, local history, and classroom discussion that lets students speak from more than one identity.',
+            'A brand team practices representation by paying community advisors before using their stories in a campaign.',
+            'A meeting facilitator practices representation by noticing whose expertise is being summarized by others and making room for that person to speak directly.',
+        ],
+        'practice': [
+            'Ask who is present, who is missing, and who has decision-making power.',
+            'Include people early enough that they can shape the work, not merely approve it.',
+            'Represent lived experience with specificity instead of relying on symbols or stereotypes.',
+            'Pay, credit, and protect the people whose stories make the work stronger.',
+            'Check whether visibility is connected to access, influence, and dignity.',
+        ],
+        'faqs': [
+            (
+                'What does representation mean as a value?',
+                'Representation means people, groups, and experiences are shown, included, and spoken for with truth and dignity. It becomes a value when visibility is connected to voice and power.',
+            ),
+            (
+                'How do I practice representation?',
+                'Practice representation by including affected people early, listening to their expertise, avoiding stereotypes, sharing credit, and making sure visibility leads to real access or influence.',
+            ),
+            (
+                'Why is representation more than visibility?',
+                'Visibility can still be shallow or extractive. Representation asks whether people have voice, context, dignity, and power in how their stories or identities appear.',
+            ),
+        ],
+    },
+    'charisma': {
+        'replace_source_example': True,
+        'why': (
+            'Charisma matters because attention is a form of power. The ability to attract, influence, inspire, and '
+            'engage people can open rooms, build trust, and give courage to a group. It can also manipulate, overwhelm, '
+            'or make the room orbit one person. Charisma becomes a value only when charm serves connection instead of '
+            'control. The Howdy Human test is whether people leave your presence more themselves, not just more impressed.'
+        ),
+        'examples': [
+            'A youth mentor practices charisma well when students listen because she is warm and vivid, then she uses that attention to help quieter kids trust their own voices.',
+            'A founder misuses charisma when every meeting ends with applause for the vision but no clear consent, budget, or follow-through.',
+            'A host practices charisma by noticing who has not spoken and turning the spotlight into an invitation.',
+        ],
+        'practice': [
+            'Use attention to create room for others, not only to hold the room yourself.',
+            'Check whether your influence leaves people clearer or just swept up.',
+            'Ask before turning someone else into part of your story or performance.',
+            'Balance charm with follow-through; inspiration without reliability becomes noise.',
+            'Notice whether people feel free to disagree with you after being inspired by you.',
+        ],
+        'faqs': [
+            (
+                'What does charisma mean as a value?',
+                'Charisma means the ability to attract, engage, and influence others. It becomes a value when that influence supports connection, courage, clarity, and shared agency.',
+            ),
+            (
+                'How do I practice charisma responsibly?',
+                'Practice charisma responsibly by using attention to include others, inspire honest action, respect consent, and follow through after the energetic moment has passed.',
+            ),
+            (
+                'Can charisma become harmful?',
+                'Yes. Charisma becomes harmful when charm replaces truth, consent, accountability, or shared power. Influence needs responsibility to become trustworthy.',
+            ),
+        ],
+    },
+    'sovereignty': {
+        'replace_source_example': True,
+        'why': (
+            'Sovereignty matters because self-rule is a dignity issue. For a country, community, group, or person, it '
+            'asks who gets to determine, decide, govern, direct, and protect the choices that shape a life. Sovereignty '
+            'is not isolation or never being accountable. It is the right to participate in decisions that affect your '
+            'body, culture, home, resources, and future. Howdy Human treats sovereignty as power with boundaries and '
+            'responsibility.'
+        ),
+        'examples': [
+            'A tribal council practices sovereignty when it sets its own child welfare priorities and requires outside agencies to respect community process instead of imposing a generic solution.',
+            'A patient practices personal sovereignty by asking for the risks, alternatives, and time to decide before consenting to a procedure.',
+            'A neighborhood practices sovereignty when residents organize around land use because development decisions will reshape their daily lives.',
+        ],
+        'practice': [
+            'Ask who has authority to decide, and who is living with the consequences.',
+            'Protect consent where bodies, homes, stories, land, or culture are involved.',
+            'Distinguish autonomy from avoidance; self-rule still needs relationship and responsibility.',
+            'Make the decision process visible before the decision is finalized.',
+            'Support groups in defining their own needs instead of speaking over them.',
+        ],
+        'faqs': [
+            (
+                'What does sovereignty mean as a value?',
+                'Sovereignty means the ability of a person, group, or nation to govern itself and make decisions about its own life, resources, body, or future.',
+            ),
+            (
+                'How do I practice sovereignty?',
+                'Practice sovereignty by respecting consent, honoring self-determination, clarifying who has decision-making power, and supporting people or communities in naming their own needs.',
+            ),
+            (
+                'Is sovereignty the same as independence?',
+                'Not exactly. Independence emphasizes freedom from control. Sovereignty emphasizes legitimate self-rule, decision-making authority, and responsibility within real relationships and systems.',
+            ),
+        ],
+    },
+    'piety': {
+        'replace_source_example': True,
+        'why': (
+            'Piety matters when devotion becomes careful practice instead of public performance. For some people, piety '
+            'is religious reverence; for others, it is a deep respect for what they hold sacred. It can ask a person to '
+            'practice, observe, follow, honor, respect, and return to commitments that are bigger than appetite or mood. '
+            'The Howdy Human question is whether devotion makes someone more humble, more honest, and more loving in the '
+            'ordinary room they are standing in.'
+        ),
+        'examples': [
+            'A woman practices piety by leaving a tense work lunch to pray quietly, then returning with enough humility to apologize for the comment she made before she left.',
+            'A son practices piety by observing a family mourning ritual with sincerity, even though his beliefs have changed, because the ritual honors love and memory.',
+            'A community leader fails at piety when sacred language is used to avoid accountability for harm.',
+        ],
+        'practice': [
+            'Name what you hold sacred before deciding what practice should protect it.',
+            'Let devotion change how you treat people, not only how you describe yourself.',
+            'Observe a ritual with attention instead of rushing through it as proof of identity.',
+            'Respect the line between sincere practice and performing holiness for approval.',
+            'Ask whether the sacred commitment is making you more accountable, compassionate, and truthful.',
+        ],
+        'faqs': [
+            (
+                'What does piety mean as a value?',
+                'Piety means deep reverence or devotion toward what is sacred, holy, or deeply honored. As a value, it becomes visible through respectful practice and humility.',
+            ),
+            (
+                'How do I practice piety?',
+                'Practice piety by honoring what you hold sacred through steady actions, rituals, respect, service, humility, and accountability in ordinary life.',
+            ),
+            (
+                'Is piety only religious?',
+                'Piety is often religious, but the broader value can include reverence for sacred commitments, ancestors, community, truth, or practices that deserve deep respect.',
+            ),
+        ],
+    },
+    'professionalism': {
+        'replace_source_example': True,
+        'why': (
+            'Professionalism matters because work is still a human environment. It is not about sounding stiff or hiding '
+            'your personality behind corporate manners. Professionalism asks people to maintain respect, demonstrate '
+            'care, uphold agreements, practice competence, and exhibit steadiness when other people are depending on the '
+            'work. Howdy Human treats professionalism as reliability with dignity, not polish without a pulse.'
+        ),
+        'examples': [
+            'A hair stylist practices professionalism when a client arrives upset and late, and she stays kind, names the time boundary, adjusts what is possible, and still does careful work.',
+            'A consultant practices professionalism by admitting a missed detail before the client finds it and bringing a corrected timeline.',
+            'A coworker practices professionalism by disagreeing clearly in the meeting without embarrassing the person who made the original proposal.',
+        ],
+        'practice': [
+            'Make the expectation clear before frustration has to carry the message.',
+            'Follow through on the small promises that make people feel safe working with you.',
+            'Use respectful language without hiding the actual issue.',
+            'Own mistakes early and bring the next useful step.',
+            'Check whether your presence helps the work feel steadier, clearer, and more humane.',
+        ],
+        'faqs': [
+            (
+                'What does professionalism mean as a value?',
+                'Professionalism means showing respect, responsibility, competence, and steadiness in work settings. It becomes a value when reliability and dignity shape how the work gets done.',
+            ),
+            (
+                'How do I practice professionalism?',
+                'Practice professionalism by communicating clearly, keeping agreements, respecting time, owning mistakes, doing careful work, and treating people with dignity under pressure.',
+            ),
+            (
+                'Is professionalism the same as being formal?',
+                'No. Formality is a style. Professionalism is a pattern of respect, competence, accountability, and follow-through that can still feel warm and human.',
+            ),
+        ],
+    },
+    'effectiveness': {
+        'replace_source_example': True,
+        'why': (
+            'Effectiveness matters because effort is not the same as usefulness. A person can work hard, care deeply, '
+            'and still avoid the action that would actually deliver the needed result. Effectiveness asks people to '
+            'achieve, produce, accomplish, execute, and adjust with the outcome in mind. It is not cold efficiency; it '
+            'is respect for the real need. The Howdy Human question is: did this help, or did it only look like helping?'
+        ),
+        'examples': [
+            'A volunteer coordinator practices effectiveness by replacing a long inspirational meeting with a ten-minute briefing, a clear packing list, and enough drivers to get supplies delivered before dark.',
+            'A therapist practices effectiveness by changing the homework when a client repeatedly cannot do it, instead of treating the missed assignment as the whole problem.',
+            'A team practices effectiveness by stopping a beloved program after data shows a simpler service reaches the people who need it most.',
+        ],
+        'practice': [
+            'Name the result that would prove the effort helped.',
+            'Choose the action most likely to produce that result, even if it is less impressive.',
+            'Ask what can be simplified, delegated, stopped, or measured.',
+            'Check whether the people affected experience the work as useful.',
+            'Adjust quickly when the current method is producing activity instead of impact.',
+        ],
+        'faqs': [
+            (
+                'What does effectiveness mean as a value?',
+                'Effectiveness means producing useful results, not just effort. As a value, it connects care, skill, and action to outcomes that actually help.',
+            ),
+            (
+                'How do I practice effectiveness?',
+                'Practice effectiveness by naming the desired result, choosing actions that serve it, measuring whether the work helped, and adjusting when effort is not producing the needed outcome.',
+            ),
+            (
+                'Is effectiveness the same as efficiency?',
+                'No. Efficiency is about using fewer resources. Effectiveness is about whether the action works. The most effective choice may not always be the fastest one.',
+            ),
+        ],
+    },
+}
+
+EXPANDED_VALUE_CONTENT.update(EDITORIAL_REPLACEMENT_VALUE_CONTENT)
+EXPANDED_VALUE_SLUGS.update(EDITORIAL_REPLACEMENT_VALUE_CONTENT)
+REPLACE_SOURCE_EXAMPLE_SLUGS = {
+    slug
+    for slug, content in EDITORIAL_REPLACEMENT_VALUE_CONTENT.items()
+    if content.get('replace_source_example')
+}
+
+
 def slugify(text: str) -> str:
     normalized = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
     slug = re.sub(r'[^a-z0-9]+', '-', normalized.lower()).strip('-')
@@ -755,7 +1375,7 @@ def ensure_clean_directory(parent: Path, valid_slugs: set[str]) -> None:
 
 
 def write_sitemap(value_slugs: list[str], category_slugs: list[str]) -> None:
-    urls = [f'{SITE_URL}/', f'{SITE_URL}/values-as-verbs/', f'{SITE_URL}/values-in-action-audit/']
+    urls = [f'{SITE_URL}/', f'{SITE_URL}/values-as-verbs/', f'{SITE_URL}/values-in-action-check-in/']
     urls.extend(f'{SITE_URL}/values/category/{slug}/' for slug in category_slugs)
     urls.extend(f'{SITE_URL}/values/{slug}/' for slug in value_slugs)
 
@@ -1073,7 +1693,10 @@ def build_expanded_value_page(value: dict, values_by_tag: dict[str, list[dict]],
     )
     tag_links = tag_links_markup(tags)
     related_markup = related_values_markup(related_values_for(value, values_by_tag))
-    examples = [example, *content['examples'][:2]]
+    if slug in REPLACE_SOURCE_EXAMPLE_SLUGS:
+        examples = content['examples'][:3]
+    else:
+        examples = [example, *content['examples'][:2]]
     examples_markup = ''.join(f'<li>{html.escape(item)}</li>' for item in examples if item)
     practice_markup = ''.join(f'<li>{html.escape(item)}</li>' for item in content['practice'])
     faq_markup = ''.join(

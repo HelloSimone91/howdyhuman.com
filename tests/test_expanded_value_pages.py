@@ -18,6 +18,25 @@ PILOT_SLUGS = [
     "clarity",
     "self-awareness",
 ]
+REPLACEMENT_EXAMPLE_SLUGS = {
+    "action",
+    "ambiguity",
+    "capitalism",
+    "charisma",
+    "effectiveness",
+    "fine-art",
+    "impact",
+    "luxury",
+    "mission",
+    "money",
+    "piety",
+    "professionalism",
+    "representation",
+    "sovereignty",
+    "sports",
+    "synergy",
+    "technology",
+}
 
 
 class TextExtractor(HTMLParser):
@@ -171,7 +190,10 @@ class ExpandedValuePageTest(unittest.TestCase):
                     any(term.lower() in why.lower() for term in source_terms),
                     f"{slug} should pull meaningful language from its own definition into the why section",
                 )
-                self.assertIn(value["example"].split()[0], examples)
+                if slug not in REPLACEMENT_EXAMPLE_SLUGS:
+                    self.assertIn(value["example"].split()[0], examples)
+                else:
+                    self.assertNotIn(value["example"], examples)
                 self.assertTrue(
                     any(tag.lower() in practice.lower() or tag.lower() in why.lower() for tag in value.get("tags", [])[:3]),
                     f"{slug} should use its own associated verbs in the expanded writing",
