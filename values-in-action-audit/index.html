@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Values-In-Action Audit | Howdy Human</title>
+  <meta name="description" content="A public Howdy Human audit method for noticing values through everyday verbs, vibes, habits, time, relationships, inputs, environment, work, and money.">
+  <link rel="canonical" href="https://www.howdyhuman.com/values-in-action-audit/">
+
+  <meta property="og:site_name" content="Howdy Human">
+  <meta property="og:title" content="The Values-In-Action Audit">
+  <meta property="og:description" content="A practical audit for translating ordinary behavior into verbs, vibes, and values.">
+  <meta property="og:url" content="https://www.howdyhuman.com/values-in-action-audit/">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://www.howdyhuman.com/social/og-home.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Values-In-Action Audit">
+  <meta name="twitter:description" content="A Howdy Human method for noticing what your life is already practicing.">
+  <meta name="twitter:image" content="https://www.howdyhuman.com/social/og-home.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#225f45">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #225f45;
+      --green-dark: #163d2d;
+      --teal: #51a38b;
+      --cream: #fff7df;
+      --paper: #fbfafc;
+      --mist: #f6f4ff;
+      --lavender: #d9d4f5;
+      --amethyst: #8b6ccf;
+      --rose: #f3a6c8;
+      --gold: #f2c14e;
+      --ink: #1f2a2a;
+      --muted: #596763;
+      --line: #d8e3db;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(139, 108, 207, 0.24), transparent 34rem),
+        radial-gradient(circle at 86% 18%, rgba(81, 163, 139, 0.18), transparent 32rem),
+        radial-gradient(circle at 54% 92%, rgba(242, 193, 78, 0.16), transparent 30rem),
+        var(--mist);
+    }
+
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    article {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(139, 108, 207, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(31, 42, 42, 0.09);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(34, 95, 69, 0.96), rgba(81, 163, 139, 0.88)),
+        radial-gradient(circle at 18% 20%, rgba(242, 193, 78, 0.45), transparent 32rem);
+      color: var(--cream);
+      padding: 3.25rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 8% -4.8rem;
+      height: 8rem;
+      background: rgba(255, 247, 223, 0.18);
+      border-radius: 999px 999px 0 0;
+      filter: blur(0.5px);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: #d8ead9;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--cream);
+      font-size: clamp(2.15rem, 5vw, 4.35rem);
+      line-height: 1.04;
+    }
+
+    .dek {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      color: #eef7ec;
+      font-size: 1.1rem;
+    }
+
+    .content {
+      padding: 2rem 1.5rem 2.5rem;
+    }
+
+    .meta-link {
+      margin: 0 0 1.35rem;
+    }
+
+    .meta-link a,
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      background: var(--green);
+      color: var(--cream);
+      font-size: 0.95rem;
+      font-weight: 800;
+      line-height: 1.2;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(22, 61, 45, 0.14);
+    }
+
+    .meta-link a:hover,
+    .meta-link a:focus-visible,
+    .button-link:hover,
+    .button-link:focus-visible {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    h2 {
+      margin: 2.2rem 0 0.7rem;
+      color: var(--green-dark);
+      font-size: clamp(1.38rem, 3vw, 1.9rem);
+      line-height: 1.22;
+    }
+
+    h3 {
+      margin: 0 0 0.45rem;
+      color: var(--green-dark);
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0.85rem 0;
+    }
+
+    a {
+      color: var(--green);
+      font-weight: 800;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    ol,
+    ul {
+      margin: 0.75rem 0 1rem;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin: 0.36rem 0;
+    }
+
+    .method-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 1.3rem 0 1.7rem;
+    }
+
+    .method-chip {
+      padding: 0.85rem 0.95rem;
+      border: 1px solid rgba(139, 108, 207, 0.22);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff, rgba(217, 212, 245, 0.24));
+    }
+
+    .method-chip strong {
+      display: block;
+      color: var(--green-dark);
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      margin: 1.5rem 0;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--gold);
+      background: #fff9e8;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 1rem;
+      margin: 1.15rem 0 1.4rem;
+    }
+
+    .audit-card {
+      padding: 1rem;
+      background: var(--paper);
+      border: 1px solid rgba(139, 108, 207, 0.22);
+      border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(31, 42, 42, 0.04);
+    }
+
+    .audit-card p {
+      margin: 0.35rem 0 0.6rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .audit-card ul {
+      margin-bottom: 0;
+    }
+
+    .vibe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .vibe-card {
+      padding: 0.95rem;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(81, 163, 139, 0.24);
+    }
+
+    .vibe-card strong {
+      display: block;
+      color: var(--green-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .example-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .flow-step {
+      padding: 1rem;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff, rgba(243, 166, 200, 0.16));
+      border: 1px solid rgba(243, 166, 200, 0.32);
+    }
+
+    .flow-step span {
+      display: block;
+      color: var(--amethyst);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta {
+      margin-top: 2.25rem;
+      padding: 1.25rem;
+      background: var(--green);
+      color: var(--cream);
+      border-radius: 16px;
+    }
+
+    .cta p {
+      margin-bottom: 0;
+    }
+
+    .cta a {
+      color: var(--cream);
+    }
+
+    @media (max-width: 720px) {
+      main {
+        padding: 0;
+      }
+
+      article {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .hero,
+      .content {
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+      }
+
+      .method-strip,
+      .example-flow {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <header class="hero">
+        <p class="eyebrow">Howdy Human Method</p>
+        <h1>The Values-In-Action Audit</h1>
+        <p class="dek">A short-answer practice for noticing what your life is already doing, what it feels like to do it, and what values those patterns may be trying to serve.</p>
+      </header>
+
+      <div class="content">
+        <p class="meta-link"><a href="/">Back to the Howdy Human Dictionary of Values</a></p>
+
+        <p>The Values-In-Action Audit starts with the Howdy Human premise that values become visible through verbs. Instead of asking someone to choose a perfect list of ideals, it asks them to look at ordinary evidence: what they repeat, where their time goes, who receives their care, what they consume, how their space is arranged, what their work serves, and how their money moves.</p>
+
+        <p>The method adds one more layer: vibes. A verb tells you what happened. A vibe helps you understand the emotional tone around it. Together, verbs and vibes make values easier to recognize without turning self-reflection into a performance.</p>
+
+        <div class="method-strip" aria-label="The Values-In-Action Audit method">
+          <div class="method-chip">
+            <strong>Verbs</strong>
+            What did you actually do, repeat, avoid, repair, practice, protect, or choose?
+          </div>
+          <div class="method-chip">
+            <strong>Vibes</strong>
+            What emotional tone, body signal, craving, relief, pressure, or atmosphere surrounded it?
+          </div>
+          <div class="method-chip">
+            <strong>Values</strong>
+            What might the action and feeling be trying to serve, protect, or practice?
+          </div>
+        </div>
+
+        <h2>How to Use the Audit</h2>
+        <p>Answer quickly. Short answers are better than polished ones. The goal is not to prove you are good, aligned, disciplined, generous, creative, or evolved. The goal is to collect honest clues. Once the clues are visible, you can translate them into possible values and choose the next verb with more intention.</p>
+
+        <ol>
+          <li><strong>Write the plain action.</strong> Use a concrete verb: called, avoided, cleaned, bought, practiced, watched, donated, postponed, asked, supported.</li>
+          <li><strong>Name the vibe.</strong> Notice what was present before, during, and after: pressure, relief, tenderness, tightness, pride, resentment, calm, depletion, excitement, steadiness.</li>
+          <li><strong>Infer the value.</strong> Ask what the action may have been trying to serve: safety, connection, creativity, responsibility, freedom, beauty, care, stability, self-respect.</li>
+          <li><strong>Check the strategy.</strong> A behavior can point to a real value even when the strategy needs adjustment.</li>
+          <li><strong>Choose one next verb.</strong> Let the value become something observable again.</li>
+        </ol>
+
+        <div class="callout">
+          <p><strong>Core question:</strong> What value was this action trying to serve, and did the vibe around it feel aligned, protective, performative, nourishing, or misdirected?</p>
+        </div>
+
+        <h2>The Seven Audit Pillars</h2>
+        <p>These short-answer questions are adapted from the June 4 Howdy Human lifestyle audit draft. Use them as a weekly reflection, a coaching prompt, a team conversation, or a private check-in when your stated values and lived patterns feel out of sync.</p>
+
+        <div class="audit-grid">
+          <section class="audit-card">
+            <h3>Habits</h3>
+            <p>Consistency and intention: what patterns dominate automated behavior?</p>
+            <ul>
+              <li>What are three things you do every day without fail?</li>
+              <li>What habit did you actively stop in the last year, and why?</li>
+              <li>When stressed, what is your go-to activity?</li>
+              <li>What is the first thing you do after waking and the last thing before sleep?</li>
+              <li>What skill did you practice for 30 minutes this week?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Time Spent</h3>
+            <p>Allocation and prioritization: where are attention and energy really going?</p>
+            <ul>
+              <li>How many hours went to a passion project or personal growth this week?</li>
+              <li>What was the most common calendar activity this month?</li>
+              <li>What do you procrastinate on, and what do you do instead?</li>
+              <li>What was yesterday's most satisfying hour, and why?</li>
+              <li>Who or what took unexpected time last week?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Relationships</h3>
+            <p>Connection and investment: who receives intentional energy?</p>
+            <ul>
+              <li>Name three people you had meaningful, non-transactional conversations with this week.</li>
+              <li>What friction keeps repeating in your closest relationship?</li>
+              <li>How did you support or encourage someone this week?</li>
+              <li>When you need advice, who do you call first, and why?</li>
+              <li>What quality do you look for in a new friend or colleague?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Content Consumption</h3>
+            <p>Input and influence: what are you feeding your mind?</p>
+            <ul>
+              <li>What did you last finish reading, watching, or listening to, and what did you learn?</li>
+              <li>What creator, channel, newsletter, or source do you check daily?</li>
+              <li>How many hours went to pure entertainment this week?</li>
+              <li>What content do you immediately dismiss, and why?</li>
+              <li>What have you searched for repeatedly because it keeps returning to mind?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Physical Environment</h3>
+            <p>Setting and support: how does space reflect and support priorities?</p>
+            <ul>
+              <li>What is the clearest area in your primary workspace, and what is its purpose?</li>
+              <li>What item did you pay extra for because of quality, design, or ethics?</li>
+              <li>What area of your home are you trying to improve right now?</li>
+              <li>What have you donated, removed, repaired, or released this month?</li>
+              <li>Where do you go when you need to think or create alone?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Work</h3>
+            <p>Purpose and action: how do daily tasks connect to mission?</p>
+            <ul>
+              <li>What was the most challenging task you completed this week, and what value did it serve?</li>
+              <li>If you had one bonus work hour today, where would it go?</li>
+              <li>What compliment do you receive most often from colleagues or clients?</li>
+              <li>What part of work feels like play?</li>
+              <li>What non-financial signal defines a successful workday?</li>
+            </ul>
+          </section>
+
+          <section class="audit-card">
+            <h3>Financial</h3>
+            <p>Resources and future: where do resources flow, and what future are they building?</p>
+            <ul>
+              <li>What was your last non-essential purchase over $100, and why?</li>
+              <li>What is your largest automatic monthly transfer or subscription?</li>
+              <li>How much financial energy is short-term need versus long-term direction?</li>
+              <li>In one sentence, what is the purpose of money in your life right now?</li>
+              <li>Where are you actively trying to spend less?</li>
+            </ul>
+          </section>
+        </div>
+
+        <h2>Vibe Vocabulary</h2>
+        <p>Vibes are not proof by themselves, but they keep the audit honest. They help separate a real value from a tactic that may be outdated, protective, performative, or misaligned.</p>
+
+        <div class="vibe-grid">
+          <div class="vibe-card">
+            <strong>Aligned</strong>
+            The action feels clear, steady, alive, or quietly right.
+          </div>
+          <div class="vibe-card">
+            <strong>Protective</strong>
+            The action is trying to keep something safe, even if the tactic is clumsy.
+          </div>
+          <div class="vibe-card">
+            <strong>Performative</strong>
+            The action is more about being seen a certain way than serving the value.
+          </div>
+          <div class="vibe-card">
+            <strong>Depleting</strong>
+            The value may be real, but the strategy is costing too much.
+          </div>
+          <div class="vibe-card">
+            <strong>Nourishing</strong>
+            The action leaves more capacity, connection, dignity, or energy behind.
+          </div>
+          <div class="vibe-card">
+            <strong>Misdirected</strong>
+            The behavior is trying to serve a value through a route that does not actually help.
+          </div>
+        </div>
+
+        <h2>A Quick Translation Example</h2>
+        <p>A single answer can move through the whole method in under a minute.</p>
+
+        <div class="example-flow">
+          <div class="flow-step">
+            <span>Verb</span>
+            Cleaned the kitchen before starting creative work.
+          </div>
+          <div class="flow-step">
+            <span>Vibe</span>
+            Restless beforehand, calmer afterward, less scattered.
+          </div>
+          <div class="flow-step">
+            <span>Possible values</span>
+            Peace, care, self-respect, order, creativity.
+          </div>
+        </div>
+
+        <p>The next question is not "Was cleaning good or bad?" The better question is "What was cleaning trying to make possible?" If the answer is peace, the next verb might be to simplify. If it is control, the next verb might be to pause. If it is creativity, the next verb might be to begin the draft once the space feels usable enough.</p>
+
+        <div class="cta">
+          <p><strong>Keep translating.</strong> Use the <a href="/values-as-verbs/">values-as-verbs framework</a> to understand the method, then use the <a href="/">Howdy Human Dictionary of Values</a> to look up the value words your audit reveals.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

@@ -270,6 +270,7 @@ const i18n = {
             filtersWidened: 'Filters widened to include "{{value}}"',
             filtersRestored: 'Filters restored',
             showingCategory: 'Showing values in category: {{category}}',
+            categoryCleared: 'Category filter cleared: {{category}}',
             errorFilteringValues: 'Error filtering values'
         },
         actions: {
@@ -379,6 +380,7 @@ const i18n = {
             filtersWidened: 'Los filtros se ampliaron para incluir "{{value}}"',
             filtersRestored: 'Filtros restaurados',
             showingCategory: 'Mostrando valores en la categoría: {{category}}',
+            categoryCleared: 'Filtro de categoría borrado: {{category}}',
             errorFilteringValues: 'Error al filtrar los valores'
         },
         actions: {
@@ -2386,6 +2388,43 @@ function attachFilterSearchListener(input, container) {
     handler();
 }
 
+function setCategoryFilter(category, isSelected) {
+    if (isSelected) {
+        if (!filterState.categories.includes(category)) {
+            filterState.categories.push(category);
+        }
+    } else {
+        filterState.categories = filterState.categories.filter(c => c !== category);
+    }
+
+    const checkbox = document.getElementById(`category-${category}`);
+    if (checkbox) checkbox.checked = isSelected;
+}
+
+function updateCategoryBadgeStates() {
+    document.querySelectorAll('.category-badge[data-category]').forEach(badge => {
+        const isSelected = filterState.categories.includes(badge.dataset.category);
+        const label = badge.dataset.categoryLabel || badge.textContent.trim();
+        badge.innerHTML = '';
+        badge.appendChild(document.createTextNode(label));
+        if (isSelected) {
+            const clearLabel = document.createElement('span');
+            clearLabel.classList.add('category-badge__clear-label');
+            clearLabel.textContent = 'Clear';
+            badge.appendChild(clearLabel);
+        }
+        badge.classList.toggle('is-selected', isSelected);
+        badge.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        badge.setAttribute(
+            'aria-label',
+            isSelected
+                ? `Clear ${label} category filter`
+                : `Show ${label} category`
+        );
+        badge.title = isSelected ? 'Click to clear this category filter' : 'Click to filter by this category';
+    });
+}
+
 // Update active filters display
 function updateActiveFilters() {
     if (!activeFilters || !clearFilters) return;
@@ -2436,6 +2475,8 @@ function updateActiveFilters() {
     if (filterState.searchTerm) {
         addActiveFilterBadge(`"${filterState.searchTerm}"`, 'search');
     }
+
+    updateCategoryBadgeStates();
 }
 
 // Add active filter badge
@@ -2464,14 +2505,15 @@ function addActiveFilterBadge(text, type, rawText = text) {
 
     // Add remove button
     const removeButton = document.createElement('button');
-    removeButton.classList.add('ml-1', 'text-gray-600', 'hover:text-gray-800');
-    removeButton.innerHTML = '<i class="fas fa-times-circle"></i>';
+    removeButton.classList.add('active-filter__remove', 'ml-1', 'text-gray-600', 'hover:text-gray-800');
+    removeButton.setAttribute('type', 'button');
+    removeButton.setAttribute('aria-label', `Clear ${text} filter`);
+    removeButton.innerHTML = type === 'category'
+        ? '<span class="active-filter__clear-text">Clear</span><i class="fas fa-times-circle" aria-hidden="true"></i>'
+        : '<i class="fas fa-times-circle" aria-hidden="true"></i>';
     removeButton.addEventListener('click', () => {
         if (type === 'category') {
-            filterState.categories = filterState.categories.filter(c => c !== rawText);
-            // Update checkbox
-            const checkbox = document.getElementById(`category-${rawText}`);
-            if (checkbox) checkbox.checked = false;
+            setCategoryFilter(rawText, false);
         } else if (type === 'tag') {
             filterState.tags = filterState.tags.filter(t => t !== text);
             // Update tag
@@ -2925,26 +2967,26 @@ function displayValues(valuesToDisplay) {
                     title.classList.add('value-card-title--gallery');
                 }
 
-                const category = document.createElement('span');
+                const category = document.createElement('button');
+                category.type = 'button';
                 category.textContent = getCategoryLabel(value.category);
                 category.classList.add('category-badge');
+                category.dataset.category = value.category;
+                category.dataset.categoryLabel = getCategoryLabel(value.category);
+                category.setAttribute('aria-pressed', filterState.categories.includes(value.category) ? 'true' : 'false');
                 const description = document.createElement('p');
                 description.textContent = value.description;
                 description.classList.add('mb-4', 'value-description');
                 let meta = null;
                 category.addEventListener('click', () => {
-                    // Add category to filters
-                    if (!filterState.categories.includes(value.category)) {
-                        filterState.categories.push(value.category);
-                        // Update checkbox
-                        const checkbox = document.getElementById(`category-${value.category}`);
-                        if (checkbox) checkbox.checked = true;
-                        filterValues();
-                        updateActiveFilters();
+                    const isSelected = filterState.categories.includes(value.category);
+                    setCategoryFilter(value.category, !isSelected);
+                    filterValues();
+                    updateActiveFilters();
 
-                        // Show status
-                        showStatus(translate('statuses.showingCategory', { category: getCategoryLabel(value.category) }));
-                    }
+                    showStatus(translate(isSelected ? 'statuses.categoryCleared' : 'statuses.showingCategory', {
+                        category: getCategoryLabel(value.category)
+                    }));
                 });
 
                 if (currentViewMode === 'gallery') {
@@ -3293,6 +3335,7 @@ function filterValues() {
 
         console.log("Found", filtered.length, "matching values");
         displayValues(filtered);
+        updateCategoryBadgeStates();
 
     } catch (error) {
         console.error("Error filtering values:", error);
