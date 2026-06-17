@@ -61,6 +61,16 @@ const filterState = {
 };
 let selectedVerb = null;
 const DICTIONARY_VIEW_MODE_STORAGE_KEY = 'dictionaryViewMode';
+const SITE_PALETTE_STORAGE_KEY = 'sitePalette';
+const DEFAULT_SITE_PALETTE = 'canyon-disco';
+const SITE_PALETTE_IDS = ['canyon-disco', 'cosmic-yard', 'tomato-sky', 'juniper-lime', 'ink-peach'];
+const SITE_PALETTE_NAMES = {
+    'canyon-disco': 'Canyon Disco',
+    'cosmic-yard': 'Dusk Garden',
+    'tomato-sky': 'Tomato Sky',
+    'juniper-lime': 'Juniper Lime',
+    'ink-peach': 'Ink & Peach'
+};
 
 function getStoredViewMode() {
     try {
@@ -81,6 +91,26 @@ function storeViewMode(mode) {
 }
 
 let currentViewMode = getStoredViewMode();
+
+function getStoredSitePalette() {
+    try {
+        const storedPalette = localStorage.getItem(SITE_PALETTE_STORAGE_KEY);
+        return SITE_PALETTE_IDS.includes(storedPalette) ? storedPalette : DEFAULT_SITE_PALETTE;
+    } catch (error) {
+        console.warn('Failed to read site palette from storage:', error);
+        return DEFAULT_SITE_PALETTE;
+    }
+}
+
+function storeSitePalette(paletteId) {
+    try {
+        localStorage.setItem(SITE_PALETTE_STORAGE_KEY, paletteId);
+    } catch (error) {
+        console.warn('Failed to store site palette:', error);
+    }
+}
+
+let currentSitePalette = getStoredSitePalette();
 
 const filterAccordionSections = [];
 const accordionMediaQuery = window.matchMedia('(max-width: 767px)');
@@ -180,7 +210,7 @@ const i18n = {
             introInstructions: '<li>Choose a verb</li><li>Open a value</li><li>Save what resonates</li>'
         },
         buttons: {
-            languageToggle: 'En español'
+            languageToggle: 'Español'
         },
         aria: {
             languageToggle: 'Switch language',
@@ -189,9 +219,21 @@ const i18n = {
             heroMenuClose: 'Close quick menu',
             tabs: 'Values content tabs'
         },
+        menu: {
+            toggle: 'Menu',
+            open: 'Open menu',
+            close: 'Close menu',
+            pagesLabel: 'Pages',
+            paletteLabel: 'Palettes',
+            paletteAction: 'Choose palette',
+            languageLabel: 'Languages'
+        },
         viewModes: {
             list: 'List',
             gallery: 'Gallery'
+        },
+        categories: {
+            indexHeading: 'Browse by category'
         },
         alphaNav: {
             label: 'Browse A–Z',
@@ -290,7 +332,7 @@ const i18n = {
             introInstructions: '<li>Elige un verbo</li><li>Abre un valor</li><li>Guarda lo que resuene</li>'
         },
         buttons: {
-            languageToggle: 'In English'
+            languageToggle: 'English'
         },
         aria: {
             languageToggle: 'Cambiar idioma',
@@ -299,9 +341,21 @@ const i18n = {
             heroMenuClose: 'Cerrar menú flotante',
             tabs: 'Pestañas del contenido de valores'
         },
+        menu: {
+            toggle: 'Menú',
+            open: 'Abrir menú',
+            close: 'Cerrar menú',
+            pagesLabel: 'Páginas',
+            paletteLabel: 'Paletas',
+            paletteAction: 'Elegir paleta',
+            languageLabel: 'Idiomas'
+        },
         viewModes: {
             list: 'Lista',
             gallery: 'Galería'
+        },
+        categories: {
+            indexHeading: 'Explorar por categoría'
         },
         alphaNav: {
             label: 'Explorar de A a Z',
@@ -385,6 +439,69 @@ const i18n = {
         },
         actions: {
             undo: 'Deshacer'
+        }
+    }
+};
+
+const seoCategoryTranslations = {
+    en: {
+        'aspirations': {
+            name: 'Aspirations',
+            examples: ['Achievement', 'Adventure', 'Ambition', 'Happiness']
+        },
+        'core-values': {
+            name: 'Core Values',
+            examples: ['Accountability', 'Authenticity', 'Bravery', 'Commitment']
+        },
+        'growth': {
+            name: 'Growth',
+            examples: ['Action', 'Challenge', 'Craftsmanship', 'Creativity']
+        },
+        'interpersonal': {
+            name: 'Interpersonal',
+            examples: ['Appreciation', 'Approachability', 'Camaraderie', 'Caring']
+        },
+        'mindset': {
+            name: 'Mindset',
+            examples: ['Ambiguity', 'Boldness', 'Clarity', 'Curiosity']
+        },
+        'personal': {
+            name: 'Personal',
+            examples: ['Acceptance', 'Balance', 'Beauty', 'Choice']
+        },
+        'social': {
+            name: 'Social',
+            examples: ['Advocacy', 'Benevolence', 'Capitalism', 'Celebration']
+        }
+    },
+    es: {
+        'aspirations': {
+            name: 'Aspiraciones',
+            examples: ['Logro', 'Aventura', 'Ambición', 'Felicidad']
+        },
+        'core-values': {
+            name: 'Valores fundamentales',
+            examples: ['Responsabilidad', 'Autenticidad', 'Valentía', 'Compromiso']
+        },
+        'growth': {
+            name: 'Crecimiento',
+            examples: ['Acción', 'Desafío', 'Artesanía', 'Creatividad']
+        },
+        'interpersonal': {
+            name: 'Interpersonal',
+            examples: ['Aprecio', 'Accesibilidad', 'Camaradería', 'Cuidado']
+        },
+        'mindset': {
+            name: 'Mentalidad',
+            examples: ['Ambigüedad', 'Audacia', 'Claridad', 'Curiosidad']
+        },
+        'personal': {
+            name: 'Personal',
+            examples: ['Aceptación', 'Equilibrio', 'Belleza', 'Elección']
+        },
+        'social': {
+            name: 'Social',
+            examples: ['Defensa', 'Benevolencia', 'Capitalismo', 'Celebración']
         }
     }
 };
@@ -649,6 +766,136 @@ function closeHeroMenu({ skipFiltersSheetClose = false } = {}) {
     }
 }
 
+function updateSeoCategoryIndex() {
+    const categoryCards = document.querySelectorAll('.seo-category-card');
+    if (!categoryCards.length) return;
+
+    const translations = seoCategoryTranslations[currentLanguage] || seoCategoryTranslations.en;
+    categoryCards.forEach(card => {
+        const categoryLink = card.querySelector('h3 a[href*="/values/category/"]');
+        if (!categoryLink) return;
+
+        const slugMatch = categoryLink.getAttribute('href').match(/\/values\/category\/([^/]+)\//);
+        const slug = slugMatch ? slugMatch[1] : '';
+        const translation = translations[slug];
+        if (!translation) return;
+
+        categoryLink.textContent = translation.name;
+
+        const count = card.querySelector('.meta');
+        if (count) {
+            const number = count.textContent.match(/\d+/)?.[0];
+            count.textContent = number ? `${number} ${currentLanguage === 'es' ? 'valores' : 'values'}` : count.textContent;
+        }
+
+        const exampleLinks = card.querySelectorAll('p:not(.meta) a');
+        exampleLinks.forEach((link, index) => {
+            const nextText = translation.examples[index];
+            if (nextText) {
+                link.textContent = nextText;
+            }
+        });
+    });
+}
+
+function setSiteMenuOpen(isOpen) {
+    if (!siteMenu || !siteMenuToggle) return;
+
+    siteMenu.classList.toggle('is-open', isOpen);
+    siteMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    siteMenuToggle.setAttribute('aria-label', translate(isOpen ? 'menu.close' : 'menu.open'));
+}
+
+function closeSiteMenu() {
+    setSiteMenuOpen(false);
+}
+
+function applySitePalette(paletteId, { persist = true } = {}) {
+    const nextPalette = SITE_PALETTE_IDS.includes(paletteId) ? paletteId : DEFAULT_SITE_PALETTE;
+    currentSitePalette = nextPalette;
+    document.body.dataset.palette = nextPalette;
+    if (currentPaletteName) {
+        currentPaletteName.textContent = SITE_PALETTE_NAMES[nextPalette] || SITE_PALETTE_NAMES[DEFAULT_SITE_PALETTE];
+    }
+
+    if (paletteButtons && paletteButtons.length) {
+        paletteButtons.forEach(button => {
+            const isActive = button.dataset.palette === nextPalette;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        });
+    }
+
+    if (persist) {
+        storeSitePalette(nextPalette);
+    }
+}
+
+function setPaletteListOpen(isOpen) {
+    if (!paletteSection || !paletteDisclosure) return;
+
+    paletteSection.classList.toggle('is-expanded', isOpen);
+    paletteDisclosure.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function setupSiteMenu() {
+    if (!siteMenu || !siteMenuToggle) return;
+
+    siteMenuToggle.setAttribute('aria-label', translate('menu.open'));
+    siteMenu.addEventListener('click', event => {
+        event.stopPropagation();
+    });
+
+    siteMenuToggle.addEventListener('click', event => {
+        event.stopPropagation();
+        const isOpen = siteMenu.classList.contains('is-open');
+        setSiteMenuOpen(!isOpen);
+    });
+
+    if (siteMenuPanel) {
+        siteMenuPanel.addEventListener('click', event => {
+            const link = event.target.closest('a.site-menu__link');
+            if (link) {
+                closeSiteMenu();
+            }
+        });
+    }
+
+    document.addEventListener('click', event => {
+        const eventPath = typeof event.composedPath === 'function' ? event.composedPath() : [];
+        const clickStartedInMenu = eventPath.includes(siteMenu) || siteMenu.contains(event.target);
+        if (!clickStartedInMenu) {
+            closeSiteMenu();
+        }
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            closeSiteMenu();
+        }
+    });
+}
+
+function setupPaletteSelector() {
+    if (!paletteButtons || !paletteButtons.length) return;
+
+    applySitePalette(currentSitePalette, { persist: false });
+
+    if (paletteDisclosure) {
+        paletteDisclosure.addEventListener('click', () => {
+            const isExpanded = paletteSection && paletteSection.classList.contains('is-expanded');
+            setPaletteListOpen(!isExpanded);
+        });
+    }
+
+    paletteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            applySitePalette(button.dataset.palette);
+            setPaletteListOpen(false);
+        });
+    });
+}
+
 function applyTranslations() {
     document.documentElement.setAttribute('lang', currentLanguage);
     document.title = translate('page.title');
@@ -672,6 +919,12 @@ function applyTranslations() {
         alphaNavToggle.setAttribute('aria-label', translate(labelKey));
     }
 
+    if (siteMenuToggle) {
+        const labelKey = siteMenu && siteMenu.classList.contains('is-open') ? 'menu.close' : 'menu.open';
+        siteMenuToggle.setAttribute('aria-label', translate(labelKey));
+    }
+
+    updateSeoCategoryIndex();
     updateFilterToggleUI();
     updateFilterExpanderButtons();
 }
@@ -717,7 +970,9 @@ function clearSearchTerm({ updateUI = true } = {}) {
         sortSelect, tagFilters, categoryFilters, valuesList, matchAll, matchAny, toggleSlide,
         activeFilters, clearFilters, filterCount, toggleFilters, filtersContainer, valuesCount,
         alphaNav, alphaNavList, alphaNavToggle, alphaNavOverlay, alphaNavOverlayList,
-        alphaNavOverlayClose, backToTop, languageToggle, filtersSheetTitle, filtersCollapsedHint,
+        alphaNavOverlayClose, backToTop, languageToggle, siteMenu, siteMenuToggle, siteMenuPanel,
+        paletteSection, paletteDisclosure, paletteOptions, paletteButtons, currentPaletteName,
+        filtersSheetTitle, filtersCollapsedHint,
     categoryFilterSearch, tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
     heroPaneBackdrop, heroPillButtons, introBox, introSpark;
 
@@ -1061,6 +1316,14 @@ document.addEventListener('DOMContentLoaded', function() {
         alphaNavOverlayClose = document.getElementById('alphaNavOverlayClose');
         backToTop = document.getElementById('backToTop');
         languageToggle = document.getElementById('languageToggle');
+        siteMenu = document.getElementById('siteMenu');
+        siteMenuToggle = document.getElementById('siteMenuToggle');
+        siteMenuPanel = document.getElementById('siteMenuPanel');
+        paletteSection = document.getElementById('paletteSection');
+        paletteDisclosure = document.getElementById('paletteDisclosure');
+        paletteOptions = document.getElementById('paletteOptions');
+        paletteButtons = paletteOptions ? paletteOptions.querySelectorAll('.palette-option') : [];
+        currentPaletteName = document.getElementById('currentPaletteName');
         heroControls = document.getElementById('heroControls');
         heroPillTray = document.getElementById('heroPillTray');
         heroNotesPane = document.getElementById('heroNotesPane');
@@ -1089,6 +1352,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        setupSiteMenu();
+        setupPaletteSelector();
         setupFiltersSheetLayoutObservers();
 
         syncFiltersSheetAria(isFiltersSheetOpen());
@@ -1614,6 +1879,7 @@ function setupLanguageToggle() {
     if (!languageToggle) return;
 
     languageToggle.addEventListener('click', () => {
+        closeSiteMenu();
         closeAlphaOverlay({ restoreFocus: false });
         currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
         applyTranslations();
