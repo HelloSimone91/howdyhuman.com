@@ -1,21 +1,21 @@
 :root {
-    /* Howdy Human – Meadow Bloom palette */
-    --background: #f6f4ff;
-    --bg-main-rgb: 246, 244, 255;
-    --text-callout: #fbfafc;
-    --text-primary: #1f2a2a;
-    --text-secondary: #495452;
-    --primary-green: #3a7240; /* Chalet Green */
-    --primary-teal: #51a38b; /* Tradewind */
-    --tertiary-saffron: #f2c14e; /* Saffron */
-    --support-amethyst: #8b6ccf; /* Amethyst */
+    /* Howdy Human – Texas editorial nature palette */
+    --background: #f3eee6;
+    --bg-main-rgb: 243, 238, 230;
+    --text-callout: #fbf7ef;
+    --text-primary: #2b2a26;
+    --text-secondary: #5d5a52;
+    --primary-green: #536b55; /* live oak */
+    --primary-teal: #6f8580; /* dusty blue-green */
+    --tertiary-saffron: #c8ad78; /* wheat */
+    --support-amethyst: #8b654f; /* clay */
     --support-purple: var(--support-amethyst);
-    --support-sky: #d9d4f5; /* Lavender highlight */
-    --support-rose: #f3a6c8;
-    --support-rose-rgb: 243, 166, 200;
-    --support-lavender: #d9d4f5;
-    --card-bg-rgb: 251, 250, 252;
-    --filter-bg-rgb: 244, 240, 255;
+    --support-sky: #d8ddd5; /* limestone sage wash */
+    --support-rose: #b98770; /* muted terracotta */
+    --support-rose-rgb: 185, 135, 112;
+    --support-lavender: #d8ddd5;
+    --card-bg-rgb: 251, 247, 239;
+    --filter-bg-rgb: 236, 229, 216;
 
     /* Interface colors */
     --bg-main: var(--background);
@@ -23,28 +23,27 @@
     --card-bg: var(--text-callout);
     --accent-primary: var(--primary-green);
     --accent-secondary: var(--primary-teal);
-    --accent-primary-rgb: 58, 114, 64;
-    --accent-secondary-rgb: 81, 163, 139;
-    --support-sky-rgb: 217, 212, 245;
-    --support-amethyst-rgb: 139, 108, 207;
-    --support-lavender-rgb: 217, 212, 245;
-    --support-saffron-rgb: 242, 193, 78;
+    --accent-primary-rgb: 83, 107, 85;
+    --accent-secondary-rgb: 111, 133, 128;
+    --support-sky-rgb: 216, 221, 213;
+    --support-amethyst-rgb: 139, 101, 79;
+    --support-lavender-rgb: 216, 221, 213;
+    --support-saffron-rgb: 200, 173, 120;
     --dictionary-fade-start: clamp(360px, 42vh, 560px);
-    --section-label: var(--support-amethyst); /* Section headings */
-    --section-label-rgb: 139, 108, 207;
-    --header-text: #264136; /* General headings */
+    --section-label: #7a6144;
+    --section-label-rgb: 122, 97, 68;
+    --header-text: #3b4137;
     --dark-text: var(--text-secondary);
-    --btn-hover: #2f5c35;
-    --filter-bg: #f4f0ff; /* Soft Prelude wash */
-    --tag-bg: #f7d78a; /* Saffron tags */
-    --card-border: var(--support-amethyst);
+    --btn-hover: #425645;
+    --filter-bg: #ece5d8;
+    --tag-bg: #dfcfaa;
+    --card-border: #c7bda9;
 
     /* Mobile filter sheet layout helpers */
     --filters-sheet-top: 120px;
     --filters-sheet-header-height: 0px;
     --filters-sheet-max-height: calc(100dvh - var(--filters-sheet-top));
 }
-
 body {
     background-color: var(--bg-main);
     background-image:
@@ -1204,7 +1203,7 @@ button, .value-card-toggle, .status-action-button {
     font-weight: 700;
     letter-spacing: 0.01em;
     box-shadow: 0 10px 25px rgba(var(--accent-primary-rgb), 0.2);
-    background: linear-gradient(135deg, var(--accent-primary), #b266ff);
+    background: linear-gradient(135deg, var(--accent-primary), #7b6a53);
 }
 
 .clear-filters-button__icon {
@@ -2313,7 +2312,7 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .reset-btn:hover {
-    background-color: #35b1c3;
+    background-color: #6f8580;
 }
 
 /* Responsive styles */
@@ -2321,20 +2320,22 @@ button, .value-card-toggle, .status-action-button {
 
 /* --- Editorial top-nav + hero refresh (reference screenshot) --- */
 :root {
-    --background: #f4efeb;
-    --bg-main-rgb: 244, 239, 235;
-    --card-bg-rgb: 252, 250, 248;
-    --text-primary: #2f2723;
-    --text-secondary: #4f423c;
-    --accent-primary: #9d4b36;
-    --accent-primary-rgb: 157, 75, 54;
-    --accent-secondary: #8e5845;
-    --accent-secondary-rgb: 142, 88, 69;
-    --header-text: #8d4432;
-    --filter-bg: #f3ece7;
-    --tag-bg: #eee5df;
+    --background: #f3eee6;
+    --bg-main-rgb: 243, 238, 230;
+    --card-bg: #fbf7ef;
+    --card-bg-rgb: 251, 247, 239;
+    --text-primary: #2b2a26;
+    --text-secondary: #5d5a52;
+    --text-secondary-rgb: 93, 90, 82;
+    --accent-primary: #536b55;
+    --accent-primary-rgb: 83, 107, 85;
+    --accent-secondary: #7b6a53;
+    --accent-secondary-rgb: 123, 106, 83;
+    --header-text: #3b4137;
+    --filter-bg: #ece5d8;
+    --tag-bg: #dfcfaa;
+    --support-saffron-rgb: 200, 173, 120;
 }
-
 body {
     background-color: var(--background);
     background-image: none;
@@ -2658,77 +2659,78 @@ body {
     transform: scale(1);
 }
 
-body[data-palette="meadow-bloom"] {
-    --background: #f6f4ff;
-    --bg-main-rgb: 246, 244, 255;
-    --card-bg: #fbfafc;
-    --card-bg-rgb: 251, 250, 252;
-    --text-primary: #1f2a2a;
-    --text-secondary: #495452;
-    --text-secondary-rgb: 73, 84, 82;
-    --accent-primary: #225f45;
-    --accent-primary-rgb: 34, 95, 69;
-    --accent-secondary: #3f8f7a;
-    --accent-secondary-rgb: 63, 143, 122;
-    --header-text: #225f45;
-    --filter-bg: #eeedf8;
-    --tag-bg: #f2c14e;
-    --support-saffron-rgb: 242, 193, 78;
+body[data-palette="hill-country"] {
+    --background: #f3eee6;
+    --bg-main-rgb: 243, 238, 230;
+    --card-bg: #fbf7ef;
+    --card-bg-rgb: 251, 247, 239;
+    --text-primary: #2b2a26;
+    --text-secondary: #5d5a52;
+    --text-secondary-rgb: 93, 90, 82;
+    --accent-primary: #536b55;
+    --accent-primary-rgb: 83, 107, 85;
+    --accent-secondary: #7b6a53;
+    --accent-secondary-rgb: 123, 106, 83;
+    --header-text: #3b4137;
+    --filter-bg: #ece5d8;
+    --tag-bg: #dfcfaa;
+    --support-saffron-rgb: 200, 173, 120;
 }
 
-body[data-palette="sunlit-clay"] {
-    --background: #fff7ed;
-    --bg-main-rgb: 255, 247, 237;
-    --card-bg: #fffcf7;
-    --card-bg-rgb: 255, 252, 247;
-    --text-primary: #2d241c;
-    --text-secondary: #57483d;
-    --text-secondary-rgb: 87, 72, 61;
-    --accent-primary: #8a3f2d;
-    --accent-primary-rgb: 138, 63, 45;
-    --accent-secondary: #246b5a;
-    --accent-secondary-rgb: 36, 107, 90;
-    --header-text: #8a3f2d;
-    --filter-bg: #fff0df;
-    --tag-bg: #e8b84a;
-    --support-saffron-rgb: 232, 184, 74;
+body[data-palette="live-oak"] {
+    --background: #eef0e7;
+    --bg-main-rgb: 238, 240, 231;
+    --card-bg: #fbf8f0;
+    --card-bg-rgb: 251, 248, 240;
+    --text-primary: #282b25;
+    --text-secondary: #575d51;
+    --text-secondary-rgb: 87, 93, 81;
+    --accent-primary: #465c49;
+    --accent-primary-rgb: 70, 92, 73;
+    --accent-secondary: #6f7d68;
+    --accent-secondary-rgb: 111, 125, 104;
+    --header-text: #364437;
+    --filter-bg: #e4e8dc;
+    --tag-bg: #d9cfaa;
+    --support-saffron-rgb: 188, 170, 123;
 }
 
-body[data-palette="deep-garden"] {
-    --background: #18332d;
-    --bg-main-rgb: 24, 51, 45;
-    --card-bg: #24443c;
-    --card-bg-rgb: 36, 68, 60;
-    --text-primary: #fff8ef;
-    --text-secondary: #ddebe5;
-    --text-secondary-rgb: 221, 235, 229;
-    --accent-primary: #9fe0c5;
-    --accent-primary-rgb: 159, 224, 197;
-    --accent-secondary: #f2c14e;
-    --accent-secondary-rgb: 242, 193, 78;
-    --header-text: #fff8ef;
-    --filter-bg: #24443c;
-    --tag-bg: #c9e86a;
-    --support-saffron-rgb: 201, 232, 106;
+body[data-palette="big-bend"] {
+    --background: #f1e8dd;
+    --bg-main-rgb: 241, 232, 221;
+    --card-bg: #fbf4ea;
+    --card-bg-rgb: 251, 244, 234;
+    --text-primary: #302923;
+    --text-secondary: #675a50;
+    --text-secondary-rgb: 103, 90, 80;
+    --accent-primary: #8b654f;
+    --accent-primary-rgb: 139, 101, 79;
+    --accent-secondary: #5f716b;
+    --accent-secondary-rgb: 95, 113, 107;
+    --header-text: #604d3f;
+    --filter-bg: #eadfd1;
+    --tag-bg: #d8bd8c;
+    --support-saffron-rgb: 198, 163, 106;
 }
 
-body[data-palette="ink-lavender"] {
-    --background: #252a44;
-    --bg-main-rgb: 37, 42, 68;
-    --card-bg: #323852;
-    --card-bg-rgb: 50, 56, 82;
-    --text-primary: #fff7f0;
-    --text-secondary: #e8deea;
-    --text-secondary-rgb: 232, 222, 234;
-    --accent-primary: #d6c6ff;
-    --accent-primary-rgb: 214, 198, 255;
-    --accent-secondary: #8ee0d1;
-    --accent-secondary-rgb: 142, 224, 209;
-    --header-text: #fff7f0;
-    --filter-bg: #323852;
-    --tag-bg: #f3a6c8;
-    --support-saffron-rgb: 243, 166, 200;
+body[data-palette="gulf-rain"] {
+    --background: #edf0ec;
+    --bg-main-rgb: 237, 240, 236;
+    --card-bg: #fbf8f1;
+    --card-bg-rgb: 251, 248, 241;
+    --text-primary: #272b2a;
+    --text-secondary: #53605e;
+    --text-secondary-rgb: 83, 96, 94;
+    --accent-primary: #556f6a;
+    --accent-primary-rgb: 85, 111, 106;
+    --accent-secondary: #6f8580;
+    --accent-secondary-rgb: 111, 133, 128;
+    --header-text: #35413f;
+    --filter-bg: #e1e6e1;
+    --tag-bg: #d4c7a2;
+    --support-saffron-rgb: 190, 174, 130;
 }
+
 
 .hero-shell {
     border-radius: 0;
@@ -2866,7 +2868,7 @@ body[data-palette="ink-lavender"] {
 }
 
 .intro-box--editorial .intro-framework-link {
-    color: #1d4ed8;
+    color: #536b55;
     text-decoration-line: underline;
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
@@ -2874,5 +2876,5 @@ body[data-palette="ink-lavender"] {
 
 .intro-box--editorial .intro-framework-link:hover,
 .intro-box--editorial .intro-framework-link:focus-visible {
-    color: #153ea8;
+    color: #425645;
 }

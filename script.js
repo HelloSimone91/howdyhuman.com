@@ -62,13 +62,13 @@ const filterState = {
 let selectedVerb = null;
 const DICTIONARY_VIEW_MODE_STORAGE_KEY = 'dictionaryViewMode';
 const SITE_PALETTE_STORAGE_KEY = 'sitePalette';
-const DEFAULT_SITE_PALETTE = 'meadow-bloom';
-const SITE_PALETTE_IDS = ['meadow-bloom', 'sunlit-clay', 'deep-garden', 'ink-lavender'];
+const DEFAULT_SITE_PALETTE = 'hill-country';
+const SITE_PALETTE_IDS = ['hill-country', 'live-oak', 'big-bend', 'gulf-rain'];
 const SITE_PALETTE_NAMES = {
-    'meadow-bloom': 'Meadow Bloom',
-    'sunlit-clay': 'Sunlit Clay',
-    'deep-garden': 'Deep Garden',
-    'ink-lavender': 'Ink Lavender'
+    'hill-country': 'Hill Country',
+    'live-oak': 'Live Oak',
+    'big-bend': 'Big Bend',
+    'gulf-rain': 'Gulf Rain'
 };
 
 function getStoredViewMode() {
