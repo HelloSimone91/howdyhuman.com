@@ -1375,7 +1375,7 @@ def ensure_clean_directory(parent: Path, valid_slugs: set[str]) -> None:
 
 
 def write_sitemap(value_slugs: list[str], category_slugs: list[str]) -> None:
-    urls = [f'{SITE_URL}/', f'{SITE_URL}/values-as-verbs/', f'{SITE_URL}/values-in-action-check-in/']
+    urls = [f'{SITE_URL}/']
     urls.extend(f'{SITE_URL}/values/category/{slug}/' for slug in category_slugs)
     urls.extend(f'{SITE_URL}/values/{slug}/' for slug in value_slugs)
 
