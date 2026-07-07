@@ -62,14 +62,13 @@ const filterState = {
 let selectedVerb = null;
 const DICTIONARY_VIEW_MODE_STORAGE_KEY = 'dictionaryViewMode';
 const SITE_PALETTE_STORAGE_KEY = 'sitePalette';
-const DEFAULT_SITE_PALETTE = 'canyon-disco';
-const SITE_PALETTE_IDS = ['canyon-disco', 'cosmic-yard', 'tomato-sky', 'juniper-lime', 'ink-peach'];
+const DEFAULT_SITE_PALETTE = 'meadow-bloom';
+const SITE_PALETTE_IDS = ['meadow-bloom', 'sunlit-clay', 'deep-garden', 'ink-lavender'];
 const SITE_PALETTE_NAMES = {
-    'canyon-disco': 'Canyon Disco',
-    'cosmic-yard': 'Dusk Garden',
-    'tomato-sky': 'Tomato Sky',
-    'juniper-lime': 'Juniper Lime',
-    'ink-peach': 'Ink & Peach'
+    'meadow-bloom': 'Meadow Bloom',
+    'sunlit-clay': 'Sunlit Clay',
+    'deep-garden': 'Deep Garden',
+    'ink-lavender': 'Ink Lavender'
 };
 
 function getStoredViewMode() {

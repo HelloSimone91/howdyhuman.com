@@ -2658,7 +2658,25 @@ body {
     transform: scale(1);
 }
 
-body[data-palette="canyon-disco"] {
+body[data-palette="meadow-bloom"] {
+    --background: #f6f4ff;
+    --bg-main-rgb: 246, 244, 255;
+    --card-bg: #fbfafc;
+    --card-bg-rgb: 251, 250, 252;
+    --text-primary: #1f2a2a;
+    --text-secondary: #495452;
+    --text-secondary-rgb: 73, 84, 82;
+    --accent-primary: #225f45;
+    --accent-primary-rgb: 34, 95, 69;
+    --accent-secondary: #3f8f7a;
+    --accent-secondary-rgb: 63, 143, 122;
+    --header-text: #225f45;
+    --filter-bg: #eeedf8;
+    --tag-bg: #f2c14e;
+    --support-saffron-rgb: 242, 193, 78;
+}
+
+body[data-palette="sunlit-clay"] {
     --background: #fff7ed;
     --bg-main-rgb: 255, 247, 237;
     --card-bg: #fffcf7;
@@ -2666,86 +2684,50 @@ body[data-palette="canyon-disco"] {
     --text-primary: #2d241c;
     --text-secondary: #57483d;
     --text-secondary-rgb: 87, 72, 61;
-    --accent-primary: #246b5a;
-    --accent-primary-rgb: 36, 107, 90;
-    --accent-secondary: #ff6f3c;
-    --accent-secondary-rgb: 255, 111, 60;
-    --header-text: #246b5a;
+    --accent-primary: #8a3f2d;
+    --accent-primary-rgb: 138, 63, 45;
+    --accent-secondary: #246b5a;
+    --accent-secondary-rgb: 36, 107, 90;
+    --header-text: #8a3f2d;
     --filter-bg: #fff0df;
-    --tag-bg: #f3c13a;
-    --support-saffron-rgb: 243, 193, 58;
+    --tag-bg: #e8b84a;
+    --support-saffron-rgb: 232, 184, 74;
 }
 
-body[data-palette="cosmic-yard"] {
-    --background: #46666d;
-    --bg-main-rgb: 70, 102, 109;
-    --card-bg: #58767c;
-    --card-bg-rgb: 88, 118, 124;
+body[data-palette="deep-garden"] {
+    --background: #18332d;
+    --bg-main-rgb: 24, 51, 45;
+    --card-bg: #24443c;
+    --card-bg-rgb: 36, 68, 60;
     --text-primary: #fff8ef;
-    --text-secondary: #e7f1ed;
-    --text-secondary-rgb: 231, 241, 237;
-    --accent-primary: #ffb08a;
-    --accent-primary-rgb: 255, 176, 138;
-    --accent-secondary: #d5e96f;
-    --accent-secondary-rgb: 213, 233, 111;
-    --header-text: #fff0dc;
-    --filter-bg: #5f7e82;
-    --tag-bg: #d5e96f;
-    --support-saffron-rgb: 213, 233, 111;
+    --text-secondary: #ddebe5;
+    --text-secondary-rgb: 221, 235, 229;
+    --accent-primary: #9fe0c5;
+    --accent-primary-rgb: 159, 224, 197;
+    --accent-secondary: #f2c14e;
+    --accent-secondary-rgb: 242, 193, 78;
+    --header-text: #fff8ef;
+    --filter-bg: #24443c;
+    --tag-bg: #c9e86a;
+    --support-saffron-rgb: 201, 232, 106;
 }
 
-body[data-palette="tomato-sky"] {
-    --background: #fff8f2;
-    --bg-main-rgb: 255, 248, 242;
-    --card-bg: #fffdfa;
-    --card-bg-rgb: 255, 253, 250;
-    --text-primary: #2b2522;
-    --text-secondary: #534741;
-    --text-secondary-rgb: 83, 71, 65;
-    --accent-primary: #d9412f;
-    --accent-primary-rgb: 217, 65, 47;
-    --accent-secondary: #2e8dbd;
-    --accent-secondary-rgb: 46, 141, 189;
-    --header-text: #c53b2b;
-    --filter-bg: #fbece5;
-    --tag-bg: #f7d26a;
-    --support-saffron-rgb: 247, 210, 106;
-}
-
-body[data-palette="juniper-lime"] {
-    --background: #f8fbef;
-    --bg-main-rgb: 248, 251, 239;
-    --card-bg: #fdfff9;
-    --card-bg-rgb: 253, 255, 249;
-    --text-primary: #172b26;
-    --text-secondary: #43524d;
-    --text-secondary-rgb: 67, 82, 77;
-    --accent-primary: #1f6f62;
-    --accent-primary-rgb: 31, 111, 98;
-    --accent-secondary: #7b4ee6;
-    --accent-secondary-rgb: 123, 78, 230;
-    --header-text: #1f6f62;
-    --filter-bg: #eff7db;
-    --tag-bg: #b7e54a;
-    --support-saffron-rgb: 183, 229, 74;
-}
-
-body[data-palette="ink-peach"] {
-    --background: #566073;
-    --bg-main-rgb: 86, 96, 115;
-    --card-bg: #687184;
-    --card-bg-rgb: 104, 113, 132;
-    --text-primary: #fff4ea;
-    --text-secondary: #f2ded1;
-    --text-secondary-rgb: 242, 222, 209;
-    --accent-primary: #ffb18d;
-    --accent-primary-rgb: 255, 177, 141;
-    --accent-secondary: #94ead7;
-    --accent-secondary-rgb: 148, 234, 215;
-    --header-text: #ffe3d2;
-    --filter-bg: #687184;
-    --tag-bg: #94ead7;
-    --support-saffron-rgb: 148, 234, 215;
+body[data-palette="ink-lavender"] {
+    --background: #252a44;
+    --bg-main-rgb: 37, 42, 68;
+    --card-bg: #323852;
+    --card-bg-rgb: 50, 56, 82;
+    --text-primary: #fff7f0;
+    --text-secondary: #e8deea;
+    --text-secondary-rgb: 232, 222, 234;
+    --accent-primary: #d6c6ff;
+    --accent-primary-rgb: 214, 198, 255;
+    --accent-secondary: #8ee0d1;
+    --accent-secondary-rgb: 142, 224, 209;
+    --header-text: #fff7f0;
+    --filter-bg: #323852;
+    --tag-bg: #f3a6c8;
+    --support-saffron-rgb: 243, 166, 200;
 }
 
 .hero-shell {
