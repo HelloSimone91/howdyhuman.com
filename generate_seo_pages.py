@@ -8,6 +8,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / 'Values-en.json'
 SITE_URL = 'https://www.howdyhuman.com'
+
+DEPRECATED_STATIC_PAGE_SLUGS = {
+    'values-as-verbs',
+    'values-in-action-audit',
+    'values-in-action-check-in',
+}
+
 EXPANDED_VALUE_SLUGS = {
     'courage',
     'integrity',
@@ -1374,6 +1381,20 @@ def ensure_clean_directory(parent: Path, valid_slugs: set[str]) -> None:
             child.rmdir()
 
 
+def remove_deprecated_static_pages() -> None:
+    for slug in DEPRECATED_STATIC_PAGE_SLUGS:
+        page_dir = ROOT / slug
+        if not page_dir.is_dir():
+            continue
+        for nested in page_dir.rglob('*'):
+            if nested.is_file():
+                nested.unlink()
+        for nested in sorted(page_dir.rglob('*'), reverse=True):
+            if nested.is_dir():
+                nested.rmdir()
+        page_dir.rmdir()
+
+
 def write_sitemap(value_slugs: list[str], category_slugs: list[str]) -> None:
     urls = [f'{SITE_URL}/']
     urls.extend(f'{SITE_URL}/values/category/{slug}/' for slug in category_slugs)
@@ -1878,6 +1899,7 @@ def build_verb_page(tag: str, values_for_tag: list[dict]) -> tuple[str, str]:
 
 
 def category_index_markup(categories: dict[str, list[dict]], heading_id: str = 'category-index-heading') -> str:
+    heading_i18n = ' data-i18n="categories.indexHeading"' if heading_id == 'homepage-category-index-heading' else ''
     cards = []
     for category, category_values in sorted(categories.items(), key=lambda pair: pair[0].lower()):
         sorted_values = sorted(category_values, key=lambda item: item['name'].lower())
@@ -1894,7 +1916,7 @@ def category_index_markup(categories: dict[str, list[dict]], heading_id: str = '
 
     return f"""
                         <section class="seo-category-index" aria-labelledby="{html.escape(heading_id)}">
-                            <h2 id="{html.escape(heading_id)}" class="text-2xl font-bold mt-8 mb-4 py-2 border-b border-gray-300 letter-section">Browse by category</h2>
+                            <h2 id="{html.escape(heading_id)}" class="text-2xl font-bold mt-8 mb-4 py-2 border-b border-gray-300 letter-section"{heading_i18n}>Browse by category</h2>
                             <div class="seo-category-grid">{''.join(cards)}
                             </div>
                         </section>"""
@@ -1977,6 +1999,8 @@ def main() -> None:
     values_dir.mkdir(exist_ok=True)
     categories_dir.mkdir(parents=True, exist_ok=True)
     verbs_dir.mkdir(exist_ok=True)
+
+    remove_deprecated_static_pages()
 
     values_by_tag: dict[str, list[dict]] = {}
     values_by_category: dict[str, list[dict]] = {}
