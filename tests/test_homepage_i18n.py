@@ -16,7 +16,7 @@ class HomepageI18nTest(unittest.TestCase):
         )
         self.assertIsNotNone(heading)
         self.assertEqual(heading.group(1), "Browse by category")
-        asset_version = "sticky-stack-20260713"
+        asset_version = "value-hierarchy-20260713"
         self.assertIn(f'href="style.css?v={asset_version}"', html)
         self.assertIn(f'src="script.js?v={asset_version}"', html)
 
@@ -32,6 +32,16 @@ class HomepageI18nTest(unittest.TestCase):
         script = (ROOT / "script.js").read_text(encoding="utf-8")
         self.assertIn("--alpha-nav-sticky-offset", script)
         self.assertIn("ResizeObserver", script)
+
+    def test_electric_bloom_separates_value_and_related_accents(self):
+        css = (ROOT / "style.css").read_text(encoding="utf-8")
+        script = (ROOT / "script.js").read_text(encoding="utf-8")
+
+        self.assertIn("--value-detail-accent: var(--accent-secondary);", css)
+        self.assertIn("--related-values-accent: var(--accent-primary);", css)
+        self.assertIn("border-left: 5px solid var(--value-detail-accent);", css)
+        self.assertIn("border-left: 5px solid var(--related-values-accent);", css)
+        self.assertIn("'section-label', 'section-label--related'", script)
 
 
 if __name__ == "__main__":
