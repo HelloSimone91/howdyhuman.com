@@ -3370,11 +3370,11 @@ function displayValues(valuesToDisplay) {
                 const relatedValues = findRelatedValues(value);
                 if (relatedValues.length > 0) {
                     const relatedSection = document.createElement('div');
-                    relatedSection.classList.add('mb-3');
+                    relatedSection.classList.add('mb-3', 'related-values-section');
 
                     const relatedLabel = document.createElement('div');
                     relatedLabel.innerHTML = `<i class="fas fa-link"></i> ${translate('valueCard.relatedValuesLabel')}`;
-                    relatedLabel.classList.add('section-label');
+                    relatedLabel.classList.add('section-label', 'section-label--related');
                     relatedSection.appendChild(relatedLabel);
 
                     const relatedGrid = document.createElement('div');
