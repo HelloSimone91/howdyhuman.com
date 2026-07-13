@@ -482,12 +482,16 @@ button, .value-card-toggle, .status-action-button {
 }
 
 .verb-filter-header {
+    position: sticky;
+    top: 0;
+    z-index: 70;
     background-color: var(--filter-bg);
     border: 1px solid rgba(var(--support-amethyst-rgb), 0.12);
     border-radius: 16px;
     padding: 1rem 1.25rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 10px 24px rgba(var(--support-amethyst-rgb), 0.08);
+    box-shadow: 0 12px 30px rgba(var(--support-amethyst-rgb), 0.16);
+    backdrop-filter: blur(14px);
 }
 
 .verb-filter-header__top {
@@ -537,6 +541,23 @@ button, .value-card-toggle, .status-action-button {
     margin-top: 0.5rem;
     font-size: 1rem;
     color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+    .verb-filter-header {
+        border-radius: 0 0 12px 12px;
+        padding: 0.75rem 1rem;
+        margin-inline: -1rem;
+    }
+
+    .verb-filter-header__top {
+        gap: 0.5rem;
+    }
+
+    .verb-filter-description {
+        margin-top: 0.35rem;
+        font-size: 0.9rem;
+    }
 }
 
 .filter-column {
