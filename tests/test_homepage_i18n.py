@@ -16,7 +16,7 @@ class HomepageI18nTest(unittest.TestCase):
         )
         self.assertIsNotNone(heading)
         self.assertEqual(heading.group(1), "Browse by category")
-        asset_version = "sticky-filter-20260713"
+        asset_version = "sticky-stack-20260713"
         self.assertIn(f'href="style.css?v={asset_version}"', html)
         self.assertIn(f'src="script.js?v={asset_version}"', html)
 
@@ -27,7 +27,11 @@ class HomepageI18nTest(unittest.TestCase):
         self.assertIsNotNone(sticky_banner)
         declarations = sticky_banner.group(1)
         self.assertIn("position: sticky", declarations)
-        self.assertIn("top: 0", declarations)
+        self.assertIn("top: var(--alpha-nav-sticky-offset, 0px)", declarations)
+
+        script = (ROOT / "script.js").read_text(encoding="utf-8")
+        self.assertIn("--alpha-nav-sticky-offset", script)
+        self.assertIn("ResizeObserver", script)
 
 
 if __name__ == "__main__":

@@ -483,7 +483,7 @@ button, .value-card-toggle, .status-action-button {
 
 .verb-filter-header {
     position: sticky;
-    top: 0;
+    top: var(--alpha-nav-sticky-offset, 0px);
     z-index: 70;
     background-color: var(--filter-bg);
     border: 1px solid rgba(var(--support-amethyst-rgb), 0.12);
