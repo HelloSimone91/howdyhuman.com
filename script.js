@@ -977,6 +977,7 @@ function clearSearchTerm({ updateUI = true } = {}) {
 
 // Scroll spy observer reference
 let scrollSpyObserver;
+let alphaNavResizeObserver;
 
 // Helper to calculate the offset for alpha navigation
 function getAlphaNavOffset() {
@@ -1006,6 +1007,27 @@ function getAlphaNavOffset() {
     }
 
     return offset;
+}
+
+function setupStickyStacking() {
+    if (!alphaNav) return;
+
+    const updateAlphaNavStickyOffset = () => {
+        document.documentElement.style.setProperty(
+            '--alpha-nav-sticky-offset',
+            `${Math.ceil(alphaNav.getBoundingClientRect().height)}px`
+        );
+    };
+
+    updateAlphaNavStickyOffset();
+
+    if ('ResizeObserver' in window) {
+        alphaNavResizeObserver?.disconnect();
+        alphaNavResizeObserver = new ResizeObserver(updateAlphaNavStickyOffset);
+        alphaNavResizeObserver.observe(alphaNav);
+    } else {
+        window.addEventListener('resize', updateAlphaNavStickyOffset);
+    }
 }
 
 function clampAlphaNavTogglePosition(left, top) {
@@ -1309,6 +1331,7 @@ document.addEventListener('DOMContentLoaded', function() {
         valuesCount = document.getElementById('valuesCount');
         alphaNav = document.getElementById('alphaNav');
         alphaNavList = alphaNav ? alphaNav.querySelector('.alpha-nav-list') : null;
+        setupStickyStacking();
         alphaNavToggle = document.getElementById('alphaNavToggle');
         alphaNavOverlay = document.getElementById('alphaNavOverlay');
         alphaNavOverlayList = document.getElementById('alphaNavOverlayList');
