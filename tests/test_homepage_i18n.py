@@ -16,7 +16,7 @@ class HomepageI18nTest(unittest.TestCase):
         )
         self.assertIsNotNone(heading)
         self.assertEqual(heading.group(1), "Browse by category")
-        asset_version = "texas-editorial-20260707"
+        asset_version = "palette-range-20260713"
         self.assertIn(f'href="style.css?v={asset_version}"', html)
         self.assertIn(f'src="script.js?v={asset_version}"', html)
 

@@ -63,12 +63,12 @@ let selectedVerb = null;
 const DICTIONARY_VIEW_MODE_STORAGE_KEY = 'dictionaryViewMode';
 const SITE_PALETTE_STORAGE_KEY = 'sitePalette';
 const DEFAULT_SITE_PALETTE = 'hill-country';
-const SITE_PALETTE_IDS = ['hill-country', 'live-oak', 'big-bend', 'gulf-rain'];
+const SITE_PALETTE_IDS = ['hill-country', 'electric-bloom', 'blue-hour', 'night-garden'];
 const SITE_PALETTE_NAMES = {
     'hill-country': 'Hill Country',
-    'live-oak': 'Live Oak',
-    'big-bend': 'Big Bend',
-    'gulf-rain': 'Gulf Rain'
+    'electric-bloom': 'Electric Bloom',
+    'blue-hour': 'Blue Hour',
+    'night-garden': 'Night Garden'
 };
 
 function getStoredViewMode() {
