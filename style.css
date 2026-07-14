@@ -38,6 +38,8 @@
     --related-values-accent-rgb: var(--accent-secondary-rgb);
     --value-title-accent: var(--support-purple);
     --value-description-color: var(--accent-primary);
+    --tag-hover-text: var(--support-purple);
+    --tag-selected-text: var(--text-callout);
     --header-text: #3b4137;
     --dark-text: var(--text-secondary);
     --btn-hover: #425645;
@@ -458,7 +460,7 @@ button, .value-card-toggle, .status-action-button {
 
 .tag:hover {
     background-color: var(--support-sky);
-    color: var(--support-purple);
+    color: var(--tag-hover-text);
     border-color: rgba(var(--support-amethyst-rgb), 0.24);
     box-shadow: 0 6px 14px rgba(var(--support-amethyst-rgb), 0.12);
 }
@@ -466,7 +468,7 @@ button, .value-card-toggle, .status-action-button {
 .tag.selected,
 .tag.is-selected-verb {
     background: linear-gradient(135deg, rgba(var(--support-amethyst-rgb), 0.92), rgba(var(--support-sky-rgb), 0.9));
-    color: var(--text-callout);
+    color: var(--tag-selected-text);
     border-color: rgba(var(--support-amethyst-rgb), 0.32);
     box-shadow: 0 6px 16px rgba(var(--support-amethyst-rgb), 0.18);
 }
@@ -2715,7 +2717,15 @@ body[data-palette="hill-country"] {
     --header-text: #3b4137;
     --filter-bg: #ece5d8;
     --tag-bg: #dfcfaa;
+    --support-sky: #d8ddd5;
     --support-saffron-rgb: 200, 173, 120;
+    --tag-hover-text: var(--header-text);
+    --value-title-accent: var(--support-purple);
+    --value-detail-accent: var(--accent-primary);
+    --value-detail-accent-rgb: var(--accent-primary-rgb);
+    --related-values-accent: var(--accent-secondary);
+    --related-values-accent-rgb: var(--accent-secondary-rgb);
+    --value-description-color: var(--accent-primary);
 }
 
 body[data-palette="electric-bloom"] {
@@ -2745,6 +2755,7 @@ body[data-palette="electric-bloom"] {
     --support-purple: #c996f2;
     --support-amethyst-rgb: 201, 150, 242;
     --support-lavender-rgb: 201, 150, 242;
+    --support-sky: #9fd9e0;
     --support-sky-rgb: 159, 217, 224;
     --support-rose-rgb: 255, 143, 157;
     --support-saffron-rgb: 185, 223, 207;
@@ -2756,6 +2767,8 @@ body[data-palette="electric-bloom"] {
     --related-values-accent-rgb: var(--accent-primary-rgb);
     --value-title-accent: var(--accent-secondary);
     --value-description-color: var(--text-secondary);
+    --tag-hover-text: var(--header-text);
+    --tag-selected-text: var(--header-text);
     --btn-hover: #913d36;
 }
 
@@ -2789,11 +2802,20 @@ body[data-palette="blue-hour"] {
     --support-purple: #b093cf;
     --support-amethyst-rgb: 176, 147, 207;
     --support-lavender-rgb: 243, 236, 251;
+    --support-sky: #bee0ff;
     --support-sky-rgb: 190, 224, 255;
     --support-rose-rgb: 242, 153, 218;
     --support-saffron-rgb: 228, 204, 82;
     --section-label: #bee0ff;
     --section-label-rgb: 190, 224, 255;
+    --value-title-accent: var(--accent-secondary);
+    --value-detail-accent: var(--accent-primary);
+    --value-detail-accent-rgb: var(--accent-primary-rgb);
+    --related-values-accent: #e4cc52;
+    --related-values-accent-rgb: var(--support-saffron-rgb);
+    --value-description-color: var(--text-secondary);
+    --tag-hover-text: var(--background);
+    --tag-selected-text: var(--background);
     --btn-hover: #9bc4ff;
 }
 
@@ -2822,11 +2844,20 @@ body[data-palette="night-garden"] {
     --support-purple: #c587f0;
     --support-amethyst-rgb: 197, 135, 240;
     --support-lavender-rgb: 234, 222, 239;
+    --support-sky: #7faab2;
     --support-sky-rgb: 127, 170, 178;
     --support-rose-rgb: 249, 115, 198;
     --support-saffron-rgb: 205, 207, 75;
     --section-label: #f3ecfb;
     --section-label-rgb: 243, 236, 251;
+    --value-title-accent: var(--accent-primary);
+    --value-detail-accent: var(--accent-secondary);
+    --value-detail-accent-rgb: var(--accent-secondary-rgb);
+    --related-values-accent: var(--accent-primary);
+    --related-values-accent-rgb: var(--accent-primary-rgb);
+    --value-description-color: var(--text-secondary);
+    --tag-hover-text: #20182d;
+    --tag-selected-text: #20182d;
     --btn-hover: #e1bcff;
 }
 
