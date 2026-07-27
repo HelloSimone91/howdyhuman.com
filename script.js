@@ -942,7 +942,7 @@ function updateSearchClearButtons(hasValue) {
 
 function setSearchTerm(value, { sourceInput = null, updateUI = true } = {}) {
     const term = value ?? '';
-    filterState.searchTerm = term.toLowerCase();
+    filterState.searchTerm = normalizeSearchText(term);
 
     if (mainSearchInput && mainSearchInput !== sourceInput) {
         mainSearchInput.value = term;
@@ -3615,7 +3615,39 @@ function filterValues() {
         }
 
         // Sort results
-        if (filterState.sortMethod === 'name') {
+        if (filterState.searchTerm) {
+            const searchTerm = filterState.searchTerm;
+            const getRelevanceScore = (value) => {
+                const normalizedName = normalizeSearchText(value.name);
+                const normalizedDescription = normalizeSearchText(value.description);
+                const normalizedExample = normalizeSearchText(value.example);
+                const normalizedCategory = normalizeSearchText(value.category);
+                const normalizedCategoryLabel = normalizeSearchText(getCategoryLabel(value.category));
+                const normalizedTags = value.tags.map((tag) => normalizeSearchText(tag));
+
+                if (normalizedName === searchTerm) return 0;
+                if (normalizedName.startsWith(searchTerm)) return 1;
+                if (normalizedTags.some((tag) => tag === searchTerm)) return 2;
+                if (normalizedTags.some((tag) => tag.startsWith(searchTerm))) return 3;
+                if (normalizedName.includes(searchTerm)) return 4;
+                if (normalizedDescription.includes(searchTerm)) return 5;
+                if (normalizedExample.includes(searchTerm)) return 6;
+                if (normalizedCategory === searchTerm || normalizedCategoryLabel === searchTerm) return 7;
+                if (normalizedCategory.includes(searchTerm) || normalizedCategoryLabel.includes(searchTerm)) return 8;
+                return 9;
+            };
+
+            filtered.sort((a, b) => {
+                const scoreDiff = getRelevanceScore(a) - getRelevanceScore(b);
+                if (scoreDiff !== 0) return scoreDiff;
+
+                if (filterState.sortMethod === 'category') {
+                    return compareByName(a.category, b.category) || compareByName(a.name, b.name);
+                }
+
+                return compareByName(a.name, b.name);
+            });
+        } else if (filterState.sortMethod === 'name') {
             filtered.sort((a, b) => compareByName(a.name, b.name));
         } else if (filterState.sortMethod === 'category') {
             filtered.sort((a, b) => compareByName(a.category, b.category) || compareByName(a.name, b.name));
