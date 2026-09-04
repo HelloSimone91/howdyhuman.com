@@ -1417,6 +1417,9 @@ def value_meta_description(name: str, description: str, example: str) -> str:
 
 
 def related_values_for(value: dict, values_by_tag: dict[str, list[dict]], limit: int = 8) -> list[dict]:
+    if limit <= 0:
+        return []
+
     unique_related = []
     seen = {value['name']}
 
