@@ -2892,66 +2892,6 @@ function updateTagSelection(tag, isSelected) {
     });
 }
 
-// Highlight a tag in the filter section
-function highlightTag(tagName) {
-    try {
-        console.log("Highlighting tag:", tagName);
-
-        if (!tagFilters) {
-            console.warn('Tag filters container not available; skipping tag highlight for', tagName);
-            return;
-        }
-
-        // Check if tag is already in filters
-        if (filterState.tags.includes(tagName)) {
-            // Just focus on the existing tag
-            const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
-                .find(el => el.dataset.tag === tagName);
-
-            if (tagElement) {
-                tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Add a pulsing animation
-                tagElement.classList.add('animate-pulse');
-                setTimeout(() => {
-                    tagElement.classList.remove('animate-pulse');
-                }, 2000);
-            }
-
-            return;
-        }
-
-        // Add the tag to filters
-        filterState.tags.push(tagName);
-
-        // Update UI
-        updateTagSelection(tagName, true);
-        updateActiveFilters();
-        filterValues();
-
-        // Find and highlight the tag element
-        const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
-            .find(el => el.dataset.tag === tagName);
-
-        if (tagElement) {
-            // Ensure filters are visible
-            setFiltersCollapsed(false);
-
-            // Scroll to tag and highlight
-            tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            tagElement.classList.add('animate-pulse');
-            setTimeout(() => {
-                tagElement.classList.remove('animate-pulse');
-            }, 2000);
-        }
-
-        // Show status
-        showStatus(translate('statuses.showingTaggedValues', { tag: tagName }));
-
-    } catch (error) {
-        console.error("Error highlighting tag:", error);
-        showStatus(translate('statuses.errorHighlightingTag', { message: error.message }), true);
-    }
-}
 
 // Widen filters to include a specific value
 function widenFiltersForValue(valueName) {
