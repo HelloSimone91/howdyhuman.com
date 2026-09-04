@@ -3548,20 +3548,42 @@ function displayValues(valuesToDisplay) {
         if (valuesList) {
             const heading = translate('messages.errorDisplayingHeading');
             const listHeading = translate('messages.valuesListHeading');
-            valuesList.innerHTML = `
-                <div class="status-error p-4 rounded-md">
-                    <h3 class="font-bold mb-2">${heading}</h3>
-                    <p>${error.message}</p>
-                </div>
 
-                <!-- Fallback display -->
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-4">${listHeading}</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        ${values.map(v => `<li>${v.name} - ${getCategoryLabel(v.category)}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
+            valuesList.innerHTML = '';
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'status-error p-4 rounded-md';
+
+            const errorHeading = document.createElement('h3');
+            errorHeading.className = 'font-bold mb-2';
+            errorHeading.textContent = heading;
+            errorDiv.appendChild(errorHeading);
+
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = error.message;
+            errorDiv.appendChild(errorMessage);
+
+            valuesList.appendChild(errorDiv);
+
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.className = 'mt-6';
+
+            const fallbackHeading = document.createElement('h3');
+            fallbackHeading.className = 'text-lg font-semibold mb-4';
+            fallbackHeading.textContent = listHeading;
+            fallbackDiv.appendChild(fallbackHeading);
+
+            const ul = document.createElement('ul');
+            ul.className = 'list-disc pl-5 space-y-2';
+
+            values.forEach(v => {
+                const li = document.createElement('li');
+                li.textContent = `${v.name} - ${getCategoryLabel(v.category)}`;
+                ul.appendChild(li);
+            });
+
+            fallbackDiv.appendChild(ul);
+            valuesList.appendChild(fallbackDiv);
         }
     }
 }
