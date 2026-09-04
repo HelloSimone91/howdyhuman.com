@@ -612,8 +612,6 @@ function translateElement(element) {
 
     if (attr) {
         element.setAttribute(attr, translation);
-    } else if (mode === 'html') {
-        element.innerHTML = translation;
     } else {
         element.textContent = translation;
     }
