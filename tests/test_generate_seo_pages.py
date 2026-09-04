@@ -1,5 +1,12 @@
 import unittest
-from generate_seo_pages import breadcrumb_schema, safe_excerpt
+import sys
+from pathlib import Path
+import json
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from generate_seo_pages import render_json_ld, breadcrumb_schema, safe_excerpt
 
 class TestBreadcrumbSchema(unittest.TestCase):
     def test_breadcrumb_schema_empty(self):
@@ -58,7 +65,6 @@ class TestBreadcrumbSchema(unittest.TestCase):
         }
         self.assertEqual(result, expected)
 
-
 class TestSafeExcerpt(unittest.TestCase):
     def test_safe_excerpt_short_text(self):
         self.assertEqual(safe_excerpt("hello world", 20), "hello world")
@@ -75,6 +81,30 @@ class TestSafeExcerpt(unittest.TestCase):
     def test_safe_excerpt_cleans_whitespace(self):
         self.assertEqual(safe_excerpt("   hello \n\t world   ", 20), "hello world")
         self.assertEqual(safe_excerpt("word " * 10, 20), "word word word word…")
+
+class TestRenderJsonLd(unittest.TestCase):
+    def test_basic_serialization(self):
+        data = {"name": "Test", "value": 123}
+        result = render_json_ld(data)
+        self.assertEqual(json.loads(result), data)
+        self.assertNotIn('<\\/', result)
+
+    def test_tag_escaping(self):
+        data = {"script": "</script>"}
+        result = render_json_ld(data)
+        # Should escape </ to <\/
+        self.assertIn('<\\/script>', result)
+        self.assertNotIn('</script>', result)
+
+    def test_nested_dictionaries(self):
+        data = {
+            "outer": {
+                "inner": "<div></form>"
+            }
+        }
+        result = render_json_ld(data)
+        self.assertIn('<\\/form>', result)
+        self.assertNotIn('</form>', result)
 
 if __name__ == '__main__':
     unittest.main()
