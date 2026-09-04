@@ -1,6 +1,5 @@
-// Debug status message
+// Displays a toast status message to the user in the UI
 function showStatus(message, isError = false, action = null) {
-    console.log(message);
     // Create a status element if it doesn't exist
     let statusEl = document.getElementById('appStatus');
     if (statusEl) {
@@ -44,6 +43,7 @@ function showStatus(message, isError = false, action = null) {
 
 // Values data will be fetched from JSON file
 let values = [];
+let relatedValuesCache = new Map();
 let valuesDataCache = {};
 const valuesDataPromises = {};
 let valuesLoadedLanguage = null;
@@ -612,8 +612,6 @@ function translateElement(element) {
 
     if (attr) {
         element.setAttribute(attr, translation);
-    } else if (mode === 'html') {
-        element.innerHTML = translation;
     } else {
         element.textContent = translation;
     }
@@ -2356,34 +2354,83 @@ function fallbackInitialization() {
         const fallbackIntro = translate('messages.fallbackIntro');
         const exampleLabel = translate('valueCard.exampleLabel');
         const associatedLabel = translate('valueCard.associatedVerbsLabel');
-        valuesList.innerHTML = `
-            <div class="bg-yellow-100 p-4 rounded-md mb-4">
-                <p>${fallbackIntro}</p>
-            </div>
-            <div class="space-y-4">
-                ${values.map(value => `
-                    <div class="p-4 bg-filter-bg rounded-md shadow-sm">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-lg font-semibold">${value.name}</h3>
-                            <span class="text-sm opacity-75 category-badge">${getCategoryLabel(value.category)}</span>
-                        </div>
-                        <p class="mb-3">${value.description}</p>
-                        <div class="value-example">
-                            <div class="section-label"><i class="fas fa-lightbulb"></i> ${exampleLabel}</div>
-                            ${value.example}
-                        </div>
-                        <div>
-                            <div class="section-label"><i class="fas fa-tags"></i> ${associatedLabel}</div>
-                            <div class="flex flex-wrap">
-                                ${value.tags.map(tag => `
-                                    <span class="tag">${tag}</span>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
+
+        valuesList.innerHTML = '';
+
+        const introDiv = document.createElement('div');
+        introDiv.className = 'bg-yellow-100 p-4 rounded-md mb-4';
+        const introP = document.createElement('p');
+        introP.textContent = fallbackIntro;
+        introDiv.appendChild(introP);
+        valuesList.appendChild(introDiv);
+
+        const containerDiv = document.createElement('div');
+        containerDiv.className = 'space-y-4';
+
+        values.forEach(value => {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'p-4 bg-filter-bg rounded-md shadow-sm';
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'flex justify-between items-center mb-2';
+
+            const h3 = document.createElement('h3');
+            h3.className = 'text-lg font-semibold';
+            h3.textContent = value.name;
+
+            const badge = document.createElement('span');
+            badge.className = 'text-sm opacity-75 category-badge';
+            badge.textContent = getCategoryLabel(value.category);
+
+            headerDiv.appendChild(h3);
+            headerDiv.appendChild(badge);
+
+            const descP = document.createElement('p');
+            descP.className = 'mb-3';
+            descP.textContent = value.description;
+
+            const exampleDiv = document.createElement('div');
+            exampleDiv.className = 'value-example';
+
+            const exampleLabelDiv = document.createElement('div');
+            exampleLabelDiv.className = 'section-label';
+            exampleLabelDiv.innerHTML = `<i class="fas fa-lightbulb"></i> ${exampleLabel}`;
+
+            const exampleContent = document.createTextNode(value.example);
+
+            exampleDiv.appendChild(exampleLabelDiv);
+            exampleDiv.appendChild(exampleContent);
+
+            const tagsDiv = document.createElement('div');
+
+            const tagsLabelDiv = document.createElement('div');
+            tagsLabelDiv.className = 'section-label';
+            tagsLabelDiv.innerHTML = `<i class="fas fa-tags"></i> ${associatedLabel}`;
+
+            const tagsContainer = document.createElement('div');
+            tagsContainer.className = 'flex flex-wrap';
+
+            if (value.tags) {
+                value.tags.forEach(tag => {
+                    const tagSpan = document.createElement('span');
+                    tagSpan.className = 'tag';
+                    tagSpan.textContent = tag;
+                    tagsContainer.appendChild(tagSpan);
+                });
+            }
+
+            tagsDiv.appendChild(tagsLabelDiv);
+            tagsDiv.appendChild(tagsContainer);
+
+            cardDiv.appendChild(headerDiv);
+            cardDiv.appendChild(descP);
+            cardDiv.appendChild(exampleDiv);
+            cardDiv.appendChild(tagsDiv);
+
+            containerDiv.appendChild(cardDiv);
+        });
+
+        valuesList.appendChild(containerDiv);
     }
 }
 
@@ -2443,6 +2490,7 @@ function dispatchValuesDataReady(lang, valuesList = values) {
 
 function applyValuesData(lang, data) {
     values = Array.isArray(data) ? data : [];
+    relatedValuesCache.clear();
     valuesDataReady = true;
     valuesLoadedLanguage = lang;
     activeAlphabet = getAlphabetForLanguage(lang);
@@ -2468,6 +2516,7 @@ async function fetchValuesData(lang = 'en') {
         showStatus(translate('statuses.errorFetchingValues', { message: error.message }), true);
         // Attempt to load fallback or default data if primary fetch fails
         values = []; // Ensure values is empty if fetch fails
+        relatedValuesCache.clear();
         valuesDataReady = false;
         valuesLoadedLanguage = lang;
         initializeValuesDictionary(); // Initialize with empty or fallback data
@@ -2635,13 +2684,28 @@ function initializeValuesDictionary() {
         if (valuesList) {
             const heading = translate('messages.errorLoadingDictionaryHeading');
             const hint = translate('messages.errorLoadingDictionaryHint');
-            valuesList.innerHTML = `
-                <div class="status-error p-4 rounded-md">
-                    <h3 class="font-bold mb-2">${heading}</h3>
-                    <p>${error.message}</p>
-                    <p class="mt-2">${hint}</p>
-                </div>
-            `;
+
+            valuesList.innerHTML = '';
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'status-error p-4 rounded-md';
+
+            const h3 = document.createElement('h3');
+            h3.className = 'font-bold mb-2';
+            h3.textContent = heading;
+
+            const pError = document.createElement('p');
+            pError.textContent = error.message;
+
+            const pHint = document.createElement('p');
+            pHint.className = 'mt-2';
+            pHint.textContent = hint;
+
+            errorDiv.appendChild(h3);
+            errorDiv.appendChild(pError);
+            errorDiv.appendChild(pHint);
+
+            valuesList.appendChild(errorDiv);
         }
     }
 }
@@ -2892,66 +2956,6 @@ function updateTagSelection(tag, isSelected) {
     });
 }
 
-// Highlight a tag in the filter section
-function highlightTag(tagName) {
-    try {
-        console.log("Highlighting tag:", tagName);
-
-        if (!tagFilters) {
-            console.warn('Tag filters container not available; skipping tag highlight for', tagName);
-            return;
-        }
-
-        // Check if tag is already in filters
-        if (filterState.tags.includes(tagName)) {
-            // Just focus on the existing tag
-            const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
-                .find(el => el.dataset.tag === tagName);
-
-            if (tagElement) {
-                tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Add a pulsing animation
-                tagElement.classList.add('animate-pulse');
-                setTimeout(() => {
-                    tagElement.classList.remove('animate-pulse');
-                }, 2000);
-            }
-
-            return;
-        }
-
-        // Add the tag to filters
-        filterState.tags.push(tagName);
-
-        // Update UI
-        updateTagSelection(tagName, true);
-        updateActiveFilters();
-        filterValues();
-
-        // Find and highlight the tag element
-        const tagElement = Array.from(tagFilters.querySelectorAll('.tag'))
-            .find(el => el.dataset.tag === tagName);
-
-        if (tagElement) {
-            // Ensure filters are visible
-            setFiltersCollapsed(false);
-
-            // Scroll to tag and highlight
-            tagElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            tagElement.classList.add('animate-pulse');
-            setTimeout(() => {
-                tagElement.classList.remove('animate-pulse');
-            }, 2000);
-        }
-
-        // Show status
-        showStatus(translate('statuses.showingTaggedValues', { tag: tagName }));
-
-    } catch (error) {
-        console.error("Error highlighting tag:", error);
-        showStatus(translate('statuses.errorHighlightingTag', { message: error.message }), true);
-    }
-}
 
 // Widen filters to include a specific value
 function widenFiltersForValue(valueName) {
@@ -3002,6 +3006,10 @@ function widenFiltersForValue(valueName) {
 
 // Find related values based on shared tags
 function findRelatedValues(value) {
+    if (relatedValuesCache.has(value.name)) {
+        return relatedValuesCache.get(value.name);
+    }
+
     const related = [];
 
     values.forEach(otherValue => {
@@ -3025,7 +3033,9 @@ function findRelatedValues(value) {
     related.sort((a, b) => b.matchCount - a.matchCount);
 
     // Return top 3
-    return related.slice(0, 3);
+    const result = related.slice(0, 3);
+    relatedValuesCache.set(value.name, result);
+    return result;
 }
 
 
@@ -3548,20 +3558,43 @@ function displayValues(valuesToDisplay) {
         if (valuesList) {
             const heading = translate('messages.errorDisplayingHeading');
             const listHeading = translate('messages.valuesListHeading');
-            valuesList.innerHTML = `
-                <div class="status-error p-4 rounded-md">
-                    <h3 class="font-bold mb-2">${heading}</h3>
-                    <p>${error.message}</p>
-                </div>
 
-                <!-- Fallback display -->
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-4">${listHeading}</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        ${values.map(v => `<li>${v.name} - ${getCategoryLabel(v.category)}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
+            valuesList.innerHTML = '';
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'status-error p-4 rounded-md';
+
+            const h3 = document.createElement('h3');
+            h3.className = 'font-bold mb-2';
+            h3.textContent = heading;
+
+            const pError = document.createElement('p');
+            pError.textContent = error.message;
+
+            errorDiv.appendChild(h3);
+            errorDiv.appendChild(pError);
+
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.className = 'mt-6';
+
+            const fallbackH3 = document.createElement('h3');
+            fallbackH3.className = 'text-lg font-semibold mb-4';
+            fallbackH3.textContent = listHeading;
+
+            const ul = document.createElement('ul');
+            ul.className = 'list-disc pl-5 space-y-2';
+
+            values.forEach(v => {
+                const li = document.createElement('li');
+                li.textContent = `${v.name} - ${getCategoryLabel(v.category)}`;
+                ul.appendChild(li);
+            });
+
+            fallbackDiv.appendChild(fallbackH3);
+            fallbackDiv.appendChild(ul);
+
+            valuesList.appendChild(errorDiv);
+            valuesList.appendChild(fallbackDiv);
         }
     }
 }
