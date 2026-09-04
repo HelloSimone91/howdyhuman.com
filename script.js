@@ -1,6 +1,5 @@
-// Debug status message
+// Displays a toast status message to the user in the UI
 function showStatus(message, isError = false, action = null) {
-    console.log(message);
     // Create a status element if it doesn't exist
     let statusEl = document.getElementById('appStatus');
     if (statusEl) {
