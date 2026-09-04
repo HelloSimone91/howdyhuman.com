@@ -1657,45 +1657,6 @@ def value_structured_data(
     return f'  <script type="application/ld+json">\n{structured_data}\n  </script>'
 
 
-def build_compact_value_page(value: dict, values_by_tag: dict[str, list[dict]]) -> tuple[str, str]:
-    name = value['name']
-    slug = slugify(name)
-    description = value['description']
-    example = value.get('example', '')
-    category = value.get('category', 'Uncategorized')
-    category_slug = slugify(category)
-    tags = [t for t in value.get('tags', []) if t]
-    canonical_path = f'/values/{slug}/'
-    canonical_url = f'{SITE_URL}{canonical_path}'
-
-    title = f'{name} Value Meaning & Example | Howdy Human'
-    meta_description = value_meta_description(name, description, example)
-    tag_links = tag_links_markup(tags)
-    related_markup = related_values_markup(related_values_for(value, values_by_tag))
-    head_extra = value_structured_data(
-        name=name,
-        description=description,
-        canonical_url=canonical_url,
-        category=category,
-        category_slug=category_slug,
-    )
-
-    body = f"""
-<article>
-  {breadcrumb_nav([('Home', '/'), ('Values', '/#dictionary-panel'), (category, f'/values/category/{category_slug}/'), (name, None)])}
-  <h1>{html.escape(name)}</h1>
-  <p class=\"meta\"><strong>Category:</strong> <a href=\"/values/category/{category_slug}/\">{html.escape(category)}</a></p>
-  <p>{html.escape(description)}</p>
-  <h2>Example in action</h2>
-  <p>{html.escape(example)}</p>
-  <h2>Associated verbs</h2>
-  <div>{tag_links}</div>
-  <h2>Related values</h2>
-  <ul>{related_markup}</ul>
-</article>
-"""
-    return slug, html_page(title, meta_description, canonical_path, body, head_extra=head_extra)
-
 
 def build_expanded_value_page(value: dict, values_by_tag: dict[str, list[dict]], content: dict) -> tuple[str, str]:
     name = value['name']
