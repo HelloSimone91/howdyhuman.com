@@ -3637,8 +3637,9 @@ function filterValues() {
                 );
             } else {
                 // Match ANY tag (OR logic)
+                const filterTagsSet = new Set(filterState.tags);
                 filtered = filtered.filter(value =>
-                    filterState.tags.some(tag => value.tags.includes(tag))
+                    value.tags.some(tag => filterTagsSet.has(tag))
                 );
             }
         }
