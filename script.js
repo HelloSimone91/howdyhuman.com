@@ -2394,7 +2394,11 @@ function fallbackInitialization() {
 
             const exampleLabelDiv = document.createElement('div');
             exampleLabelDiv.className = 'section-label';
-            exampleLabelDiv.innerHTML = `<i class="fas fa-lightbulb"></i> ${exampleLabel}`;
+            exampleLabelDiv.textContent = '';
+            const exampleIcon = document.createElement('i');
+            exampleIcon.className = 'fas fa-lightbulb';
+            exampleLabelDiv.appendChild(exampleIcon);
+            exampleLabelDiv.appendChild(document.createTextNode(' ' + exampleLabel));
 
             const exampleContent = document.createTextNode(value.example);
 
@@ -2405,7 +2409,11 @@ function fallbackInitialization() {
 
             const tagsLabelDiv = document.createElement('div');
             tagsLabelDiv.className = 'section-label';
-            tagsLabelDiv.innerHTML = `<i class="fas fa-tags"></i> ${associatedLabel}`;
+            tagsLabelDiv.textContent = '';
+            const tagsIcon = document.createElement('i');
+            tagsIcon.className = 'fas fa-tags';
+            tagsLabelDiv.appendChild(tagsIcon);
+            tagsLabelDiv.appendChild(document.createTextNode(' ' + associatedLabel));
 
             const tagsContainer = document.createElement('div');
             tagsContainer.className = 'flex flex-wrap';
@@ -3319,7 +3327,11 @@ function displayValues(valuesToDisplay) {
                 exampleContainer.classList.add('mb-4');
 
                 const exampleLabel = document.createElement('div');
-                exampleLabel.innerHTML = `<i class="fas fa-lightbulb"></i> ${translate('valueCard.exampleLabel')}`;
+                exampleLabel.textContent = '';
+                const exampleIcon = document.createElement('i');
+                exampleIcon.className = 'fas fa-lightbulb';
+                exampleLabel.appendChild(exampleIcon);
+                exampleLabel.appendChild(document.createTextNode(' ' + translate('valueCard.exampleLabel')));
                 exampleLabel.classList.add('section-label');
                 exampleContainer.appendChild(exampleLabel);
 
@@ -3335,7 +3347,11 @@ function displayValues(valuesToDisplay) {
                 tagsSection.classList.add('mb-3');
 
                 const tagsLabel = document.createElement('div');
-                tagsLabel.innerHTML = `<i class="fas fa-tags"></i> ${translate('valueCard.associatedVerbsLabel')}`;
+                tagsLabel.textContent = '';
+                const tagsIcon = document.createElement('i');
+                tagsIcon.className = 'fas fa-tags';
+                tagsLabel.appendChild(tagsIcon);
+                tagsLabel.appendChild(document.createTextNode(' ' + translate('valueCard.associatedVerbsLabel')));
                 tagsLabel.classList.add('section-label');
                 tagsSection.appendChild(tagsLabel);
 
@@ -3383,7 +3399,11 @@ function displayValues(valuesToDisplay) {
                     relatedSection.classList.add('mb-3', 'related-values-section');
 
                     const relatedLabel = document.createElement('div');
-                    relatedLabel.innerHTML = `<i class="fas fa-link"></i> ${translate('valueCard.relatedValuesLabel')}`;
+                    relatedLabel.textContent = '';
+                    const relatedIcon = document.createElement('i');
+                    relatedIcon.className = 'fas fa-link';
+                    relatedLabel.appendChild(relatedIcon);
+                    relatedLabel.appendChild(document.createTextNode(' ' + translate('valueCard.relatedValuesLabel')));
                     relatedLabel.classList.add('section-label', 'section-label--related');
                     relatedSection.appendChild(relatedLabel);
 
