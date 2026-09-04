@@ -44,6 +44,7 @@ function showStatus(message, isError = false, action = null) {
 
 // Values data will be fetched from JSON file
 let values = [];
+let relatedValuesCache = new Map();
 let valuesDataCache = {};
 const valuesDataPromises = {};
 let valuesLoadedLanguage = null;
@@ -2443,6 +2444,7 @@ function dispatchValuesDataReady(lang, valuesList = values) {
 
 function applyValuesData(lang, data) {
     values = Array.isArray(data) ? data : [];
+    relatedValuesCache.clear();
     valuesDataReady = true;
     valuesLoadedLanguage = lang;
     activeAlphabet = getAlphabetForLanguage(lang);
@@ -2468,6 +2470,7 @@ async function fetchValuesData(lang = 'en') {
         showStatus(translate('statuses.errorFetchingValues', { message: error.message }), true);
         // Attempt to load fallback or default data if primary fetch fails
         values = []; // Ensure values is empty if fetch fails
+        relatedValuesCache.clear();
         valuesDataReady = false;
         valuesLoadedLanguage = lang;
         initializeValuesDictionary(); // Initialize with empty or fallback data
@@ -3002,6 +3005,10 @@ function widenFiltersForValue(valueName) {
 
 // Find related values based on shared tags
 function findRelatedValues(value) {
+    if (relatedValuesCache.has(value.name)) {
+        return relatedValuesCache.get(value.name);
+    }
+
     const related = [];
 
     values.forEach(otherValue => {
@@ -3025,7 +3032,9 @@ function findRelatedValues(value) {
     related.sort((a, b) => b.matchCount - a.matchCount);
 
     // Return top 3
-    return related.slice(0, 3);
+    const result = related.slice(0, 3);
+    relatedValuesCache.set(value.name, result);
+    return result;
 }
 
 
