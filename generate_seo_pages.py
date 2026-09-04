@@ -1795,9 +1795,8 @@ def build_category_page(category: str, category_values: list[dict], categories: 
     slug = slugify(category)
     canonical_path = f'/values/category/{slug}/'
     canonical_url = f'{SITE_URL}{canonical_path}'
-    sorted_values = sorted(category_values, key=lambda item: item['name'].lower())
-    count = len(sorted_values)
-    sample_names = ', '.join(item['name'] for item in sorted_values[:4])
+    count = len(category_values)
+    sample_names = ', '.join(item['name'] for item in category_values[:4])
     title = f'{category} Values Index | Howdy Human'
     desc = safe_excerpt(
         f'Browse {count} {category.lower()} values in the Howdy Human Dictionary of Values, including {sample_names}.'
@@ -1809,12 +1808,12 @@ def build_category_page(category: str, category_values: list[dict], categories: 
       <a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a>
       <span>{html.escape(safe_excerpt(item.get("description", ""), 135))}</span>
     </li>'''
-        for item in sorted_values
+        for item in category_values
     )
 
     sibling_links = ''.join(
         f'<a class="chip" href="/values/category/{slugify(name)}/">{html.escape(name)} ({len(items)})</a>'
-        for name, items in sorted(categories.items(), key=lambda pair: pair[0].lower())
+        for name, items in categories.items()
         if name != category
     )
 
@@ -1842,7 +1841,7 @@ def build_category_page(category: str, category_values: list[dict], categories: 
                             'name': item['name'],
                             'url': f'{SITE_URL}/values/{slugify(item["name"])}/',
                         }
-                        for index, item in enumerate(sorted_values)
+                        for index, item in enumerate(category_values)
                     ],
                 },
             },
@@ -1903,16 +1902,15 @@ def build_verb_page(tag: str, values_for_tag: list[dict]) -> tuple[str, str]:
 def category_index_markup(categories: dict[str, list[dict]], heading_id: str = 'category-index-heading') -> str:
     heading_i18n = ' data-i18n="categories.indexHeading"' if heading_id == 'homepage-category-index-heading' else ''
     cards = []
-    for category, category_values in sorted(categories.items(), key=lambda pair: pair[0].lower()):
-        sorted_values = sorted(category_values, key=lambda item: item['name'].lower())
+    for category, category_values in categories.items():
         sample_links = ', '.join(
             f'<a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a>'
-            for item in sorted_values[:4]
+            for item in category_values[:4]
         )
         cards.append(f"""
                             <article class="seo-category-card">
                                 <h3><a href="/values/category/{slugify(category)}/">{html.escape(category)}</a></h3>
-                                <p class="meta">{len(sorted_values)} value{'s' if len(sorted_values) != 1 else ''}</p>
+                                <p class="meta">{len(category_values)} value{'s' if len(category_values) != 1 else ''}</p>
                                 <p>{sample_links}</p>
                             </article>""")
 
@@ -2005,14 +2003,19 @@ def main() -> None:
     remove_deprecated_static_pages()
 
     values_by_tag: dict[str, list[dict]] = {}
-    values_by_category: dict[str, list[dict]] = {}
+    values_by_category_raw: dict[str, list[dict]] = {}
     for value in values:
         category = value.get('category') or 'Uncategorized'
-        values_by_category.setdefault(category, []).append(value)
+        values_by_category_raw.setdefault(category, []).append(value)
         for tag in value.get('tags', []):
             if not tag:
                 continue
             values_by_tag.setdefault(tag, []).append(value)
+
+    values_by_category = {
+        k: sorted(v, key=lambda item: item['name'].lower())
+        for k, v in sorted(values_by_category_raw.items(), key=lambda pair: pair[0].lower())
+    }
 
     value_slugs = {slugify(value['name']) for value in values}
     category_slugs = {slugify(category) for category in values_by_category}
