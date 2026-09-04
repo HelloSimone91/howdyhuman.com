@@ -1275,7 +1275,13 @@ def safe_excerpt(text: str, limit: int = 160) -> str:
     clean = ' '.join(text.split())
     if len(clean) <= limit:
         return clean
-    return clean[: limit - 1].rsplit(' ', 1)[0] + '…'
+    candidate = clean[:limit - 1]
+    if clean[limit - 1] == ' ':
+        return candidate + '…'
+    elif ' ' in candidate:
+        return candidate.rsplit(' ', 1)[0] + '…'
+    else:
+        return candidate + '…'
 
 
 def render_json_ld(data: dict) -> str:
