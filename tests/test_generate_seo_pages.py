@@ -1,5 +1,10 @@
+import sys
+from pathlib import Path
 import unittest
 import json
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from generate_seo_pages import render_json_ld
 
