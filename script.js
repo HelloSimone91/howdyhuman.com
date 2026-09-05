@@ -53,7 +53,6 @@ let introSparkChips = [];
 
 // Filter state
 const filterState = {
-    categories: [],
     tags: [],
     searchTerm: '',
     matchAll: false, // true for ALL (AND), false for ANY (OR)
@@ -232,7 +231,6 @@ const i18n = {
             gallery: 'Gallery'
         },
         categories: {
-            indexHeading: 'Browse by category'
         },
         alphaNav: {
             label: 'Browse A–Z',
@@ -250,11 +248,9 @@ const i18n = {
             matchAny: 'Match any selected verb',
             sortBy: 'Sort',
             sortName: 'Name',
-            sortCategory: 'Category',
             categories: 'Categories',
             verbs: 'Verbs',
             verbsCaption: 'tags',
-            categorySearchPlaceholder: 'Search categories',
             tagSearchPlaceholder: 'Search verbs',
             activeFilters: 'Active Filters',
             showFilters: 'Show Filters',
@@ -310,8 +306,6 @@ const i18n = {
             errorHighlightingTag: 'Error highlighting tag: {{message}}',
             filtersWidened: 'Filters widened to include "{{value}}"',
             filtersRestored: 'Filters restored',
-            showingCategory: 'Showing values in category: {{category}}',
-            categoryCleared: 'Category filter cleared: {{category}}',
             errorFilteringValues: 'Error filtering values'
         },
         actions: {
@@ -372,11 +366,9 @@ const i18n = {
             matchAny: 'Coincidir con cualquier verbo',
             sortBy: 'Ordenar',
             sortName: 'Nombre',
-            sortCategory: 'Categoría',
             categories: 'Categorías',
             verbs: 'Verbos',
             verbsCaption: 'etiquetas',
-            categorySearchPlaceholder: 'Buscar categorías',
             tagSearchPlaceholder: 'Buscar verbos',
             activeFilters: 'Filtros activos',
             showFilters: 'Mostrar filtros',
@@ -432,8 +424,6 @@ const i18n = {
             errorHighlightingTag: 'Error al resaltar la etiqueta: {{message}}',
             filtersWidened: 'Los filtros se ampliaron para incluir "{{value}}"',
             filtersRestored: 'Filtros restaurados',
-            showingCategory: 'Mostrando valores en la categoría: {{category}}',
-            categoryCleared: 'Filtro de categoría borrado: {{category}}',
             errorFilteringValues: 'Error al filtrar los valores'
         },
         actions: {
@@ -442,105 +432,10 @@ const i18n = {
     }
 };
 
-const seoCategoryTranslations = {
-    en: {
-        'aspirations': {
-            name: 'Aspirations',
-            examples: ['Achievement', 'Adventure', 'Ambition', 'Happiness']
-        },
-        'core-values': {
-            name: 'Core Values',
-            examples: ['Accountability', 'Authenticity', 'Bravery', 'Commitment']
-        },
-        'growth': {
-            name: 'Growth',
-            examples: ['Action', 'Challenge', 'Craftsmanship', 'Creativity']
-        },
-        'interpersonal': {
-            name: 'Interpersonal',
-            examples: ['Appreciation', 'Approachability', 'Camaraderie', 'Caring']
-        },
-        'mindset': {
-            name: 'Mindset',
-            examples: ['Ambiguity', 'Boldness', 'Clarity', 'Curiosity']
-        },
-        'personal': {
-            name: 'Personal',
-            examples: ['Acceptance', 'Balance', 'Beauty', 'Choice']
-        },
-        'social': {
-            name: 'Social',
-            examples: ['Advocacy', 'Benevolence', 'Capitalism', 'Celebration']
-        }
-    },
-    es: {
-        'aspirations': {
-            name: 'Aspiraciones',
-            examples: ['Logro', 'Aventura', 'Ambición', 'Felicidad']
-        },
-        'core-values': {
-            name: 'Valores fundamentales',
-            examples: ['Responsabilidad', 'Autenticidad', 'Valentía', 'Compromiso']
-        },
-        'growth': {
-            name: 'Crecimiento',
-            examples: ['Acción', 'Desafío', 'Artesanía', 'Creatividad']
-        },
-        'interpersonal': {
-            name: 'Interpersonal',
-            examples: ['Aprecio', 'Accesibilidad', 'Camaradería', 'Cuidado']
-        },
-        'mindset': {
-            name: 'Mentalidad',
-            examples: ['Ambigüedad', 'Audacia', 'Claridad', 'Curiosidad']
-        },
-        'personal': {
-            name: 'Personal',
-            examples: ['Aceptación', 'Equilibrio', 'Belleza', 'Elección']
-        },
-        'social': {
-            name: 'Social',
-            examples: ['Defensa', 'Benevolencia', 'Capitalismo', 'Celebración']
-        }
-    }
-};
 
-const localizedCategoryLabels = {
-    en: {
-        'Core Values': 'Core Values',
-        Social: 'Social',
-        Growth: 'Growth',
-        Mindset: 'Mindset',
-        Personal: 'Personal',
-        Interpersonal: 'Interpersonal',
-        Aspirations: 'Aspirations'
-    },
-    es: {
-        'Core Values': 'Valores fundamentales',
-        Social: 'Social',
-        Growth: 'Crecimiento',
-        Mindset: 'Mentalidad',
-        Personal: 'Personal',
-        Interpersonal: 'Interpersonal',
-        Aspirations: 'Aspiraciones'
-    }
-};
 
-function getCategoryLabel(category) {
-    const labels = localizedCategoryLabels[currentLanguage] || localizedCategoryLabels.en;
-    return labels[category] || category;
-}
 
 function getValueEmoji(value) {
-    const categoryEmojiMap = {
-        Personal: '🪞',
-        Interpersonal: '🤝',
-        Social: '🌍',
-        'Core Values': '💎',
-        Growth: '🌱',
-        Mindset: '🧠',
-        Aspirations: '✨'
-    };
 
     const normalizedName = normalizeSearchText(value.name, value.language || currentLanguage);
     const keywordEmojiMap = [
@@ -555,7 +450,7 @@ function getValueEmoji(value) {
     ];
 
     const matchingKeyword = keywordEmojiMap.find(({ keywords }) => keywords.some((keyword) => normalizedName.includes(keyword)));
-    return matchingKeyword?.emoji || categoryEmojiMap[value.category] || '✨';
+    return matchingKeyword?.emoji || '✨';
 }
 
 const translationCache = new Map();
@@ -763,37 +658,6 @@ function closeHeroMenu({ skipFiltersSheetClose = false } = {}) {
     }
 }
 
-function updateSeoCategoryIndex() {
-    const categoryCards = document.querySelectorAll('.seo-category-card');
-    if (!categoryCards.length) return;
-
-    const translations = seoCategoryTranslations[currentLanguage] || seoCategoryTranslations.en;
-    categoryCards.forEach(card => {
-        const categoryLink = card.querySelector('h3 a[href*="/values/category/"]');
-        if (!categoryLink) return;
-
-        const slugMatch = categoryLink.getAttribute('href').match(/\/values\/category\/([^/]+)\//);
-        const slug = slugMatch ? slugMatch[1] : '';
-        const translation = translations[slug];
-        if (!translation) return;
-
-        categoryLink.textContent = translation.name;
-
-        const count = card.querySelector('.meta');
-        if (count) {
-            const number = count.textContent.match(/\d+/)?.[0];
-            count.textContent = number ? `${number} ${currentLanguage === 'es' ? 'valores' : 'values'}` : count.textContent;
-        }
-
-        const exampleLinks = card.querySelectorAll('p:not(.meta) a');
-        exampleLinks.forEach((link, index) => {
-            const nextText = translation.examples[index];
-            if (nextText) {
-                link.textContent = nextText;
-            }
-        });
-    });
-}
 
 function setSiteMenuOpen(isOpen) {
     if (!siteMenu || !siteMenuToggle) return;
@@ -920,8 +784,6 @@ function applyTranslations() {
         const labelKey = siteMenu && siteMenu.classList.contains('is-open') ? 'menu.close' : 'menu.open';
         siteMenuToggle.setAttribute('aria-label', translate(labelKey));
     }
-
-    updateSeoCategoryIndex();
     updateFilterToggleUI();
     updateFilterExpanderButtons();
 }
@@ -964,13 +826,13 @@ function clearSearchTerm({ updateUI = true } = {}) {
 
 // Initialize DOM elements
     let searchInput, mainSearchInput, mainSearchContainer, clearSearchBtn, mobileSearchInput, mobileSearchClear,
-        sortSelect, tagFilters, categoryFilters, valuesList, matchAll, matchAny, toggleSlide,
+        sortSelect, tagFilters, valuesList, matchAll, matchAny, toggleSlide,
         activeFilters, clearFilters, filterCount, toggleFilters, filtersContainer, valuesCount,
         alphaNav, alphaNavList, alphaNavToggle, alphaNavOverlay, alphaNavOverlayList,
         alphaNavOverlayClose, backToTop, languageToggle, siteMenu, siteMenuToggle, siteMenuPanel,
         paletteSection, paletteDisclosure, paletteOptions, paletteButtons, currentPaletteName,
         filtersSheetTitle, filtersCollapsedHint,
-    categoryFilterSearch, tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
+    tagFilterSearch, heroControls, heroPillTray, heroNotesPane,
     heroPaneBackdrop, heroPillButtons, introBox, introSpark;
 
 // Scroll spy observer reference
@@ -1304,8 +1166,6 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileSearchClear = document.getElementById('mobileSearchClear');
         sortSelect = document.getElementById('sortSelect');
         tagFilters = document.getElementById('tagFilters');
-        categoryFilters = document.getElementById('categoryFilters');
-        categoryFilterSearch = document.getElementById('categoryFilterSearch');
         tagFilterSearch = document.getElementById('tagFilterSearch');
         valuesList = document.getElementById('valuesList');
         const viewModeListButton = document.getElementById('viewModeList');
@@ -2322,7 +2182,6 @@ function setupFilterExpanders() {
 // Clear all filters
 function clearAllFilters() {
     // Reset filter state
-    filterState.categories = [];
     filterState.tags = [];
     filterState.searchTerm = '';
     clearSelectedVerb({ skipFilterValues: true });
@@ -2379,8 +2238,6 @@ function fallbackInitialization() {
             h3.textContent = value.name;
 
             const badge = document.createElement('span');
-            badge.className = 'text-sm opacity-75 category-badge';
-            badge.textContent = getCategoryLabel(value.category);
 
             headerDiv.appendChild(h3);
             headerDiv.appendChild(badge);
@@ -2545,23 +2402,18 @@ function initializeValuesDictionary() {
         activeAlphabet = getAlphabetForLanguage(currentLanguage);
 
         // Clear previous filters if any (important for language switching)
-        if (categoryFilters) categoryFilters.innerHTML = '';
         if (tagFilters) tagFilters.innerHTML = '';
 
 
         // Filter out verbs that only appear once
-        const { categoryCounts, verbCounts } = values.reduce((acc, value) => {
-            const category = value.category;
-            acc.categoryCounts[category] = (acc.categoryCounts[category] || 0) + 1;
-
+        const { verbCounts } = values.reduce((acc, value) => {
             if (Array.isArray(value.tags)) {
                 value.tags.forEach(tag => {
                     acc.verbCounts[tag] = (acc.verbCounts[tag] || 0) + 1;
                 });
             }
-
             return acc;
-        }, { categoryCounts: {}, verbCounts: {} });
+        }, { verbCounts: {} });
 
         // Update values to remove single-occurrence verbs
         values.forEach(value => {
@@ -2719,7 +2571,6 @@ function initializeValuesDictionary() {
 }
 
 function setupFilterSearchInputs() {
-    attachFilterSearchListener(categoryFilterSearch, categoryFilters);
     attachFilterSearchListener(tagFilterSearch, tagFilters);
 }
 
@@ -2748,42 +2599,7 @@ function attachFilterSearchListener(input, container) {
     handler();
 }
 
-function setCategoryFilter(category, isSelected) {
-    if (isSelected) {
-        if (!filterState.categories.includes(category)) {
-            filterState.categories.push(category);
-        }
-    } else {
-        filterState.categories = filterState.categories.filter(c => c !== category);
-    }
 
-    const checkbox = document.getElementById(`category-${category}`);
-    if (checkbox) checkbox.checked = isSelected;
-}
-
-function updateCategoryBadgeStates() {
-    document.querySelectorAll('.category-badge[data-category]').forEach(badge => {
-        const isSelected = filterState.categories.includes(badge.dataset.category);
-        const label = badge.dataset.categoryLabel || badge.textContent.trim();
-        badge.innerHTML = '';
-        badge.appendChild(document.createTextNode(label));
-        if (isSelected) {
-            const clearLabel = document.createElement('span');
-            clearLabel.classList.add('category-badge__clear-label');
-            clearLabel.textContent = 'Clear';
-            badge.appendChild(clearLabel);
-        }
-        badge.classList.toggle('is-selected', isSelected);
-        badge.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-        badge.setAttribute(
-            'aria-label',
-            isSelected
-                ? `Clear ${label} category filter`
-                : `Show ${label} category`
-        );
-        badge.title = isSelected ? 'Click to clear this category filter' : 'Click to filter by this category';
-    });
-}
 
 // Update active filters display
 function updateActiveFilters() {
@@ -2821,11 +2637,6 @@ function updateActiveFilters() {
     const filters = activeFilters.querySelectorAll('.active-filter');
     filters.forEach(filter => filter.remove());
 
-    // Add category filters
-    filterState.categories.forEach(category => {
-        addActiveFilterBadge(getCategoryLabel(category), 'category', category);
-    });
-
     // Add tag filters
     filterState.tags.forEach(tag => {
         addActiveFilterBadge(tag, 'tag');
@@ -2835,8 +2646,6 @@ function updateActiveFilters() {
     if (filterState.searchTerm) {
         addActiveFilterBadge(`"${filterState.searchTerm}"`, 'search');
     }
-
-    updateCategoryBadgeStates();
 }
 
 // Add active filter badge
@@ -2847,10 +2656,7 @@ function addActiveFilterBadge(text, type, rawText = text) {
     badge.classList.add('active-filter', 'text-sm', 'rounded-full', 'px-3', 'py-1', 'flex', 'items-center', 'mr-2', 'mb-2');
 
     // Add icon based on type
-    const icon = document.createElement('i');
-    if (type === 'category') {
-        icon.classList.add('fas', 'fa-folder');
-    } else if (type === 'tag') {
+    const icon = document.createElement('i');    if (type === 'tag') {
         icon.classList.add('fas', 'fa-tag');
     } else if (type === 'search') {
         icon.classList.add('fas', 'fa-search');
@@ -2867,14 +2673,8 @@ function addActiveFilterBadge(text, type, rawText = text) {
     const removeButton = document.createElement('button');
     removeButton.classList.add('active-filter__remove', 'ml-1', 'text-gray-600', 'hover:text-gray-800');
     removeButton.setAttribute('type', 'button');
-    removeButton.setAttribute('aria-label', `Clear ${text} filter`);
-    removeButton.innerHTML = type === 'category'
-        ? '<span class="active-filter__clear-text">Clear</span><i class="fas fa-times-circle" aria-hidden="true"></i>'
-        : '<i class="fas fa-times-circle" aria-hidden="true"></i>';
-    removeButton.addEventListener('click', () => {
-        if (type === 'category') {
-            setCategoryFilter(rawText, false);
-        } else if (type === 'tag') {
+    removeButton.setAttribute('aria-label', `Clear ${text} filter`);    removeButton.innerHTML = '<i class="fas fa-times-circle" aria-hidden="true"></i>';
+    removeButton.addEventListener('click', () => {        if (type === 'tag') {
             filterState.tags = filterState.tags.filter(t => t !== text);
             // Update tag
             updateTagSelection(text, false);
@@ -2974,9 +2774,6 @@ function widenFiltersForValue(valueName) {
     const previousFilterState = JSON.parse(JSON.stringify(filterState));
 
     // Widen filters
-    if (!filterState.categories.includes(value.category)) {
-        filterState.categories.push(value.category);
-    }
     value.tags.forEach(tag => {
         if (!filterState.tags.includes(tag)) {
             filterState.tags.push(tag);
@@ -3029,7 +2826,6 @@ function findRelatedValues(value) {
         if (sharedTags.length > 0) {
             related.push({
                 name: otherValue.name,
-                category: otherValue.category,
                 matchCount: sharedTags.length,
                 matchPercent: Math.round((sharedTags.length / Math.max(value.tags.length, otherValue.tags.length)) * 100),
                 sharedTags
@@ -3272,28 +3068,10 @@ function displayValues(valuesToDisplay) {
                 if (currentViewMode === 'gallery') {
                     title.classList.add('value-card-title--gallery');
                 }
-
-                const category = document.createElement('button');
-                category.type = 'button';
-                category.textContent = getCategoryLabel(value.category);
-                category.classList.add('category-badge');
-                category.dataset.category = value.category;
-                category.dataset.categoryLabel = getCategoryLabel(value.category);
-                category.setAttribute('aria-pressed', filterState.categories.includes(value.category) ? 'true' : 'false');
                 const description = document.createElement('p');
                 description.textContent = value.description;
                 description.classList.add('mb-4', 'value-description');
                 let meta = null;
-                category.addEventListener('click', () => {
-                    const isSelected = filterState.categories.includes(value.category);
-                    setCategoryFilter(value.category, !isSelected);
-                    filterValues();
-                    updateActiveFilters();
-
-                    showStatus(translate(isSelected ? 'statuses.categoryCleared' : 'statuses.showingCategory', {
-                        category: getCategoryLabel(value.category)
-                    }));
-                });
 
                 if (currentViewMode === 'gallery') {
                     const emoji = document.createElement('span');
@@ -3301,9 +3079,6 @@ function displayValues(valuesToDisplay) {
                     emoji.classList.add('value-card-emoji');
                     emoji.setAttribute('aria-hidden', 'true');
                     previewContainer.appendChild(emoji);
-
-                    category.classList.add('category-badge--gallery');
-                    previewContainer.appendChild(category);
 
                     meta = document.createElement('div');
                     meta.classList.add('value-card-meta');
@@ -3313,7 +3088,6 @@ function displayValues(valuesToDisplay) {
                     previewContainer.appendChild(meta);
                 } else {
                     header.appendChild(title);
-                    header.appendChild(category);
                     previewContainer.appendChild(header);
                     previewContainer.appendChild(description);
                 }
@@ -3533,14 +3307,14 @@ function displayValues(valuesToDisplay) {
                     card.setAttribute('role', 'button');
                     card.setAttribute('aria-expanded', String(shouldExpandThisCard));
                     card.addEventListener('click', (event) => {
-                        if (event.target.closest('.tag, .related-value-card, .category-badge, .value-card-toggle')) {
+                        if (event.target.closest('.tag, .related-value-card, .value-card-toggle')) {
                             return;
                         }
                         toggleCardExpansion();
                         card.setAttribute('aria-expanded', String(card.classList.contains('expanded')));
                     });
                     card.addEventListener('keydown', (event) => {
-                        if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.tag, .related-value-card, .category-badge, .value-card-toggle')) {
+                        if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.tag, .related-value-card, .value-card-toggle')) {
                             event.preventDefault();
                             toggleCardExpansion();
                             card.setAttribute('aria-expanded', String(card.classList.contains('expanded')));
@@ -3605,8 +3379,7 @@ function displayValues(valuesToDisplay) {
             ul.className = 'list-disc pl-5 space-y-2';
 
             values.forEach(v => {
-                const li = document.createElement('li');
-                li.textContent = `${v.name} - ${getCategoryLabel(v.category)}`;
+                const li = document.createElement('li');                li.textContent = v.name;
                 ul.appendChild(li);
             });
 
@@ -3633,19 +3406,8 @@ function filterValues() {
                 const descriptionMatch = value.description.toLowerCase().includes(filterState.searchTerm);
                 const exampleMatch = value.example.toLowerCase().includes(filterState.searchTerm);
                 const tagMatch = value.tags.some(tag => tag.toLowerCase().includes(filterState.searchTerm));
-                const categoryMatch =
-                    value.category.toLowerCase().includes(filterState.searchTerm) ||
-                    getCategoryLabel(value.category).toLowerCase().includes(filterState.searchTerm);
-
-                return nameMatch || descriptionMatch || exampleMatch || tagMatch || categoryMatch;
+                return nameMatch || descriptionMatch || exampleMatch || tagMatch;
             });
-        }
-
-        // Filter by categories
-        if (filterState.categories.length > 0) {
-            filtered = filtered.filter(value =>
-                filterState.categories.includes(value.category)
-            );
         }
 
         // Filter by tags
@@ -3671,13 +3433,10 @@ function filterValues() {
         // Sort results
         if (filterState.sortMethod === 'name') {
             filtered.sort((a, b) => compareByName(a.name, b.name));
-        } else if (filterState.sortMethod === 'category') {
-            filtered.sort((a, b) => compareByName(a.category, b.category) || compareByName(a.name, b.name));
         }
 
         console.log("Found", filtered.length, "matching values");
         displayValues(filtered);
-        updateCategoryBadgeStates();
 
     } catch (error) {
         console.error("Error filtering values:", error);
