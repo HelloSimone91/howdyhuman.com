@@ -1,10 +1,9 @@
 {
   "values": [
     {
-      "name": "Aceptación",
-      "description": "La disposición para abrazar lo que es, en lugar de lo que debería ser o pudo haber sido. Implica reconciliarte contigo, con otras personas y con las imperfecciones de la vida.",
-      "example": "Cuando la empresa donde trabajaba cerró, Maya practicó la aceptación: honró lo que terminaba, se apoyó en su comunidad y se abrió con ilusión a un nuevo camino profesional que le trajo propósito y crecimiento.",
-      "category": "Personal",
+      "name": "Aceptaci\u00f3n",
+      "description": "La disposici\u00f3n para abrazar lo que es, en lugar de lo que deber\u00eda ser o pudo haber sido. Implica reconciliarte contigo, con otras personas y con las imperfecciones de la vida.",
+      "example": "Cuando la empresa donde trabajaba cerr\u00f3, Maya practic\u00f3 la aceptaci\u00f3n: honr\u00f3 lo que terminaba, se apoy\u00f3 en su comunidad y se abri\u00f3 con ilusi\u00f3n a un nuevo camino profesional que le trajo prop\u00f3sito y crecimiento.",
       "tags": [
         "abrazar",
         "recibir",
@@ -19,10 +18,9 @@
       "language": "es"
     },
     {
-      "name": "Rendición de cuentas",
+      "name": "Rendici\u00f3n de cuentas",
       "description": "Asumir la responsabilidad de las propias acciones y responder por sus resultados.",
-      "example": "Después de que el proyecto no llegara a la fecha límite, la líder del equipo demostró rendición de cuentas al reconocer los errores y elaborar un plan para corregirlos.",
-      "category": "Core Values",
+      "example": "Despu\u00e9s de que el proyecto no llegara a la fecha l\u00edmite, la l\u00edder del equipo demostr\u00f3 rendici\u00f3n de cuentas al reconocer los errores y elaborar un plan para corregirlos.",
       "tags": [
         "responder",
         "explicar",
@@ -38,9 +36,8 @@
     },
     {
       "name": "Logro",
-      "description": "Alcanzar metas y desarrollar tu potencial mediante esfuerzo y determinación.",
-      "example": "Tras años de estudio y práctica, obtener su título de medicina representó un logro significativo que le abrió puertas para ayudar a otras personas.",
-      "category": "Aspirations",
+      "description": "Alcanzar metas y desarrollar tu potencial mediante esfuerzo y determinaci\u00f3n.",
+      "example": "Tras a\u00f1os de estudio y pr\u00e1ctica, obtener su t\u00edtulo de medicina represent\u00f3 un logro significativo que le abri\u00f3 puertas para ayudar a otras personas.",
       "tags": [
         "lograr",
         "alcanzar",
@@ -55,10 +52,9 @@
       "language": "es"
     },
     {
-      "name": "Acción",
+      "name": "Acci\u00f3n",
       "description": "Dar pasos concretos para alcanzar un objetivo o completar una tarea.",
-      "example": "En lugar de solo hablar sobre ayudar a las personas sin hogar, tomó la iniciativa de organizar una colecta comunitaria de ropa y artículos de invierno.",
-      "category": "Growth",
+      "example": "En lugar de solo hablar sobre ayudar a las personas sin hogar, tom\u00f3 la iniciativa de organizar una colecta comunitaria de ropa y art\u00edculos de invierno.",
       "tags": [
         "actuar",
         "realizar",
@@ -74,9 +70,8 @@
     },
     {
       "name": "Aventura",
-      "description": "La disposición para asumir riesgos y explorar nuevas experiencias por disfrute y crecimiento.",
-      "example": "Aceptó la aventura al tomar un trabajo en un país extranjero donde no conocía a nadie ni hablaba el idioma.",
-      "category": "Aspirations",
+      "description": "La disposici\u00f3n para asumir riesgos y explorar nuevas experiencias por disfrute y crecimiento.",
+      "example": "Acept\u00f3 la aventura al tomar un trabajo en un pa\u00eds extranjero donde no conoc\u00eda a nadie ni hablaba el idioma.",
       "tags": [
         "explorar",
         "descubrir",
@@ -93,8 +88,7 @@
     {
       "name": "Defensa",
       "description": "Alzar la voz por lo que es justo y apoyar a otras personas para crear cambios positivos en la comunidad.",
-      "example": "La docente practicó la defensa al presentarse ante la junta escolar para solicitar más recursos para el estudiantado con discapacidades.",
-      "category": "Social",
+      "example": "La docente practic\u00f3 la defensa al presentarse ante la junta escolar para solicitar m\u00e1s recursos para el estudiantado con discapacidades.",
       "tags": [
         "defender",
         "apoyar",
@@ -109,10 +103,9 @@
       "language": "es"
     },
     {
-      "name": "Ambigüedad",
-      "description": "La cualidad de estar abierto a más de una interpretación o tener un significado poco claro.",
-      "example": "La ambigüedad del poema permite que cada persona lectora encuentre su propio significado en los versos, haciéndolo relevante de manera personal.",
-      "category": "Mindset",
+      "name": "Ambig\u00fcedad",
+      "description": "La cualidad de estar abierto a m\u00e1s de una interpretaci\u00f3n o tener un significado poco claro.",
+      "example": "La ambig\u00fcedad del poema permite que cada persona lectora encuentre su propio significado en los versos, haci\u00e9ndolo relevante de manera personal.",
       "tags": [
         "interpretar",
         "preguntar",
@@ -127,10 +120,9 @@
       "language": "es"
     },
     {
-      "name": "Ambición",
-      "description": "Perseguir metas exigentes con intención y constancia, convirtiendo aspiraciones en acciones concretas.",
-      "example": "Su ambición por ampliar el acceso a la educación la llevó a liderar una iniciativa comunitaria, conseguir alianzas y sostener el proyecto durante años.",
-      "category": "Aspirations",
+      "name": "Ambici\u00f3n",
+      "description": "Perseguir metas exigentes con intenci\u00f3n y constancia, convirtiendo aspiraciones en acciones concretas.",
+      "example": "Su ambici\u00f3n por ampliar el acceso a la educaci\u00f3n la llev\u00f3 a liderar una iniciativa comunitaria, conseguir alianzas y sostener el proyecto durante a\u00f1os.",
       "tags": [
         "aspirar",
         "esforzarse",
@@ -147,8 +139,7 @@
     {
       "name": "Aprecio",
       "description": "Expresar gratitud y reconocer lo bueno de la vida o de otras personas.",
-      "example": "La gerente expresó aprecio al escribir notas de agradecimiento personalizadas que destacaban las contribuciones específicas de cada integrante del equipo al proyecto exitoso.",
-      "category": "Interpersonal",
+      "example": "La gerente expres\u00f3 aprecio al escribir notas de agradecimiento personalizadas que destacaban las contribuciones espec\u00edficas de cada integrante del equipo al proyecto exitoso.",
       "tags": [
         "valorar",
         "reconocer",
@@ -163,10 +154,9 @@
       "language": "es"
     },
     {
-      "name": "Cercanía",
-      "description": "Ser abierto y amable con las demás personas, facilitando que se acerquen y compartan sus ideas.",
-      "example": "La directora ejecutiva demostró cercanía al almorzar en la cafetería de la empresa y dar la bienvenida a quienes quisieran sentarse y conversar con ella.",
-      "category": "Interpersonal",
+      "name": "Cercan\u00eda",
+      "description": "Ser abierto y amable con las dem\u00e1s personas, facilitando que se acerquen y compartan sus ideas.",
+      "example": "La directora ejecutiva demostr\u00f3 cercan\u00eda al almorzar en la cafeter\u00eda de la empresa y dar la bienvenida a quienes quisieran sentarse y conversar con ella.",
       "tags": [
         "acoger",
         "conversar",
@@ -183,8 +173,7 @@
     {
       "name": "Autenticidad",
       "description": "Vivir y expresarte de manera sincera, alineada con tus valores y sentimientos reales.",
-      "example": "El artista mostró autenticidad al compartir su historia personal en la exposición, aun cuando sabía que provocaría conversaciones difíciles.",
-      "category": "Core Values",
+      "example": "El artista mostr\u00f3 autenticidad al compartir su historia personal en la exposici\u00f3n, aun cuando sab\u00eda que provocar\u00eda conversaciones dif\u00edciles.",
       "tags": [
         "ser",
         "expresar",
@@ -200,9 +189,8 @@
     },
     {
       "name": "Equilibrio",
-      "description": "Distribuir tu tiempo y energía de manera armoniosa entre diferentes responsabilidades y necesidades.",
-      "example": "Para mantener el equilibrio, reservó horas específicas para el trabajo, la familia y el descanso, evitando que una sola área consumiera todo su enfoque.",
-      "category": "Personal",
+      "description": "Distribuir tu tiempo y energ\u00eda de manera armoniosa entre diferentes responsabilidades y necesidades.",
+      "example": "Para mantener el equilibrio, reserv\u00f3 horas espec\u00edficas para el trabajo, la familia y el descanso, evitando que una sola \u00e1rea consumiera todo su enfoque.",
       "tags": [
         "equilibrar",
         "armonizar",
@@ -218,9 +206,8 @@
     },
     {
       "name": "Belleza",
-      "description": "Reconocer y apreciar la armonía, la estética y la inspiración que existen en el mundo.",
-      "example": "Encontró belleza en las pequeñas flores urbanas que fotografiaba cada mañana camino al trabajo, recordándose que la naturaleza persiste incluso en la ciudad.",
-      "category": "Personal",
+      "description": "Reconocer y apreciar la armon\u00eda, la est\u00e9tica y la inspiraci\u00f3n que existen en el mundo.",
+      "example": "Encontr\u00f3 belleza en las peque\u00f1as flores urbanas que fotografiaba cada ma\u00f1ana camino al trabajo, record\u00e1ndose que la naturaleza persiste incluso en la ciudad.",
       "tags": [
         "apreciar",
         "admirar",
@@ -236,9 +223,8 @@
     },
     {
       "name": "Benevolencia",
-      "description": "Desear y hacer el bien a otras personas a través de actos generosos.",
-      "example": "Su benevolencia se manifestó al organizar comidas semanales para el refugio local y escuchar con paciencia a quienes necesitaban compañía.",
-      "category": "Social",
+      "description": "Desear y hacer el bien a otras personas a trav\u00e9s de actos generosos.",
+      "example": "Su benevolencia se manifest\u00f3 al organizar comidas semanales para el refugio local y escuchar con paciencia a quienes necesitaban compa\u00f1\u00eda.",
       "tags": [
         "beneficiar",
         "cuidar",
@@ -246,7 +232,7 @@
         "donar",
         "ofrecer",
         "aliviar",
-        "acompañar",
+        "acompa\u00f1ar",
         "servir",
         "compartir"
       ],
@@ -255,8 +241,7 @@
     {
       "name": "Audacia",
       "description": "Atreverse a tomar decisiones valientes y expresar ideas sin miedo excesivo.",
-      "example": "Mostró audacia al proponer una estrategia radicalmente distinta en la reunión, respaldándola con datos y asumiendo el riesgo de una reacción crítica.",
-      "category": "Mindset",
+      "example": "Mostr\u00f3 audacia al proponer una estrategia radicalmente distinta en la reuni\u00f3n, respald\u00e1ndola con datos y asumiendo el riesgo de una reacci\u00f3n cr\u00edtica.",
       "tags": [
         "atreverse",
         "arriesgar",
@@ -271,10 +256,9 @@
       "language": "es"
     },
     {
-      "name": "Valentía",
-      "description": "Enfrentar el miedo, el peligro o la incertidumbre con determinación.",
-      "example": "Su valentía quedó clara cuando denunció la corrupción en la empresa, aun sabiendo que podría afectar su puesto.",
-      "category": "Core Values",
+      "name": "Valent\u00eda",
+      "description": "Enfrentar el miedo, el peligro o la incertidumbre con determinaci\u00f3n.",
+      "example": "Su valent\u00eda qued\u00f3 clara cuando denunci\u00f3 la corrupci\u00f3n en la empresa, aun sabiendo que podr\u00eda afectar su puesto.",
       "tags": [
         "enfrentar",
         "afrontar",
@@ -289,10 +273,9 @@
       "language": "es"
     },
     {
-      "name": "Camaradería",
+      "name": "Camarader\u00eda",
       "description": "Construir lazos de confianza y apoyo mutuo dentro de un grupo.",
-      "example": "La camaradería del equipo se fortaleció durante el retiro, cuando compartieron historias personales y se animaron en actividades colaborativas.",
-      "category": "Interpersonal",
+      "example": "La camarader\u00eda del equipo se fortaleci\u00f3 durante el retiro, cuando compartieron historias personales y se animaron en actividades colaborativas.",
       "tags": [
         "compartir",
         "apoyar",
@@ -302,15 +285,14 @@
         "confiar",
         "celebrar",
         "conectar",
-        "acompañar"
+        "acompa\u00f1ar"
       ],
       "language": "es"
     },
     {
       "name": "Capitalismo",
-      "description": "Un sistema económico basado en la propiedad privada y la inversión para generar crecimiento y riqueza.",
-      "example": "El informe analizaba cómo el capitalismo impulsa la innovación tecnológica al incentivar a las empresas a invertir en investigación y desarrollo.",
-      "category": "Social",
+      "description": "Un sistema econ\u00f3mico basado en la propiedad privada y la inversi\u00f3n para generar crecimiento y riqueza.",
+      "example": "El informe analizaba c\u00f3mo el capitalismo impulsa la innovaci\u00f3n tecnol\u00f3gica al incentivar a las empresas a invertir en investigaci\u00f3n y desarrollo.",
       "tags": [
         "invertir",
         "competir",
@@ -326,13 +308,12 @@
     },
     {
       "name": "Cuidado",
-      "description": "Atender las necesidades de otras personas con empatía y apoyo.",
-      "example": "Mostró cuidado al visitar a su vecina mayor cada tarde, llevarle comida y acompañarla durante sus citas médicas.",
-      "category": "Interpersonal",
+      "description": "Atender las necesidades de otras personas con empat\u00eda y apoyo.",
+      "example": "Mostr\u00f3 cuidado al visitar a su vecina mayor cada tarde, llevarle comida y acompa\u00f1arla durante sus citas m\u00e9dicas.",
       "tags": [
         "cuidar",
         "atender",
-        "acompañar",
+        "acompa\u00f1ar",
         "apoyar",
         "escuchar",
         "alentar",
@@ -343,10 +324,9 @@
       "language": "es"
     },
     {
-      "name": "Celebración",
-      "description": "Un evento o reunión alegre para honrar una ocasión especial o un logro.",
-      "example": "El equipo organizó una celebración para reconocer los diez años de su colega en la empresa, compartiendo historias y entregándole un regalo significativo.",
-      "category": "Social",
+      "name": "Celebraci\u00f3n",
+      "description": "Un evento o reuni\u00f3n alegre para honrar una ocasi\u00f3n especial o un logro.",
+      "example": "El equipo organiz\u00f3 una celebraci\u00f3n para reconocer los diez a\u00f1os de su colega en la empresa, compartiendo historias y entreg\u00e1ndole un regalo significativo.",
       "tags": [
         "honrar",
         "reconocer",
@@ -361,10 +341,9 @@
       "language": "es"
     },
     {
-      "name": "Desafío",
-      "description": "Enfrentar una tarea o problema difícil que requiere esfuerzo y determinación para superarlo.",
-      "example": "Aprender un idioma nuevo representó un desafío bienvenido que la impulsó a desarrollar habilidades y formas de pensar distintas.",
-      "category": "Growth",
+      "name": "Desaf\u00edo",
+      "description": "Enfrentar una tarea o problema dif\u00edcil que requiere esfuerzo y determinaci\u00f3n para superarlo.",
+      "example": "Aprender un idioma nuevo represent\u00f3 un desaf\u00edo bienvenido que la impuls\u00f3 a desarrollar habilidades y formas de pensar distintas.",
       "tags": [
         "desafiar",
         "exigir",
@@ -381,8 +360,7 @@
     {
       "name": "Carisma",
       "description": "La capacidad de atraer, influir e inspirar a otras personas mediante encanto y confianza.",
-      "example": "El carisma de la oradora cautivó al público, haciendo accesibles conceptos complejos e inspirando a muchas personas a actuar frente a los problemas ambientales.",
-      "category": "Interpersonal",
+      "example": "El carisma de la oradora cautiv\u00f3 al p\u00fablico, haciendo accesibles conceptos complejos e inspirando a muchas personas a actuar frente a los problemas ambientales.",
       "tags": [
         "inspirar",
         "atraer",
@@ -397,10 +375,9 @@
       "language": "es"
     },
     {
-      "name": "Elección",
-      "description": "La capacidad de seleccionar entre opciones o tomar decisiones según las preferencias personales.",
-      "example": "La escuela empoderó al estudiantado al darles elección en sus proyectos, permitiéndoles explorar temas que realmente les interesaban.",
-      "category": "Personal",
+      "name": "Elecci\u00f3n",
+      "description": "La capacidad de seleccionar entre opciones o tomar decisiones seg\u00fan las preferencias personales.",
+      "example": "La escuela empoder\u00f3 al estudiantado al darles elecci\u00f3n en sus proyectos, permiti\u00e9ndoles explorar temas que realmente les interesaban.",
       "tags": [
         "decidir",
         "seleccionar",
@@ -417,8 +394,7 @@
     {
       "name": "Claridad",
       "description": "Comunicarse y pensar de forma directa y comprensible, sin enredos innecesarios ni mensajes ambiguos.",
-      "example": "En una reunión con tensión, Ana aportó claridad al resumir el acuerdo en palabras sencillas, definir los siguientes pasos y confirmar que todo el mundo estaba en la misma página.",
-      "category": "Mindset",
+      "example": "En una reuni\u00f3n con tensi\u00f3n, Ana aport\u00f3 claridad al resumir el acuerdo en palabras sencillas, definir los siguientes pasos y confirmar que todo el mundo estaba en la misma p\u00e1gina.",
       "tags": [
         "aclarar",
         "simplificar",
@@ -433,10 +409,9 @@
       "language": "es"
     },
     {
-      "name": "Colaboración",
+      "name": "Colaboraci\u00f3n",
       "description": "Trabajar junto con otras personas para alcanzar metas comunes y compartir ideas con eficacia.",
-      "example": "El proyecto de restauración de hábitats prosperó gracias a la colaboración entre científicas, voluntariado comunitario y funcionariado público, cada cual aportando su experiencia.",
-      "category": "Interpersonal",
+      "example": "El proyecto de restauraci\u00f3n de h\u00e1bitats prosper\u00f3 gracias a la colaboraci\u00f3n entre cient\u00edficas, voluntariado comunitario y funcionariado p\u00fablico, cada cual aportando su experiencia.",
       "tags": [
         "colaborar",
         "cooperar",
@@ -453,13 +428,12 @@
     {
       "name": "Comedia",
       "description": "Una forma de entretenimiento que utiliza el humor para provocar risa.",
-      "example": "Usó la comedia durante su presentación para hacer más accesible y memorable la información compleja.",
-      "category": "Social",
+      "example": "Us\u00f3 la comedia durante su presentaci\u00f3n para hacer m\u00e1s accesible y memorable la informaci\u00f3n compleja.",
       "tags": [
         "divertir",
         "entretener",
         "bromear",
-        "reír",
+        "re\u00edr",
         "jugar",
         "improvisar",
         "deleitar",
@@ -470,9 +444,8 @@
     },
     {
       "name": "Confort",
-      "description": "Un estado de bienestar físico y emocional que hace que las personas se sientan relajadas y seguras.",
-      "example": "La consejera creó un entorno de confort al disponer asientos suaves, hablar con suavidad y garantizar la confidencialidad.",
-      "category": "Personal",
+      "description": "Un estado de bienestar f\u00edsico y emocional que hace que las personas se sientan relajadas y seguras.",
+      "example": "La consejera cre\u00f3 un entorno de confort al disponer asientos suaves, hablar con suavidad y garantizar la confidencialidad.",
       "tags": [
         "consolar",
         "relajar",
@@ -481,16 +454,15 @@
         "tranquilizar",
         "abrigar",
         "sostener",
-        "acompañar",
+        "acompa\u00f1ar",
         "cuidar"
       ],
       "language": "es"
     },
     {
       "name": "Compromiso",
-      "description": "Mantenerse dedicado a lo que dijiste que harías y apoyar a otras personas para alcanzar sus metas.",
-      "example": "A pesar de numerosos obstáculos, mostró compromiso con el programa de alfabetización al ofrecerse como voluntaria todas las semanas durante cinco años, ayudando a cientos a aprender a leer.",
-      "category": "Core Values",
+      "description": "Mantenerse dedicado a lo que dijiste que har\u00edas y apoyar a otras personas para alcanzar sus metas.",
+      "example": "A pesar de numerosos obst\u00e1culos, mostr\u00f3 compromiso con el programa de alfabetizaci\u00f3n al ofrecerse como voluntaria todas las semanas durante cinco a\u00f1os, ayudando a cientos a aprender a leer.",
       "tags": [
         "comprometerse",
         "dedicar",
@@ -505,10 +477,9 @@
       "language": "es"
     },
     {
-      "name": "Comunicación",
-      "description": "Compartir información con claridad y respeto para asegurar comprensión y conexión.",
-      "example": "La gerente practicó una comunicación efectiva al explicar con claridad los objetivos del proyecto, escuchar las inquietudes del equipo y ofrecer actualizaciones regulares.",
-      "category": "Interpersonal",
+      "name": "Comunicaci\u00f3n",
+      "description": "Compartir informaci\u00f3n con claridad y respeto para asegurar comprensi\u00f3n y conexi\u00f3n.",
+      "example": "La gerente practic\u00f3 una comunicaci\u00f3n efectiva al explicar con claridad los objetivos del proyecto, escuchar las inquietudes del equipo y ofrecer actualizaciones regulares.",
       "tags": [
         "expresar",
         "transmitir",
@@ -525,8 +496,7 @@
     {
       "name": "Comunidad",
       "description": "Un grupo de personas que comparten intereses, metas o valores y se apoyan mutuamente.",
-      "example": "Tras el desastre natural, el vecindario demostró el poder de la comunidad al organizar comidas, compartir recursos y ayudar a reconstruir hogares.",
-      "category": "Social",
+      "example": "Tras el desastre natural, el vecindario demostr\u00f3 el poder de la comunidad al organizar comidas, compartir recursos y ayudar a reconstruir hogares.",
       "tags": [
         "conectar",
         "participar",
@@ -541,10 +511,9 @@
       "language": "es"
     },
     {
-      "name": "Compasión",
+      "name": "Compasi\u00f3n",
       "description": "Cuidar de otras personas y querer ayudarlas cuando sufren o necesitan apoyo.",
-      "example": "La voluntaria mostró compasión al sentarse con personas sin hogar, escuchar sus historias y conectarlas con recursos tratándolas siempre con dignidad.",
-      "category": "Social",
+      "example": "La voluntaria mostr\u00f3 compasi\u00f3n al sentarse con personas sin hogar, escuchar sus historias y conectarlas con recursos trat\u00e1ndolas siempre con dignidad.",
       "tags": [
         "cuidar",
         "ayudar",
@@ -554,15 +523,14 @@
         "empatizar",
         "consolar",
         "asistir",
-        "acompañar"
+        "acompa\u00f1ar"
       ],
       "language": "es"
     },
     {
       "name": "Autoconfianza",
-      "description": "Creer en tus propias capacidades y criterio para tener éxito en distintas situaciones.",
-      "example": "Tras meses de preparación, afrontó la presentación con autoconfianza, habló con claridad y respondió a preguntas difíciles con reflexión.",
-      "category": "Personal",
+      "description": "Creer en tus propias capacidades y criterio para tener \u00e9xito en distintas situaciones.",
+      "example": "Tras meses de preparaci\u00f3n, afront\u00f3 la presentaci\u00f3n con autoconfianza, habl\u00f3 con claridad y respondi\u00f3 a preguntas dif\u00edciles con reflexi\u00f3n.",
       "tags": [
         "creer",
         "confiar",
@@ -577,10 +545,9 @@
       "language": "es"
     },
     {
-      "name": "Conexión",
-      "description": "Un vínculo fuerte entre personas que les ayuda a comprenderse y apoyarse.",
-      "example": "A través de videollamadas semanales durante años, abuelos y nietas mantuvieron una conexión significativa a pesar de vivir a miles de kilómetros.",
-      "category": "Interpersonal",
+      "name": "Conexi\u00f3n",
+      "description": "Un v\u00ednculo fuerte entre personas que les ayuda a comprenderse y apoyarse.",
+      "example": "A trav\u00e9s de videollamadas semanales durante a\u00f1os, abuelos y nietas mantuvieron una conexi\u00f3n significativa a pesar de vivir a miles de kil\u00f3metros.",
       "tags": [
         "vincular",
         "relacionar",
@@ -595,10 +562,9 @@
       "language": "es"
     },
     {
-      "name": "Cooperación",
+      "name": "Cooperaci\u00f3n",
       "description": "Trabajar juntas hacia objetivos compartidos.",
-      "example": "La iniciativa climática internacional tuvo éxito gracias a la cooperación entre países que dejaron de lado diferencias para abordar retos ambientales comunes.",
-      "category": "Interpersonal",
+      "example": "La iniciativa clim\u00e1tica internacional tuvo \u00e9xito gracias a la cooperaci\u00f3n entre pa\u00edses que dejaron de lado diferencias para abordar retos ambientales comunes.",
       "tags": [
         "asistir",
         "ayudar",
@@ -614,9 +580,8 @@
     },
     {
       "name": "Coraje",
-      "description": "La capacidad de enfrentar el miedo, la dificultad o la incertidumbre con valentía y determinación.",
-      "example": "Mostró coraje al enfrentar el acoso laboral, denunciar la conducta aunque eso pusiera en riesgo su puesto.",
-      "category": "Core Values",
+      "description": "La capacidad de enfrentar el miedo, la dificultad o la incertidumbre con valent\u00eda y determinaci\u00f3n.",
+      "example": "Mostr\u00f3 coraje al enfrentar el acoso laboral, denunciar la conducta aunque eso pusiera en riesgo su puesto.",
       "tags": [
         "desafiar",
         "enfrentar",
@@ -631,13 +596,12 @@
       "language": "es"
     },
     {
-      "name": "Artesanía",
-      "description": "Crear cosas con habilidad, dedicación y atención al detalle.",
-      "example": "Su artesanía destacó en el mueble hecho a mano, donde cada unión fue pulida a la perfección tras horas de trabajo paciente.",
-      "category": "Growth",
+      "name": "Artesan\u00eda",
+      "description": "Crear cosas con habilidad, dedicaci\u00f3n y atenci\u00f3n al detalle.",
+      "example": "Su artesan\u00eda destac\u00f3 en el mueble hecho a mano, donde cada uni\u00f3n fue pulida a la perfecci\u00f3n tras horas de trabajo paciente.",
       "tags": [
         "crear",
-        "diseñar",
+        "dise\u00f1ar",
         "tallar",
         "pulir",
         "fabricar",
@@ -651,8 +615,7 @@
     {
       "name": "Creatividad",
       "description": "Generar ideas nuevas y originales para resolver problemas o expresarse.",
-      "example": "El equipo usó su creatividad para rediseñar el servicio, incorporando sugerencias de clientes y soluciones inesperadas.",
-      "category": "Growth",
+      "example": "El equipo us\u00f3 su creatividad para redise\u00f1ar el servicio, incorporando sugerencias de clientes y soluciones inesperadas.",
       "tags": [
         "imaginar",
         "inventar",
@@ -661,16 +624,15 @@
         "innovar",
         "combinar",
         "explorar",
-        "diseñar",
+        "dise\u00f1ar",
         "proponer"
       ],
       "language": "es"
     },
     {
       "name": "Curiosidad",
-      "description": "El deseo de aprender más y hacer preguntas sobre cómo funciona el mundo.",
-      "example": "Su curiosidad la llevó a investigar la historia de su barrio, descubriendo relatos olvidados que compartió en un podcast comunitario.",
-      "category": "Mindset",
+      "description": "El deseo de aprender m\u00e1s y hacer preguntas sobre c\u00f3mo funciona el mundo.",
+      "example": "Su curiosidad la llev\u00f3 a investigar la historia de su barrio, descubriendo relatos olvidados que comparti\u00f3 en un podcast comunitario.",
       "tags": [
         "preguntar",
         "investigar",
@@ -685,10 +647,9 @@
       "language": "es"
     },
     {
-      "name": "Determinación",
-      "description": "Mantener el esfuerzo constante para alcanzar una meta, incluso frente a obstáculos.",
-      "example": "La determinación de terminar el maratón la hizo entrenar antes del amanecer y seguir corriendo cuando el cansancio parecía vencerla.",
-      "category": "Growth",
+      "name": "Determinaci\u00f3n",
+      "description": "Mantener el esfuerzo constante para alcanzar una meta, incluso frente a obst\u00e1culos.",
+      "example": "La determinaci\u00f3n de terminar el marat\u00f3n la hizo entrenar antes del amanecer y seguir corriendo cuando el cansancio parec\u00eda vencerla.",
       "tags": [
         "persistir",
         "insistir",
@@ -704,9 +665,8 @@
     },
     {
       "name": "Disciplina",
-      "description": "Sostener hábitos y acciones ordenadas para cumplir compromisos y objetivos.",
-      "example": "Con disciplina, dedicó tiempo diario a practicar el piano, incluso cuando prefería descansar, y logró dominar piezas complejas.",
-      "category": "Personal",
+      "description": "Sostener h\u00e1bitos y acciones ordenadas para cumplir compromisos y objetivos.",
+      "example": "Con disciplina, dedic\u00f3 tiempo diario a practicar el piano, incluso cuando prefer\u00eda descansar, y logr\u00f3 dominar piezas complejas.",
       "tags": [
         "organizar",
         "planificar",
@@ -723,8 +683,7 @@
     {
       "name": "Efectividad",
       "description": "Lograr resultados deseados usando recursos de manera inteligente.",
-      "example": "La campaña demostró efectividad al combinar mensajes claros y un seguimiento cuidadoso, alcanzando las metas en menos tiempo del esperado.",
-      "category": "Growth",
+      "example": "La campa\u00f1a demostr\u00f3 efectividad al combinar mensajes claros y un seguimiento cuidadoso, alcanzando las metas en menos tiempo del esperado.",
       "tags": [
         "lograr",
         "optimizar",
@@ -739,17 +698,16 @@
       "language": "es"
     },
     {
-      "name": "Empatía",
+      "name": "Empat\u00eda",
       "description": "Comprender y compartir los sentimientos de otras personas.",
-      "example": "Demostró empatía al escuchar sin interrumpir a su compañera y reconocer cómo la decisión afectaba su bienestar.",
-      "category": "Social",
+      "example": "Demostr\u00f3 empat\u00eda al escuchar sin interrumpir a su compa\u00f1era y reconocer c\u00f3mo la decisi\u00f3n afectaba su bienestar.",
       "tags": [
         "comprender",
         "sentir",
         "escuchar",
         "acoger",
         "ponerse en el lugar",
-        "acompañar",
+        "acompa\u00f1ar",
         "apoyar",
         "reconocer",
         "resonar"
@@ -759,8 +717,7 @@
     {
       "name": "Igualdad",
       "description": "Tratar a todas las personas con el mismo valor y acceso a oportunidades.",
-      "example": "La organización promovió la igualdad al revisar sus políticas salariales para eliminar brechas injustificadas.",
-      "category": "Social",
+      "example": "La organizaci\u00f3n promovi\u00f3 la igualdad al revisar sus pol\u00edticas salariales para eliminar brechas injustificadas.",
       "tags": [
         "igualar",
         "equilibrar",
@@ -775,10 +732,9 @@
       "language": "es"
     },
     {
-      "name": "Experimentación",
+      "name": "Experimentaci\u00f3n",
       "description": "Probar ideas nuevas para aprender de los resultados.",
-      "example": "Implementó experimentación en el aula al permitir que el alumnado diseñara pequeñas pruebas para comprobar sus hipótesis científicas.",
-      "category": "Growth",
+      "example": "Implement\u00f3 experimentaci\u00f3n en el aula al permitir que el alumnado dise\u00f1ara peque\u00f1as pruebas para comprobar sus hip\u00f3tesis cient\u00edficas.",
       "tags": [
         "probar",
         "ensayar",
@@ -793,10 +749,9 @@
       "language": "es"
     },
     {
-      "name": "Exploración",
-      "description": "Investigar lo desconocido para descubrir información, lugares o experiencias.",
-      "example": "Su exploración de los humedales locales reveló especies poco documentadas y motivó un plan de conservación.",
-      "category": "Growth",
+      "name": "Exploraci\u00f3n",
+      "description": "Investigar lo desconocido para descubrir informaci\u00f3n, lugares o experiencias.",
+      "example": "Su exploraci\u00f3n de los humedales locales revel\u00f3 especies poco documentadas y motiv\u00f3 un plan de conservaci\u00f3n.",
       "tags": [
         "explorar",
         "recorrer",
@@ -813,8 +768,7 @@
     {
       "name": "Equidad",
       "description": "Tratar a las personas con justicia, sin favoritismos ni prejuicios.",
-      "example": "La jueza se esforzó por mantener la equidad al escuchar cada testimonio con atención y basar el fallo en los hechos.",
-      "category": "Core Values",
+      "example": "La jueza se esforz\u00f3 por mantener la equidad al escuchar cada testimonio con atenci\u00f3n y basar el fallo en los hechos.",
       "tags": [
         "equilibrar",
         "impartir",
@@ -830,14 +784,13 @@
     },
     {
       "name": "Familia",
-      "description": "La red de personas unidas por vínculos de afecto y cuidado mutuo.",
-      "example": "Su familia se reunió cada domingo para cocinar juntas, compartir historias y apoyarse en los retos de la semana.",
-      "category": "Interpersonal",
+      "description": "La red de personas unidas por v\u00ednculos de afecto y cuidado mutuo.",
+      "example": "Su familia se reuni\u00f3 cada domingo para cocinar juntas, compartir historias y apoyarse en los retos de la semana.",
       "tags": [
         "cuidar",
         "apoyar",
         "reunir",
-        "acompañar",
+        "acompa\u00f1ar",
         "amar",
         "compartir",
         "nutrir",
@@ -848,9 +801,8 @@
     },
     {
       "name": "Bellas Artes",
-      "description": "Valorar y cultivar expresiones artísticas que amplían la sensibilidad, inspiran reflexión y enriquecen la experiencia humana.",
-      "example": "Integró las bellas artes en la escuela para que el estudiantado explorara emociones complejas a través de música, pintura y teatro.",
-      "category": "Personal",
+      "description": "Valorar y cultivar expresiones art\u00edsticas que ampl\u00edan la sensibilidad, inspiran reflexi\u00f3n y enriquecen la experiencia humana.",
+      "example": "Integr\u00f3 las bellas artes en la escuela para que el estudiantado explorara emociones complejas a trav\u00e9s de m\u00fasica, pintura y teatro.",
       "tags": [
         "crear",
         "pintar",
@@ -867,8 +819,7 @@
     {
       "name": "Flexibilidad",
       "description": "Adaptarse a cambios y ajustar los planes con facilidad.",
-      "example": "Su flexibilidad permitió reconfigurar el proyecto cuando surgieron nuevas prioridades sin perder la dirección general.",
-      "category": "Mindset",
+      "example": "Su flexibilidad permiti\u00f3 reconfigurar el proyecto cuando surgieron nuevas prioridades sin perder la direcci\u00f3n general.",
       "tags": [
         "adaptarse",
         "ajustar",
@@ -883,10 +834,9 @@
       "language": "es"
     },
     {
-      "name": "Previsión",
+      "name": "Previsi\u00f3n",
       "description": "Anticipar necesidades futuras y prepararse para ellas.",
-      "example": "Gracias a su previsión, la organización invirtió en herramientas digitales antes de la crisis y pudo seguir operando sin interrupciones.",
-      "category": "Mindset",
+      "example": "Gracias a su previsi\u00f3n, la organizaci\u00f3n invirti\u00f3 en herramientas digitales antes de la crisis y pudo seguir operando sin interrupciones.",
       "tags": [
         "anticipar",
         "planear",
@@ -901,10 +851,9 @@
       "language": "es"
     },
     {
-      "name": "Perdón",
-      "description": "Liberar el resentimiento hacia quienes causaron daño y abrir espacio para sanar.",
-      "example": "Eligió el perdón cuando invitó a conversar a su amiga con quien había discutido, expresando cómo se sentía y acordando nuevas formas de cuidarse.",
-      "category": "Interpersonal",
+      "name": "Perd\u00f3n",
+      "description": "Liberar el resentimiento hacia quienes causaron da\u00f1o y abrir espacio para sanar.",
+      "example": "Eligi\u00f3 el perd\u00f3n cuando invit\u00f3 a conversar a su amiga con quien hab\u00eda discutido, expresando c\u00f3mo se sent\u00eda y acordando nuevas formas de cuidarse.",
       "tags": [
         "perdonar",
         "liberar",
@@ -921,8 +870,7 @@
     {
       "name": "Libertad",
       "description": "La capacidad de actuar y tomar decisiones sin restricciones injustas.",
-      "example": "La campaña defendió la libertad de prensa al exigir leyes que protegieran a periodistas de represalias.",
-      "category": "Core Values",
+      "example": "La campa\u00f1a defendi\u00f3 la libertad de prensa al exigir leyes que protegieran a periodistas de represalias.",
       "tags": [
         "liberar",
         "elegir",
@@ -938,11 +886,10 @@
     },
     {
       "name": "Amistad",
-      "description": "Una relación de confianza, cariño y apoyo mutuo entre personas.",
-      "example": "Su amistad se fortaleció al acompañarse en las buenas noticias y también en los momentos de duelo.",
-      "category": "Interpersonal",
+      "description": "Una relaci\u00f3n de confianza, cari\u00f1o y apoyo mutuo entre personas.",
+      "example": "Su amistad se fortaleci\u00f3 al acompa\u00f1arse en las buenas noticias y tambi\u00e9n en los momentos de duelo.",
       "tags": [
-        "acompañar",
+        "acompa\u00f1ar",
         "apoyar",
         "compartir",
         "escuchar",
@@ -955,14 +902,13 @@
       "language": "es"
     },
     {
-      "name": "Diversión",
-      "description": "Disfrutar actividades que generan alegría y juego.",
-      "example": "Organizaron una tarde de juegos cooperativos que llenó de diversión la sala y dejó al equipo con energía renovada.",
-      "category": "Personal",
+      "name": "Diversi\u00f3n",
+      "description": "Disfrutar actividades que generan alegr\u00eda y juego.",
+      "example": "Organizaron una tarde de juegos cooperativos que llen\u00f3 de diversi\u00f3n la sala y dej\u00f3 al equipo con energ\u00eda renovada.",
       "tags": [
         "disfrutar",
         "jugar",
-        "reír",
+        "re\u00edr",
         "celebrar",
         "explorar",
         "bromear",
@@ -974,16 +920,15 @@
     },
     {
       "name": "Gracia",
-      "description": "Actuar con elegancia, amabilidad y calma incluso en momentos difíciles.",
-      "example": "Respondió con gracia a la crítica inesperada, agradeciendo los comentarios y buscando maneras de mejorar.",
-      "category": "Interpersonal",
+      "description": "Actuar con elegancia, amabilidad y calma incluso en momentos dif\u00edciles.",
+      "example": "Respondi\u00f3 con gracia a la cr\u00edtica inesperada, agradeciendo los comentarios y buscando maneras de mejorar.",
       "tags": [
         "agradecer",
         "aceptar",
         "responder",
         "calmar",
         "acomodar",
-        "sonreír",
+        "sonre\u00edr",
         "escuchar",
         "apreciar",
         "sostener"
@@ -993,8 +938,7 @@
     {
       "name": "Gratitud",
       "description": "Reconocer y agradecer lo que se recibe de la vida y de otras personas.",
-      "example": "Cultivó gratitud al escribir cada noche tres cosas pequeñas que la hicieron sonreír durante el día.",
-      "category": "Mindset",
+      "example": "Cultiv\u00f3 gratitud al escribir cada noche tres cosas peque\u00f1as que la hicieron sonre\u00edr durante el d\u00eda.",
       "tags": [
         "agradecer",
         "reconocer",
@@ -1011,8 +955,7 @@
     {
       "name": "Crecimiento",
       "description": "Desarrollar habilidades, perspectivas y capacidades a lo largo del tiempo.",
-      "example": "Su crecimiento profesional se vio en cómo asumió nuevos retos y pidió retroalimentación constante.",
-      "category": "Growth",
+      "example": "Su crecimiento profesional se vio en c\u00f3mo asumi\u00f3 nuevos retos y pidi\u00f3 retroalimentaci\u00f3n constante.",
       "tags": [
         "crecer",
         "aprender",
@@ -1028,11 +971,10 @@
     },
     {
       "name": "Felicidad",
-      "description": "Un estado de bienestar y alegría sostenidos por experiencias significativas.",
-      "example": "Encontró felicidad al dedicar tiempo semanal al voluntariado con niñas y niños, lo que le recordaba su propósito.",
-      "category": "Aspirations",
+      "description": "Un estado de bienestar y alegr\u00eda sostenidos por experiencias significativas.",
+      "example": "Encontr\u00f3 felicidad al dedicar tiempo semanal al voluntariado con ni\u00f1as y ni\u00f1os, lo que le recordaba su prop\u00f3sito.",
       "tags": [
-        "sonreír",
+        "sonre\u00edr",
         "disfrutar",
         "celebrar",
         "agradecer",
@@ -1047,8 +989,7 @@
     {
       "name": "Salud",
       "description": "El bienestar integral del cuerpo y la mente.",
-      "example": "Priorizó su salud al combinar actividad física, descanso adecuado y visitas médicas regulares.",
-      "category": "Personal",
+      "example": "Prioriz\u00f3 su salud al combinar actividad f\u00edsica, descanso adecuado y visitas m\u00e9dicas regulares.",
       "tags": [
         "cuidar",
         "nutrir",
@@ -1065,8 +1006,7 @@
     {
       "name": "Historia",
       "description": "El estudio y la memoria de los eventos y personas del pasado.",
-      "example": "El archivo comunitario preservó la historia del vecindario recopilando fotografías y relatos de residentes mayores.",
-      "category": "Social",
+      "example": "El archivo comunitario preserv\u00f3 la historia del vecindario recopilando fotograf\u00edas y relatos de residentes mayores.",
       "tags": [
         "documentar",
         "recordar",
@@ -1075,7 +1015,7 @@
         "preservar",
         "contar",
         "analizar",
-        "enseñar",
+        "ense\u00f1ar",
         "reflexionar"
       ],
       "language": "es"
@@ -1083,8 +1023,7 @@
     {
       "name": "Honestidad",
       "description": "Decir la verdad y actuar con transparencia.",
-      "example": "La gerente mostró honestidad al reconocer un error en público y explicar cómo lo corregiría.",
-      "category": "Core Values",
+      "example": "La gerente mostr\u00f3 honestidad al reconocer un error en p\u00fablico y explicar c\u00f3mo lo corregir\u00eda.",
       "tags": [
         "decir",
         "revelar",
@@ -1101,8 +1040,7 @@
     {
       "name": "Honor",
       "description": "Actuar con integridad y respeto hacia los valores que consideras importantes.",
-      "example": "Eligió el honor al cumplir la promesa hecha a su equipo, incluso cuando implicó un sacrificio personal.",
-      "category": "Core Values",
+      "example": "Eligi\u00f3 el honor al cumplir la promesa hecha a su equipo, incluso cuando implic\u00f3 un sacrificio personal.",
       "tags": [
         "honrar",
         "respetar",
@@ -1119,13 +1057,12 @@
     {
       "name": "Esperanza",
       "description": "Creer que el futuro puede mejorar y trabajar para hacerlo posible.",
-      "example": "La comunidad mantuvo la esperanza al plantar un jardín colectivo después de la tormenta, simbolizando nuevos comienzos.",
-      "category": "Mindset",
+      "example": "La comunidad mantuvo la esperanza al plantar un jard\u00edn colectivo despu\u00e9s de la tormenta, simbolizando nuevos comienzos.",
       "tags": [
         "esperar",
         "confiar",
         "animar",
-        "soñar",
+        "so\u00f1ar",
         "visualizar",
         "impulsar",
         "apoyar",
@@ -1136,9 +1073,8 @@
     },
     {
       "name": "Humildad",
-      "description": "Reconocer tus límites y aprender de otras personas sin arrogancia.",
-      "example": "Demostró humildad al admitir que necesitaba ayuda y agradecer al equipo por compartir su experiencia.",
-      "category": "Core Values",
+      "description": "Reconocer tus l\u00edmites y aprender de otras personas sin arrogancia.",
+      "example": "Demostr\u00f3 humildad al admitir que necesitaba ayuda y agradecer al equipo por compartir su experiencia.",
       "tags": [
         "reconocer",
         "aprender",
@@ -1155,10 +1091,9 @@
     {
       "name": "Humor",
       "description": "Encontrar lo divertido en situaciones para aliviar tensiones y conectar con otras personas.",
-      "example": "Su humor ligero durante la reunión redujo la tensión y permitió retomar la conversación con más creatividad.",
-      "category": "Interpersonal",
+      "example": "Su humor ligero durante la reuni\u00f3n redujo la tensi\u00f3n y permiti\u00f3 retomar la conversaci\u00f3n con m\u00e1s creatividad.",
       "tags": [
-        "reír",
+        "re\u00edr",
         "bromear",
         "relajar",
         "aligerar",
@@ -1171,13 +1106,12 @@
       "language": "es"
     },
     {
-      "name": "Imaginación",
-      "description": "Crear imágenes e ideas en la mente para explorar posibilidades nuevas.",
-      "example": "La imaginación de la diseñadora dio vida a un prototipo que combinaba tecnología y tradición artesanal.",
-      "category": "Mindset",
+      "name": "Imaginaci\u00f3n",
+      "description": "Crear im\u00e1genes e ideas en la mente para explorar posibilidades nuevas.",
+      "example": "La imaginaci\u00f3n de la dise\u00f1adora dio vida a un prototipo que combinaba tecnolog\u00eda y tradici\u00f3n artesanal.",
       "tags": [
         "imaginar",
-        "soñar",
+        "so\u00f1ar",
         "visualizar",
         "crear",
         "explorar",
@@ -1191,8 +1125,7 @@
     {
       "name": "Impacto",
       "description": "Generar un cambio significativo en personas, sistemas o entornos.",
-      "example": "El programa tuvo impacto al reducir drásticamente el desperdicio de alimentos y fortalecer las redes de apoyo barrial.",
-      "category": "Social",
+      "example": "El programa tuvo impacto al reducir dr\u00e1sticamente el desperdicio de alimentos y fortalecer las redes de apoyo barrial.",
       "tags": [
         "impactar",
         "transformar",
@@ -1208,9 +1141,8 @@
     },
     {
       "name": "Independencia",
-      "description": "Tomar decisiones y actuar con autonomía.",
-      "example": "Buscó independencia al aprender a administrar sus finanzas y elegir la carrera que realmente deseaba.",
-      "category": "Personal",
+      "description": "Tomar decisiones y actuar con autonom\u00eda.",
+      "example": "Busc\u00f3 independencia al aprender a administrar sus finanzas y elegir la carrera que realmente deseaba.",
       "tags": [
         "autogestionar",
         "decidir",
@@ -1227,8 +1159,7 @@
     {
       "name": "Iniciativa",
       "description": "Dar el primer paso sin esperar instrucciones.",
-      "example": "Mostró iniciativa al crear un plan de bienvenida para las nuevas personas del equipo antes de que se lo solicitaran.",
-      "category": "Growth",
+      "example": "Mostr\u00f3 iniciativa al crear un plan de bienvenida para las nuevas personas del equipo antes de que se lo solicitaran.",
       "tags": [
         "iniciar",
         "proponer",
@@ -1245,8 +1176,7 @@
     {
       "name": "Paz interior",
       "description": "Un sentido de calma y equilibrio emocional que surge desde adentro.",
-      "example": "Cultivó paz interior mediante meditaciones breves durante el día y pausas conscientes para respirar.",
-      "category": "Aspirations",
+      "example": "Cultiv\u00f3 paz interior mediante meditaciones breves durante el d\u00eda y pausas conscientes para respirar.",
       "tags": [
         "respirar",
         "calmar",
@@ -1261,10 +1191,9 @@
       "language": "es"
     },
     {
-      "name": "Innovación",
+      "name": "Innovaci\u00f3n",
       "description": "Aplicar ideas nuevas para mejorar procesos, productos o servicios.",
-      "example": "La empresa impulsó la innovación al experimentar con materiales reciclados para sus empaques.",
-      "category": "Growth",
+      "example": "La empresa impuls\u00f3 la innovaci\u00f3n al experimentar con materiales reciclados para sus empaques.",
       "tags": [
         "innovar",
         "crear",
@@ -1281,8 +1210,7 @@
     {
       "name": "Integridad",
       "description": "Mantener coherencia entre valores, palabras y acciones.",
-      "example": "Su integridad se reflejó en que rechazó una oferta lucrativa que contradecía los principios de la organización.",
-      "category": "Core Values",
+      "example": "Su integridad se reflej\u00f3 en que rechaz\u00f3 una oferta lucrativa que contradec\u00eda los principios de la organizaci\u00f3n.",
       "tags": [
         "alinear",
         "respetar",
@@ -1297,10 +1225,9 @@
       "language": "es"
     },
     {
-      "name": "Intuición",
-      "description": "Confiar en la percepción interna para guiar decisiones.",
-      "example": "Siguió su intuición al modificar el diseño de la campaña, y la respuesta positiva confirmó su elección.",
-      "category": "Mindset",
+      "name": "Intuici\u00f3n",
+      "description": "Confiar en la percepci\u00f3n interna para guiar decisiones.",
+      "example": "Sigui\u00f3 su intuici\u00f3n al modificar el dise\u00f1o de la campa\u00f1a, y la respuesta positiva confirm\u00f3 su elecci\u00f3n.",
       "tags": [
         "intuir",
         "sentir",
@@ -1316,9 +1243,8 @@
     },
     {
       "name": "Justicia",
-      "description": "Promover un trato digno y equitativo para todas las personas, reconociendo desigualdades históricas y reparando daños cuando se vulneran derechos.",
-      "example": "La organización barrial impulsó la justicia al acompañar a familias frente a desalojos, traducir procesos legales y exigir políticas públicas más justas.",
-      "category": "Core Values",
+      "description": "Promover un trato digno y equitativo para todas las personas, reconociendo desigualdades hist\u00f3ricas y reparando da\u00f1os cuando se vulneran derechos.",
+      "example": "La organizaci\u00f3n barrial impuls\u00f3 la justicia al acompa\u00f1ar a familias frente a desalojos, traducir procesos legales y exigir pol\u00edticas p\u00fablicas m\u00e1s justas.",
       "tags": [
         "reparar",
         "defender",
@@ -1326,7 +1252,7 @@
         "denunciar",
         "garantizar",
         "equilibrar",
-        "acompañar",
+        "acompa\u00f1ar",
         "exigir",
         "transformar"
       ],
@@ -1334,16 +1260,15 @@
     },
     {
       "name": "Amabilidad",
-      "description": "Actuar con gentileza y consideración hacia otras personas.",
-      "example": "Mostró amabilidad al dejar notas de aliento anónimas en los escritorios de sus compañeros.",
-      "category": "Interpersonal",
+      "description": "Actuar con gentileza y consideraci\u00f3n hacia otras personas.",
+      "example": "Mostr\u00f3 amabilidad al dejar notas de aliento an\u00f3nimas en los escritorios de sus compa\u00f1eros.",
       "tags": [
         "cuidar",
         "apoyar",
-        "sonreír",
+        "sonre\u00edr",
         "escuchar",
         "ayudar",
-        "acompañar",
+        "acompa\u00f1ar",
         "animar",
         "ofrecer",
         "consolar"
@@ -1352,16 +1277,15 @@
     },
     {
       "name": "Conocimiento",
-      "description": "Comprender información, habilidades y experiencias que amplían la mente.",
-      "example": "Buscó conocimiento al inscribirse en cursos nocturnos sobre historia local y compartir lo aprendido en su comunidad.",
-      "category": "Growth",
+      "description": "Comprender informaci\u00f3n, habilidades y experiencias que ampl\u00edan la mente.",
+      "example": "Busc\u00f3 conocimiento al inscribirse en cursos nocturnos sobre historia local y compartir lo aprendido en su comunidad.",
       "tags": [
         "aprender",
         "estudiar",
         "investigar",
         "leer",
         "analizar",
-        "enseñar",
+        "ense\u00f1ar",
         "profundizar",
         "compartir",
         "memorizar"
@@ -1370,12 +1294,11 @@
     },
     {
       "name": "Risa",
-      "description": "Expresar alegría mediante carcajadas y sonrisas compartidas.",
-      "example": "La risa llenó la casa cuando la familia recordó anécdotas graciosas durante la cena.",
-      "category": "Interpersonal",
+      "description": "Expresar alegr\u00eda mediante carcajadas y sonrisas compartidas.",
+      "example": "La risa llen\u00f3 la casa cuando la familia record\u00f3 an\u00e9cdotas graciosas durante la cena.",
       "tags": [
-        "reír",
-        "sonreír",
+        "re\u00edr",
+        "sonre\u00edr",
         "bromear",
         "celebrar",
         "disfrutar",
@@ -1389,8 +1312,7 @@
     {
       "name": "Liderazgo",
       "description": "Inspirar y guiar a las personas para alcanzar objetivos comunes.",
-      "example": "Ejerció liderazgo al escuchar a su equipo, sintetizar ideas y marcar un rumbo claro durante la crisis.",
-      "category": "Interpersonal",
+      "example": "Ejerci\u00f3 liderazgo al escuchar a su equipo, sintetizar ideas y marcar un rumbo claro durante la crisis.",
       "tags": [
         "guiar",
         "inspirar",
@@ -1406,9 +1328,8 @@
     },
     {
       "name": "Aprendizaje",
-      "description": "Adquirir nueva comprensión a través de estudio y experiencia.",
-      "example": "El aprendizaje continuo del grupo se dio al reflexionar después de cada proyecto y ajustar su enfoque.",
-      "category": "Growth",
+      "description": "Adquirir nueva comprensi\u00f3n a trav\u00e9s de estudio y experiencia.",
+      "example": "El aprendizaje continuo del grupo se dio al reflexionar despu\u00e9s de cada proyecto y ajustar su enfoque.",
       "tags": [
         "aprender",
         "estudiar",
@@ -1425,14 +1346,13 @@
     {
       "name": "Legado",
       "description": "El impacto duradero que dejas en personas, instituciones o lugares.",
-      "example": "Su legado como mentora vive en las generaciones de líderes que apoyó y formó.",
-      "category": "Aspirations",
+      "example": "Su legado como mentora vive en las generaciones de l\u00edderes que apoy\u00f3 y form\u00f3.",
       "tags": [
         "trascender",
         "inspirar",
         "construir",
         "guiar",
-        "enseñar",
+        "ense\u00f1ar",
         "donar",
         "compartir",
         "impactar",
@@ -1443,13 +1363,12 @@
     {
       "name": "Amor",
       "description": "Un sentimiento profundo de afecto, cuidado y compromiso.",
-      "example": "Expresó amor al cuidar a su padre durante la recuperación, escuchando sus historias y manteniéndolo animado.",
-      "category": "Interpersonal",
+      "example": "Expres\u00f3 amor al cuidar a su padre durante la recuperaci\u00f3n, escuchando sus historias y manteni\u00e9ndolo animado.",
       "tags": [
         "amar",
         "cuidar",
         "abrazar",
-        "acompañar",
+        "acompa\u00f1ar",
         "apoyar",
         "proteger",
         "nutrir",
@@ -1461,8 +1380,7 @@
     {
       "name": "Lealtad",
       "description": "Mantener compromiso y apoyo constante hacia personas, causas o comunidades.",
-      "example": "Su lealtad se evidenció al permanecer con el equipo en tiempos difíciles y defender sus necesidades.",
-      "category": "Interpersonal",
+      "example": "Su lealtad se evidenci\u00f3 al permanecer con el equipo en tiempos dif\u00edciles y defender sus necesidades.",
       "tags": [
         "respaldar",
         "apoyar",
@@ -1470,7 +1388,7 @@
         "permanecer",
         "defender",
         "honrar",
-        "acompañar",
+        "acompa\u00f1ar",
         "sostener",
         "proteger"
       ],
@@ -1479,8 +1397,7 @@
     {
       "name": "Lujo",
       "description": "Disfrutar comodidades y experiencias exclusivas que superan lo necesario.",
-      "example": "Para su aniversario eligieron el lujo de un viaje enológico con cenas privadas y alojamiento histórico.",
-      "category": "Personal",
+      "example": "Para su aniversario eligieron el lujo de un viaje enol\u00f3gico con cenas privadas y alojamiento hist\u00f3rico.",
       "tags": [
         "disfrutar",
         "consentir",
@@ -1495,10 +1412,9 @@
       "language": "es"
     },
     {
-      "name": "Meditación",
-      "description": "Practicar la atención consciente para calmar la mente y el cuerpo.",
-      "example": "Incorporó la meditación a su rutina al dedicar diez minutos diarios a observar la respiración.",
-      "category": "Personal",
+      "name": "Meditaci\u00f3n",
+      "description": "Practicar la atenci\u00f3n consciente para calmar la mente y el cuerpo.",
+      "example": "Incorpor\u00f3 la meditaci\u00f3n a su rutina al dedicar diez minutos diarios a observar la respiraci\u00f3n.",
       "tags": [
         "meditar",
         "respirar",
@@ -1514,9 +1430,8 @@
     },
     {
       "name": "Salud mental",
-      "description": "El bienestar emocional, psicológico y social que permite manejar el estrés y relacionarse de forma equilibrada.",
-      "example": "Protegió su salud mental al asistir a terapia, establecer límites claros y mantenerse conectada con amistades de confianza.",
-      "category": "Personal",
+      "description": "El bienestar emocional, psicol\u00f3gico y social que permite manejar el estr\u00e9s y relacionarse de forma equilibrada.",
+      "example": "Protegi\u00f3 su salud mental al asistir a terapia, establecer l\u00edmites claros y mantenerse conectada con amistades de confianza.",
       "tags": [
         "cuidar",
         "hablar",
@@ -1531,16 +1446,15 @@
       "language": "es"
     },
     {
-      "name": "Mentoría",
-      "description": "Acompañar y guiar a otras personas para apoyar su crecimiento.",
-      "example": "La mentoría se reflejó en las reuniones mensuales donde revisaba objetivos y conectaba a su aprendiz con oportunidades.",
-      "category": "Interpersonal",
+      "name": "Mentor\u00eda",
+      "description": "Acompa\u00f1ar y guiar a otras personas para apoyar su crecimiento.",
+      "example": "La mentor\u00eda se reflej\u00f3 en las reuniones mensuales donde revisaba objetivos y conectaba a su aprendiz con oportunidades.",
       "tags": [
         "guiar",
         "aconsejar",
         "escuchar",
         "apoyar",
-        "enseñar",
+        "ense\u00f1ar",
         "conectar",
         "orientar",
         "motivar",
@@ -1550,9 +1464,8 @@
     },
     {
       "name": "Conciencia plena",
-      "description": "Prestar atención al momento presente con apertura y sin juicio, para responder con mayor claridad y calma.",
-      "example": "Practicó conciencia plena al notar su respiración durante una conversación tensa, lo que le permitió escuchar mejor y responder sin reaccionar impulsivamente.",
-      "category": "Mindset",
+      "description": "Prestar atenci\u00f3n al momento presente con apertura y sin juicio, para responder con mayor claridad y calma.",
+      "example": "Practic\u00f3 conciencia plena al notar su respiraci\u00f3n durante una conversaci\u00f3n tensa, lo que le permiti\u00f3 escuchar mejor y responder sin reaccionar impulsivamente.",
       "tags": [
         "atender",
         "observar",
@@ -1567,10 +1480,9 @@
       "language": "es"
     },
     {
-      "name": "Misión",
-      "description": "El propósito central que guía acciones y decisiones.",
-      "example": "El equipo actualizó su misión para enfocarse en reducir el desperdicio alimentario en la región.",
-      "category": "Aspirations",
+      "name": "Misi\u00f3n",
+      "description": "El prop\u00f3sito central que gu\u00eda acciones y decisiones.",
+      "example": "El equipo actualiz\u00f3 su misi\u00f3n para enfocarse en reducir el desperdicio alimentario en la regi\u00f3n.",
       "tags": [
         "definir",
         "enfocar",
@@ -1587,8 +1499,7 @@
     {
       "name": "Dinero",
       "description": "Un recurso que permite intercambiar bienes y servicios y apoyar objetivos.",
-      "example": "Administró su dinero creando un presupuesto que incluía ahorro, donaciones y gastos esenciales.",
-      "category": "Aspirations",
+      "example": "Administr\u00f3 su dinero creando un presupuesto que inclu\u00eda ahorro, donaciones y gastos esenciales.",
       "tags": [
         "ahorrar",
         "invertir",
@@ -1604,9 +1515,8 @@
     },
     {
       "name": "Movimiento",
-      "description": "Mantener el cuerpo activo para fortalecer la salud y la energía.",
-      "example": "Integró movimiento en su jornada al caminar al trabajo y practicar danza por la noche.",
-      "category": "Personal",
+      "description": "Mantener el cuerpo activo para fortalecer la salud y la energ\u00eda.",
+      "example": "Integr\u00f3 movimiento en su jornada al caminar al trabajo y practicar danza por la noche.",
       "tags": [
         "moverse",
         "caminar",
@@ -1623,8 +1533,7 @@
     {
       "name": "Redes",
       "description": "Crear y mantener relaciones profesionales de apoyo mutuo.",
-      "example": "Fortaleció sus redes al asistir a encuentros del sector y conectar colegas que podían colaborar.",
-      "category": "Interpersonal",
+      "example": "Fortaleci\u00f3 sus redes al asistir a encuentros del sector y conectar colegas que pod\u00edan colaborar.",
       "tags": [
         "conectar",
         "presentar",
@@ -1641,8 +1550,7 @@
     {
       "name": "Mente abierta",
       "description": "Estar dispuesto a considerar nuevas ideas y perspectivas sin juicio inmediato.",
-      "example": "Mostró mente abierta al escuchar a la comunidad local antes de diseñar el programa.",
-      "category": "Mindset",
+      "example": "Mostr\u00f3 mente abierta al escuchar a la comunidad local antes de dise\u00f1ar el programa.",
       "tags": [
         "escuchar",
         "considerar",
@@ -1658,14 +1566,13 @@
     },
     {
       "name": "Optimismo",
-      "description": "Mantener una visión positiva sobre el futuro y las posibilidades.",
-      "example": "Su optimismo motivó al equipo a seguir buscando soluciones creativas incluso después de varios intentos fallidos.",
-      "category": "Mindset",
+      "description": "Mantener una visi\u00f3n positiva sobre el futuro y las posibilidades.",
+      "example": "Su optimismo motiv\u00f3 al equipo a seguir buscando soluciones creativas incluso despu\u00e9s de varios intentos fallidos.",
       "tags": [
         "confiar",
         "esperar",
         "animar",
-        "sonreír",
+        "sonre\u00edr",
         "visualizar",
         "impulsar",
         "apoyar",
@@ -1676,9 +1583,8 @@
     },
     {
       "name": "Alianza",
-      "description": "Colaborar con otra persona u organización para compartir responsabilidades y beneficios.",
-      "example": "La alianza entre la cooperativa y la universidad permitió lanzar un programa de capacitación accesible.",
-      "category": "Interpersonal",
+      "description": "Colaborar con otra persona u organizaci\u00f3n para compartir responsabilidades y beneficios.",
+      "example": "La alianza entre la cooperativa y la universidad permiti\u00f3 lanzar un programa de capacitaci\u00f3n accesible.",
       "tags": [
         "aliarse",
         "cooperar",
@@ -1695,12 +1601,11 @@
     {
       "name": "Paciencia",
       "description": "Esperar con calma y perseverancia sin frustrarse.",
-      "example": "Practicar paciencia le permitió acompañar a su hijo en el aprendizaje de la lectura sin presionarlo.",
-      "category": "Mindset",
+      "example": "Practicar paciencia le permiti\u00f3 acompa\u00f1ar a su hijo en el aprendizaje de la lectura sin presionarlo.",
       "tags": [
         "esperar",
         "respirar",
-        "acompañar",
+        "acompa\u00f1ar",
         "escuchar",
         "soportar",
         "persistir",
@@ -1712,9 +1617,8 @@
     },
     {
       "name": "Perseverancia",
-      "description": "Continuar trabajando hacia una meta pese a obstáculos repetidos.",
-      "example": "Su perseverancia quedó demostrada al presentar la iniciativa ante múltiples comités hasta obtener aprobación.",
-      "category": "Growth",
+      "description": "Continuar trabajando hacia una meta pese a obst\u00e1culos repetidos.",
+      "example": "Su perseverancia qued\u00f3 demostrada al presentar la iniciativa ante m\u00faltiples comit\u00e9s hasta obtener aprobaci\u00f3n.",
       "tags": [
         "persistir",
         "insistir",
@@ -1729,10 +1633,9 @@
       "language": "es"
     },
     {
-      "name": "Filantropía",
-      "description": "Donar recursos, tiempo o talento para apoyar el bien común.",
-      "example": "Su filantropía se manifestó al financiar becas y asesorar a jóvenes emprendedores de comunidades rurales.",
-      "category": "Social",
+      "name": "Filantrop\u00eda",
+      "description": "Donar recursos, tiempo o talento para apoyar el bien com\u00fan.",
+      "example": "Su filantrop\u00eda se manifest\u00f3 al financiar becas y asesorar a j\u00f3venes emprendedores de comunidades rurales.",
       "tags": [
         "donar",
         "apoyar",
@@ -1740,17 +1643,16 @@
         "compartir",
         "impulsar",
         "financiar",
-        "acompañar",
+        "acompa\u00f1ar",
         "servir",
         "sostener"
       ],
       "language": "es"
     },
     {
-      "name": "Salud física",
-      "description": "El estado de cuidado del cuerpo mediante actividad, nutrición y descanso.",
-      "example": "Cultivó su salud física al preparar comidas nutritivas y mantener un plan de ejercicios moderados.",
-      "category": "Personal",
+      "name": "Salud f\u00edsica",
+      "description": "El estado de cuidado del cuerpo mediante actividad, nutrici\u00f3n y descanso.",
+      "example": "Cultiv\u00f3 su salud f\u00edsica al preparar comidas nutritivas y mantener un plan de ejercicios moderados.",
       "tags": [
         "moverse",
         "alimentar",
@@ -1766,9 +1668,8 @@
     },
     {
       "name": "Piedad",
-      "description": "Demostrar devoción espiritual o religiosa mediante prácticas respetuosas.",
-      "example": "Su piedad se reflejaba en rituales diarios de oración y servicio voluntario en su comunidad de fe.",
-      "category": "Core Values",
+      "description": "Demostrar devoci\u00f3n espiritual o religiosa mediante pr\u00e1cticas respetuosas.",
+      "example": "Su piedad se reflejaba en rituales diarios de oraci\u00f3n y servicio voluntario en su comunidad de fe.",
       "tags": [
         "orar",
         "honrar",
@@ -1785,13 +1686,12 @@
     {
       "name": "Actitud positiva",
       "description": "Enfocar los pensamientos en posibilidades constructivas incluso ante retos.",
-      "example": "Mantuvo una actitud positiva al reconocer cada pequeño avance del equipo durante la reestructuración.",
-      "category": "Mindset",
+      "example": "Mantuvo una actitud positiva al reconocer cada peque\u00f1o avance del equipo durante la reestructuraci\u00f3n.",
       "tags": [
         "animar",
         "motivar",
         "agradecer",
-        "sonreír",
+        "sonre\u00edr",
         "reencuadrar",
         "apoyar",
         "confiar",
@@ -1802,9 +1702,8 @@
     },
     {
       "name": "Pragmatismo",
-      "description": "Tomar decisiones basadas en lo que funciona en la práctica.",
-      "example": "Mostró pragmatismo al ajustar el plan con recursos disponibles en lugar de esperar condiciones perfectas.",
-      "category": "Mindset",
+      "description": "Tomar decisiones basadas en lo que funciona en la pr\u00e1ctica.",
+      "example": "Mostr\u00f3 pragmatismo al ajustar el plan con recursos disponibles en lugar de esperar condiciones perfectas.",
       "tags": [
         "evaluar",
         "adaptar",
@@ -1820,16 +1719,15 @@
     },
     {
       "name": "Presencia",
-      "description": "Participar plenamente en el momento, mostrando atención genuina.",
-      "example": "Ofreció presencia al guardar el teléfono y escuchar con interés durante la conversación difícil.",
-      "category": "Mindset",
+      "description": "Participar plenamente en el momento, mostrando atenci\u00f3n genuina.",
+      "example": "Ofreci\u00f3 presencia al guardar el tel\u00e9fono y escuchar con inter\u00e9s durante la conversaci\u00f3n dif\u00edcil.",
       "tags": [
         "estar",
         "escuchar",
         "atender",
         "observar",
         "conectar",
-        "acompañar",
+        "acompa\u00f1ar",
         "centrar",
         "participar",
         "sostener"
@@ -1838,9 +1736,8 @@
     },
     {
       "name": "Profesionalismo",
-      "description": "Actuar con responsabilidad, ética y calidad en el trabajo.",
-      "example": "Su profesionalismo se notó en la puntualidad, la comunicación clara y la preparación detallada de cada reunión.",
-      "category": "Core Values",
+      "description": "Actuar con responsabilidad, \u00e9tica y calidad en el trabajo.",
+      "example": "Su profesionalismo se not\u00f3 en la puntualidad, la comunicaci\u00f3n clara y la preparaci\u00f3n detallada de cada reuni\u00f3n.",
       "tags": [
         "cumplir",
         "organizar",
@@ -1855,10 +1752,9 @@
       "language": "es"
     },
     {
-      "name": "Propósito",
-      "description": "La razón significativa que orienta tus decisiones y energía.",
-      "example": "Reafirmó su propósito al dedicar el proyecto a ampliar el acceso a la educación en su barrio.",
-      "category": "Aspirations",
+      "name": "Prop\u00f3sito",
+      "description": "La raz\u00f3n significativa que orienta tus decisiones y energ\u00eda.",
+      "example": "Reafirm\u00f3 su prop\u00f3sito al dedicar el proyecto a ampliar el acceso a la educaci\u00f3n en su barrio.",
       "tags": [
         "definir",
         "enfocar",
@@ -1874,9 +1770,8 @@
     },
     {
       "name": "Calidad",
-      "description": "Ofrecer resultados excelentes mediante atención al detalle y mejora continua.",
-      "example": "El equipo protegió la calidad al revisar cada entregable y aprender de la retroalimentación.",
-      "category": "Core Values",
+      "description": "Ofrecer resultados excelentes mediante atenci\u00f3n al detalle y mejora continua.",
+      "example": "El equipo protegi\u00f3 la calidad al revisar cada entregable y aprender de la retroalimentaci\u00f3n.",
       "tags": [
         "mejorar",
         "perfeccionar",
@@ -1894,7 +1789,6 @@
       "name": "Reconocimiento",
       "description": "Apreciar y celebrar las contribuciones de otras personas.",
       "example": "Instituyeron un momento semanal de reconocimiento para destacar logros individuales y colectivos.",
-      "category": "Aspirations",
       "tags": [
         "reconocer",
         "agradecer",
@@ -1909,10 +1803,9 @@
       "language": "es"
     },
     {
-      "name": "Recuperación",
-      "description": "Regresar a un estado saludable después de una dificultad.",
-      "example": "Su recuperación avanzó al recibir fisioterapia constante y apoyo emocional de sus amigos.",
-      "category": "Growth",
+      "name": "Recuperaci\u00f3n",
+      "description": "Regresar a un estado saludable despu\u00e9s de una dificultad.",
+      "example": "Su recuperaci\u00f3n avanz\u00f3 al recibir fisioterapia constante y apoyo emocional de sus amigos.",
       "tags": [
         "recuperar",
         "sanar",
@@ -1929,8 +1822,7 @@
     {
       "name": "Fiabilidad",
       "description": "Ser consistente y cumplir lo que se promete.",
-      "example": "La fiabilidad de la voluntaria se reflejó en que nunca faltó a sus turnos y siempre completó sus tareas.",
-      "category": "Core Values",
+      "example": "La fiabilidad de la voluntaria se reflej\u00f3 en que nunca falt\u00f3 a sus turnos y siempre complet\u00f3 sus tareas.",
       "tags": [
         "cumplir",
         "responder",
@@ -1945,10 +1837,9 @@
       "language": "es"
     },
     {
-      "name": "Representación",
+      "name": "Representaci\u00f3n",
       "description": "Dar voz y visibilidad a personas y perspectivas diversas.",
-      "example": "Trabajaron por la representación al incluir artistas indígenas en la curaduría del festival.",
-      "category": "Social",
+      "example": "Trabajaron por la representaci\u00f3n al incluir artistas ind\u00edgenas en la curadur\u00eda del festival.",
       "tags": [
         "representar",
         "visibilizar",
@@ -1965,8 +1856,7 @@
     {
       "name": "Resiliencia",
       "description": "Adaptarse y recuperarse tras adversidades.",
-      "example": "La resiliencia de la comunidad se vio en cómo reconstruyó viviendas y fortaleció redes de apoyo tras la inundación.",
-      "category": "Growth",
+      "example": "La resiliencia de la comunidad se vio en c\u00f3mo reconstruy\u00f3 viviendas y fortaleci\u00f3 redes de apoyo tras la inundaci\u00f3n.",
       "tags": [
         "resistir",
         "recuperar",
@@ -1983,8 +1873,7 @@
     {
       "name": "Respeto",
       "description": "Reconocer el valor de otras personas y tratarlas con dignidad.",
-      "example": "Demostró respeto al escuchar opiniones opuestas sin interrumpir y agradeciendo la honestidad.",
-      "category": "Interpersonal",
+      "example": "Demostr\u00f3 respeto al escuchar opiniones opuestas sin interrumpir y agradeciendo la honestidad.",
       "tags": [
         "respetar",
         "escuchar",
@@ -2001,8 +1890,7 @@
     {
       "name": "Responsabilidad",
       "description": "Responder por tus acciones y cuidar las consecuencias para otras personas.",
-      "example": "Mostró responsabilidad al admitir su error y trabajar con el equipo para corregir el proceso.",
-      "category": "Core Values",
+      "example": "Mostr\u00f3 responsabilidad al admitir su error y trabajar con el equipo para corregir el proceso.",
       "tags": [
         "asumir",
         "cumplir",
@@ -2018,9 +1906,8 @@
     },
     {
       "name": "Romance",
-      "description": "Cultivar la intimidad y el afecto en una relación amorosa.",
+      "description": "Cultivar la intimidad y el afecto en una relaci\u00f3n amorosa.",
       "example": "Revivieron el romance al planear citas mensuales que celebraban su historia compartida.",
-      "category": "Interpersonal",
       "tags": [
         "enamorar",
         "cuidar",
@@ -2036,9 +1923,8 @@
     },
     {
       "name": "Seguridad",
-      "description": "Crear entornos donde las personas se sientan protegidas y libres de daño.",
-      "example": "El vecindario mejoró la seguridad al instalar iluminación comunitaria y organizar rondas de acompañamiento.",
-      "category": "Personal",
+      "description": "Crear entornos donde las personas se sientan protegidas y libres de da\u00f1o.",
+      "example": "El vecindario mejor\u00f3 la seguridad al instalar iluminaci\u00f3n comunitaria y organizar rondas de acompa\u00f1amiento.",
       "tags": [
         "proteger",
         "vigilar",
@@ -2054,15 +1940,14 @@
     },
     {
       "name": "Autocuidado",
-      "description": "Atender tus necesidades físicas, emocionales y espirituales.",
-      "example": "Practicó autocuidado al bloquear tiempo para descansar, comer bien y decir no a compromisos excesivos.",
-      "category": "Personal",
+      "description": "Atender tus necesidades f\u00edsicas, emocionales y espirituales.",
+      "example": "Practic\u00f3 autocuidado al bloquear tiempo para descansar, comer bien y decir no a compromisos excesivos.",
       "tags": [
         "cuidarse",
         "nutrirse",
         "descansar",
         "escuchar",
-        "poner límites",
+        "poner l\u00edmites",
         "renovar",
         "priorizarse",
         "respirar",
@@ -2071,10 +1956,9 @@
       "language": "es"
     },
     {
-      "name": "Autoexpresión",
-      "description": "Comunicar tus ideas y sentimientos de forma auténtica.",
-      "example": "Encontró autoexpresión a través de un blog donde compartía crónicas de su barrio.",
-      "category": "Personal",
+      "name": "Autoexpresi\u00f3n",
+      "description": "Comunicar tus ideas y sentimientos de forma aut\u00e9ntica.",
+      "example": "Encontr\u00f3 autoexpresi\u00f3n a trav\u00e9s de un blog donde compart\u00eda cr\u00f3nicas de su barrio.",
       "tags": [
         "expresarse",
         "compartir",
@@ -2089,10 +1973,9 @@
       "language": "es"
     },
     {
-      "name": "Autorrealización",
-      "description": "Alcanzar tu máximo potencial viviendo de acuerdo con tus talentos y valores.",
-      "example": "Buscó la autorrealización al emprender un proyecto social que combinaba su experiencia y su pasión.",
-      "category": "Aspirations",
+      "name": "Autorrealizaci\u00f3n",
+      "description": "Alcanzar tu m\u00e1ximo potencial viviendo de acuerdo con tus talentos y valores.",
+      "example": "Busc\u00f3 la autorrealizaci\u00f3n al emprender un proyecto social que combinaba su experiencia y su pasi\u00f3n.",
       "tags": [
         "realizarse",
         "crecer",
@@ -2109,8 +1992,7 @@
     {
       "name": "Autoconciencia",
       "description": "Reconocer tus emociones, motivaciones y patrones de comportamiento.",
-      "example": "Su autoconciencia aumentó al llevar un diario donde analizaba reacciones y desencadenantes.",
-      "category": "Growth",
+      "example": "Su autoconciencia aument\u00f3 al llevar un diario donde analizaba reacciones y desencadenantes.",
       "tags": [
         "observarse",
         "reflexionar",
@@ -2125,10 +2007,9 @@
       "language": "es"
     },
     {
-      "name": "Autocompasión",
-      "description": "Tratarte con amabilidad y comprensión cuando enfrentas dificultades.",
-      "example": "Practicó autocompasión al hablarse con cariño después de un error en lugar de criticarse.",
-      "category": "Personal",
+      "name": "Autocompasi\u00f3n",
+      "description": "Tratarte con amabilidad y comprensi\u00f3n cuando enfrentas dificultades.",
+      "example": "Practic\u00f3 autocompasi\u00f3n al hablarse con cari\u00f1o despu\u00e9s de un error en lugar de criticarse.",
       "tags": [
         "abrazarse",
         "cuidarse",
@@ -2145,8 +2026,7 @@
     {
       "name": "Autocontrol",
       "description": "Regular impulsos y comportamientos para mantener el enfoque en tus objetivos.",
-      "example": "Demostró autocontrol al pausar antes de responder un correo conflictivo y elegir un tono constructivo.",
-      "category": "Personal",
+      "example": "Demostr\u00f3 autocontrol al pausar antes de responder un correo conflictivo y elegir un tono constructivo.",
       "tags": [
         "regularse",
         "respirar",
@@ -2163,15 +2043,14 @@
     {
       "name": "Altruismo",
       "description": "Priorizar el bienestar de otras personas sin esperar recompensas.",
-      "example": "Su altruismo se evidenció al donar su bono anual al fondo de emergencia del barrio.",
-      "category": "Interpersonal",
+      "example": "Su altruismo se evidenci\u00f3 al donar su bono anual al fondo de emergencia del barrio.",
       "tags": [
         "servir",
         "donar",
         "cuidar",
         "apoyar",
         "ofrecer",
-        "acompañar",
+        "acompa\u00f1ar",
         "sacrificar",
         "compartir",
         "proteger"
@@ -2180,16 +2059,15 @@
     },
     {
       "name": "Servicio",
-      "description": "Contribuir al bienestar de otras personas a través de acciones concretas.",
-      "example": "Practicar servicio significó preparar paquetes de alimentos cada fin de semana para familias necesitadas.",
-      "category": "Social",
+      "description": "Contribuir al bienestar de otras personas a trav\u00e9s de acciones concretas.",
+      "example": "Practicar servicio signific\u00f3 preparar paquetes de alimentos cada fin de semana para familias necesitadas.",
       "tags": [
         "servir",
         "apoyar",
         "ayudar",
         "ofrecer",
         "entregar",
-        "acompañar",
+        "acompa\u00f1ar",
         "colaborar",
         "cuidar",
         "sostener"
@@ -2197,10 +2075,9 @@
       "language": "es"
     },
     {
-      "name": "Soberanía",
-      "description": "Ejercer la autoridad y la autodeterminación sin injerencias externas.",
-      "example": "El movimiento defendió la soberanía alimentaria al impulsar huertos comunitarios administrados por residentes.",
-      "category": "Core Values",
+      "name": "Soberan\u00eda",
+      "description": "Ejercer la autoridad y la autodeterminaci\u00f3n sin injerencias externas.",
+      "example": "El movimiento defendi\u00f3 la soberan\u00eda alimentaria al impulsar huertos comunitarios administrados por residentes.",
       "tags": [
         "autogobernar",
         "decidir",
@@ -2216,9 +2093,8 @@
     },
     {
       "name": "Espiritualidad",
-      "description": "Buscar conexión con lo trascendente y cultivar sentido interior.",
+      "description": "Buscar conexi\u00f3n con lo trascendente y cultivar sentido interior.",
       "example": "Su espiritualidad se expresaba mediante caminatas contemplativas y momentos de gratitud diaria.",
-      "category": "Core Values",
       "tags": [
         "conectar",
         "meditar",
@@ -2234,9 +2110,8 @@
     },
     {
       "name": "Deportes",
-      "description": "Participar en actividades físicas organizadas para disfrutar, competir y aprender trabajo en equipo.",
-      "example": "Los deportes escolares fomentaron disciplina y amistad entre jóvenes de distintos barrios.",
-      "category": "Personal",
+      "description": "Participar en actividades f\u00edsicas organizadas para disfrutar, competir y aprender trabajo en equipo.",
+      "example": "Los deportes escolares fomentaron disciplina y amistad entre j\u00f3venes de distintos barrios.",
       "tags": [
         "jugar",
         "competir",
@@ -2252,9 +2127,8 @@
     },
     {
       "name": "Juego limpio",
-      "description": "Actuar con respeto, honestidad y cortesía durante la competencia.",
-      "example": "Su juego limpio se vio cuando felicitó a la rival y reconoció sus errores ante el árbitro.",
-      "category": "Interpersonal",
+      "description": "Actuar con respeto, honestidad y cortes\u00eda durante la competencia.",
+      "example": "Su juego limpio se vio cuando felicit\u00f3 a la rival y reconoci\u00f3 sus errores ante el \u00e1rbitro.",
       "tags": [
         "respetar",
         "felicitar",
@@ -2264,15 +2138,14 @@
         "aplaudir",
         "honrar",
         "cumplir",
-        "sonreír"
+        "sonre\u00edr"
       ],
       "language": "es"
     },
     {
       "name": "Estabilidad",
       "description": "Mantener una base segura y predecible en la vida.",
-      "example": "Creó estabilidad al establecer un presupuesto, un horario regular y redes de apoyo confiables.",
-      "category": "Personal",
+      "example": "Cre\u00f3 estabilidad al establecer un presupuesto, un horario regular y redes de apoyo confiables.",
       "tags": [
         "equilibrar",
         "organizar",
@@ -2288,9 +2161,8 @@
     },
     {
       "name": "Custodia responsable",
-      "description": "Cuidar y administrar recursos, relaciones y espacios con visión de largo plazo, pensando en el bienestar colectivo y de las futuras generaciones.",
-      "example": "El equipo practicó custodia responsable al reducir desperdicios, reparar equipos antes de reemplazarlos y medir el impacto ambiental de sus decisiones.",
-      "category": "Social",
+      "description": "Cuidar y administrar recursos, relaciones y espacios con visi\u00f3n de largo plazo, pensando en el bienestar colectivo y de las futuras generaciones.",
+      "example": "El equipo practic\u00f3 custodia responsable al reducir desperdicios, reparar equipos antes de reemplazarlos y medir el impacto ambiental de sus decisiones.",
       "tags": [
         "cuidar",
         "administrar",
@@ -2306,9 +2178,8 @@
     },
     {
       "name": "Quietud",
-      "description": "Crear espacios de silencio y calma para recuperar energía.",
-      "example": "Buscó quietud al reservar unos minutos cada mañana para observar el amanecer sin distracciones.",
-      "category": "Personal",
+      "description": "Crear espacios de silencio y calma para recuperar energ\u00eda.",
+      "example": "Busc\u00f3 quietud al reservar unos minutos cada ma\u00f1ana para observar el amanecer sin distracciones.",
       "tags": [
         "silenciar",
         "respirar",
@@ -2325,14 +2196,13 @@
     {
       "name": "Estrategia",
       "description": "Planificar acciones coordinadas para alcanzar objetivos a largo plazo.",
-      "example": "El liderazgo diseñó una estrategia que alineaba inversiones, capacitación y mediciones de impacto.",
-      "category": "Mindset",
+      "example": "El liderazgo dise\u00f1\u00f3 una estrategia que alineaba inversiones, capacitaci\u00f3n y mediciones de impacto.",
       "tags": [
         "planificar",
         "analizar",
         "priorizar",
         "coordinar",
-        "diseñar",
+        "dise\u00f1ar",
         "anticipar",
         "organizar",
         "evaluar",
@@ -2343,8 +2213,7 @@
     {
       "name": "Sostenibilidad",
       "description": "Satisfacer necesidades presentes sin comprometer las de futuras generaciones.",
-      "example": "El edificio se diseñó con sostenibilidad al utilizar energía renovable, sistemas de recuperación de agua y materiales de bajo impacto.",
-      "category": "Social",
+      "example": "El edificio se dise\u00f1\u00f3 con sostenibilidad al utilizar energ\u00eda renovable, sistemas de recuperaci\u00f3n de agua y materiales de bajo impacto.",
       "tags": [
         "mantener",
         "conservar",
@@ -2360,9 +2229,8 @@
     },
     {
       "name": "Sinergia",
-      "description": "Trabajar en conjunto de manera que los resultados superen lo que cada persona lograría por separado.",
-      "example": "Los equipos de marketing y producto lograron sinergia al colaborar estrechamente y crear innovaciones más alineadas con las necesidades de clientes.",
-      "category": "Interpersonal",
+      "description": "Trabajar en conjunto de manera que los resultados superen lo que cada persona lograr\u00eda por separado.",
+      "example": "Los equipos de marketing y producto lograron sinergia al colaborar estrechamente y crear innovaciones m\u00e1s alineadas con las necesidades de clientes.",
       "tags": [
         "combinar",
         "unir",
@@ -2377,12 +2245,11 @@
       "language": "es"
     },
     {
-      "name": "Enseñanza",
-      "description": "Ayudar a otras personas a aprender mediante guía y compartir conocimiento.",
-      "example": "La mentora destacó en la enseñanza al adaptar su enfoque a cada estilo de aprendizaje y ofrecer práctica guiada.",
-      "category": "Interpersonal",
+      "name": "Ense\u00f1anza",
+      "description": "Ayudar a otras personas a aprender mediante gu\u00eda y compartir conocimiento.",
+      "example": "La mentora destac\u00f3 en la ense\u00f1anza al adaptar su enfoque a cada estilo de aprendizaje y ofrecer pr\u00e1ctica guiada.",
       "tags": [
-        "enseñar",
+        "ense\u00f1ar",
         "explicar",
         "guiar",
         "demostrar",
@@ -2396,9 +2263,8 @@
     },
     {
       "name": "Trabajo en equipo",
-      "description": "Colaborar con otras personas para alcanzar una meta común y apoyarse mutuamente.",
-      "example": "El equipo de respuesta de emergencia demostró trabajo en equipo al coordinarse sin fallas entre personal médico, bomberos y policía.",
-      "category": "Interpersonal",
+      "description": "Colaborar con otras personas para alcanzar una meta com\u00fan y apoyarse mutuamente.",
+      "example": "El equipo de respuesta de emergencia demostr\u00f3 trabajo en equipo al coordinarse sin fallas entre personal m\u00e9dico, bomberos y polic\u00eda.",
       "tags": [
         "colaborar",
         "cooperar",
@@ -2413,10 +2279,9 @@
       "language": "es"
     },
     {
-      "name": "Tecnología",
-      "description": "Uso de conocimientos científicos y herramientas para resolver problemas y mejorar la vida.",
-      "example": "La organización aprovechó la tecnología para conectar a personas mayores con servicios de salud y familiares durante la pandemia.",
-      "category": "Growth",
+      "name": "Tecnolog\u00eda",
+      "description": "Uso de conocimientos cient\u00edficos y herramientas para resolver problemas y mejorar la vida.",
+      "example": "La organizaci\u00f3n aprovech\u00f3 la tecnolog\u00eda para conectar a personas mayores con servicios de salud y familiares durante la pandemia.",
       "tags": [
         "desarrollar",
         "utilizar",
@@ -2425,16 +2290,15 @@
         "innovar",
         "implementar",
         "mejorar",
-        "diseñar",
+        "dise\u00f1ar",
         "construir"
       ],
       "language": "es"
     },
     {
-      "name": "Consideración",
+      "name": "Consideraci\u00f3n",
       "description": "Actuar teniendo en cuenta los sentimientos y necesidades de otras personas.",
-      "example": "La gerente mostró consideración al recordar las metas profesionales de cada integrante y crear oportunidades alineadas.",
-      "category": "Interpersonal",
+      "example": "La gerente mostr\u00f3 consideraci\u00f3n al recordar las metas profesionales de cada integrante y crear oportunidades alineadas.",
       "tags": [
         "considerar",
         "reflexionar",
@@ -2450,9 +2314,8 @@
     },
     {
       "name": "Tolerancia",
-      "description": "Respetar y aceptar las diferencias, incluso cuando no se está de acuerdo.",
-      "example": "La comunidad practicó tolerancia al crear espacios donde personas de distintas religiones compartían sus tradiciones y aprendían mutuamente.",
-      "category": "Interpersonal",
+      "description": "Respetar y aceptar las diferencias, incluso cuando no se est\u00e1 de acuerdo.",
+      "example": "La comunidad practic\u00f3 tolerancia al crear espacios donde personas de distintas religiones compart\u00edan sus tradiciones y aprend\u00edan mutuamente.",
       "tags": [
         "aceptar",
         "respetar",
@@ -2468,9 +2331,8 @@
     },
     {
       "name": "Confianza",
-      "description": "Ser honesto y confiable para fortalecer vínculos y fomentar apertura.",
-      "example": "La líder construyó confianza al cumplir sus compromisos, admitir errores y compartir información con transparencia.",
-      "category": "Interpersonal",
+      "description": "Ser honesto y confiable para fortalecer v\u00ednculos y fomentar apertura.",
+      "example": "La l\u00edder construy\u00f3 confianza al cumplir sus compromisos, admitir errores y compartir informaci\u00f3n con transparencia.",
       "tags": [
         "confiar",
         "creer",
@@ -2486,9 +2348,8 @@
     },
     {
       "name": "Verdad",
-      "description": "Ser honesto y preciso, reflejando la realidad sin engaños.",
-      "example": "La periodista buscó la verdad al verificar datos con múltiples fuentes y publicar hallazgos aunque fueran impopulares.",
-      "category": "Core Values",
+      "description": "Ser honesto y preciso, reflejando la realidad sin enga\u00f1os.",
+      "example": "La periodista busc\u00f3 la verdad al verificar datos con m\u00faltiples fuentes y publicar hallazgos aunque fueran impopulares.",
       "tags": [
         "buscar",
         "decir",
@@ -2505,8 +2366,7 @@
     {
       "name": "Unidad",
       "description": "Reunir a las personas para trabajar hacia un objetivo compartido y apoyarse mutuamente.",
-      "example": "El centro comunitario fomentó la unidad al crear estructuras donde vecinas de distintos orígenes colaboraban en retos comunes.",
-      "category": "Social",
+      "example": "El centro comunitario foment\u00f3 la unidad al crear estructuras donde vecinas de distintos or\u00edgenes colaboraban en retos comunes.",
       "tags": [
         "conectar",
         "unir",
@@ -2523,8 +2383,7 @@
     {
       "name": "Versatilidad",
       "description": "Adaptarse a situaciones nuevas y manejar diversas tareas con eficacia.",
-      "example": "La dueña del negocio demostró versatilidad al cambiar rápidamente a servicios en línea cuando lo presencial dejó de ser posible.",
-      "category": "Growth",
+      "example": "La due\u00f1a del negocio demostr\u00f3 versatilidad al cambiar r\u00e1pidamente a servicios en l\u00ednea cuando lo presencial dej\u00f3 de ser posible.",
       "tags": [
         "adaptarse",
         "ajustarse",
@@ -2539,17 +2398,16 @@
       "language": "es"
     },
     {
-      "name": "Visión",
+      "name": "Visi\u00f3n",
       "description": "Crear una imagen clara e inspiradora del futuro para guiar decisiones.",
-      "example": "La visión de la fundadora sobre salud accesible guió el crecimiento y las alianzas estratégicas de la organización.",
-      "category": "Aspirations",
+      "example": "La visi\u00f3n de la fundadora sobre salud accesible gui\u00f3 el crecimiento y las alianzas estrat\u00e9gicas de la organizaci\u00f3n.",
       "tags": [
         "imaginar",
         "visualizar",
         "prever",
         "conceptualizar",
         "crear",
-        "diseñar",
+        "dise\u00f1ar",
         "desarrollar",
         "formular",
         "planear"
@@ -2557,10 +2415,9 @@
       "language": "es"
     },
     {
-      "name": "Disposición",
+      "name": "Disposici\u00f3n",
       "description": "Estar listo para hacer lo necesario o aceptar nuevas ideas y experiencias.",
-      "example": "La disposición del equipo permitió ajustar estrategias y aprender habilidades nuevas cuando surgieron desafíos imprevistos.",
-      "category": "Mindset",
+      "example": "La disposici\u00f3n del equipo permiti\u00f3 ajustar estrategias y aprender habilidades nuevas cuando surgieron desaf\u00edos imprevistos.",
       "tags": [
         "aceptar",
         "acceder",
@@ -2575,10 +2432,9 @@
       "language": "es"
     },
     {
-      "name": "Sabiduría",
-      "description": "Tomar buenas decisiones basadas en conocimiento, experiencia y comprensión.",
-      "example": "La persona mayor mostró sabiduría al escuchar antes de aconsejar, equilibrando necesidades inmediatas y efectos a largo plazo.",
-      "category": "Growth",
+      "name": "Sabidur\u00eda",
+      "description": "Tomar buenas decisiones basadas en conocimiento, experiencia y comprensi\u00f3n.",
+      "example": "La persona mayor mostr\u00f3 sabidur\u00eda al escuchar antes de aconsejar, equilibrando necesidades inmediatas y efectos a largo plazo.",
       "tags": [
         "comprender",
         "discernir",
@@ -2593,10 +2449,9 @@
       "language": "es"
     },
     {
-      "name": "Ética de trabajo",
+      "name": "\u00c9tica de trabajo",
       "description": "Ser dedicado, responsable y esforzarse para completar tareas con calidad.",
-      "example": "Su ética de trabajo se notó en que llegaba temprano, cuidaba los detalles y ayudaba a colegas con los proyectos del equipo.",
-      "category": "Core Values",
+      "example": "Su \u00e9tica de trabajo se not\u00f3 en que llegaba temprano, cuidaba los detalles y ayudaba a colegas con los proyectos del equipo.",
       "tags": [
         "trabajar",
         "esforzarse",
