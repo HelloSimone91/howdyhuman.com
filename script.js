@@ -231,6 +231,7 @@ const i18n = {
             gallery: 'Gallery'
         },
         categories: {
+            indexHeading: 'Browse by category'
         },
         alphaNav: {
             label: 'Browse A–Z',
@@ -658,6 +659,16 @@ function closeHeroMenu({ skipFiltersSheetClose = false } = {}) {
     }
 }
 
+
+        const exampleLinks = card.querySelectorAll('p:not(.meta) a');
+        exampleLinks.forEach((link, index) => {
+            const nextText = translation.examples[index];
+            if (nextText) {
+                link.textContent = nextText;
+            }
+        });
+    });
+}
 
 function setSiteMenuOpen(isOpen) {
     if (!siteMenu || !siteMenuToggle) return;
@@ -2238,6 +2249,8 @@ function fallbackInitialization() {
             h3.textContent = value.name;
 
             const badge = document.createElement('span');
+            badge.className = 'text-sm opacity-75 category-badge';
+            badge.textContent = getCategoryLabel(value.category);
 
             headerDiv.appendChild(h3);
             headerDiv.appendChild(badge);
@@ -2599,7 +2612,25 @@ function attachFilterSearchListener(input, container) {
     handler();
 }
 
+    } else {
+        filterState.categories = filterState.categories.filter(c => c !== category);
+    }
 
+    const checkbox = document.getElementById(`category-${category}`);
+    if (checkbox) checkbox.checked = isSelected;
+}
+
+        badge.classList.toggle('is-selected', isSelected);
+        badge.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        badge.setAttribute(
+            'aria-label',
+            isSelected
+                ? `Clear ${label} category filter`
+                : `Show ${label} category`
+        );
+        badge.title = isSelected ? 'Click to clear this category filter' : 'Click to filter by this category';
+    });
+}
 
 // Update active filters display
 function updateActiveFilters() {
