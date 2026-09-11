@@ -35,91 +35,9 @@ EXPANDED_VALUE_SLUGS = {
     'willingness',
 }
 
-CATEGORY_LENSES = {
-    'Aspirations': [
-        'As an aspiration, it gives direction to choices that would otherwise drift.',
-        'This kind of value points attention toward a future someone is willing to help build.',
-        'It works best when it becomes a practical orientation, not a distant ideal.',
-    ],
-    'Core Values': [
-        'As a core value, it works like an inner standard for repeated choices.',
-        'It helps define what kind of person, team, or community someone is becoming.',
-        'It usually matters most when a shortcut would be easier than the stated standard.',
-    ],
-    'Growth': [
-        'As a growth value, it asks for practice rather than performance.',
-        'It becomes visible through adjustment, repetition, and honest feedback.',
-        'It belongs to the moments where trying again matters more than already being good.',
-    ],
-    'Interpersonal': [
-        'As an interpersonal value, it shapes the space between people.',
-        'It affects trust, conflict, repair, and the way people leave an exchange.',
-        'It becomes real in the quality of attention someone brings to another person.',
-    ],
-    'Mindset': [
-        'As a mindset value, it changes how pressure, choice, and uncertainty are interpreted.',
-        'It turns a private way of seeing into a visible way of acting.',
-        'It often appears before the outward action, in the story someone chooses to believe.',
-    ],
-    'Personal': [
-        'As a personal value, it steadies the relationship between intention and behavior.',
-        'It helps private preference become an observable pattern.',
-        'It shows up in ordinary moments where nobody else may be keeping score.',
-    ],
-    'Social': [
-        'As a social value, it reaches beyond individual preference.',
-        'It asks how choices affect a wider group and the systems people share.',
-        'It becomes visible when dignity, care, or participation has to be protected in public.',
-    ],
-    'Uncategorized': [
-        'As a value, it becomes meaningful when it moves from an idea into a repeated action.',
-        'The point is not to admire the word, but to notice what it asks a person to do.',
-        'It matters most when the abstract word has to guide a specific choice.',
-    ],
-}
 
-CATEGORY_CONTEXTS = {
-    'Aspirations': {
-        'scene': 'when someone is deciding what future they are willing to build',
-        'pressure': 'short-term comfort',
-        'practice': 'future-facing choice',
-    },
-    'Core Values': {
-        'scene': 'when a shortcut would be easier than the standard someone claims to hold',
-        'pressure': 'convenience',
-        'practice': 'standard-setting choice',
-    },
-    'Growth': {
-        'scene': 'while someone is learning, revising, or trying again after feedback',
-        'pressure': 'the wish to already be good at it',
-        'practice': 'learning choice',
-    },
-    'Interpersonal': {
-        'scene': 'inside a conversation where another person has something at stake',
-        'pressure': 'defensiveness',
-        'practice': 'relational choice',
-    },
-    'Mindset': {
-        'scene': 'under pressure, before the first reaction hardens into the whole story',
-        'pressure': 'old interpretation',
-        'practice': 'attention-shaping choice',
-    },
-    'Personal': {
-        'scene': 'in an ordinary routine where nobody else may notice the decision',
-        'pressure': 'autopilot',
-        'practice': 'self-directed choice',
-    },
-    'Social': {
-        'scene': 'in a group decision where the outcome affects more than one person',
-        'pressure': 'individual preference',
-        'practice': 'community-facing choice',
-    },
-    'Uncategorized': {
-        'scene': 'in a real situation where the word needs to become behavior',
-        'pressure': 'abstraction',
-        'practice': 'values-based choice',
-    },
-}
+
+
 
 EXPANDED_VALUE_CONTENT = {
     'courage': {
@@ -1362,10 +1280,6 @@ def html_page(
     .breadcrumbs a {{ color: #536b55; text-decoration: none; }}
     .breadcrumbs a:hover {{ text-decoration: underline; }}
     .chip {{ display: inline-block; border: 1px solid #c7bda9; border-radius: 999px; padding: .2rem .65rem; margin: .2rem .35rem .2rem 0; font-size: .85rem; text-decoration: none; color: #3f513f; background: #ece5d8; }}
-    .category-value-list {{ display: grid; gap: .75rem; padding-left: 0; list-style: none; }}
-    .category-value-list li {{ border-top: 1px solid #ded5c5; padding-top: .75rem; }}
-    .category-value-list a {{ display: block; font-weight: 700; }}
-    .category-value-list span {{ display: block; margin-top: .2rem; color: #5d5a52; }}
   </style>
 </head>
 <body>
@@ -1403,9 +1317,8 @@ def remove_deprecated_static_pages() -> None:
         page_dir.rmdir()
 
 
-def write_sitemap(value_slugs: list[str], category_slugs: list[str]) -> None:
+def write_sitemap(value_slugs: list[str]) -> None:
     urls = [f'{SITE_URL}/']
-    urls.extend(f'{SITE_URL}/values/category/{slug}/' for slug in category_slugs)
     urls.extend(f'{SITE_URL}/values/{slug}/' for slug in value_slugs)
 
     sitemap = '\n'.join(
@@ -1475,19 +1388,15 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
     name = value['name']
     name_lower = name.lower()
     description = value['description'].rstrip('.')
-    category = value.get('category') or 'Uncategorized'
     tags = [tag for tag in value.get('tags', []) if tag]
     primary_verbs = tags[:4] or ['notice', 'choose', 'practice', 'reflect']
     related_names = [item['name'] for item in related_values[:3]]
     related_phrase = natural_list(related_names) or 'nearby values'
     verb_phrase = natural_list(primary_verbs)
-    category_context = CATEGORY_CONTEXTS.get(category, CATEGORY_CONTEXTS['Uncategorized'])
     first = primary_verbs[0]
     second = primary_verbs[min(1, len(primary_verbs) - 1)]
     third = primary_verbs[min(2, len(primary_verbs) - 1)]
     idx = variant_index(name, 16)
-    category_lens_options = CATEGORY_LENSES.get(category, CATEGORY_LENSES['Uncategorized'])
-    category_lens = category_lens_options[idx % len(category_lens_options)]
 
     why_openers = [
         f'{name} matters when "{description}" has to become more than a sentence someone agrees with.',
@@ -1520,14 +1429,14 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
         f'That is where the value earns trust: in the gap between what someone says matters and what they actually do.',
     ]
     why = (
-        f'{why_openers[idx % len(why_openers)]} {category_lens} '
+        f'{why_openers[idx % len(why_openers)]} '
         f'{why_bridges[(idx + 3) % len(why_bridges)]} {why_followups[(idx + 7) % len(why_followups)]}'
     )
 
     example_patterns = [
-        f'In practice, {name_lower} can show up {category_context["scene"]}: someone starts with the action behind "{first}" instead of leaving the value as a private intention.',
-        f'When {category_context["pressure"]} starts to pull attention away from {name_lower}, the value becomes concrete by returning to "{second}" as a next move.',
-        f'One small example is a {category_context["practice"]}: using "{third}" to make {name_lower} observable in one decision.',
+        f'In practice, {name_lower} can show up in daily life: someone starts with the action behind "{first}" instead of leaving the value as a private intention.',
+        f'When the situation starts to pull attention away from {name_lower}, the value becomes concrete by returning to "{second}" as a next move.',
+        f'One small example is a clear practice: using "{third}" to make {name_lower} observable in one decision.',
         f'{name} can also appear through its neighboring values, such as {related_phrase}, when the situation asks someone to {first} with more intention and precision.',
         f'Instead of treating {name_lower} as an identity label, someone might practice it by choosing the action behind "{second}", naming what it protects, and noticing what it interrupts.',
         f'In a specific decision, {name_lower} becomes easier to recognize when the person can name what they are choosing to {third} and what that action serves.',
@@ -1544,11 +1453,11 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
     ]
 
     practice_patterns = [
-        f'Find one real situation {category_context["scene"]}, then choose one action connected to "{first}".',
+        f'Find one real situation in daily life, then choose one action connected to "{first}".',
         f'Use the phrase "{description}" as a check: what action would make that definition visible today?',
         f'Compare {name_lower} with {related_phrase}; notice where they support each other and where they ask for different actions.',
         f'After acting, ask whether someone else could have observed {name_lower} in what you actually did.',
-        f'Write down the smallest possible version of the action behind "{second}" and use it to resist {category_context["pressure"]}.',
+        f'Write down the smallest possible version of the action behind "{second}" and use it to resist the situation.',
         f'Notice where you talk about {name_lower} more easily than you practice it, then choose one concrete verb to close that gap.',
         f'Reread the opening example and name the exact behavior that made {name_lower} visible.',
         f'When the situation gets blurry, return to the action words: {verb_phrase}.',
@@ -1580,7 +1489,7 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
     ]
     practice_answers = [
         f'Practice {name_lower} by choosing one action connected to "{first}" and making it observable today. The goal is a real behavior, not a perfect description of the value.',
-        f'Start with a situation where {category_context["pressure"]} is likely to take over. Then choose a small action connected to "{second}" that makes {name_lower} visible.',
+        f'Start with a situation where the situation is likely to take over. Then choose a small action connected to "{second}" that makes {name_lower} visible.',
         f'Use {name_lower} as a question before acting: what would it look like to {first} here? Then do the smallest honest version of that action.',
         f'To practice {name_lower}, pick one of its verbs, such as "{third}", and apply it to a specific conversation, decision, routine, or repair.',
         f'Practice begins by reducing {name_lower} to one doable behavior. Choose a moment, choose a verb like "{first}", and follow through before overexplaining it.',
@@ -1617,15 +1526,12 @@ def value_structured_data(
     name: str,
     description: str,
     canonical_url: str,
-    category: str,
-    category_slug: str,
     faq_items: list[tuple[str, str]] | None = None,
 ) -> str:
     graph = [
             breadcrumb_schema([
                 ('Home', f'{SITE_URL}/'),
                 ('Values', f'{SITE_URL}/#dictionary-panel'),
-                (category, f'{SITE_URL}/values/category/{category_slug}/'),
                 (name, canonical_url),
             ]),
             {
@@ -1672,8 +1578,6 @@ def build_expanded_value_page(value: dict, values_by_tag: dict[str, list[dict]],
     slug = slugify(name)
     description = value['description']
     example = value.get('example', '')
-    category = value.get('category', 'Uncategorized')
-    category_slug = slugify(category)
     tags = [t for t in value.get('tags', []) if t]
     idx = variant_index(name, 8)
     canonical_path = f'/values/{slug}/'
@@ -1722,16 +1626,13 @@ def build_expanded_value_page(value: dict, values_by_tag: dict[str, list[dict]],
         name=name,
         description=description,
         canonical_url=canonical_url,
-        category=category,
-        category_slug=category_slug,
         faq_items=content['faqs'],
     )
 
     body = f"""
 <article class="value-page value-page--expanded">
-  {breadcrumb_nav([('Home', '/'), ('Values', '/#dictionary-panel'), (category, f'/values/category/{category_slug}/'), (name, None)])}
+  {breadcrumb_nav([('Home', '/'), ('Values', '/#dictionary-panel'), (name, None)])}
   <h1>{html.escape(name)}</h1>
-  <p class="meta"><strong>Category:</strong> <a href="/values/category/{category_slug}/">{html.escape(category)}</a></p>
   <p class="lede">{html.escape(description)}</p>
   <h2>Why this matters</h2>
   <p>{html.escape(content['why'])}</p>
@@ -1761,138 +1662,7 @@ def build_value_page(value: dict, values_by_tag: dict[str, list[dict]]) -> tuple
     return build_expanded_value_page(value, values_by_tag, build_generated_value_content(value, related_values))
 
 
-def build_category_page(category: str, category_values: list[dict], categories: dict[str, list[dict]]) -> tuple[str, str]:
-    slug = slugify(category)
-    canonical_path = f'/values/category/{slug}/'
-    canonical_url = f'{SITE_URL}{canonical_path}'
-    count = len(category_values)
-    sample_names = ', '.join(item['name'] for item in category_values[:4])
-    title = f'{category} Values Index | Howdy Human'
-    desc = safe_excerpt(
-        f'Browse {count} {category.lower()} values in the Howdy Human Dictionary of Values, including {sample_names}.'
-    )
-
-    value_links = ''.join(
-        f'''
-    <li>
-      <a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a>
-      <span>{html.escape(safe_excerpt(item.get("description", ""), 135))}</span>
-    </li>'''
-        for item in category_values
-    )
-
-    sibling_links = ''.join(
-        f'<a class="chip" href="/values/category/{slugify(name)}/">{html.escape(name)} ({len(items)})</a>'
-        for name, items in categories.items()
-        if name != category
-    )
-
-    structured_data = render_json_ld({
-        '@context': 'https://schema.org',
-        '@graph': [
-            breadcrumb_schema([
-                ('Home', f'{SITE_URL}/'),
-                ('Values', f'{SITE_URL}/#dictionary-panel'),
-                (category, canonical_url),
-            ]),
-            {
-                '@type': 'CollectionPage',
-                '@id': f'{canonical_url}#collection',
-                'name': f'{category} Values',
-                'description': desc,
-                'url': canonical_url,
-                'mainEntity': {
-                    '@type': 'ItemList',
-                    'numberOfItems': count,
-                    'itemListElement': [
-                        {
-                            '@type': 'ListItem',
-                            'position': index + 1,
-                            'name': item['name'],
-                            'url': f'{SITE_URL}/values/{slugify(item["name"])}/',
-                        }
-                        for index, item in enumerate(category_values)
-                    ],
-                },
-            },
-        ],
-    })
-    head_extra = f'  <script type="application/ld+json">\n{structured_data}\n  </script>'
-
-    body = f"""
-<article>
-  {breadcrumb_nav([('Home', '/'), ('Values', '/#dictionary-panel'), (category, None)])}
-  <h1>{html.escape(category)} Values</h1>
-  <p>Browse values in the <strong>{html.escape(category)}</strong> category of the Howdy Human Dictionary of Values.</p>
-  <p class=\"meta\">{count} value{'s' if count != 1 else ''} in this category</p>
-  <h2>{html.escape(category)} value index</h2>
-  <ul class=\"category-value-list\">{value_links}</ul>
-  <h2>Explore other categories</h2>
-  <div>{sibling_links}</div>
-</article>
-"""
-    return slug, html_page(title, desc, canonical_path, body, head_extra=head_extra)
-
-
-def build_verb_page(tag: str, values_for_tag: list[dict]) -> tuple[str, str]:
-    slug = slugify(tag)
-    canonical_path = f'/verbs/{slug}/'
-    canonical_url = f'{SITE_URL}{canonical_path}'
-    value_links = ''.join(
-        f'<li><a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a> — {html.escape(safe_excerpt(item["description"], 120))}</li>'
-        for item in sorted(values_for_tag, key=lambda v: v['name'])
-    )
-    count = len(values_for_tag)
-    title = f"Values that embody '{tag}' | Howdy Human"
-    desc = safe_excerpt(f"Discover {count} values connected to the verb '{tag}' in the Howdy Human Dictionary of Values.")
-    structured_data = render_json_ld({
-        '@context': 'https://schema.org',
-        '@graph': [
-            breadcrumb_schema([
-                ('Home', f'{SITE_URL}/'),
-                ('Verbs', f'{SITE_URL}/#dictionary-panel'),
-                (tag, canonical_url),
-            ]),
-        ],
-    })
-    head_extra = f'  <script type="application/ld+json">\n{structured_data}\n  </script>'
-
-    body = f"""
-<article>
-  {breadcrumb_nav([('Home', '/'), ('Verbs', '/#dictionary-panel'), (tag, None)])}
-  <h1>Verb: {html.escape(tag)}</h1>
-  <p>This page collects values that are commonly lived through the action <strong>{html.escape(tag)}</strong>.</p>
-  <p class=\"meta\">{count} related value{'s' if count != 1 else ''}</p>
-  <ul>{value_links}</ul>
-</article>
-"""
-    return slug, html_page(title, desc, canonical_path, body, head_extra=head_extra, robots='noindex,follow')
-
-
-def category_index_markup(categories: dict[str, list[dict]], heading_id: str = 'category-index-heading') -> str:
-    heading_i18n = ' data-i18n="categories.indexHeading"' if heading_id == 'homepage-category-index-heading' else ''
-    cards = []
-    for category, category_values in categories.items():
-        sample_links = ', '.join(
-            f'<a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a>'
-            for item in category_values[:4]
-        )
-        cards.append(f"""
-                            <article class="seo-category-card">
-                                <h3><a href="/values/category/{slugify(category)}/">{html.escape(category)}</a></h3>
-                                <p class="meta">{len(category_values)} value{'s' if len(category_values) != 1 else ''}</p>
-                                <p>{sample_links}</p>
-                            </article>""")
-
-    return f"""
-                        <section class="seo-category-index" aria-labelledby="{html.escape(heading_id)}">
-                            <h2 id="{html.escape(heading_id)}" class="text-2xl font-bold mt-8 mb-4 py-2 border-b border-gray-300 letter-section"{heading_i18n}>Browse by category</h2>
-                            <div class="seo-category-grid">{''.join(cards)}
-                            </div>
-                        </section>"""
-
-
-def write_homepage_value_fallback(values: list[dict], categories: dict[str, list[dict]]) -> None:
+def write_homepage_value_fallback(values: list[dict]) -> None:
     index_path = ROOT / 'index.html'
     page = index_path.read_text(encoding='utf-8')
 
@@ -1908,13 +1678,11 @@ def write_homepage_value_fallback(values: list[dict], categories: dict[str, list
             name = value['name']
             slug = slugify(name)
             description = safe_excerpt(value.get('description', ''), 180)
-            category = value.get('category', 'Uncategorized')
             cards.append(f"""
                             <article class="value-card p-4 rounded-md shadow-sm mb-4 seo-value-card">
                                 <h3 class="text-xl font-bold mb-2">
                                     <a href="/values/{slug}/">{html.escape(name)}</a>
                                 </h3>
-                                <p class="meta"><strong>Category:</strong> {html.escape(category)}</p>
                                 <p>{html.escape(description)}</p>
                             </article>""")
 
@@ -1924,20 +1692,10 @@ def write_homepage_value_fallback(values: list[dict], categories: dict[str, list
                             {''.join(cards)}
                         </section>""")
 
-    category_index = '\n'.join([
-        '<!-- SEO_CATEGORY_INDEX_START -->',
-        category_index_markup(categories, 'homepage-category-index-heading'),
-        '<!-- SEO_CATEGORY_INDEX_END -->',
-    ])
-
     category_pattern = re.compile(
         r'<!-- SEO_CATEGORY_INDEX_START -->.*?<!-- SEO_CATEGORY_INDEX_END -->',
         re.DOTALL,
     )
-    if category_pattern.search(page):
-        page = category_pattern.sub(category_index, page)
-    else:
-        page = page.replace('<!-- Values List -->', f'{category_index}\n\n                    <!-- Values List -->')
 
     fallback = '\n'.join([
         '<!-- SEO_VALUE_FALLBACK_START -->',
@@ -1964,47 +1722,28 @@ def main() -> None:
     values = data['values']
 
     values_dir = ROOT / 'values'
-    categories_dir = values_dir / 'category'
     verbs_dir = ROOT / 'verbs'
     values_dir.mkdir(exist_ok=True)
-    categories_dir.mkdir(parents=True, exist_ok=True)
     verbs_dir.mkdir(exist_ok=True)
 
     remove_deprecated_static_pages()
 
     values_by_tag: dict[str, list[dict]] = {}
-    values_by_category_raw: dict[str, list[dict]] = {}
     for value in values:
-        category = value.get('category') or 'Uncategorized'
-        values_by_category_raw.setdefault(category, []).append(value)
         for tag in value.get('tags', []):
             if not tag:
                 continue
             values_by_tag.setdefault(tag, []).append(value)
 
-    values_by_category = {
-        k: sorted(v, key=lambda item: item['name'].lower())
-        for k, v in sorted(values_by_category_raw.items(), key=lambda pair: pair[0].lower())
-    }
-
     value_slugs = {slugify(value['name']) for value in values}
-    category_slugs = {slugify(category) for category in values_by_category}
     verb_slugs = {slugify(tag) for tag in values_by_tag}
 
     ensure_clean_directory(values_dir, value_slugs)
-    categories_dir.mkdir(parents=True, exist_ok=True)
-    ensure_clean_directory(categories_dir, category_slugs)
     ensure_clean_directory(verbs_dir, verb_slugs)
 
     for value in values:
         slug, page = build_value_page(value, values_by_tag)
         out_dir = values_dir / slug
-        out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / 'index.html').write_text(page, encoding='utf-8')
-
-    for category, category_values in values_by_category.items():
-        slug, page = build_category_page(category, category_values, values_by_category)
-        out_dir = categories_dir / slug
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / 'index.html').write_text(page, encoding='utf-8')
 
@@ -2014,11 +1753,11 @@ def main() -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / 'index.html').write_text(page, encoding='utf-8')
 
-    write_sitemap(sorted(value_slugs), sorted(category_slugs))
-    write_homepage_value_fallback(values, values_by_category)
+    write_sitemap(sorted(value_slugs))
+    write_homepage_value_fallback(values)
 
     print(
-        f'Generated {len(values)} value pages, {len(values_by_category)} category pages, {len(values_by_tag)} verb pages, '
+        f'Generated {len(values)} value pages, {len(values_by_tag)} verb pages, '
         f'refreshed sitemap.xml, and updated homepage fallback links.'
     )
 

@@ -1982,20 +1982,9 @@ button, .value-card-toggle, .status-action-button {
     font-size: 0.8rem;
 }
 
-.values-list--gallery .category-badge {
-    position: static;
-    white-space: nowrap;
-    font-size: 0.8rem;
-    padding: 0.35rem 0.65rem;
-}
 
-.values-list--gallery .category-badge--gallery {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
-    align-self: center;
-    max-width: 100%;
-}
+
+
 
 .values-list--gallery .value-card-preview--gallery {
     display: grid;
@@ -2204,71 +2193,24 @@ button, .value-card-toggle, .status-action-button {
     border-color: rgba(var(--support-amethyst-rgb), 0.42);
 }
 
-/* Category badge */
-.category-badge {
-    background-color: var(--tag-bg);
-    border: 1px solid transparent;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-size: 1rem;
-    font: inherit;
-    opacity: 0.85;
-}
 
-.category-badge {
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
 
-.category-badge:hover,
-.category-badge:focus-visible {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 16px rgba(var(--support-amethyst-rgb), 0.14);
-    outline: none;
-}
 
-.category-badge.is-selected {
-    background: var(--accent-primary);
-    border-color: rgba(var(--accent-primary-rgb), 0.35);
-    color: var(--card-bg);
-    opacity: 1;
-}
 
-.category-badge__clear-label {
-    margin-left: 0.45rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-}
 
-.seo-category-index {
-    margin-bottom: 2rem;
-}
 
-.seo-category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-}
 
-.seo-category-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(var(--support-amethyst-rgb), 0.14);
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 6px 16px rgba(var(--support-amethyst-rgb), 0.08);
-}
 
-.seo-category-card h3 {
-    margin: 0 0 0.35rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--category-heading, var(--text-main));
-}
 
-.seo-category-card p {
-    margin: 0.35rem 0 0;
-}
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 640px) {
     .view-toggle {
@@ -2768,7 +2710,6 @@ body[data-palette="electric-bloom"] {
     --accent-secondary: #6b4d7e;
     --accent-secondary-rgb: 107, 77, 126;
     --alpha-nav-link: #6b4d7e;
-    --category-heading: #6b4d7e;
     --header-text: #20182d;
     --filter-bg: #efdfe1;
     --filter-bg-rgb: 239, 223, 225;
