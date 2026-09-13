@@ -35,9 +35,11 @@ EXPANDED_VALUE_SLUGS = {
     'willingness',
 }
 
-
-
-
+VALUE_LENSES = [
+    'It gives a person a practical orientation when a choice could otherwise drift.',
+    'It helps turn a stated principle into a pattern that can be noticed and repeated.',
+    'It matters most when the word has to guide a specific choice under real pressure.',
+]
 
 EXPANDED_VALUE_CONTENT = {
     'courage': {
@@ -1250,7 +1252,7 @@ def html_page(
     robots_meta = f'  <meta name="robots" content="{html.escape(robots)}" />\n' if robots else ''
     extra = f'{head_extra.rstrip()}\n' if head_extra else ''
 
-    return f"""<!DOCTYPE html>
+    page = f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
   <meta charset=\"UTF-8\" />
@@ -1280,6 +1282,10 @@ def html_page(
     .breadcrumbs a {{ color: #536b55; text-decoration: none; }}
     .breadcrumbs a:hover {{ text-decoration: underline; }}
     .chip {{ display: inline-block; border: 1px solid #c7bda9; border-radius: 999px; padding: .2rem .65rem; margin: .2rem .35rem .2rem 0; font-size: .85rem; text-decoration: none; color: #3f513f; background: #ece5d8; }}
+    .category-value-list {{ display: grid; gap: .75rem; padding-left: 0; list-style: none; }}
+    .category-value-list li {{ border-top: 1px solid #ded5c5; padding-top: .75rem; }}
+    .category-value-list a {{ display: block; font-weight: 700; }}
+    .category-value-list span {{ display: block; margin-top: .2rem; color: #5d5a52; }}
   </style>
 </head>
 <body>
@@ -1289,6 +1295,7 @@ def html_page(
 </body>
 </html>
 """
+    return '\n'.join(line.rstrip() for line in page.splitlines()) + '\n'
 
 
 def ensure_clean_directory(parent: Path, valid_slugs: set[str]) -> None:
@@ -1397,6 +1404,7 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
     second = primary_verbs[min(1, len(primary_verbs) - 1)]
     third = primary_verbs[min(2, len(primary_verbs) - 1)]
     idx = variant_index(name, 16)
+    value_lens = VALUE_LENSES[idx % len(VALUE_LENSES)]
 
     why_openers = [
         f'{name} matters when "{description}" has to become more than a sentence someone agrees with.',
@@ -1429,7 +1437,7 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
         f'That is where the value earns trust: in the gap between what someone says matters and what they actually do.',
     ]
     why = (
-        f'{why_openers[idx % len(why_openers)]} '
+        f'{why_openers[idx % len(why_openers)]} {value_lens} '
         f'{why_bridges[(idx + 3) % len(why_bridges)]} {why_followups[(idx + 7) % len(why_followups)]}'
     )
 
@@ -1489,7 +1497,7 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
     ]
     practice_answers = [
         f'Practice {name_lower} by choosing one action connected to "{first}" and making it observable today. The goal is a real behavior, not a perfect description of the value.',
-        f'Start with a situation where the situation is likely to take over. Then choose a small action connected to "{second}" that makes {name_lower} visible.',
+        f'Start with a situation where habit or pressure is likely to take over. Then choose a small action connected to "{second}" that makes {name_lower} visible.',
         f'Use {name_lower} as a question before acting: what would it look like to {first} here? Then do the smallest honest version of that action.',
         f'To practice {name_lower}, pick one of its verbs, such as "{third}", and apply it to a specific conversation, decision, routine, or repair.',
         f'Practice begins by reducing {name_lower} to one doable behavior. Choose a moment, choose a verb like "{first}", and follow through before overexplaining it.',
@@ -1662,6 +1670,49 @@ def build_value_page(value: dict, values_by_tag: dict[str, list[dict]]) -> tuple
     return build_expanded_value_page(value, values_by_tag, build_generated_value_content(value, related_values))
 
 
+def build_verb_page(tag: str, values_for_tag: list[dict]) -> tuple[str, str]:
+    slug = slugify(tag)
+    canonical_path = f'/verbs/{slug}/'
+    canonical_url = f'{SITE_URL}{canonical_path}'
+    value_links = ''.join(
+        f'<li><a href="/values/{slugify(item["name"])}/">{html.escape(item["name"])}</a> — {html.escape(safe_excerpt(item["description"], 120))}</li>'
+        for item in sorted(values_for_tag, key=lambda value: value['name'])
+    )
+    count = len(values_for_tag)
+    title = f"Values that embody '{tag}' | Howdy Human"
+    description = safe_excerpt(
+        f"Discover {count} values connected to the verb '{tag}' in the Howdy Human Dictionary of Values."
+    )
+    structured_data = render_json_ld({
+        '@context': 'https://schema.org',
+        '@graph': [
+            breadcrumb_schema([
+                ('Home', f'{SITE_URL}/'),
+                ('Verbs', f'{SITE_URL}/#dictionary-panel'),
+                (tag, canonical_url),
+            ]),
+        ],
+    })
+    head_extra = f'  <script type="application/ld+json">\n{structured_data}\n  </script>'
+    body = f"""
+<article>
+  {breadcrumb_nav([('Home', '/'), ('Verbs', '/#dictionary-panel'), (tag, None)])}
+  <h1>Verb: {html.escape(tag)}</h1>
+  <p>This page collects values that are commonly lived through the action <strong>{html.escape(tag)}</strong>.</p>
+  <p class="meta">{count} related value{'s' if count != 1 else ''}</p>
+  <ul>{value_links}</ul>
+</article>
+"""
+    return slug, html_page(
+        title,
+        description,
+        canonical_path,
+        body,
+        head_extra=head_extra,
+        robots='noindex,follow',
+    )
+
+
 def write_homepage_value_fallback(values: list[dict]) -> None:
     index_path = ROOT / 'index.html'
     page = index_path.read_text(encoding='utf-8')
@@ -1691,11 +1742,6 @@ def write_homepage_value_fallback(values: list[dict]) -> None:
                             <h2 id="seo-section-{html.escape(letter)}" class="text-2xl font-bold mt-8 mb-4 py-2 border-b border-gray-300 letter-section">{html.escape(letter)}</h2>
                             {''.join(cards)}
                         </section>""")
-
-    category_pattern = re.compile(
-        r'<!-- SEO_CATEGORY_INDEX_START -->.*?<!-- SEO_CATEGORY_INDEX_END -->',
-        re.DOTALL,
-    )
 
     fallback = '\n'.join([
         '<!-- SEO_VALUE_FALLBACK_START -->',

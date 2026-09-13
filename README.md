@@ -7,9 +7,9 @@ The Howdy Human Dictionary of Values  is an interactive web application that hel
 ## Features
 
 ### Values Dictionary <br>
-- 100+ human values organized by category (Personal, Interpersonal, Social) <br>
+- 100+ human values organized alphabetically <br>
 - Detailed descriptions and real-world examples for each value <br>
-- Advanced filtering by categories, action verbs, and search terms <br>
+- Advanced filtering by action verbs and search terms <br>
 - Related values suggestions based on shared characteristics <br>
 - Interactive tags for exploring connections between values <br>
 
@@ -37,7 +37,6 @@ for hosting my domain <br>
 - Use the search bar to find specific values <br>
 - Filters are visible by default; click "Hide Filters" to collapse the filter section <br>
 - Apply filters to narrow down the values list: <br>
-        - Select categories (Personal, Interpersonal, Social) <br>
         - Choose specific action verbs (tags) <br>
         - Choose whether to match all selected verbs or any selected verb <br>
 - Click on tags to see related values <br>
@@ -49,6 +48,16 @@ for hosting my domain <br>
 - Community sharing options
 - Embodied Values Lifestyle Audit
 - Mobile app version
+
+## Development
+
+Install the test dependencies and Chromium once, then run the complete suite:
+
+```bash
+python3 -m pip install -r requirements-dev.txt
+python3 -m playwright install chromium
+python3 -m unittest discover -s tests
+```
 
 ## Project Status
 This project is currently in a personal development phase. I am not accepting contributions at this time as I'm actively working on my own vision for this tool. However, I appreciate your interest and encourage you to check back for updates as the project evolves.

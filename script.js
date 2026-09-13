@@ -139,7 +139,7 @@ function getAlphabetForLanguage(lang) {
     }
 }
 
-// Locale-aware comparison helper for names and categories
+// Locale-aware comparison helper for value names
 function compareByName(a, b) {
     return a.localeCompare(b, currentLanguage, { sensitivity: 'base' });
 }
@@ -230,9 +230,6 @@ const i18n = {
             list: 'List',
             gallery: 'Gallery'
         },
-        categories: {
-            indexHeading: 'Browse by category'
-        },
         alphaNav: {
             label: 'Browse A–Z',
             overlayHint: 'Jump to a letter to browse matching values.',
@@ -249,7 +246,6 @@ const i18n = {
             matchAny: 'Match any selected verb',
             sortBy: 'Sort',
             sortName: 'Name',
-            categories: 'Categories',
             verbs: 'Verbs',
             verbsCaption: 'tags',
             tagSearchPlaceholder: 'Search verbs',
@@ -348,9 +344,6 @@ const i18n = {
             list: 'Lista',
             gallery: 'Galería'
         },
-        categories: {
-            indexHeading: 'Explorar por categoría'
-        },
         alphaNav: {
             label: 'Explorar de A a Z',
             overlayHint: 'Elige una letra para explorar los valores relacionados.',
@@ -367,7 +360,6 @@ const i18n = {
             matchAny: 'Coincidir con cualquier verbo',
             sortBy: 'Ordenar',
             sortName: 'Nombre',
-            categories: 'Categorías',
             verbs: 'Verbos',
             verbsCaption: 'etiquetas',
             tagSearchPlaceholder: 'Buscar verbos',
@@ -657,17 +649,6 @@ function closeHeroMenu({ skipFiltersSheetClose = false } = {}) {
         alphaNavToggle.setAttribute('aria-expanded', 'false');
         alphaNavToggle.setAttribute('aria-label', translate('aria.heroMenuOpen'));
     }
-}
-
-
-        const exampleLinks = card.querySelectorAll('p:not(.meta) a');
-        exampleLinks.forEach((link, index) => {
-            const nextText = translation.examples[index];
-            if (nextText) {
-                link.textContent = nextText;
-            }
-        });
-    });
 }
 
 function setSiteMenuOpen(isOpen) {
@@ -2248,12 +2229,7 @@ function fallbackInitialization() {
             h3.className = 'text-lg font-semibold';
             h3.textContent = value.name;
 
-            const badge = document.createElement('span');
-            badge.className = 'text-sm opacity-75 category-badge';
-            badge.textContent = getCategoryLabel(value.category);
-
             headerDiv.appendChild(h3);
-            headerDiv.appendChild(badge);
 
             const descP = document.createElement('p');
             descP.className = 'mb-3';
@@ -2433,55 +2409,6 @@ function initializeValuesDictionary() {
             value.tags = value.tags.filter(tag => verbCounts[tag] > 1);
         });
 
-        // Populate category filters
-        if (categoryFilters) {
-            // Get unique categories
-            const categories = Object.keys(categoryCounts).sort((a, b) => {
-                const localizedComparison = compareByName(getCategoryLabel(a), getCategoryLabel(b));
-                if (localizedComparison !== 0) {
-                    return localizedComparison;
-                }
-                return compareByName(a, b);
-            });
-
-            // Create category filters
-            categories.forEach(category => {
-                const categoryContainer = document.createElement('div');
-                categoryContainer.classList.add('flex', 'items-center');
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `category-${category}`;
-                checkbox.classList.add('mr-2', 'form-checkbox', 'h-4', 'w-4', 'text-purple-600', 'rounded');
-                checkbox.addEventListener('change', () => {
-                    if (checkbox.checked) {
-                        if (!filterState.categories.includes(category)) {
-                            filterState.categories.push(category);
-                        }
-                    } else {
-                        filterState.categories = filterState.categories.filter(c => c !== category);
-                    }
-                    filterValues();
-                    updateActiveFilters();
-                });
-
-                const label = document.createElement('label');
-                label.htmlFor = `category-${category}`;
-                label.textContent = getCategoryLabel(category);
-                label.classList.add('text-sm', 'select-none');
-
-                // Count values in this category
-                const countSpan = document.createElement('span');
-                countSpan.textContent = `(${categoryCounts[category] || 0})`;
-                countSpan.classList.add('ml-1', 'text-xs', 'opacity-75');
-                label.appendChild(countSpan);
-
-                categoryContainer.appendChild(checkbox);
-                categoryContainer.appendChild(label);
-                categoryFilters.appendChild(categoryContainer);
-            });
-        }
-
         // Populate tag filters
         if (tagFilters) {
             // Collect all unique tags that appear multiple times
@@ -2612,36 +2539,13 @@ function attachFilterSearchListener(input, container) {
     handler();
 }
 
-    } else {
-        filterState.categories = filterState.categories.filter(c => c !== category);
-    }
-
-    const checkbox = document.getElementById(`category-${category}`);
-    if (checkbox) checkbox.checked = isSelected;
-}
-
-        badge.classList.toggle('is-selected', isSelected);
-        badge.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-        badge.setAttribute(
-            'aria-label',
-            isSelected
-                ? `Clear ${label} category filter`
-                : `Show ${label} category`
-        );
-        badge.title = isSelected ? 'Click to clear this category filter' : 'Click to filter by this category';
-    });
-}
-
 // Update active filters display
 function updateActiveFilters() {
     if (!activeFilters || !clearFilters) return;
 
-    const hasFilters = filterState.categories.length > 0 ||
-                       filterState.tags.length > 0 ||
-                       filterState.searchTerm;
+    const hasFilters = filterState.tags.length > 0 || filterState.searchTerm;
 
-    const totalFilters = filterState.categories.length +
-        filterState.tags.length +
+    const totalFilters = filterState.tags.length +
         (filterState.searchTerm ? 1 : 0);
 
     // Enable/disable clear button based on filters
@@ -2687,7 +2591,8 @@ function addActiveFilterBadge(text, type, rawText = text) {
     badge.classList.add('active-filter', 'text-sm', 'rounded-full', 'px-3', 'py-1', 'flex', 'items-center', 'mr-2', 'mb-2');
 
     // Add icon based on type
-    const icon = document.createElement('i');    if (type === 'tag') {
+    const icon = document.createElement('i');
+    if (type === 'tag') {
         icon.classList.add('fas', 'fa-tag');
     } else if (type === 'search') {
         icon.classList.add('fas', 'fa-search');
@@ -2704,8 +2609,10 @@ function addActiveFilterBadge(text, type, rawText = text) {
     const removeButton = document.createElement('button');
     removeButton.classList.add('active-filter__remove', 'ml-1', 'text-gray-600', 'hover:text-gray-800');
     removeButton.setAttribute('type', 'button');
-    removeButton.setAttribute('aria-label', `Clear ${text} filter`);    removeButton.innerHTML = '<i class="fas fa-times-circle" aria-hidden="true"></i>';
-    removeButton.addEventListener('click', () => {        if (type === 'tag') {
+    removeButton.setAttribute('aria-label', `Clear ${text} filter`);
+    removeButton.innerHTML = '<i class="fas fa-times-circle" aria-hidden="true"></i>';
+    removeButton.addEventListener('click', () => {
+        if (type === 'tag') {
             filterState.tags = filterState.tags.filter(t => t !== text);
             // Update tag
             updateTagSelection(text, false);
@@ -3009,19 +2916,24 @@ function displayValues(valuesToDisplay) {
             return;
         }
 
-        // Group values by first letter for alphabetical sections
+        // Keep ranked search results in one sequence; otherwise group alphabetically.
+        const isSearchResults = Boolean(filterState.searchTerm);
         const valuesByLetter = {};
-        valuesToDisplay.forEach(value => {
-            const normalizedLetter = normalizeInitialLetter(value.name);
-            if (!valuesByLetter[normalizedLetter]) {
-                valuesByLetter[normalizedLetter] = [];
-            }
-            valuesByLetter[normalizedLetter].push(value);
-        });
+        if (isSearchResults) {
+            valuesByLetter.search = [...valuesToDisplay];
+        } else {
+            valuesToDisplay.forEach(value => {
+                const normalizedLetter = normalizeInitialLetter(value.name);
+                if (!valuesByLetter[normalizedLetter]) {
+                    valuesByLetter[normalizedLetter] = [];
+                }
+                valuesByLetter[normalizedLetter].push(value);
+            });
 
-        Object.values(valuesByLetter).forEach(valuesForLetter => {
-            valuesForLetter.sort((a, b) => compareByName(a.name, b.name));
-        });
+            Object.values(valuesByLetter).forEach(valuesForLetter => {
+                valuesForLetter.sort((a, b) => compareByName(a.name, b.name));
+            });
+        }
 
         const alphabetReference = activeAlphabet && activeAlphabet.length
             ? activeAlphabet
@@ -3032,6 +2944,7 @@ function displayValues(valuesToDisplay) {
         }, {});
 
         const sortedLetters = Object.keys(valuesByLetter).sort((a, b) => {
+            if (isSearchResults) return 0;
             const indexA = alphabetOrder[a];
             const indexB = alphabetOrder[b];
 
@@ -3052,12 +2965,14 @@ function displayValues(valuesToDisplay) {
 
         sortedLetters.forEach(letter => {
             // Create section header
-            const sectionHeader = document.createElement('div');
-            sectionHeader.id = `section-${letter}`;
-            sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'py-2', 'border-b', 'border-gray-300', 'letter-section');
-            sectionHeader.setAttribute('tabindex', '-1');
-            sectionHeader.textContent = letter;
-            valuesList.appendChild(sectionHeader);
+            if (!isSearchResults) {
+                const sectionHeader = document.createElement('div');
+                sectionHeader.id = `section-${letter}`;
+                sectionHeader.classList.add('text-2xl', 'font-bold', 'mt-8', 'mb-4', 'py-2', 'border-b', 'border-gray-300', 'letter-section');
+                sectionHeader.setAttribute('tabindex', '-1');
+                sectionHeader.textContent = letter;
+                valuesList.appendChild(sectionHeader);
+            }
 
             const sectionValuesGrid = document.createElement('div');
             sectionValuesGrid.classList.add('letter-values-grid');
@@ -3423,7 +3338,7 @@ function displayValues(valuesToDisplay) {
     }
 }
 
-// Filter values based on search input and selected tags/categories
+// Filter values based on search input and selected verb tags
 function filterValues() {
     try {
         console.log("Filtering values...", filterState);
@@ -3461,8 +3376,20 @@ function filterValues() {
             filtered = filtered.filter(value => value.tags.includes(selectedVerb));
         }
 
-        // Sort results
-        if (filterState.sortMethod === 'name') {
+        // Rank active searches before rendering; alphabetical browsing stays alphabetical.
+        if (filterState.searchTerm) {
+            const term = filterState.searchTerm;
+            const score = (value) => {
+                const name = value.name.toLowerCase();
+                if (name === term) return 100;
+                if (name.startsWith(term)) return 80;
+                if (name.includes(term)) return 60;
+                if (value.tags.some(tag => tag.toLowerCase() === term)) return 40;
+                if (value.tags.some(tag => tag.toLowerCase().includes(term))) return 20;
+                return 0;
+            };
+            filtered.sort((a, b) => score(b) - score(a) || compareByName(a.name, b.name));
+        } else if (filterState.sortMethod === 'name') {
             filtered.sort((a, b) => compareByName(a.name, b.name));
         }
 
