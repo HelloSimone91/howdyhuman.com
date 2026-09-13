@@ -326,8 +326,8 @@ const i18n = {
         page: {
             title: 'Diccionario de Valores — Convierte Valores en Verbos | Howdy Human',
             heading: 'CONVIERTE VALORES EN VERBOS',
-            tagline: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
-            introDescription: 'Una enciclopedia viva para definir lo que más importa mediante comportamientos cotidianos aplicables. Los valores solo valen por las acciones que los respaldan.',
+            tagline: 'Convierte los valores en verbos. Un sistema para poner principios en práctica.',
+            introDescription: 'Convierte los valores en verbos. Un sistema para poner principios en práctica.',
             introInstructions: '<li>Elige un verbo</li><li>Abre un valor</li><li>Guarda lo que resuene</li>'
         },
         buttons: {
@@ -3669,7 +3669,43 @@ function filterValues() {
         }
 
         // Sort results
-        if (filterState.sortMethod === 'name') {
+        if (filterState.searchTerm) {
+            // Priority: Exact match > Starts with > Name contains > Category contains > Tags > Description/Example
+            filtered.sort((a, b) => {
+                const term = filterState.searchTerm.toLowerCase().trim();
+
+                const getScore = (val) => {
+                    const name = val.name.toLowerCase();
+                    if (name === term) return 100;
+                    if (name.startsWith(term)) return 80;
+                    if (name.includes(term)) return 60;
+
+                    const cat = val.category.toLowerCase();
+                    const catLabel = getCategoryLabel(val.category).toLowerCase();
+                    if (cat === term || catLabel === term) return 50;
+
+                    if (val.tags && val.tags.some(t => t.toLowerCase() === term)) return 40;
+
+                    if (cat.includes(term) || catLabel.includes(term)) return 30;
+                    if (val.tags && val.tags.some(t => t.toLowerCase().includes(term))) return 20;
+
+                    return 0; // fallback for description/example matches
+                };
+
+                const scoreA = getScore(a);
+                const scoreB = getScore(b);
+
+                if (scoreA !== scoreB) {
+                    return scoreB - scoreA;
+                }
+
+                // Secondary sort based on chosen method
+                if (filterState.sortMethod === 'category') {
+                    return compareByName(a.category, b.category) || compareByName(a.name, b.name);
+                }
+                return compareByName(a.name, b.name);
+            });
+        } else if (filterState.sortMethod === 'name') {
             filtered.sort((a, b) => compareByName(a.name, b.name));
         } else if (filterState.sortMethod === 'category') {
             filtered.sort((a, b) => compareByName(a.category, b.category) || compareByName(a.name, b.name));

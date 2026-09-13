@@ -406,6 +406,25 @@ button, .value-card-toggle, .status-action-button {
     min-width: 0;
 }
 
+.value-card-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.value-card-layout--gallery {
+    gap: 0.75rem;
+}
+
+.value-card-preview {
+    display: flex;
+    flex-direction: column;
+}
+
+.value-card-preview--gallery {
+    min-width: 0;
+}
+
 .value-card-header--gallery {
     align-items: flex-start;
     gap: 0.75rem;
@@ -2138,6 +2157,10 @@ button, .value-card-toggle, .status-action-button {
         margin: 0 0.5rem;
         opacity: 0.7;
     }
+
+    .letter-values-grid--gallery .value-card--gallery.expanded .value-card-layout--gallery {
+        display: flex;
+    }
 }
 
 .intro-spark {
@@ -2224,7 +2247,7 @@ button, .value-card-toggle, .status-action-button {
 
 .seo-category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1rem;
 }
 

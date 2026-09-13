@@ -1423,19 +1423,22 @@ def value_meta_description(name: str, description: str, example: str) -> str:
 
 
 def related_values_for(value: dict, values_by_tag: dict[str, list[dict]], limit: int = 8) -> list[dict]:
-    related_values = []
-    for tag in [t for t in value.get('tags', []) if t][:3]:
-        related_values.extend(v for v in values_by_tag.get(tag, []) if v['name'] != value['name'])
+    if limit <= 0:
+        return []
 
-    seen = set()
     unique_related = []
-    for item in related_values:
-        if item['name'] in seen:
-            continue
-        seen.add(item['name'])
-        unique_related.append(item)
+    seen = {value['name']}
 
-    return unique_related[:limit]
+    for tag in [t for t in value.get('tags', []) if t][:3]:
+        for v in values_by_tag.get(tag, []):
+            name = v['name']
+            if name not in seen:
+                seen.add(name)
+                unique_related.append(v)
+                if len(unique_related) == limit:
+                    return unique_related
+
+    return unique_related
 
 
 def tag_links_markup(tags: list[str]) -> str:
