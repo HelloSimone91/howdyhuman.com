@@ -10,6 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / 'Values-en.json'
 SITE_URL = 'https://www.howdyhuman.com'
+MINIMUM_VERB_USES = 3
+MINIMUM_VERBS_PER_VALUE = 2
 
 DEPRECATED_STATIC_PAGE_SLUGS = {
     'values-as-verbs',
@@ -1325,7 +1327,7 @@ def remove_deprecated_static_pages() -> None:
 
 
 def write_sitemap(value_slugs: list[str]) -> None:
-    urls = [f'{SITE_URL}/']
+    urls = [f'{SITE_URL}/', f'{SITE_URL}/privacy/']
     urls.extend(f'{SITE_URL}/values/{slug}/' for slug in value_slugs)
 
     sitemap = '\n'.join(
@@ -1765,7 +1767,32 @@ def write_homepage_value_fallback(values: list[dict]) -> None:
 
 def main() -> None:
     data = json.loads(DATA_FILE.read_text(encoding='utf-8'))
-    values = data['values']
+    source_values = data['values']
+    verb_counts: dict[str, int] = {}
+    for value in source_values:
+        for tag in value.get('tags', []):
+            if tag:
+                verb_counts[tag] = verb_counts.get(tag, 0) + 1
+
+    # Keep the generated pages aligned with the interactive dictionary: a
+    # listed verb must connect at least three values.
+    values = [
+        {**value, 'tags': [
+            tag for tag in value.get('tags', [])
+            if tag and verb_counts[tag] >= MINIMUM_VERB_USES
+        ]}
+        for value in source_values
+    ]
+    values_with_too_few_verbs = [
+        value['name'] for value in values
+        if len(value['tags']) < MINIMUM_VERBS_PER_VALUE
+    ]
+    if values_with_too_few_verbs:
+        raise ValueError(
+            'Every value must retain at least '
+            f'{MINIMUM_VERBS_PER_VALUE} listed verbs: '
+            + ', '.join(values_with_too_few_verbs)
+        )
 
     values_dir = ROOT / 'values'
     verbs_dir = ROOT / 'verbs'

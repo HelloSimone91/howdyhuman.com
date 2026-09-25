@@ -2394,7 +2394,8 @@ function initializeValuesDictionary() {
         if (tagFilters) tagFilters.innerHTML = '';
 
 
-        // Filter out verbs that only appear once
+        // A verb needs to connect at least three values before it is listed.
+        const minimumVerbUses = 3;
         const { verbCounts } = values.reduce((acc, value) => {
             if (Array.isArray(value.tags)) {
                 value.tags.forEach(tag => {
@@ -2404,17 +2405,17 @@ function initializeValuesDictionary() {
             return acc;
         }, { verbCounts: {} });
 
-        // Update values to remove single-occurrence verbs
+        // Remove verbs that do not meet the minimum from every value card.
         values.forEach(value => {
-            value.tags = value.tags.filter(tag => verbCounts[tag] > 1);
+            value.tags = value.tags.filter(tag => verbCounts[tag] >= minimumVerbUses);
         });
 
         // Populate tag filters
         if (tagFilters) {
-            // Collect all unique tags that appear multiple times
+            // Collect verbs that meet the minimum use threshold.
             const allTags = new Set();
             Object.entries(verbCounts).forEach(([tag, count]) => {
-                if (count > 1) {
+                if (count >= minimumVerbUses) {
                     allTags.add(tag);
                 }
             });

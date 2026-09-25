@@ -7,6 +7,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VALUES_DATA = json.loads((ROOT / "Values-en.json").read_text(encoding="utf-8"))["values"]
+MINIMUM_VERB_USES = 3
+MINIMUM_VERBS_PER_VALUE = 2
+VERB_COUNTS = {}
+for value in VALUES_DATA:
+    for tag in value.get("tags", []):
+        if tag:
+            VERB_COUNTS[tag] = VERB_COUNTS.get(tag, 0) + 1
+for value in VALUES_DATA:
+    value["tags"] = [
+        tag for tag in value.get("tags", [])
+        if VERB_COUNTS.get(tag, 0) >= MINIMUM_VERB_USES
+    ]
 ALL_VALUE_SLUGS = [
     re.sub(r"[^a-z0-9]+", "-", value["name"].lower()).strip("-")
     for value in VALUES_DATA
@@ -134,6 +146,26 @@ class ExpandedValuePageTest(unittest.TestCase):
                 self.assertGreaterEqual(html.count("<li>"), 7)
                 self.assertIn('class="chip" href="/verbs/', html)
                 self.assertIn('href="/values/', html)
+
+    def test_listed_verbs_connect_at_least_three_values(self):
+        for tag, count in VERB_COUNTS.items():
+            if count < MINIMUM_VERB_USES:
+                slug = re.sub(r"[^a-z0-9]+", "-", tag.lower()).strip("-")
+                self.assertFalse(
+                    (ROOT / "verbs" / slug).exists(),
+                    f"{tag} is used by only {count} values and should not have a verb page",
+                )
+
+        for value in VALUES_DATA:
+            with self.subTest(value=value["name"]):
+                self.assertTrue(
+                    all(VERB_COUNTS[tag] >= MINIMUM_VERB_USES for tag in value["tags"])
+                )
+                self.assertGreaterEqual(
+                    len(value["tags"]),
+                    MINIMUM_VERBS_PER_VALUE,
+                    f'{value["name"]} should retain at least two listed verbs',
+                )
 
     def test_all_value_pages_include_three_faqs_with_schema(self):
         for slug in ALL_VALUE_SLUGS:
