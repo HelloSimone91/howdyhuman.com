@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Values-Based Living Resources | Howdy Human</title>
+  <meta name="description" content="A carefully selected reading list on the philosophical roots, psychological research, practical tools, and global conversations shaping values-based living." />
+  <link rel="canonical" href="https://www.howdyhuman.com/resources/" />
+
+  <meta property="og:site_name" content="Howdy Human" />
+  <meta property="og:title" content="A reading trail for values-based living" />
+  <meta property="og:description" content="Credible places to explore where values come from, how they become action, and how people around the world are negotiating them now." />
+  <meta property="og:url" content="https://www.howdyhuman.com/resources/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.howdyhuman.com/social/og-home.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="A reading trail for values-based living" />
+  <meta name="twitter:description" content="Philosophy, psychology, practical tools, and current global conversations about what matters and how we live it." />
+  <meta name="twitter:image" content="https://www.howdyhuman.com/social/og-home.png" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#536b55" />
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f3eee6;
+      --surface: #fbf7ef;
+      --ink: #2b2a26;
+      --muted: #5d5a52;
+      --forest: #536b55;
+      --teal: #6f8580;
+      --clay: #8b654f;
+      --wheat: #c8ad78;
+      --line: #c7bda9;
+      --wash: #ece5d8;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 13% 7%, rgba(139, 101, 79, .16), transparent 28rem),
+        radial-gradient(circle at 87% 16%, rgba(111, 133, 128, .2), transparent 30rem),
+        var(--paper);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.62;
+    }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--wheat); outline-offset: 4px; }
+    .page { width: min(1160px, calc(100% - 2rem)); margin: 0 auto; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem 0 1rem;
+    }
+    .brand { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; }
+    .brand__mark {
+      display: grid;
+      width: 2.2rem;
+      height: 2.2rem;
+      place-items: center;
+      border-radius: .7rem;
+      color: var(--surface);
+      background: var(--forest);
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(83, 107, 85, .2);
+    }
+    .brand__name { color: #3b4137; font-size: .79rem; font-weight: 800; letter-spacing: .13em; }
+    .header-link { color: var(--forest); font-size: .92rem; font-weight: 750; text-underline-offset: .22em; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(3rem, 8vw, 6.5rem) clamp(1.25rem, 5vw, 4rem);
+      border: 1px solid rgba(139, 101, 79, .2);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(216, 221, 213, .68), rgba(251, 247, 239, .82) 45%, rgba(200, 173, 120, .28));
+      box-shadow: 0 24px 55px rgba(43, 42, 38, .08);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 22rem;
+      height: 22rem;
+      right: -8rem;
+      bottom: -12rem;
+      border: 1px solid rgba(83, 107, 85, .23);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3.5rem rgba(83, 107, 85, .04), 0 0 0 7rem rgba(83, 107, 85, .035);
+    }
+    .hero__content { position: relative; z-index: 1; max-width: 850px; }
+    h1, h2, h3 { color: #3b4137; line-height: 1.12; }
+    h1 { margin: 0; max-width: 13ch; font-size: clamp(2.7rem, 8vw, 6.4rem); letter-spacing: -.055em; }
+    .hero__intro { max-width: 700px; margin: 1.5rem 0 0; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); }
+    .hero__note { max-width: 700px; margin: 1rem 0 0; font-size: .94rem; }
+
+    .trail {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .65rem;
+      margin: 1.1rem 0 clamp(3.5rem, 8vw, 7rem);
+    }
+    .trail a {
+      padding: .85rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(251, 247, 239, .78);
+      color: var(--forest);
+      font-size: .9rem;
+      font-weight: 750;
+      text-align: center;
+      text-decoration: none;
+    }
+    .trail a:hover { background: var(--surface); transform: translateY(-1px); }
+
+    .section { scroll-margin-top: 1.5rem; margin-bottom: clamp(4.5rem, 9vw, 8rem); }
+    .section__heading {
+      display: grid;
+      grid-template-columns: minmax(0, .7fr) minmax(280px, 1fr);
+      gap: clamp(1.5rem, 5vw, 5rem);
+      align-items: end;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .section__number { display: block; margin-bottom: .7rem; color: var(--clay); font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(2rem, 4.5vw, 3.8rem); letter-spacing: -.045em; }
+    .section__intro { margin: 0; color: var(--muted); font-size: 1.05rem; }
+
+    .resource-list { list-style: none; margin: 0; padding: 0; }
+    .resource {
+      display: grid;
+      grid-template-columns: minmax(230px, .72fr) minmax(0, 1.28fr);
+      gap: clamp(1.5rem, 5vw, 5rem);
+      padding: clamp(1.7rem, 4vw, 3rem) 0;
+      border-bottom: 1px solid rgba(199, 189, 169, .72);
+    }
+    .resource__source { display: block; margin-bottom: .55rem; color: var(--clay); font-size: .79rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .resource h3 { margin: 0; font-size: clamp(1.25rem, 2.5vw, 1.7rem); letter-spacing: -.025em; }
+    .resource__link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-top: 1rem;
+      color: var(--forest);
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .22em;
+    }
+    .resource__link::after { content: "↗"; text-decoration: none; }
+    .resource__body p { margin: 0; }
+    .resource__body p + p { margin-top: .7rem; }
+    .resource__why { color: var(--muted); }
+    .resource__why strong { color: var(--ink); }
+
+    .reading-note {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: clamp(1.5rem, 5vw, 5rem);
+      margin: 0 0 4rem;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border-left: 6px solid var(--forest);
+      border-radius: 0 20px 20px 0;
+      background: var(--wash);
+    }
+    .reading-note h2 { font-size: clamp(1.55rem, 3vw, 2.4rem); }
+    .reading-note p { margin: 0; }
+    .reading-note p + p { margin-top: .8rem; }
+
+    footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.4rem 0 2.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+    footer a { color: var(--forest); }
+
+    @media (max-width: 760px) {
+      .trail { grid-template-columns: 1fr 1fr; }
+      .section__heading, .resource, .reading-note { grid-template-columns: 1fr; gap: 1rem; }
+      .resource { padding: 2rem 0; }
+      footer { flex-direction: column; }
+    }
+    @media (max-width: 430px) {
+      .page { width: min(100% - 1.2rem, 1160px); }
+      .hero { border-radius: 20px; }
+      .brand__name { font-size: .7rem; }
+      .trail { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Howdy Human home">
+        <span class="brand__mark" aria-hidden="true">H</span>
+        <span class="brand__name">HOWDY HUMAN</span>
+      </a>
+      <a class="header-link" href="/">Explore the field guide</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero__content">
+          <h1>A reading trail for values-based living</h1>
+          <p class="hero__intro">Values did not begin with a worksheet, a single school of psychology, or one part of the world. This collection follows the idea across philosophy, culture, research, and daily practice, then out into the public choices we are making together now.</p>
+          <p class="hero__note">Every link below is free to read or has a useful free summary. This is a starting place, not a universal canon.</p>
+        </div>
+      </section>
+
+      <nav class="trail" aria-label="On this page">
+        <a href="#roots">Long roots</a>
+        <a href="#research">Modern research</a>
+        <a href="#practice">From words to action</a>
+        <a href="#now">Values in public life</a>
+      </nav>
+
+      <section class="section" id="roots">
+        <div class="section__heading">
+          <div><span class="section__number">01 · Long roots</span><h2>Older than the word “values”</h2></div>
+          <p class="section__intro">People have long asked what makes a life good, how character is formed, and what we owe one another. These readings do not tell one origin story. They open several doors into that much older conversation.</p>
+        </div>
+        <ol class="resource-list">
+          <li class="resource">
+            <div><span class="resource__source">Stanford Encyclopedia of Philosophy</span><h3>Value Theory</h3><a class="resource__link" href="https://plato.stanford.edu/entries/value-theory/" target="_blank" rel="noopener noreferrer">Read the overview</a></div>
+            <div class="resource__body"><p>A map of the philosophical terrain: intrinsic and instrumental value, well-being, moral value, and the basic question of what it means to call something good.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The Stanford Encyclopedia is written and reviewed by subject experts and maintained by Stanford’s Metaphysics Research Lab. Start here when you want to distinguish personal priorities from the larger philosophical study of value.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Aristotle · MIT Internet Classics Archive</span><h3>Nicomachean Ethics</h3><a class="resource__link" href="https://classics.mit.edu/Aristotle/nicomachaen.html" target="_blank" rel="noopener noreferrer">Read the text</a></div>
+            <div class="resource__body"><p>Aristotle’s account of a good life as something practiced through action and habit, not merely known in theory. Book II is especially relevant to how repeated choices shape character.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> This W. D. Ross translation is hosted by MIT’s long-running classics archive. It is one influential source in the Western virtue tradition, not the origin of values thinking everywhere.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Confucius · Chinese Text Project</span><h3>The Analects</h3><a class="resource__link" href="https://ctext.org/analects" target="_blank" rel="noopener noreferrer">Read Chinese and English</a></div>
+            <div class="resource__body"><p>Short teachings about cultivating character within relationships, responsibilities, ritual, learning, and public life. It shifts attention from a private list of ideals toward the way a person becomes trustworthy with others.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The Chinese Text Project is an open digital library founded by sinologist Donald Sturgeon. It places the source text beside an established James Legge translation so readers can explore context rather than rely on isolated quotations.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Stanford Encyclopedia of Philosophy</span><h3>African Ethics</h3><a class="resource__link" href="https://plato.stanford.edu/entries/african-ethics/" target="_blank" rel="noopener noreferrer">Explore the entry</a></div>
+            <div class="resource__body"><p>An introduction to ethical ideas grounded in character, community, human welfare, and harmonious social life, with particular attention to Akan thought and careful limits on claims about a single “African” view.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> Philosopher Kwame Gyekye’s expert-reviewed entry gives readers a serious route into traditions too often left out of popular values lists. It also shows why cultural traditions should not be treated as interchangeable.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="research">
+        <div class="section__heading">
+          <div><span class="section__number">02 · Modern research</span><h2>How values became something researchers could study</h2></div>
+          <p class="section__intro">Twentieth- and twenty-first-century researchers turned “what matters” into models, surveys, and testable questions. The useful move is not to treat one model as the final list, but to see what each is designed to explain.</p>
+        </div>
+        <ol class="resource-list">
+          <li class="resource">
+            <div><span class="resource__source">Shalom H. Schwartz · Online Readings in Psychology and Culture</span><h3>An Overview of the Theory of Basic Human Values</h3><a class="resource__link" href="https://scholarworks.gvsu.edu/orpc/vol2/iss1/11/" target="_blank" rel="noopener noreferrer">Read the open-access paper</a></div>
+            <div class="resource__body"><p>A clear explanation of the widely used circular model of human values, including why values can support one another or pull in competing directions.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> Schwartz developed the theory through decades of cross-cultural social-psychology research. This peer-reviewed overview is openly hosted by Grand Valley State University and explains both the model and its evidence.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Schwartz and colleagues · Journal of Personality and Social Psychology</span><h3>Refining the Theory of Basic Individual Values</h3><a class="resource__link" href="https://pubmed.ncbi.nlm.nih.gov/22823292/" target="_blank" rel="noopener noreferrer">Read the study record</a></div>
+            <div class="resource__body"><p>The 2012 refinement expands the original ten broad value types into nineteen more precise ones. It is a useful example of a theory evolving when researchers find that people make finer distinctions.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The paper was peer reviewed, published in a leading psychology journal, and is indexed by the U.S. National Library of Medicine. PubMed provides the abstract and permanent DOI even where the full paper may require access.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Hayes, Luoma, Bond, Masuda &amp; Lillis · Behaviour Research and Therapy</span><h3>Acceptance and Commitment Therapy: Model, Processes and Outcomes</h3><a class="resource__link" href="https://pubmed.ncbi.nlm.nih.gov/16300724/" target="_blank" rel="noopener noreferrer">Read the paper record</a></div>
+            <div class="resource__body"><p>A foundational account of Acceptance and Commitment Therapy, the modern clinical tradition most closely associated with values as chosen directions expressed through ongoing behavior.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> It was written by core ACT researchers, peer reviewed, and indexed by PubMed. The authors are also appropriately cautious: early evidence was promising, while many process questions still needed study.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Reilly and colleagues · Journal of Contextual Behavioral Science</span><h3>A Systematic Review of Values Measures in ACT Research</h3><a class="resource__link" href="https://doi.org/10.1016/j.jcbs.2018.10.004" target="_blank" rel="noopener noreferrer">Read the study record</a></div>
+            <div class="resource__body"><p>A review of eight tools researchers use to measure values and valued action. It helps separate a useful reflection exercise from a well-supported research measure.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The review examined 65 studies and reports strengths as well as gaps, including limited work with diverse populations. It is published in ACT’s specialist peer-reviewed journal and shared by its professional scientific association.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="practice">
+        <div class="section__heading">
+          <div><span class="section__number">03 · From words to action</span><h2>Notice the direction. Choose the next verb.</h2></div>
+          <p class="section__intro">A value becomes more useful when it can guide a choice you can actually observe. These resources help with the movement from naming what matters to noticing the gap and choosing an action.</p>
+        </div>
+        <ol class="resource-list">
+          <li class="resource">
+            <div><span class="resource__source">RMIT University Counselling Service</span><h3>Your Values and Direction</h3><a class="resource__link" href="https://learninglab.rmit.edu.au/communication/content/5_Values/01_audio.htm" target="_blank" rel="noopener noreferrer">Work through the guide</a></div>
+            <div class="resource__body"><p>A short, approachable ACT learning module with audio, reflection prompts, and a worksheet for connecting values to achievements and actions.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> It was created by the counselling service at RMIT University in Australia. The material keeps the distinction between a continuing direction and a finishable goal clear, then invites you to apply it.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Loyola University Maryland Counseling Center</span><h3>Resilient Actions</h3><a class="resource__link" href="https://www.loyola.edu/department/counseling-center/public-health-initiatives/resilience/actions.html" target="_blank" rel="noopener noreferrer">Try the action sequence</a></div>
+            <div class="resource__body"><p>A practical sequence for identifying a value, choosing a goal in its service, breaking that goal into actions, and checking how your week reflected what matters.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> Loyola’s university counseling team places the exercise within a broader, evidence-informed resilience program. It is educational rather than diagnostic and gives the reflection a concrete next step.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">Howdy Human</span><h3>The Field Guide</h3><a class="resource__link" href="/">Browse 145 values</a></div>
+            <div class="resource__body"><p>A plain-language dictionary that connects each value to verbs, examples, and nearby ideas. Search for a value you already know, or begin with an action and see what direction it might express.</p><p class="resource__why"><strong>Why it is useful:</strong> Howdy Human is designed as a bridge between reflection and observable action. It is an editorial tool, not a clinical assessment or a claim that one list can contain every culture’s language for what matters.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="now">
+        <div class="section__heading">
+          <div><span class="section__number">04 · Values in public life</span><h2>What are we choosing together?</h2></div>
+          <p class="section__intro">Values are not only personal. They shape institutions, technologies, economies, and relationships with the living world. These projects show current disagreements and experiments at a global scale.</p>
+        </div>
+        <ol class="resource-list">
+          <li class="resource">
+            <div><span class="resource__source">World Values Survey Association</span><h3>World Values Survey, Wave 7</h3><a class="resource__link" href="https://www.worldvaluessurvey.org/WVSContents.jsp?CMSID=Documentation" target="_blank" rel="noopener noreferrer">Explore the data and reports</a></div>
+            <div class="resource__body"><p>Survey data from more than 80,000 respondents across 64 countries and societies, covering trust, family, religion, work, politics, identity, and social change.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The WVS is a long-running nonprofit network of social scientists. It publishes its questionnaires, technical documentation, datasets, and citation details, so readers can examine how broad claims about “global values” were produced.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">European Social Survey</span><h3>The Human Values Scale</h3><a class="resource__link" href="https://www.europeansocialsurvey.org/sites/default/files/2023-06/ESS_Findings_HVS.pdf" target="_blank" rel="noopener noreferrer">Read the findings guide</a></div>
+            <div class="resource__body"><p>An approachable guide to what a large cross-national survey found when it used Schwartz’s Portrait Values Questionnaire across Europe.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> The ESS is an academically led research infrastructure known for rigorous comparative methods and open documentation. The guide makes the method visible and helps readers compare patterns without mistaking country averages for every individual.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">IPBES · United Nations member-state platform</span><h3>Assessment of the Diverse Values and Valuation of Nature</h3><a class="resource__link" href="https://www.ipbes.net/the-values-assessment" target="_blank" rel="noopener noreferrer">Explore the assessment</a></div>
+            <div class="resource__body"><p>A global assessment of the many ways people value nature, including living from it, living with it, living in it, and living as part of it. It asks whose values count in environmental decisions.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> IPBES brings scientists, Indigenous knowledge holders, and governments together to assess evidence for policy. This work explicitly challenges the habit of reducing nature’s value to a single monetary measure.</p></div>
+          </li>
+          <li class="resource">
+            <div><span class="resource__source">UNESCO · 193 member states</span><h3>Recommendation on the Ethics of Artificial Intelligence</h3><a class="resource__link" href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener noreferrer">Read the global recommendation</a></div>
+            <div class="resource__body"><p>A global framework connecting values such as human dignity, fairness, cultural diversity, and environmental well-being to concrete decisions about data, education, labor, health, and AI governance.</p><p class="resource__why"><strong>Why it is useful and credible:</strong> Adopted by UNESCO’s member states in 2021, it shows values being negotiated across cultures and translated into public commitments. It is especially useful for seeing the hard part: moving from a principle to policy and accountability.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <aside class="reading-note" aria-labelledby="reading-note-title">
+        <h2 id="reading-note-title">A small way to read a big idea</h2>
+        <div><p>As you read, notice where a source treats values as ideals, character, motivation, relationship, direction, measurement, or public agreement. Those meanings overlap, but they are not identical.</p><p>Then bring it back to life: What direction does this make easier to name? Where is there a gap between that direction and what is happening now? What is one observable action that would move a little closer?</p></div>
+      </aside>
+    </main>
+
+    <footer>
+      <span>Curated by <a href="/">Howdy Human</a> · Last reviewed September 2026</span>
+      <span>Something missing? <a href="mailto:hello@howdyhuman.com?subject=Values%20resource%20suggestion">Suggest a resource</a></span>
+    </footer>
+  </div>
+</body>
+</html>
