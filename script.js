@@ -278,7 +278,7 @@ const i18n = {
             readLess: 'Read less',
             showAllWithTag: 'Show all values tagged with "{{tag}}"',
             verbFilterAllVerbs: 'All verbs',
-            verbFilterClear: 'See all verbs',
+            verbFilterClear: 'Clear filter',
             verbFilterShowing: 'Showing values associated with "{{verb}}".'
         },
         messages: {
@@ -392,7 +392,7 @@ const i18n = {
             readLess: 'Ver menos',
             showAllWithTag: 'Mostrar todos los valores etiquetados con "{{tag}}"',
             verbFilterAllVerbs: 'Todos los verbos',
-            verbFilterClear: 'Ver todos los verbos',
+            verbFilterClear: 'Borrar filtro',
             verbFilterShowing: 'Mostrando valores asociados con "{{verb}}".'
         },
         messages: {
