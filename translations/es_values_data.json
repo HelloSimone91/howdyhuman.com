@@ -1391,6 +1391,20 @@
       "servir"
     ]
   },
+  "Mischief": {
+    "name": "Travesura",
+    "description": "Romper las reglas de forma juguetona e imaginativa para crear sorpresa, alegr\u00eda o conexi\u00f3n sin causar da\u00f1o.",
+    "example": "Llev\u00f3 la travesura a la larga reuni\u00f3n al incluir un dibujito absurdo en las notas de cada persona y hacer sonre\u00edr a toda la mesa.",
+    "tags": [
+      "jugar",
+      "imaginar",
+      "crear",
+      "deleitar",
+      "re\u00edr",
+      "cuestionar",
+      "conectar"
+    ]
+  },
   "Money": {
     "name": "Dinero",
     "description": "Un recurso que permite intercambiar bienes y servicios y apoyar objetivos.",

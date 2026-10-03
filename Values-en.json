@@ -1272,6 +1272,20 @@
       ]
     },
     {
+      "name": "Mischief",
+      "description": "Playful, imaginative rule-bending that creates surprise, delight, or connection without causing harm.",
+      "example": "She brought mischief to the long meeting by slipping a tiny, absurd doodle into each person's notes and making the whole table grin.",
+      "tags": [
+        "play",
+        "imagine",
+        "create",
+        "delight",
+        "laugh",
+        "question",
+        "connect"
+      ]
+    },
+    {
       "name": "Money",
       "description": "A medium of exchange used to buy goods and services.",
       "example": "Rather than focusing only on accumulating money, she viewed it as a tool for creating security, supporting causes she valued, and providing opportunities.",
