@@ -1933,6 +1933,20 @@
       "proteger"
     ]
   },
+  "Serenity": {
+    "name": "Serenidad",
+    "description": "Una estabilidad interior amable que permanece disponible ante el ruido, la presión o la dificultad emocional.",
+    "example": "Practicó la serenidad durante la conversación tensa al respirar más despacio, suavizar el tono y responder sin adoptar la urgencia de la otra persona.",
+    "tags": [
+      "calmar",
+      "equilibrar",
+      "regular",
+      "mantener",
+      "practicar",
+      "aceptar",
+      "reflexionar"
+    ]
+  },
   "Service": {
     "name": "Servicio",
     "description": "Contribuir al bienestar de otras personas a través de acciones concretas.",
@@ -2187,6 +2201,19 @@
       "reconocer",
       "convivir",
       "dialogar"
+    ]
+  },
+  "Tranquility": {
+    "name": "Tranquilidad",
+    "description": "Un estado de quietud y alivio que nace al reducir la agitación innecesaria y abrir espacio para el descanso, la claridad y la paz.",
+    "example": "Protegió la tranquilidad al final de cada día silenciando las notificaciones, dando un paseo lento y dejando que su atención se asentara antes de volver a casa.",
+    "tags": [
+      "calmar",
+      "equilibrar",
+      "regular",
+      "mantener",
+      "practicar",
+      "reflexionar"
     ]
   },
   "Trust": {

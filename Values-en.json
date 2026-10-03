@@ -1770,6 +1770,20 @@
       ]
     },
     {
+      "name": "Serenity",
+      "description": "A gentle inner steadiness that remains available through noise, pressure, or emotional difficulty.",
+      "example": "She practiced serenity during the tense conversation by slowing her breathing, softening her tone, and responding without borrowing the other person's urgency.",
+      "tags": [
+        "calm",
+        "balance",
+        "regulate",
+        "maintain",
+        "practice",
+        "accept",
+        "reflect"
+      ]
+    },
+    {
       "name": "Service",
       "description": "Helping others by providing assistance, support, or care.",
       "example": "The restaurant's commitment to service was evident in how staff remembered regular customers' preferences and went beyond expectations to create special experiences.",
@@ -2008,6 +2022,19 @@
         "permit",
         "acknowledge",
         "recognize"
+      ]
+    },
+    {
+      "name": "Tranquility",
+      "description": "A state of quiet and ease created by reducing unnecessary agitation and making room for rest, clarity, and peace.",
+      "example": "He protected tranquility at the end of each day by silencing notifications, taking a slow walk, and letting his attention settle before returning home.",
+      "tags": [
+        "calm",
+        "balance",
+        "regulate",
+        "maintain",
+        "practice",
+        "reflect"
       ]
     },
     {

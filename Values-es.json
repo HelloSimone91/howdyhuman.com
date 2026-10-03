@@ -2073,6 +2073,21 @@
       "language": "es"
     },
     {
+      "name": "Serenidad",
+      "description": "Una estabilidad interior amable que permanece disponible ante el ruido, la presi\u00f3n o la dificultad emocional.",
+      "example": "Practic\u00f3 la serenidad durante la conversaci\u00f3n tensa al respirar m\u00e1s despacio, suavizar el tono y responder sin adoptar la urgencia de la otra persona.",
+      "tags": [
+        "calmar",
+        "equilibrar",
+        "regular",
+        "mantener",
+        "practicar",
+        "aceptar",
+        "reflexionar"
+      ],
+      "language": "es"
+    },
+    {
       "name": "Servicio",
       "description": "Contribuir al bienestar de otras personas a trav\u00e9s de acciones concretas.",
       "example": "Practicar servicio signific\u00f3 preparar paquetes de alimentos cada fin de semana para familias necesitadas.",
@@ -2341,6 +2356,20 @@
         "reconocer",
         "convivir",
         "dialogar"
+      ],
+      "language": "es"
+    },
+    {
+      "name": "Tranquilidad",
+      "description": "Un estado de quietud y alivio que nace al reducir la agitaci\u00f3n innecesaria y abrir espacio para el descanso, la claridad y la paz.",
+      "example": "Protegi\u00f3 la tranquilidad al final de cada d\u00eda silenciando las notificaciones, dando un paseo lento y dejando que su atenci\u00f3n se asentara antes de volver a casa.",
+      "tags": [
+        "calmar",
+        "equilibrar",
+        "regular",
+        "mantener",
+        "practicar",
+        "reflexionar"
       ],
       "language": "es"
     },
