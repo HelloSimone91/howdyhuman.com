@@ -2405,11 +2405,6 @@ function initializeValuesDictionary() {
             return acc;
         }, { verbCounts: {} });
 
-        // Remove verbs that do not meet the minimum from every value card.
-        values.forEach(value => {
-            value.tags = value.tags.filter(tag => verbCounts[tag] >= minimumVerbUses);
-        });
-
         // Populate tag filters
         if (tagFilters) {
             // Collect verbs that meet the minimum use threshold.

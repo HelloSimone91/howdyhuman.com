@@ -2949,3 +2949,82 @@ body[data-palette="night-garden"] {
 .intro-box--editorial .intro-framework-link:focus-visible {
     color: var(--btn-hover);
 }
+
+.starting-paths {
+    max-width: 1040px;
+    margin: 2.25rem auto 0;
+}
+
+.starting-paths__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.starting-paths__heading h2 {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+}
+
+.starting-paths__heading p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.starting-paths__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.22);
+    background: rgba(var(--card-bg-rgb), 0.72);
+}
+
+.starting-path {
+    min-width: 0;
+    padding: 1rem;
+    border-right: 1px solid rgba(var(--accent-primary-rgb), 0.18);
+}
+
+.starting-path:last-child { border-right: 0; }
+
+.starting-path h3 {
+    margin: 0 0 0.45rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem;
+}
+
+.starting-path p {
+    margin: 0 0 0.8rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.starting-path div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.65rem;
+}
+
+.starting-path a {
+    color: var(--accent-primary);
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-underline-offset: 0.16em;
+}
+
+@media (max-width: 900px) {
+    .starting-paths__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .starting-path { border-bottom: 1px solid rgba(var(--accent-primary-rgb), 0.18); }
+    .starting-path:nth-child(2n) { border-right: 0; }
+    .starting-path:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 540px) {
+    .starting-paths__heading { display: block; }
+    .starting-paths__heading p { margin-top: 0.35rem; }
+    .starting-paths__grid { grid-template-columns: 1fr; }
+    .starting-path { border-right: 0; }
+}

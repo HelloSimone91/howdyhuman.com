@@ -12,6 +12,7 @@ DATA_FILE = ROOT / 'Values-en.json'
 SITE_URL = 'https://www.howdyhuman.com'
 MINIMUM_VERB_USES = 3
 MINIMUM_VERBS_PER_VALUE = 2
+VERB_COUNTS: dict[str, int] = {}
 
 DEPRECATED_STATIC_PAGE_SLUGS = {
     'values-as-verbs',
@@ -1365,7 +1366,12 @@ def related_values_for(value: dict, values_by_tag: dict[str, list[dict]], limit:
 
 def tag_links_markup(tags: list[str]) -> str:
     return ''.join(
-        f'<a class="chip" href="/verbs/{slugify(tag)}/">{html.escape(tag)}</a>' for tag in tags
+        (
+            f'<a class="chip" href="/verbs/{slugify(tag)}/">{html.escape(tag)}</a>'
+            if VERB_COUNTS.get(tag, 0) >= MINIMUM_VERB_USES
+            else f'<span class="chip">{html.escape(tag)}</span>'
+        )
+        for tag in tags
     ) or '<p class="meta">No related verbs listed.</p>'
 
 
@@ -1457,10 +1463,9 @@ def build_generated_value_content(value: dict, related_values: list[dict]) -> di
         f'When {name_lower} is working, the action usually leaves a trace: something gets protected, clarified, repaired, strengthened, or changed.',
         f'{name} can be practiced quietly, too, through the choice to {second} without turning the action into proof of identity.',
     ]
-    examples = [
-        example_patterns[idx % len(example_patterns)],
-        example_patterns[(idx + 5) % len(example_patterns)],
-    ]
+    # The source dataset already supplies one concrete, value-specific example.
+    # Do not dilute it with formulaic generated examples.
+    examples = []
 
     practice_patterns = [
         f'Find one real situation in daily life, then choose one action connected to "{first}".',
@@ -1766,6 +1771,7 @@ def write_homepage_value_fallback(values: list[dict]) -> None:
 
 
 def main() -> None:
+    global VERB_COUNTS
     data = json.loads(DATA_FILE.read_text(encoding='utf-8'))
     source_values = data['values']
     verb_counts: dict[str, int] = {}
@@ -1773,16 +1779,11 @@ def main() -> None:
         for tag in value.get('tags', []):
             if tag:
                 verb_counts[tag] = verb_counts.get(tag, 0) + 1
+    VERB_COUNTS = verb_counts
 
-    # Keep the generated pages aligned with the interactive dictionary: a
-    # listed verb must connect at least three values.
-    values = [
-        {**value, 'tags': [
-            tag for tag in value.get('tags', [])
-            if tag and verb_counts[tag] >= MINIMUM_VERB_USES
-        ]}
-        for value in source_values
-    ]
+    # Keep each value's full, value-specific verb map. Frequency determines
+    # which verbs become homepage filters, not which behaviors readers can see.
+    values = source_values
     values_with_too_few_verbs = [
         value['name'] for value in values
         if len(value['tags']) < MINIMUM_VERBS_PER_VALUE
@@ -1809,7 +1810,12 @@ def main() -> None:
             values_by_tag.setdefault(tag, []).append(value)
 
     value_slugs = {slugify(value['name']) for value in values}
-    verb_slugs = {slugify(tag) for tag in values_by_tag}
+    common_values_by_tag = {
+        tag: tagged_values
+        for tag, tagged_values in values_by_tag.items()
+        if verb_counts.get(tag, 0) >= MINIMUM_VERB_USES
+    }
+    verb_slugs = {slugify(tag) for tag in common_values_by_tag}
 
     ensure_clean_directory(values_dir, value_slugs)
     ensure_clean_directory(verbs_dir, verb_slugs)
@@ -1820,7 +1826,7 @@ def main() -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / 'index.html').write_text(page, encoding='utf-8')
 
-    for tag, tagged_values in values_by_tag.items():
+    for tag, tagged_values in common_values_by_tag.items():
         slug, page = build_verb_page(tag, tagged_values)
         out_dir = verbs_dir / slug
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -1830,7 +1836,7 @@ def main() -> None:
     write_homepage_value_fallback(values)
 
     print(
-        f'Generated {len(values)} value pages, {len(values_by_tag)} verb pages, '
+        f'Generated {len(values)} value pages, {len(common_values_by_tag)} verb pages, '
         f'refreshed sitemap.xml, and updated homepage fallback links.'
     )
 
